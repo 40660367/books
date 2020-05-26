@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Seaborn 简介 - FreeAIHub</title>
+    <meta name="keywords" content="Seaborn与Matplotlib">
+    <meta name="description" content="Seaborn是BSD许可的开源Python库，提供了高级API，可使用Python编程语言来可视化数据。总结说，如果Matplotlib“尝试使容易的事情变得容易而使困难的事情变得可能”，Seaborn也会尝试使一组定义明确的困难的事情也变得容易。Seaborn帮助解决Matplotlib面临的两个主要问题。问题是-随着Seaborn对Matplotlib的补充和扩展，学习曲线是渐进的。如果您了">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/seaborn/index.html">如何学习本课程</a></li>
+<li><a class="current"> sklearn简介 </a></li>
+<li><a href="/seaborn/setup.html"> 安装Seaborn库 </a></li>
+<li><a href="/seaborn/visualization.html"> Seaborn数据可视化 </a></li>
+<li><a href="/seaborn/palette.html"> Seaborn调色板 </a></li>
+<li><a href="/seaborn/multipanel-categorical.html"> Seaborn多面板分类图 </a></li>
+<li><a href="/seaborn/histogram.html"> Seaborn直方图 </a></li>
+<li><a href="/seaborn/pairwise-relationship.html"> Seaborn可视化成对关系 </a></li>
+<li><a href="/seaborn/kde.html"> Seaborn内核密度估计 </a></li>
+<li><a href="/seaborn/pair-grid.html"> Seaborn配对网格 </a></li>
+<li><a href="/seaborn/categorical.html"> Seaborn绘制分类数据 </a></li>
+<li><a href="/seaborn/observations-distribution.html"> Seaborn绘制观测值的分布 </a></li>
+<li><a href="/seaborn/statistical-estimation.html"> Seaborn统计估计 </a></li>
+<li><a href="/seaborn/wideform.html"> Seaborn绘制宽格式数据 </a></li>
+<li><a href="/seaborn/linear-relationships.html"> Seaborn绘制线性关系 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/seaborn/index.html class='prev_article'>如何学习本课程</a>       |       下一篇：<a href=/seaborn/setup.html class='next_article'> 安装Seaborn库 </a>  >
+              
+            <h1>Seaborn 简介</h1>
+<p>Seaborn是BSD许可的开源Python库，提供了高级API，可使用Python编程语言来可视化数据。</p>
+<p><img alt="image-20200417163555908" src="./images/seaborn.jpg" /></p>
+<h2>Seaborn与Matplotlib</h2>
+<p>总结说，如果Matplotlib“尝试使容易的事情变得容易而使困难的事情变得可能”，Seaborn也会尝试使一组定义明确的困难的事情也变得容易。</p>
+<p>Seaborn帮助解决Matplotlib面临的两个主要问题。问题是-</p>
+<ul>
+<li>默认Matplotlib参数</li>
+<li>使用数据框</li>
+</ul>
+<p>随着Seaborn对Matplotlib的补充和扩展，学习曲线是渐进的。如果您了解Matplotlib，那么您已经完成了Seaborn的一半。</p>
+<h3>Seaborn的重要特征</h3>
+<p>Seaborn建立在Python的核心可视化库Matplotlib之上。它旨在作为补充，而不是替代。但是，Seaborn具有一些非常重要的功能。让我们在这里看到其中的一些。功能帮助-</p>
+<ul>
+<li>内置主题以设置Matplotlib图形样式</li>
+<li>可视化单变量和双变量数据</li>
+<li>拟合并可视化线性回归模型</li>
+<li>绘制统计时间序列数据</li>
+<li>Seaborn适用于NumPy和Pandas数据结构</li>
+<li>它带有用于为Matplotlib图形设计样式的内置主题</li>
+</ul>
+<p>在大多数情况下，您仍将使用Matplotlib进行简单绘图。建议您了解Matplotlib的知识，以调整Seaborn的默认图。
+<code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 分类数据(categorical) - FreeAIHub</title>
+    <meta name="keywords" content="对象创建">
+    <meta name="description" content="通常实时的数据包括重复的文本列。例如：性别，国家和代码等特征总是重复的。这些是分类数据的例子。分类变量只能采用有限的数量，而且通常是固定的数量。除了固定长度，分类数据可能有顺序，但不能执行数字操作。 分类是数据类型。分类数据类型在以下情况下非常有用 -分类对象可以通过多种方式创建。下面介绍了不同的方法 -通过在对象创建中将指定为。传递给系列对象的元素数量是四个，但类别只有三个。观察相同的输出类别。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a class="current"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/visualization.html class='prev_article'> Pandas可视化</a>       |       下一篇：<a href=/pandas/time-series.html class='next_article'> Pandas时间序列</a>  >
+              
+            <h1>Pandas 分类数据(categorical)</h1>
+<p>通常实时的数据包括重复的文本列。例如：性别，国家和代码等特征总是重复的。这些是分类数据的例子。</p>
+<p>分类变量只能采用有限的数量，而且通常是固定的数量。除了固定长度，分类数据可能有顺序，但不能执行数字操作。 分类是<em>Pandas</em>数据类型。</p>
+<p>分类数据类型在以下情况下非常有用 -</p>
+<ul>
+<li>一个字符串变量，只包含几个不同的值。将这样的字符串变量转换为分类变量将会节省一些内存。</li>
+<li>变量的词汇顺序与逻辑顺序(<code>"one"</code>，<code>"two"</code>，<code>"three"</code>)不同。 通过转换为分类并指定类别上的顺序，排序和最小/最大将使用逻辑顺序，而不是词法顺序。</li>
+<li>作为其他python库的一个信号，这个列应该被当作一个分类变量(例如，使用合适的统计方法或<code>plot</code>类型)。</li>
+</ul>
+<h2>对象创建</h2>
+<p>分类对象可以通过多种方式创建。下面介绍了不同的方法 -</p>
+<p><strong>类别/分类</strong></p>
+<p>通过在<code>pandas</code>对象创建中将<code>dtype</code>指定为<code>“category”</code>。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;], dtype=&quot;category&quot;)
+print(s)
+</code></pre>
+
+<p>传递给系列对象的元素数量是四个，但类别只有三个。观察相同的输出类别。</p>
+<p><strong>pd.Categorical</strong></p>
+<p>使用标准<em>Pandas</em>分类构造函数，我们可以创建一个类别对象。语法如下 - </p>
+<pre><code>pandas.Categorical(values, categories, ordered)
+</code></pre>
+
+<p>举个例子 -</p>
+<pre><code class="python">import pandas as pd
+cat = pd.Categorical(['a', 'b', 'c', 'a', 'b', 'c'])
+print(cat)
+</code></pre>
+
+<p>再举一个例子 -</p>
+<pre><code class="python">import pandas as pd
+cat = cat=pd.Categorical(['a','b','c','a','b','c','d'], ['c', 'b', 'a'])
+print(cat)
+</code></pre>
+
+<p>这里，第二个参数表示类别。因此，在类别中不存在的任何值将被视为<code>NaN</code>。</p>
+<p>现在，看看下面的例子 -</p>
+<pre><code class="python">import pandas as pd
+cat = cat=pd.Categorical(['a','b','c','a','b','c','d'], ['c', 'b', 'a'],ordered=True)
+print(cat)
+</code></pre>
+
+<p>从逻辑上讲，排序(<em>ordered</em>)意味着，<code>a</code>大于<code>b</code>，<code>b</code>大于<code>c</code>。</p>
+<p><strong>描述</strong></p>
+<p>使用分类数据上的<code>.describe()</code>命令，可以得到与类型字符串的Series或DataFrame类似的输出。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+cat = pd.Categorical([&quot;a&quot;, &quot;c&quot;, &quot;c&quot;, np.nan], categories=[&quot;b&quot;, &quot;a&quot;, &quot;c&quot;])
+df = pd.DataFrame({&quot;cat&quot;:cat, &quot;s&quot;:[&quot;a&quot;, &quot;c&quot;, &quot;c&quot;, np.nan]})
+print(df.describe())
+print(&quot;=============================&quot;)
+print(df[&quot;cat&quot;].describe())
+</code></pre>
+
+<p><strong>获取类别的属性</strong></p>
+<p><code>obj.cat.categories</code>命令用于获取对象的类别。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Categorical([&quot;a&quot;, &quot;c&quot;, &quot;c&quot;, np.nan], categories=[&quot;b&quot;, &quot;a&quot;, &quot;c&quot;])
+print(s.categories)
+</code></pre>
+
+<p><strong>obj.ordered</strong>命令用于获取对象的顺序。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+cat = pd.Categorical([&quot;a&quot;, &quot;c&quot;, &quot;c&quot;, np.nan], categories=[&quot;b&quot;, &quot;a&quot;, &quot;c&quot;])
+print(cat.ordered)
+</code></pre>
+
+<p>该函数返回结果为：<em>False</em>，因为这里没有指定任何顺序。</p>
+<p><strong>重命名类别</strong></p>
+<p>重命名类别是通过将新值分配给<code>series.cat.categories</code>属性来完成的。参考以下示例代码 -</p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;], dtype=&quot;category&quot;)
+s.cat.categories = [&quot;Group %s&quot; % g for g in s.cat.categories]
+
+print(s.cat.categories)
+</code></pre>
+
+<p>初始类别<code>[a，b，c]</code>由对象的<code>s.cat.categories</code>属性更新。</p>
+<p><strong>附加新类别</strong>
+使用<code>Categorical.add.categories()</code>方法，可以追加新的类别。</p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;], dtype=&quot;category&quot;)
+s = s.cat.add_categories([4])
+print(s.cat.categories)
+</code></pre>
+
+<p><strong>删除类别</strong>
+使用<code>Categorical.remove_categories()</code>方法，可以删除不需要的类别。</p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;a&quot;], dtype=&quot;category&quot;)
+print(&quot;Original object:&quot;)
+print(s)
+print(&quot;=====================================&quot;)
+print(&quot;After removal:&quot;)
+print(s.cat.remove_categories(&quot;a&quot;))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

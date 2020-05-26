@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nginx 示例2:实现反向代理 - FreeAIHub</title>
+    <meta name="keywords" content="关于代理,正向代理,反向代理,二者区别,示例">
+    <meta name="description" content="说到代理，首先我们要明确一个概念，所谓代理就是一个代表、一个渠道；此时就涉及到两个角色，一个是被代理角色，一个是目标角色，被代理角色通过这个代理访问目标角色完成一些任务的过程称为代理操作过程；如同生活中的专卖店~客人到adidas专卖店买了一双鞋，这个专卖店就是代理，被代理角色就是adidas厂家，目标角色就是用户。说反向代理之前，我们先看看正向代理，正向代理也是大家最常接触的到的代理模式，我们会">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/nginx/index.html">如何学习本课程</a></li>
+<li><a href="/nginx/intro.html"> Nginx 简介 </a></li>
+<li><a href="/nginx/setup.html"> nginx 环境安装配置  </a></li>
+<li><a href="/nginx/service.html"> Nginx 服务 </a></li>
+<li><a href="/nginx/conf.html"> Nginx 配置文件 </a></li>
+<li><a href="/nginx/case1.html"> Nginx 示例1:修改默认服务目录及首页 </a></li>
+<li><a class="current"> Nginx 示例2:实现反向代理 </a></li>
+<li><a href="/nginx/case3.html"> Nginx 示例3:传递请求标头proxy_set_header </a></li>
+<li><a href="/nginx/case4.html"> Nginx 示例4:压缩和解压gzip  </a></li>
+<li><a href="/nginx/case5.html"> Nginx 示例5:自定义错误页404 </a></li>
+<li><a href="/nginx/case6.html"> Nginx 示例6:重写URI请求(rewrite) </a></li>
+<li><a href="/nginx/case7.html"> Nginx 示例7:设置FastCGI代理 </a></li>
+<li><a href="/nginx/case8.html"> Nginx 示例8:重写HTTP响应(sub_filter) </a></li>
+<li><a href="/nginx/case9.html"> Nginx 示例9:负载均衡(load balance) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/nginx/case1.html class='prev_article'> Nginx 示例1:修改默认服务目录及首页 </a>       |       下一篇：<a href=/nginx/case3.html class='next_article'> Nginx 示例3:传递请求标头proxy_set_header </a>  >
+              
+<h1>Nginx 示例2:实现反向代理</h1>
+<h2>关于代理</h2>
+<p>说到代理，首先我们要明确一个概念，所谓代理就是一个代表、一个渠道；</p>
+<p>此时就涉及到两个角色，一个是被代理角色，一个是目标角色，被代理角色通过这个代理访问目标角色完成一些任务的过程称为代理操作过程；如同生活中的专卖店~客人到adidas专卖店买了一双鞋，这个专卖店就是代理，被代理角色就是adidas厂家，目标角色就是用户。</p>
+<h2>正向代理</h2>
+<p>说反向代理之前，我们先看看正向代理，正向代理也是大家最常接触的到的代理模式，我们会从两个方面来说关于正向代理的处理模式，分别从软件方面和生活方面来解释一下什么叫正向代理。</p>
+<p>在如今的网络环境下，我们如果由于技术需要要去访问国外的某些网站，此时你会发现位于国外的某网站我们通过浏览器是没有办法访问的，此时大家可能都会用一个操作FQ进行访问，FQ的方式主要是找到一个可以访问国外网站的代理服务器，我们将请求发送给代理服务器，代理服务器去访问国外的网站，然后将访问到的数据传递给我们！</p>
+<p>上述这样的代理模式称为正向代理，正向代理最大的特点是客户端非常明确要访问的服务器地址；服务器只清楚请求来自哪个代理服务器，而不清楚来自哪个具体的客户端；正向代理模式屏蔽或者隐藏了真实客户端信息。来看个示意图（我把客户端和正向代理框在一块，同属于一个环境，后面我有介绍）：</p>
+<p><img alt="img" src="./images/frontforwad-proxy.png" /></p>
+<p>客户端必须设置正向代理服务器，当然前提是要知道正向代理服务器的IP地址，还有代理程序的端口。如图。</p>
+<p>总结来说：正向代理，"它代理的是客户端，代客户端发出请求"，是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
+<p><strong>正向代理的用途：</strong>
+（1）访问原来无法访问的资源，如Google
+（2） 可以做缓存，加速访问资源
+（3）对客户端访问授权，上网进行认证
+（4）代理可以记录用户访问记录（上网行为管理），对外隐藏用户信息</p>
+<h2>反向代理</h2>
+<p>明白了什么是正向代理，我们继续看关于反向代理的处理方式，举例如我大天朝的某宝网站，每天同时连接到网站的访问人数已经爆表，单个服务器远远不能满足人民日益增长的购买欲望了，此时就出现了一个大家耳熟能详的名词：分布式部署；也就是通过部署多台服务器来解决访问人数限制的问题；某宝网站中大部分功能也是直接使用Nginx进行反向代理实现的，并且通过封装Nginx和其他的组件之后起了个高大上的名字：Tengine，有兴趣的童鞋可以访问Tengine的官网查看具体的信息：http://tengine.taobao.org/。那么反向代理具体是通过什么样的方式实现的分布式的集群操作呢，我们先看一个示意图（我把服务器和反向代理框在一块，同属于一个环境，后面我有介绍）：</p>
+<p><img alt="img" src="./images/backforwad-proxy.png" /></p>
+<p>通过上述的图解大家就可以看清楚了，多个客户端给服务器发送的请求，Nginx服务器接收到之后，按照一定的规则分发给了后端的业务处理服务器进行处理了。此时~请求的来源也就是客户端是明确的，但是请求具体由哪台服务器处理的并不明确了，Nginx扮演的就是一个反向代理角色。</p>
+<p>客户端是无感知代理的存在的，反向代理对外都是透明的，访问者并不知道自己访问的是一个代理。因为客户端不需要任何配置就可以访问。</p>
+<p>反向代理，"它代理的是服务端，代服务端接收请求"，主要用于服务器集群分布式部署的情况下，反向代理隐藏了服务器的信息。</p>
+<p>反向代理的作用：
+（1）保证内网的安全，通常将反向代理作为公网访问地址，Web服务器是内网
+（2）负载均衡，通过反向代理服务器来优化网站的负载</p>
+<h3>项目场景</h3>
+<p>通常情况下，我们在实际项目操作时，正向代理和反向代理很有可能会存在在一个应用场景中，正向代理代理客户端的请求去访问目标服务器，目标服务器是一个反向单利服务器，反向代理了多台真实的业务处理服务器。具体的拓扑图如下：</p>
+<p><img alt="img" src="./images/frontforwad-proxy2.png" /></p>
+<h2>二者区别</h2>
+<p>截了一张图来说明正向代理和反向代理二者之间的区别，如图。</p>
+<p><img alt="img" src="./images/proxy.png" /></p>
+<p>在正向代理中，Proxy和Client同属于一个LAN（图中方框内），隐藏了客户端信息；</p>
+<p>在反向代理中，Proxy和Server同属于一个LAN（图中方框内），隐藏了服务端信息；</p>
+<p>实际上，Proxy在两种代理中做的事情都是替服务器代为收发请求和响应，不过从结构上看正好左右互换了一下，所以把后出现的那种代理方式称为反向代理了。</p>
+<h2>示例</h2>
+<pre><code class="bash">vim /etc/nginx/sites-enabled/default 
+</code></pre>
+
+<p>在server段下添加一个新的location如下后保存退出</p>
+<pre><code class="conf">location /pythonproxy {
+         proxy_pass http://localhost:8000;
+}
+</code></pre>
+
+<pre><code class="bash">#重载nginx
+nginx -s reload
+</code></pre>
+
+<pre><code class="bash">cd ~ &amp;&amp; mkdir -p pythonproxy
+#制作首页
+echo 'This is Python3 Web Server' &gt; ~/pythonproxy/index.html
+#启动Python Web服务器
+python3 -m http.server
+</code></pre>
+
+<p>访问网址<code>{host0.http_url}pythonproxy</code></p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

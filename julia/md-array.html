@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 多维数组 - FreeAIHub</title>
+    <meta name="keywords" content="多维数组,数组,稀疏矩阵,构造稀疏矩阵基础函数,构造和初始化,连接,Comprehensions,索引,赋值,">
+    <meta name="description" content="数组是一个存在多维网格中的对象集合。通常，数组包含的对象的类型为  。对大多数计算而言，数组对象一般更具体为  或  。因为性能的原因，Julia 不希望把程序写成向量化的形式。在 Julia 中，通过引用将参数传递给函数。Julia 的库函数不会修改传递给它的输入。用户写代码时，如果要想做类似的功能，要注意先把输入复制一份儿。下列函数中调用的  参数，既可以是维度的单多元组，也可以是维度作为可变">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a class="current"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/meta.html class='prev_article'> Julia元编程 </a>       |       下一篇：<a href=/julia/la.html class='next_article'> Julia线性代数 </a>  >
+              
+            <h1>Julia 多维数组</h1>
+<h2>多维数组</h2>
+<p>数组是一个存在多维网格中的对象集合。通常，数组包含的对象的类型为 <code>Any</code> 。对大多数计算而言，数组对象一般更具体为 <code>Float64</code> 或 <code>Int32</code> 。</p>
+<p>因为性能的原因，Julia 不希望把程序写成向量化的形式。</p>
+<p>在 Julia 中，通过引用将参数传递给函数。Julia 的库函数不会修改传递给它的输入。用户写代码时，如果要想做类似的功能，要注意先把输入复制一份儿。</p>
+<h2>数组</h2>
+<h3>基础函数</h3>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>eltype(A)</code></td>
+<td align="left">A 中元素的类型</td>
+</tr>
+<tr>
+<td align="left"><code>length(A)</code></td>
+<td align="left">A 中元素的个数</td>
+</tr>
+<tr>
+<td align="left"><code>ndims(A)</code></td>
+<td align="left">A 有几个维度</td>
+</tr>
+<tr>
+<td align="left"><code>nnz(A)</code></td>
+<td align="left">A 中非零元素的个数</td>
+</tr>
+<tr>
+<td align="left"><code>size(A)</code></td>
+<td align="left">返回一个元素为 A 的维度的多元组</td>
+</tr>
+<tr>
+<td align="left"><code>size(A,n)</code></td>
+<td align="left">A 在某个维度上的长度</td>
+</tr>
+<tr>
+<td align="left"><code>stride(A,k)</code></td>
+<td align="left">在维度 k 上，邻接元素（在内存中）的线性索引距离</td>
+</tr>
+<tr>
+<td align="left"><code>strides(A)</code></td>
+<td align="left">返回多元组，其元素为在每个维度上，邻接元素（在内存中）的线性索引距离</td>
+</tr>
+</tbody>
+</table>
+<h3>构造和初始化</h3>
+<p>下列函数中调用的 <code>dims...</code> 参数，既可以是维度的单多元组，也可以是维度作为可变参数时的一组值。</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Array(type, dims...)</code></td>
+<td align="left">未初始化的稠密数组</td>
+</tr>
+<tr>
+<td align="left"><code>cell(dims...)</code></td>
+<td align="left">未初始化的元胞数组（异构数组）</td>
+</tr>
+<tr>
+<td align="left"><code>zeros(type, dims...)</code></td>
+<td align="left">指定类型的全 0 数组. 如果未指明 <code>type</code>, 默认为 <code>Float64</code></td>
+</tr>
+<tr>
+<td align="left"><code>zeros(A)</code></td>
+<td align="left">全 0 数组, 元素类型和大小同 <code>A</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>ones(type, dims...)</code></td>
+<td align="left">指定类型的全 1 数组. 如果未指明 <code>type</code>, 默认为 <code>Float64</code></td>
+</tr>
+<tr>
+<td align="left"><code>ones(A)</code></td>
+<td align="left">全 1 数组, 元素类型和大小同 <code>A</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>trues(dims...)</code></td>
+<td align="left">全 <code>true</code> 的 <code>Bool</code> 数组</td>
+</tr>
+<tr>
+<td align="left"><code>falses(dims...)</code></td>
+<td align="left">全 <code>false</code> 的 <code>Bool</code> 数组</td>
+</tr>
+<tr>
+<td align="left"><code>reshape(A, dims...)</code></td>
+<td align="left">将数组中的数据按照指定维度排列</td>
+</tr>
+<tr>
+<td align="left"><code>copy(A)</code></td>
+<td align="left">复制 <code>A</code></td>
+</tr>
+<tr>
+<td align="left"><code>deepcopy(A)</code></td>
+<td align="left">复制 <code>A</code> ，并递归复制其元素</td>
+</tr>
+<tr>
+<td align="left"><code>similar(A, element_type, dims...)</code></td>
+<td align="left">属性与输入数组（稠密、稀疏等）相同的未初始化数组，但指明了元素类型和维度。</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">第二、三参数可省略，省略时默认为 <code>A</code> 的元素类型和维度</td>
+</tr>
+<tr>
+<td align="left"><code>reinterpret(type, A)</code></td>
+<td align="left">二进制数据与输入数组相同的数组，但指明了元素类型</td>
+</tr>
+<tr>
+<td align="left"><code>rand(dims)</code></td>
+<td align="left">在 [0,1) 上独立均匀同分布的 <code>Float64</code> 类型的随机数组</td>
+</tr>
+<tr>
+<td align="left"><code>randn(dims)</code></td>
+<td align="left"><code>Float64</code> 类型的独立正态同分布的随机数组，均值为 0 ，标准差为 1</td>
+</tr>
+<tr>
+<td align="left"><code>eye(n)</code></td>
+<td align="left"><code>n</code> x <code>n</code> 单位矩阵</td>
+</tr>
+<tr>
+<td align="left"><code>eye(m, n)</code></td>
+<td align="left"><code>m</code> x <code>n</code> 单位矩阵</td>
+</tr>
+<tr>
+<td align="left"><code>linspace(start, stop, n)</code></td>
+<td align="left">从 <code>start</code> 至 <code>stop</code> 的由 <code>n</code> 个元素构成的线性向量</td>
+</tr>
+<tr>
+<td align="left"><code>fill!(A, x)</code></td>
+<td align="left">用值 <code>x</code> 填充数组 <code>A</code></td>
+</tr>
+<tr>
+<td align="left"><code>fill(x, dims)</code></td>
+<td align="left">创建指定规模的数组, 并使用 <code>x</code> 填充</td>
+</tr>
+</tbody>
+</table>
+<h3>连接</h3>
+<p>使用下列函数，可在任意维度连接数组：</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>cat(k, A...)</code></td>
+<td align="left">在 <code>k</code> 维度上连接输入 n-d 数组</td>
+</tr>
+<tr>
+<td align="left"><code>vcat(A...)</code></td>
+<td align="left"><code>cat(1, A...)</code> 的简写</td>
+</tr>
+<tr>
+<td align="left"><code>hcat(A...)</code></td>
+<td align="left"><code>cat(2, A...)</code> 的简写</td>
+</tr>
+</tbody>
+</table>
+<p>传递给这些函数的标量值被视为一元阵列。</p>
+<p>级联功能非常常用，所以为它们设计了特殊的语法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">表示</th>
+<th align="left">调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>[A B C ...]</code></td>
+<td align="left"><code>hcat</code></td>
+</tr>
+<tr>
+<td align="left"><code>[A, B, C, ...]</code></td>
+<td align="left"><code>vcat</code></td>
+</tr>
+<tr>
+<td align="left"><code>[A B; C D; ...]</code></td>
+<td align="left"><code>hvcat</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>hvcat</code> 可以实现一维上的（使用分号间隔）或二维上的（使用空格间隔）的级联。</p>
+<h3>Comprehensions</h3>
+<p>Comprehensions 用于构造数组。它的语法类似于数学中的集合标记法：</p>
+<pre><code>    A = [ F(x,y,...) for x=rx, y=ry, ... ]
+</code></pre>
+
+<p><code>F(x,y,...)</code> 根据变量 <code>x</code>, <code>y</code> 等来求值。这些变量的值可以是任何迭代对象，但大多数情况下，都使用类似于 <code>1:n</code> 或 <code>2:(n-1)</code> 的范围对象，或显式指明为类似 <code>[1.2, 3.4, 5.7]</code> 的数组。它的结果是 N 维稠密数组。</p>
+<p>下例计算在维度 1 上，当前元素及左右邻居元素的加权平均数：</p>
+<pre><code class="julia">const x = rand(8)
+
+[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
+</code></pre>
+
+<blockquote>
+<p>注解： 上例中，<code>x</code> 被声明为常量，因为对于非常量的全局变量，Julia 的类型推断不怎么样。</p>
+</blockquote>
+<p>可在 comprehension 之前显式指明它的类型。如要避免在前例中声明 <code>x</code> 为常量，但仍要确保结果类型为 <code>Float64</code>，应这样写：</p>
+<pre><code class="julia">Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
+</code></pre>
+
+<p>使用花括号来替代方括号，可以将它简写为 <code>Any</code> 类型的数组：</p>
+<pre><code class="julia">{ i/2 for i = 1:3 }
+</code></pre>
+
+<h3>索引</h3>
+<p>索引 n 维数组 A 的通用语法为：</p>
+<pre><code class="julia">X = A[I_1, I_2, ..., I_n]
+</code></pre>
+
+<p>其中 I_k 可以是：</p>
+<ol>
+<li>标量</li>
+<li>满足 <code>:</code>, <code>a:b</code>, 或 <code>a:b:c</code> 格式的 <code>Range</code> 对象</li>
+<li>任意整数向量，包括空向量 <code>[]</code></li>
+<li>布尔值向量</li>
+</ol>
+<p>结果 X 的维度通常为 <code>(length(I_1), length(I_2), ..., length(I_n))</code> ，且 X 的索引 <code>(i_1, i_2, ..., i_n)</code> 处的值为 <code>A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]</code> 。缀在后面的标量索引的维度信息被舍弃。如，<code>A[I, 1]</code> 的维度为 <code>(length(I),)</code>。布尔值向量先由 <code>find</code> 函数进行转换。由布尔值向量索引的维度长度，是向量中 <code>true</code> 值的个数。</p>
+<p>索引语法与调用 <code>getindex</code> 等价：</p>
+<pre><code class="julia">X = getindex(A, I_1, I_2, ..., I_n)
+</code></pre>
+
+<p>例如：</p>
+<pre><code class="julia">x = reshape(1:16, 4, 4)
+
+x[2:3, 2:end-1]
+</code></pre>
+
+<p><code>n:n-1</code> 形式的空范围有时用来表示相互索引位置在 <code>n-1</code> 和 <code>n</code>之间。例如，在 <code>searchsorted</code> 函数使用本习惯指出插入点的值不在排序后的数组中：</p>
+<pre><code class="julia">a = [1,2,5,6,7];
+
+searchsorted(a, 3)
+</code></pre>
+
+<h3>赋值</h3>
+<p>给 n 维数组 A 赋值的通用语法为：<code>A[I_1, I_2, ..., I_n] = X</code></p>
+<p>其中 I_k 可能是：</p>
+<ol>
+<li>标量</li>
+<li>满足 <code>:</code>, <code>a:b</code>, 或 <code>a:b:c</code> 格式的 <code>Range</code> 对象</li>
+<li>任意整数向量，包括空向量 <code>[]</code></li>
+<li>布尔值向量</li>
+</ol>
+<p>如果 <code>X</code> 是一个数组，它的维度应为 <code>(length(I_1), length(I_2), ..., length(I_n))</code> ，且 <code>A</code> 在 <code>i_1, i_2, ..., i_n</code> 处的值被覆写为 <code>X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]</code> 。如果 <code>X</code> 不是数组，它的值被写进所有 <code>A</code> 被引用的地方。</p>
+<p>用于索引的布尔值向量与 <code>getindex</code> 中一样（先由 <code>find</code> 函数进行转换）。</p>
+<p>索引赋值语法等价于调用 <code>setindex!</code> ：<code>setindex!(A, X, I_1, I_2, ..., I_n)</code></p>
+<p>例如：</p>
+<pre><code class="julia">x = reshape(1:9, 3, 3)
+
+x[1:2, 2:3] = -1
+
+x
+</code></pre>
+
+<h3>向量化的运算符和函数</h3>
+<p>数组支持下列运算符。逐元素进行的运算，应使用带“点”（逐元素）版本的二元运算符。</p>
+<ol>
+<li>一元： <code>-</code>, <code>+</code>, <code>!</code></li>
+<li>二元： <code>+</code>, <code>-</code>, <code>*</code>, <code>.*</code>, <code>/</code>, <code>./</code>, <code>\</code>, <code>.\</code>, <code>^</code>, <code>.^</code>, <code>div</code>, <code>mod</code></li>
+<li>比较： <code>.==</code>, <code>.!=</code>, <code>.&lt;</code>, <code>.&lt;=</code>, <code>.&gt;</code>, <code>.&gt;=</code></li>
+<li>一元布尔值或位运算： <code>~</code></li>
+<li>二元布尔值或位运算： <code>&amp;</code>, <code>|</code>, <code>$</code></li>
+</ol>
+<p>一些没有“点”（逐元素）操作运算符当一个参数是一个标量时会被使用。这些运算符有 <code>*</code>, <code>/</code>, <code>\</code> 和按位运算符。</p>
+<p>请注意，像 <code>==</code> 操作这样的比较运算是操作在整个阵列上的，它会给出一个布尔返回值。逐位的比较使用点操作符。</p>
+<p>下列内置的函数也都是向量化的, 即函数是逐元素版本的：</p>
+<p>abs abs2 angle cbrt
+airy airyai airyaiprime airybi airybiprime airyprime
+acos acosh asin asinh atan atan2 atanh
+acsc acsch asec asech acot acoth
+cos  cospi cosh  sin  sinpi sinh  tan  tanh  sinc  cosc
+csc  csch  sec  sech  cot  coth
+acosd asind atand asecd acscd acotd
+cosd  sind  tand  secd  cscd  cotd
+besselh besseli besselj besselj0 besselj1 besselk bessely bessely0 bessely1
+exp  erf  erfc  erfinv erfcinv exp2  expm1
+beta dawson digamma erfcx erfi
+exponent eta zeta gamma
+hankelh1 hankelh2
+ ceil  floor  round  trunc
+iceil ifloor iround itrunc
+isfinite isinf isnan
+lbeta lfact lgamma
+log log10 log1p log2
+copysign max min significand
+sqrt hypot</p>
+<p>注意 <code>min</code> <code>max</code> 和 <code>minimum</code> <code>maximum</code> 之间的区别，前者是对多个数组操作，找出各数组对应的的元素中的最大最小，后者是作用在一个数组上找出该数组的最大最小值。</p>
+<p>Julia 提供了 <code>@vectorize_1arg</code> 和 <code>@vectorize_2arg</code> 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如：</p>
+<pre><code class="julia">square(x) = x^2
+
+@vectorize_1arg Number square
+
+methods(square)
+    square(x) at none:1
+
+square([1 2 4; 5 6 7])
+</code></pre>
+
+<h3>Broadcasting</h3>
+<p>有时要对不同维度的数组进行逐元素的二元运算，如将向量加到矩阵的每一列。低效的方法是，把向量复制成同维度的矩阵：</p>
+<pre><code class="julia">a = rand(2,1); A = rand(2,3);
+
+repmat(a,1,3)+A
+</code></pre>
+
+<p>维度很大时，效率会很低。Julia 提供 <code>broadcast</code> 函数，它将数组参数的维度进行扩展，使其匹配另一个数组的对应维度，且不需要额外内存，最后再逐元素调用指定的二元函数：</p>
+<pre><code class="julia">broadcast(+, a, A)
+
+b = rand(1,2)
+
+broadcast(+, a, b)
+</code></pre>
+
+<p>逐元素的运算符，如 <code>.+</code> 和 <code>.*</code> 将会在必要时进行 broadcasting 。还提供了 <code>broadcast!</code> 函数，可以明确指明目的，而 <code>broadcast_getindex</code> 和 <code>broadcast_setindex!</code> 函数可以在索引前对索引值做 broadcast。</p>
+<h3>实现</h3>
+<p>Julia 的基础数组类型是抽象类型 <code>AbstractArray{T,N}</code>，其中维度为 <code>N</code>，元素类型为 <code>T</code>。<code>AbstractVector</code> 和 <code>AbstractMatrix</code> 分别是它 1 维和 2 维的别名。</p>
+<p><code>AbstractArray</code> 类型包含任何形似数组的类型， 而且它的实现和通常的数组会很不一样。例如，任何具体的 <code>AbstractArray{T，N}</code> 至少要有 <code>size(A)</code> (返回 <code>Int</code> 多元组)，<code>getindex(A,i)</code> 和 <code>getindex(A,i1,...,iN)</code> (返回 <code>T</code> 类型的一个元素), 可变的数组要能 <code>setindex！</code>。 这些操作都要求在近乎常数的时间复杂度或 O(1) 复杂度，否则某些数组函数就会特别慢。具体的类型也要提供类似于 <code>similar(A,T=eltype(A),dims=size(A))</code> 的方法用来分配一个拷贝。</p>
+<p><code>DenseArray</code> 是一个抽象的 <code>AbstractArray</code> 类型的亚型，它应该包括在内存的常规偏移上的所有数组，因此可以被传递到外部在此内存布局上的 C 和 Fortran 函数。
+亚型应该提供一个方法 <code>stride(A,k)</code>，使之返回“跨越”的维度 <code>k</code>：向给出的维度 <code>k</code> 加 <code>1</code> 应该使 <code>getindex(A,i)</code> 中的 <code>i</code> 增加 <code>stride(A,k)</code>。如果提供了一个指针转换方法 <code>convert(Ptr{T},A)</code>，那么内存布局应该以相同的方式对应于这些扩展。</p>
+<p><code>Array{T,N}</code> 类型是 <code>DenseArray</code> 的特殊实例，它的元素以列序为主序存储（详见<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/performance-tips/#man-performance-tips">代码性能优化</a>）。<code>Vector</code> 和 <code>Matrix</code> 是分别是它 1 维和 2 维的别名。</p>
+<p><code>SubArray</code> 是 <code>AbstractArray</code> 的特殊实例，它通过引用而不是复制来进行索引。使用 <code>sub</code> 函数来构造 <code>SubArray</code>，它的调用方式与 <code>getindex</code> 相同（使用数组和一组索引参数）。<code>sub</code> 的结果与 <code>getindex</code> 的结果类似，但它的数据仍留在原地。<code>sub</code> 在 <code>SubArray</code> 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。</p>
+<p><code>StridedVector</code> 和 <code>StridedMatrix</code> 是为了方便而定义的别名。通过给他们传递 <code>Array</code> 或 <code>SubArray</code> 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高内存申请和复制的效率。</p>
+<p>下面的例子计算大数组中的一个小块的 QR 分解，无需构造临时变量，直接调用合适的 LAPACK 函数。</p>
+<pre><code class="julia">a = rand(10,10)
+
+b = sub(a, 2:2:8,2:2:4)
+
+(q,r) = qr(b);
+
+q
+
+r
+</code></pre>
+
+<h2>稀疏矩阵</h2>
+<p><a href="http://zh.wikipedia.org/zh-cn/稀疏矩阵">稀疏矩阵</a>是其元素大部分为 0 的矩阵。</p>
+<h3>列压缩（CSC）存储</h3>
+<p>Julia 中，稀疏矩阵使用 <a href="http://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_column_.28CSC_or_CCS.29">列压缩（CSC）格式</a>。Julia 稀疏矩阵的类型为 <code>SparseMatrixCSC{Tv,Ti}</code> ，其中 <code>Tv</code> 是非零元素的类型， <code>Ti</code> 是整数类型，存储列指针和行索引：</p>
+<pre><code class="julia">type SparseMatrixCSC{Tv,Ti&lt;:Integer} &lt;: AbstractSparseMatrix{Tv,Ti}
+    m::Int                  # Number of rows
+    n::Int                  # Number of columns
+    colptr::Vector{Ti}      # Column i is in colptr[i]:(colptr[i+1]-1)
+    rowval::Vector{Ti}      # Row values of nonzeros
+    nzval::Vector{Tv}       # Nonzero values
+end
+</code></pre>
+
+<p>列压缩存储便于按列简单快速地存取稀疏矩阵的元素，但按行存取则较慢。把非零值插入 CSC 结构等运算，都比较慢，这是因为稀疏矩阵中，在所插入元素后面的元素，都要逐一移位。</p>
+<p>如果你从其他地方获得的数据是 CSC 格式储存的，想用 Julia 来读取，应确保它的序号从 1 开始索引。每一列中的行索引值应该是排好序的。如果你的 <code>SparseMatrixCSC</code> 对象包含未排序的行索引值，对它们进行排序的最快的方法是转置两次。</p>
+<p>有时，在 <code>SparseMatrixCSC</code> 中存储一些零值，后面的运算比较方便。 <code>Base</code> 中允许这种行为（但是不保证在操作中会一直保留这些零值）。这些被存储的零被许多函数认为是非零值。<code>nnz</code> 函数返回稀疏数据结构中存储的元素数目，包括被存储的零。要想得到准确的非零元素的数目，请使用 <code>countnz</code> 函数，它挨个检查每个元素的值（因此它的时间复杂度不再是常数，而是与元素数目成正比）。</p>
+<h2>构造稀疏矩阵</h2>
+<p>稠密矩阵有 <code>zeros</code> 和 <code>eye</code> 函数，稀疏矩阵对应的函数，在函数名前加 <code>sp</code> 前缀即可：</p>
+<pre><code class="julia">spzeros(3,5)
+
+speye(3,5)
+</code></pre>
+
+<p><code>sparse</code> 函数是比较常用的构造稀疏矩阵的方法。它输入行索引 <code>I</code> ，列索引向量 <code>J</code> ，以及非零值向量 <code>V</code> 。 <code>sparse(I,J,V)</code> 构造一个满足 <code>S[I[k], J[k]] = V[k]</code> 的稀疏矩阵：</p>
+<pre><code class="julia">I = [1, 4, 3, 5]; J = [4, 7, 18, 9]; V = [1, 2, -5, 3];
+
+S = sparse(I,J,V)
+</code></pre>
+
+<p>与 <code>sparse</code> 相反的函数为 <code>findn</code> ，它返回构造稀疏矩阵时的输入：</p>
+<pre><code class="julia">findn(S)
+
+findnz(S)
+</code></pre>
+
+<p>另一个构造稀疏矩阵的方法是，使用 <code>sparse</code> 函数将稠密矩阵转换为稀疏矩阵：</p>
+<pre><code class="julia">sparse(eye(5))
+</code></pre>
+
+<p>可以使用 <code>dense</code> 或 <code>full</code> 函数做逆操作。 <code>issparse</code> 函数可用来检查矩阵是否稀疏：</p>
+<pre><code class="julia">issparse(speye(5))
+</code></pre>
+
+<h3>稀疏矩阵运算</h3>
+<p>稠密矩阵的算术运算也可以用在稀疏矩阵上。对稀疏矩阵进行赋值运算，是比较费资源的。大多数情况下，建议使用 <code>findnz</code> 函数把稀疏矩阵转换为 <code>(I,J,V)</code> 格式，在非零数或者稠密向量 <code>(I,J,V)</code> 的结构上做运算，最后再重构回稀疏矩阵。</p>
+<h3>稠密矩阵和稀疏矩阵函数对应关系</h3>
+<p>接下来的表格列出了内置的稀疏矩阵的函数, 及其对应的稠密矩阵的函数。通常，稀疏矩阵的函数，要么返回与输入稀疏矩阵 <code>S</code> 同样的稀疏度，要么返回 <code>d</code> 稠密度，例如矩阵的每个元素是非零的概率为 <code>d</code> 。</p>
+<p>详见可以标准库文档的 <a href="http://julia-cn.readthedocs.org/zh_CN/latest/stdlib/sparse/#stdlib-sparse"><em>stdlib-sparse</em></a> 章节。</p>
+<table>
+<thead>
+<tr>
+<th align="left">稀疏矩阵</th>
+<th align="left">稠密矩阵</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">spzeros(m,n)</td>
+<td align="left">zeros(m,n)</td>
+<td align="left">构造 m x n 的全 0 矩阵 (spzeros(m,n) 是空矩阵)</td>
+</tr>
+<tr>
+<td align="left">spones(S)</td>
+<td align="left">ones(m,n)</td>
+<td align="left">构造的全 1 矩阵 与稠密版本的不同， spones 的稀疏 度与 S 相同</td>
+</tr>
+<tr>
+<td align="left">speye(n)</td>
+<td align="left">eye(n)</td>
+<td align="left">构造 m x n 的单位矩阵</td>
+</tr>
+<tr>
+<td align="left">full(S)</td>
+<td align="left">sparse(A)</td>
+<td align="left">转换为稀疏矩阵和稠密矩阵</td>
+</tr>
+<tr>
+<td align="left">sprand(m,n,d)</td>
+<td align="left">rand(m,n)</td>
+<td align="left">构造 m-by-n 的随机矩阵（稠密度为 d ） 独立同分布的非零元素在 [0, 1] 内均匀分布</td>
+</tr>
+<tr>
+<td align="left">sprandn(m,n,d)</td>
+<td align="left">randn(m,n)</td>
+<td align="left">构造 m-by-n 的随机矩阵（稠密度为 d ） 独立同分布的非零元素满足标准正 态（高斯）分布</td>
+</tr>
+<tr>
+<td align="left">sprandn(m,n,d,X)</td>
+<td align="left">randn(m,n,X)</td>
+<td align="left">构造 m-by-n 的随机矩阵（稠密度为 d ） 独立同分布的非零元素满足 X 分 布。（需要 Distributions 扩展包）</td>
+</tr>
+<tr>
+<td align="left">sprandbool(m,n,d)</td>
+<td align="left">randbool(m,n)</td>
+<td align="left">构造 m-by-n 的随机矩阵（稠密度为 d ） ，非零 Bool<code>元素的概率为 *d* (</code>randbool 中 d =0.5 )</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

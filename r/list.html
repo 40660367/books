@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 列表(list) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="列表是R语言对象，它包含不同类型的元素，如数字，字符串，向量和其中的另一个列表。 列表还可以包含矩阵或函数作为其元素。 列表是使用函数创建的。以下是创建包含字符串，数字，向量和逻辑值的列表的示例列表元素可以给出名称，并且可以使用这些名称访问它们。列表的元素可以通过列表中元素的索引访问。 在命名列表的情况下，它也可以使用名称来访问。我们继续使用在上面的例子列表我们可以添加，删除和更新列表元素，如下所">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a class="current"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/vector.html class='prev_article'> R语言数据类型-向量</a>       |       下一篇：<a href=/r/matrix.html class='next_article'> R语言数据类型-矩阵</a>  >
+              
+            <h1>R语言 列表(list)</h1>
+<p>列表是R语言对象，它包含不同类型的元素，如数字，字符串，向量和其中的另一个列表。 列表还可以包含矩阵或函数作为其元素。 </p>
+<p>列表是使用<code>list()</code>函数创建的。</p>
+<h4>练习：创建列表</h4>
+<p>以下是创建包含字符串，数字，向量和逻辑值的列表的示例</p>
+<pre><code class="R"># Create a list containing strings, numbers, vectors and a logical values.
+list_data &lt;- list(&quot;Red&quot;, &quot;Green&quot;, c(21,32,11), TRUE, 51.23, 119.1)
+print(list_data)
+</code></pre>
+
+<h4>练习：命名列表元素</h4>
+<p>列表元素可以给出名称，并且可以使用这些名称访问它们。</p>
+<pre><code class="R"># Create a list containing a vector, a matrix and a list.
+list_data &lt;- list(c(&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;), matrix(c(3,9,5,1,-2,8), nrow = 2),
+   list(&quot;green&quot;,12.3))
+
+# Give names to the elements in the list.
+names(list_data) &lt;- c(&quot;1st Quarter&quot;, &quot;A_Matrix&quot;, &quot;A Inner list&quot;)
+
+# Show the list.
+print(list_data)
+</code></pre>
+
+<h4>练习：访问列表元素</h4>
+<p>列表的元素可以通过列表中元素的索引访问。 在命名列表的情况下，它也可以使用名称来访问。我们继续使用在上面的例子列表</p>
+<pre><code class="R"># Create a list containing a vector, a matrix and a list.
+list_data &lt;- list(c(&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;), matrix(c(3,9,5,1,-2,8), nrow = 2),
+   list(&quot;green&quot;,12.3))
+
+# Give names to the elements in the list.
+names(list_data) &lt;- c(&quot;1st Quarter&quot;, &quot;A_Matrix&quot;, &quot;A Inner list&quot;)
+
+# Access the first element of the list.
+print(list_data[1])
+
+# Access the thrid element. As it is also a list, all its elements will be printed.
+print(list_data[3])
+
+# Access the list element using the name of the element.
+print(list_data$A_Matrix)
+</code></pre>
+
+<h4>练习：操控列表元素</h4>
+<p>我们可以添加，删除和更新列表元素，如下所示。 我们只能在列表的末尾添加和删除元素。 但我们可以更新任何元素。</p>
+<pre><code class="R"># Create a list containing a vector, a matrix and a list.
+list_data &lt;- list(c(&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;), matrix(c(3,9,5,1,-2,8), nrow = 2),
+   list(&quot;green&quot;,12.3))
+
+# Give names to the elements in the list.
+names(list_data) &lt;- c(&quot;1st Quarter&quot;, &quot;A_Matrix&quot;, &quot;A Inner list&quot;)
+
+# Add element at the end of the list.
+list_data[4] &lt;- &quot;New element&quot;
+print(list_data[4])
+
+# Remove the last element.
+list_data[4] &lt;- NULL
+
+# Print the 4th Element.
+print(list_data[4])
+
+# Update the 3rd Element.
+list_data[3] &lt;- &quot;updated element&quot;
+print(list_data[3])
+</code></pre>
+
+<h4>练习：合并列表</h4>
+<p>通过将所有列表放在一个<code>list()</code>函数中，您可以将许多列表合并到一个列表中。</p>
+<pre><code class="R"># Create two lists.
+list1 &lt;- list(1,2,3)
+list2 &lt;- list(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tue&quot;)
+
+# Merge the two lists.
+merged.list &lt;- c(list1,list2)
+
+# Print the merged list.
+print(merged.list)
+</code></pre>
+
+<h4>练习： 将列表转换为向量</h4>
+<p>列表可以转换为向量，使得向量的元素可以用于进一步的操作。 可以在将列表转换为向量之后应用对向量的所有算术运算。 要做这个转换，我们使用<code>unlist()</code>函数。 它将列表作为输入并生成向量。</p>
+<pre><code class="r"># Create lists.
+list1 &lt;- list(1:5)
+print(list1)
+
+list2 &lt;-list(10:14)
+print(list2)
+
+# Convert the lists to vectors.
+v1 &lt;- unlist(list1)
+v2 &lt;- unlist(list2)
+
+print(v1)
+print(v2)
+
+# Now add the vectors
+result &lt;- v1+v2
+print(result)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

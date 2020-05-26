@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 高级索引 - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="NumPy 比一般的 Python 序列提供更多的索引方式。除了之前看到的用整数和切片的索引外，数组可以由整数数组索引、布尔索引及花式索引。以下实例获取数组中(0,0)，(1,1)和(2,0)位置处的元素。以下实例获取了 4X3 数组中的四个角的元素。 行索引是 [0,0] 和 [3,3]，而列索引是 [0,2] 和 [0,2]。返回的结果是包含每个角元素的 ndarray 对象。可以借助切片  ">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a class="current"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/slice-index.html class='prev_article'> NumPy切片和索引</a>       |       下一篇：<a href=/numpy/broadcast.html class='next_article'> NumPy广播</a>  >
+              
+            <h1>NumPy 高级索引</h1>
+<p>NumPy 比一般的 Python 序列提供更多的索引方式。除了之前看到的用整数和切片的索引外，数组可以由整数数组索引、布尔索引及花式索引。</p>
+<h3>整数数组索引</h3>
+<p>以下实例获取数组中(0,0)，(1,1)和(2,0)位置处的元素。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+x = np.array([[1,  2],  [3,  4],  [5,  6]])  
+y = x[[0,1,2],  [0,1,0]]
+print(y)
+</code></pre>
+
+<p>以下实例获取了 4X3 数组中的四个角的元素。 行索引是 [0,0] 和 [3,3]，而列索引是 [0,2] 和 [0,2]。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])   
+print('我们的数组是：' ) 
+print(x) 
+print('\n') 
+
+rows = np.array([[0,0],[3,3]]) 
+cols = np.array([[0,2],[0,2]])
+y = x[rows,cols]  
+print  ('这个数组的四个角元素是：') 
+print(y)
+</code></pre>
+
+<p>返回的结果是包含每个角元素的 ndarray 对象。</p>
+<p>可以借助切片 <strong>:</strong> 或 <strong>…</strong> 与索引数组组合。如下面例子：</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.array([[1,2,3], [4,5,6],[7,8,9]]) 
+b = a[1:3, 1:3] 
+c = a[1:3,[1,2]] 
+d = a[...,1:] 
+print(b); 
+print(c); 
+print(d)
+</code></pre>
+
+<h3>布尔索引</h3>
+<p>我们可以通过一个布尔数组来索引目标数组。</p>
+<p>布尔索引通过布尔运算（如：比较运算符）来获取符合指定条件的元素的数组。</p>
+<h4>练习:获取大于 5 的元素：</h4>
+<pre><code class="python">import numpy as np   
+x = np.array([[  0,  1,  2],[  3,  4,  5],[  6,  7,  8],[  9,  10,  11]])   
+print('我们的数组是：') 
+print(x)
+print('\n') 
+
+# 现在我们会打印出大于 5 的元素
+print  ('大于 5 的元素是：') 
+print(x[x &gt;  5])
+</code></pre>
+
+<h4>练习:<strong>~</strong>（取补运算符）来过滤 NaN。</h4>
+<pre><code class="python">import numpy as np
+a = np.array([np.nan,  1,2,np.nan,3,4,5])
+print(a[~np.isnan(a)])
+</code></pre>
+
+<h4>练习:从数组中过滤掉非复数元素。</h4>
+<pre><code class="python">import numpy as np
+a = np.array([1,  2+6j,  5,  3.5+5j])
+print(a[np.iscomplex(a)])
+</code></pre>
+
+<h3>花式索引</h3>
+<p>花式索引指的是利用整数数组进行索引。</p>
+<p>花式索引根据索引数组的值作为目标数组的某个轴的下标来取值。对于使用一维整型数组作为索引，如果目标是一维数组，那么索引的结果就是对应位置的元素；如果目标是二维数组，那么就是对应下标的行。</p>
+<p>花式索引跟切片不一样，它总是将数据复制到新数组中。</p>
+<h4>练习:传入顺序索引数组</h4>
+<pre><code class="python">import numpy as np
+x=np.arange(32).reshape((8,4))
+print(x[[4,2,1,7]])
+</code></pre>
+
+<h4>练习:传入倒序索引数组</h4>
+<pre><code class="python">import numpy as np   
+x=np.arange(32).reshape((8,4)) 
+print(x[[-4,-2,-1,-7]])
+</code></pre>
+
+<h4>练习:传入多个索引数组（要使用np.ix_）</h4>
+<pre><code class="python">import numpy as np   
+x=np.arange(32).reshape((8,4)) 
+print(x[np.ix_([1,5,7,2],[0,3,1,2])])
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

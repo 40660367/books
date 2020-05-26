@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 随机决策树(random forest) - FreeAIHub</title>
+    <meta name="keywords" content="随机决策树算法,随机森林算法,随机森林回归,额外树方法">
+    <meta name="description" content="本章将帮助您了解Sklearn中的随机决策树。众所周知，DT通常是通过递归拆分数据来训练的，但是容易过度拟合，通过对数据的各个子样本训练许多树，它们已转变为随机森林。该模块具有基于随机决策树以下两种算法-对于考虑中的每个特征，它都会计算局部最优特征/分割组合。在随机森林中，集合中的每个决策树都是根据从训练集中替换得到的样本构建的，然后从每个样本中获取预测，最后通过投票选择最佳解决方案。它可用于分类">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a class="current"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/dt.html class='prev_article'> sklearn决策树(DT)</a>       |       下一篇：<a href=/sklearn/cluster.html class='next_article'> skelarn聚类(cluster)</a>  >
+              
+            <h1>sklearn 随机决策树(random forest)</h1>
+<p>本章将帮助您了解Sklearn中的随机决策树。</p>
+<h2>随机决策树算法</h2>
+<p>众所周知，DT通常是通过递归拆分数据来训练的，但是容易过度拟合，通过对数据的各个子样本训练许多树，它们已转变为随机森林。该<strong>sklearn.ensemble</strong>模块具有基于随机决策树以下两种算法-</p>
+<h2>随机森林算法</h2>
+<p>对于考虑中的每个特征，它都会计算局部最优特征/分割组合。在随机森林中，集合中的每个决策树都是根据从训练集中替换得到的样本构建的，然后从每个样本中获取预测，最后通过投票选择最佳解决方案。它可用于分类以及回归任务。</p>
+<h3>随机森林分类</h3>
+<p>为了创建随机森林分类器，Scikit-learn模块提供了<strong>sklearn.ensemble.RandomForestClassifier</strong>。在构建随机森林分类器时，此模块使用的主要参数是<strong>'max_features'</strong>和<strong>'n_estimators'</strong>。</p>
+<p>在这里，<strong>“ max_features”</strong>是分割节点时要考虑的特征随机子集的大小。如果我们将此参数的值选择为none，则它将考虑所有功能，而不是随机子集。另一方面，<strong>n_estimators</strong>是森林中树木的数量。树的数量越多，结果越好。但是计算也需要更长的时间。</p>
+<h3>实例</h3>
+<p>在以下示例中，我们将使用<strong>sklearn.ensemble.RandomForestClassifier</strong>构建一个随机森林分类器，并通过使用<strong>cross_val_score</strong>模块来检查其准确性。</p>
+<pre><code class="python">from sklearn.model_selection import cross_val_score
+from sklearn.datasets import make_blobs
+from sklearn.ensemble import RandomForestClassifier
+X, y = make_blobs(n_samples = 10000, n_features = 10, centers = 100,random_state = 0) 
+RFclf = RandomForestClassifier(n_estimators = 10,max_depth = None,min_samples_split = 2, random_state = 0)
+scores = cross_val_score(RFclf, X, y, cv = 5)
+scores.mean()
+</code></pre>
+
+<h3>实例</h3>
+<p>我们还可以使用sklearn数据集构建随机森林分类器。如以下示例所示，我们使用虹膜数据集。我们还将找到其准确性得分和混淆矩阵。</p>
+<pre><code class="python">import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+path = &quot;https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data&quot;
+headernames = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class']
+dataset = pd.read_csv(path, names = headernames)
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, 4].values
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+RFclf = RandomForestClassifier(n_estimators = 50)
+RFclf.fit(X_train, y_train)
+y_pred = RFclf.predict(X_test)
+result = confusion_matrix(y_test, y_pred)
+print(&quot;Confusion Matrix:&quot;)
+print(result)
+result1 = classification_report(y_test, y_pred)
+print(&quot;Classification Report:&quot;,)
+print(result1)
+result2 = accuracy_score(y_test,y_pred)
+print(&quot;Accuracy:&quot;,result2)
+</code></pre>
+
+<h2>随机森林回归</h2>
+<p>为了创建随机森林回归，Scikit-learn模块提供了<strong>sklearn.ensemble.RandomForestRegressor</strong>。在构建随机森林回归器时，它将使用与<strong>sklearn.ensemble.RandomForestClassifier</strong>相同的参数。</p>
+<h3>实例</h3>
+<p>在以下示例中，我们将使用<strong>sklearn.ensemble.RandomForestregressor</strong>构建一个随机森林回归器，并且还将通过使用predict（）方法预测新值。</p>
+<pre><code class="python">from sklearn.ensemble import RandomForestRegressor
+from sklearn.datasets import make_regression
+X, y = make_regression(n_features = 10, n_informative = 2,random_state = 0, shuffle = False)
+RFregr = RandomForestRegressor(max_depth = 10,random_state = 0,n_estimators = 100)
+RFregr.fit(X, y)
+</code></pre>
+
+<p>拟合后，我们可以从回归模型进行预测，如下所示：</p>
+<pre><code class="python">print(RFregr.predict([[0, 2, 3, 0, 1, 1, 1, 1, 2, 2]]))
+</code></pre>
+
+<h2>额外树方法</h2>
+<p>对于正在考虑的每个功能，它都会为分割选择一个随机值。使用额外的树方法的好处在于，它可以进一步减少模型的方差。使用这些方法的缺点是它会稍微增加偏差。</p>
+<h3>额外树法分类</h3>
+<p>为了使用Extra-tree方法创建分类器，Scikit-learn模块提供了<strong>sklearn.ensemble.ExtraTreesClassifier</strong>。它使用与<strong>sklearn.ensemble.RandomForestClassifier</strong>相同的参数。唯一的区别在于，它们在构建树木的方式（如上所述）。</p>
+<h3>实例</h3>
+<p>在以下示例中，我们将使用<strong>sklearn.ensemble.ExtraTreeClassifier</strong>构建一个随机森林分类器，并使用<strong>cross_val_score</strong>模块检查其准确性。</p>
+<pre><code class="python">from sklearn.model_selection import cross_val_score
+from sklearn.datasets import make_blobs
+from sklearn.ensemble import ExtraTreesClassifier
+X, y = make_blobs(n_samples = 10000, n_features = 10, centers=100,random_state = 0)
+ETclf = ExtraTreesClassifier(n_estimators = 10,max_depth = None,min_samples_split = 10, random_state = 0)
+scores = cross_val_score(ETclf, X, y, cv = 5)
+scores.mean()
+</code></pre>
+
+<h3>实例</h3>
+<p>我们还可以使用sklearn数据集通过Extra-Tree方法构建分类器。</p>
+<p>如以下示例所示，我们使用的是Pima-Indian数据集。</p>
+<pre><code class="python">from pandas import read_csv
+
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import ExtraTreesClassifier
+path = r&quot;/share/datasets/pima-indians-diabetes.csv&quot;
+data = read_csv(path)
+array = data.values
+X = array[:,0:8]
+Y = array[:,8]
+seed = 7
+kfold = KFold(n_splits=10, random_state=seed)
+num_trees = 150
+max_features = 5
+ETclf = ExtraTreesClassifier(n_estimators=num_trees, max_features=max_features)
+results = cross_val_score(ETclf, X, Y, cv=kfold)
+print(results.mean())
+</code></pre>
+
+<h3>额外树法回归</h3>
+<p>为了创建<strong>Extra-Tree</strong>回归，Scikit-learn模块提供了<strong>sklearn.ensemble.ExtraTreesRegressor</strong>。在构建随机森林回归器时，它将使用与<strong>sklearn.ensemble.ExtraTreesClassifier</strong>相同的参数。</p>
+<h3>实例</h3>
+<p>在下面的示例中，我们将<strong>sklearn.ensemble.ExtraTreesregressor</strong>应用于创建随机森林回归器时所使用的相同数据。让我们看看输出的区别</p>
+<pre><code class="python">from sklearn.ensemble import ExtraTreesRegressor
+from sklearn.datasets import make_regression
+X, y = make_regression(n_features = 10, n_informative = 2,random_state = 0, shuffle = False)
+ETregr = ExtraTreesRegressor(max_depth = 10,random_state = 0,n_estimators = 100)
+ETregr.fit(X, y)
+</code></pre>
+
+<p>拟合后，我们可以从回归模型进行预测，如下所示：</p>
+<pre><code class="python">print(ETregr.predict([[0, 2, 3, 0, 1, 1, 1, 1, 2, 2]]))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 位运算 - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="NumPy  开头的函数是位运算函数。NumPy 位运算包括以下几个函数：也可以使用 &、 ~、 | 和 ^ 等操作符进行计算。bitwise_and() 函数对数组中整数的二进制形式执行位与运算。以上实例可以用下表来说明：位与操作运算规律如下：bitwise_or()函数对数组中整数的二进制形式执行位或运算。以上实例可以用下表来说明：位或操作运算规律如下：invert() 函数对">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a class="current"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/broadcast.html class='prev_article'> NumPy广播</a>       |       下一篇：<a href=/numpy/math.html class='next_article'> NumPy数学函数</a>  >
+              
+            <h1>NumPy 位运算</h1>
+<p>NumPy <strong>"bitwise_"</strong> 开头的函数是位运算函数。</p>
+<p>NumPy 位运算包括以下几个函数：</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>bitwise_and</code></td>
+<td align="left">对数组元素执行位与操作</td>
+</tr>
+<tr>
+<td align="left"><code>bitwise_or</code></td>
+<td align="left">对数组元素执行位或操作</td>
+</tr>
+<tr>
+<td align="left"><code>invert</code></td>
+<td align="left">按位取反</td>
+</tr>
+<tr>
+<td align="left"><code>left_shift</code></td>
+<td align="left">向左移动二进制表示的位</td>
+</tr>
+<tr>
+<td align="left"><code>right_shift</code></td>
+<td align="left">向右移动二进制表示的位</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注：</strong>也可以使用 "&amp;"、 "~"、 "|" 和 "^" 等操作符进行计算。</p>
+<h3>bitwise_and</h3>
+<p>bitwise_and() 函数对数组中整数的二进制形式执行位与运算。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+print('13 和 17 的二进制形式：') 
+a,b = 13,17 
+print(bin(a), bin(b)) 
+print('\n') 
+
+print('13 和 17 的位与：') 
+print(np.bitwise_and(13, 17))
+</code></pre>
+
+<p>以上实例可以用下表来说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left">1</th>
+<th align="left">1</th>
+<th align="left">0</th>
+<th align="left">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AND</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">运算结果</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>位与操作运算规律如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">A</th>
+<th align="left">B</th>
+<th align="left">AND</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+</tbody>
+</table>
+<h3>bitwise_or</h3>
+<p>bitwise_or()函数对数组中整数的二进制形式执行位或运算。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np
+a,b = 13,17
+print('13 和 17 的二进制形式：')
+print(bin(a), bin(b))
+
+print('13 和 17 的位或：')
+print(np.bitwise_or(13, 17))
+</code></pre>
+
+<p>以上实例可以用下表来说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left">1</th>
+<th align="left">1</th>
+<th align="left">0</th>
+<th align="left">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">OR</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">运算结果</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>位或操作运算规律如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">OR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<h3>invert</h3>
+<p>invert() 函数对数组中整数进行位取反运算，即 0 变成 1，1 变成 0。</p>
+<p>对于有符号整数，取该二进制数的补码，然后 +1。二进制数，最高位为0表示正数，最高位为 1 表示负数。</p>
+<p>看看 ~1 的计算步骤：</p>
+<ul>
+<li>
+<p>将<strong><code>1</code></strong>(这里叫：原码)转二进制 ＝ <strong><code>00000001</code></strong></p>
+</li>
+<li>
+<p>按位取反 ＝ <strong><code>11111110</code></strong></p>
+</li>
+<li>
+<p>发现符号位(即最高位)为<strong><code>1</code></strong>(表示负数)，将除符号位之外的其他数字取反 ＝ <strong><code>10000001</code></strong></p>
+</li>
+<li>
+<p>末位加1取其补码 ＝ <strong><code>10000010</code></strong></p>
+</li>
+<li>
+<p>转换回十进制 ＝ <strong><code>-2</code></strong></p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th align="left">表达式</th>
+<th align="left">二进制值（2 的补数）</th>
+<th align="left">十进制值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">5</td>
+<td align="left">00000000 00000000 00000000 0000010</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">~5</td>
+<td align="left">11111111 11111111 11111111 11111010</td>
+<td align="left">-6</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+print('13 的位反转，其中 ndarray 的 dtype 是 uint8：') 
+print(np.invert(np.array([13], dtype = np.uint8))) 
+print('\n') 
+
+
+# 比较 13 和 242 的二进制表示，我们发现了位的反转 
+print('13 的二进制表示：') 
+print(np.binary_repr(13, width = 8)) 
+print('\n')  
+
+
+print('242 的二进制表示：') 
+print(np.binary_repr(242, width = 8))
+</code></pre>
+
+<h3>left_shift</h3>
+<p>left_shift() 函数将数组元素的二进制形式向左移动到指定位置，右侧附加相等数量的 0。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np
+print('将 10 左移两位：') 
+print(np.left_shift(10,2)) 
+print('\n')  
+
+print('10 的二进制表示：') 
+print(np.binary_repr(10, width = 8)) 
+print('\n')  
+
+print('40 的二进制表示：') 
+print(np.binary_repr(40, width = 8)) 
+#  '00001010' 中的两位移动到了左边，并在右边添加了两个 0。
+</code></pre>
+
+<h3>right_shift</h3>
+<p>right_shift() 函数将数组元素的二进制形式向右移动到指定位置，左侧附加相等数量的 0。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np
+print('将 40 右移两位：')
+print(np.right_shift(40,2))
+print('\n')
+
+print('40 的二进制表示：') 
+print(np.binary_repr(40, width = 8)) 
+print('\n')  
+
+print('10 的二进制表示：') 
+print(np.binary_repr(10, width = 8)) #  '00001010' 中的两位移动到了右边，并在左边添加了两个 0。
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

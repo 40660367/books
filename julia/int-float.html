@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia整数和浮点数 - FreeAIHub</title>
+    <meta name="keywords" content="整数和浮点数,整数,溢出,浮点数类型的零,精度,任意精度的算术,代数系数,0和1">
+    <meta name="description" content="整数和浮点数是算术和计算的基础。它们都是数字文本。例如  是整数文本，  是浮点数文本。Julia 提供了丰富的基础数值类型，全部的算数运算符和位运算符，以及标准数学函数。这些数据和操作直接对应于现代计算机支持的操作。因此, Julia 能充分利用硬件的计算资源。另外, Julia 还从软件层面支持 ，可以用于表示硬件不能原生支持的数值，当然，这牺牲了部分运算效率。Julia 提供的基础数值类型有">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a class="current"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/variable.html class='prev_article'> Julia变量 </a>       |       下一篇：<a href=/julia/math.html class='next_article'> Julia数学运算和基本函数 </a>  >
+              
+            <h1>Julia整数和浮点数</h1>
+<h2>整数和浮点数</h2>
+<p>整数和浮点数是算术和计算的基础。它们都是数字文本。例如 <code>1</code> 是整数文本， <code>1.0</code> 是浮点数文本。</p>
+<p>Julia 提供了丰富的基础数值类型，全部的算数运算符和位运算符，以及标准数学函数。这些数据和操作直接对应于现代计算机支持的操作。因此, Julia 能充分利用硬件的计算资源。另外, Julia 还从软件层面支持<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/integers-and-floating-point-numbers/#man-arbitrary-precision-arithmetic">任意精度的算术</a> ，可以用于表示硬件不能原生支持的数值，当然，这牺牲了部分运算效率。</p>
+<p>Julia 提供的基础数值类型有：</p>
+<ul>
+<li><strong>整数类型</strong>：</li>
+</ul>
+<p><code>Char</code> 原生支持 Unicode 字符 ；详见字符串
+浮点数类型：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">精度</th>
+<th align="left">位数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Float16</code></td>
+<td align="left">半精度</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left"><code>Float32</code></td>
+<td align="left">单精度</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="left"><code>Float64</code></td>
+<td align="left">双精度</td>
+<td align="left">64</td>
+</tr>
+</tbody>
+</table>
+<p>另外, 对复数和分数支持建立在这些基础数据类型之上。所有的基础数据类型通过灵活用户可扩展的类型提升系统不需显式类型转换，就可以互相运算。</p>
+<h2>整数</h2>
+<p>使用标准方式来表示文本化的整数：</p>
+<pre><code class="Julia">1234
+</code></pre>
+
+<p>整数文本的默认类型，取决于目标系统是 32 位架构还是 64 位架构：</p>
+<pre><code class="julia"># 32-bit system:
+typeof(1)
+</code></pre>
+
+<p>另外，Julia 定义了 <code>Int</code> 和 <code>Uint</code> 类型，它们分别是系统原生的有符号和无符号整数类型的别名：</p>
+<pre><code class="julia">println(Int)
+println(Uint)
+</code></pre>
+
+<p>对于不能用 32 位而只能用 64 位来表示的大整数文本，不管系统类型是什么，始终被认为是 64 位整数：</p>
+<pre><code class="julia"># 32-bit or 64-bit system:
+typeof(3000000000)
+</code></pre>
+
+<p>无符号整数的输入和输出使用前缀 <code>0x</code> 和十六进制数字 <code>0-9a-f</code> （也可以使用 <code>A-F</code> ）。无符号数的位数大小，由十六进制数的位数决定：</p>
+<pre><code class="julia">println(typeof(0x1))
+println(typeof(0x123))
+println(typeof(0x1234567))
+println(typeof(0x123456789abcdef))
+</code></pre>
+
+<p>二进制和八进制文本：</p>
+<pre><code class="julia">println(typeof(0b10))
+
+println(typeof(0o10))
+</code></pre>
+
+<p>基础数值类型的最小值和最大值，可由 <code>typemin</code> 和 <code>typemax</code> 函数查询：</p>
+<pre><code class="julia">(typemin(Int32), typemax(Int32))
+
+for T = {Int8,Int16,Int32,Int64,Int128,Uint8,Uint16,Uint32,Uint64,Uint128}
+         println(&quot;$(lpad(T,7)): [$(typemin(T)),$(typemax(T))]&quot;)
+</code></pre>
+
+<p><code>typemin</code> 和 <code>typemax</code> 的返回值，与所给的参数类型是同一类的。（上述例子用到了一些将要介绍到的特性，包括 for 循环，字符串 ，及内插 ）</p>
+<h2>溢出</h2>
+<p>在 Julia 中，如果计算结果超出数据类型所能代表的最大值，将会发生溢出：</p>
+<pre><code class="julia">x = typemax(Int64)
+
+x + 1
+
+x + 1 == typemin(Int64)
+</code></pre>
+
+<p>可见, Julia 中的算数运算其实是一种同余算术 。它反映了现代计算机底层整数算术运算特性。如果有可能发生溢出，一定要显式的检查是否溢出；或者使用 <code>BigInt</code> 类型（详见[任意精度的算术) 。</p>
+<p>为了减小溢出所带来的影响，整数加减法、乘法、指数运算都会把原先范围较小的整数类型提升到 <code>Int</code> 或 <code>Uint</code> 类型。（除法、求余、位运算则不提升类型）。</p>
+<p><strong>除法错误</strong></p>
+<p>整数除法（<code>div</code> 功能）有两个额外的样例：被 0 除，和被最低的负数（<code>typemin</code>）-1 除。两个例子都抛出了一个 <code>DivideError</code>。余数和模运算（<code>rem</code> 和 <code>mod</code>）当它们的第二个参数为 0 时，抛出了一个 <code>DivideError</code>。</p>
+<p><strong>浮点数</strong></p>
+<p>使用标准格式来表示文本化的浮点数：</p>
+<pre><code class="julia">1.0
+
+1.
+
+0.5
+
+.5
+
+-1.23
+
+1e10
+
+2.5e-4
+</code></pre>
+
+<p>上述结果均为 <code>Float64</code> 值。文本化的 <code>Float32</code> 值也可以直接输入，这时使用 <code>f</code> 来替代 <code>e</code> ：</p>
+<pre><code class="Julia">typeof(0.5f0)
+typeof(2.5f-4)
+</code></pre>
+
+<p>浮点数也可以很容易地转换为 <code>Float32</code> ：</p>
+<pre><code class="julia">float32(-1.5)
+</code></pre>
+
+<pre><code class="julia">typeof(ans)
+</code></pre>
+
+<p>十六进制浮点数的类型，只能为 <code>Float64</code> ：</p>
+<pre><code class="julia">0x1p0 #1.0
+0x1.8p3 #12.0
+0x.4p-1 #0.125
+</code></pre>
+
+<pre><code class="julia">sizeof(float(4.))
+2*float(4.)
+</code></pre>
+
+<h2>浮点数类型的零</h2>
+<p>浮点数类型中存在两个零 ，正数的零和负数的零。它们相等</p>
+<pre><code class="julia">0.0 == -0.0
+</code></pre>
+
+<h3>特殊的浮点数</h3>
+<p>有三个特殊的标准浮点数：</p>
+<table>
+<thead>
+<tr>
+<th>特殊值</th>
+<th>名称</th>
+<th>描述</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Float16</td>
+<td>Float32</td>
+<td>Float64</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Inf16</td>
+<td>Inft32</td>
+<td>Inf</td>
+<td>正无穷</td>
+<td>比所有的有限的浮点数都大</td>
+</tr>
+<tr>
+<td>-Inf16</td>
+<td>-Inft32</td>
+<td>-Inf</td>
+<td>负无穷</td>
+<td>比所有的有限的浮点数都小</td>
+</tr>
+<tr>
+<td>NaN16</td>
+<td>NaN32</td>
+<td>NaN</td>
+<td>不存在</td>
+<td>不能和任意浮点数比较大小（包括它自己）</td>
+</tr>
+</tbody>
+</table>
+<p>详见[<em>数值比较</em>] 。按照 <a href="http://zh.wikipedia.org/zh-cn/IEEE_754">IEEE 754 标准</a> ，这几个值可如下获得：</p>
+<pre><code class="julia">println(1/Inf)
+
+println(1/0)
+
+println(-5/0)
+
+println(0.000001/0)
+
+println(0/0)
+
+println(500 + Inf)
+
+println(500 - Inf)
+
+println(Inf + Inf)
+
+println(Inf - Inf)
+
+println(Inf * Inf)
+
+println(Inf / Inf)
+
+println(0 * Inf)
+</code></pre>
+
+<p><code>typemin</code> 和 <code>typemax</code> 函数也适用于浮点数类型：</p>
+<pre><code class="julia">(typemin(Float16),typemax(Float16))
+</code></pre>
+
+<pre><code class="julia">(typemin(Float32),typemax(Float32))
+</code></pre>
+
+<pre><code class="julia">(typemin(Float64),typemax(Float64))
+</code></pre>
+
+<h2>精度</h2>
+<p>大多数的实数并不能用浮点数精确表示，因此有必要知道两个相邻浮点数间的间距，也即<a href="http://en.wikipedia.org/wiki/Machine_epsilon">计算机的精度</a>。</p>
+<p>Julia 提供了 <code>eps</code> 函数，可以用来检查 <code>1.0</code> 和下一个可表示的浮点数之间的间距：</p>
+<pre><code class="julia">eps(Float32)
+
+eps(Float64)
+
+eps() # same as eps(Float64)
+</code></pre>
+
+<p><code>eps</code> 函数也可以取浮点数作为参数，给出这个值和下一个可表示的浮点数的绝对差，即，<code>eps(x)</code> 的结果与 <code>x</code> 同类型，且满足 <code>x + eps(x)</code> 是下一个比 <code>x</code> 稍大的、可表示的浮点数：</p>
+<pre><code class="julia">eps(1.0)
+
+eps(1000.)
+
+eps(1e-27)
+
+eps(0.0)
+</code></pre>
+
+<p>相邻的两个浮点数之间的距离并不是固定的，数值越小，间距越小；数值越大, 间距越大。换句话说，浮点数在 <code>0</code> 附近最稠密，随着数值越来越大，数值越来越稀疏，数值间的距离呈指数增长。根据定义， <code>eps(1.0)</code> 与 <code>eps(Float64)</code> 相同，因为 <code>1.0</code> 是 <code>64</code> 位浮点数。</p>
+<p>函数 <code>nextfloat</code> 和 <code>prevfloat</code> 可以用来获取下一个或上一个浮点数：</p>
+<pre><code class="julia">x = 1.25f0
+
+nextfloat(x)
+
+prevfloat(x)
+</code></pre>
+
+<p>此例显示了邻接的浮点数和它们的二进制整数的表示。</p>
+<h3>舍入模型</h3>
+<p>如果一个数没有精确的浮点数表示，那就需要舍入了。可以根据 <a href="http://en.wikipedia.org/wiki/IEEE_754-2008">IEEE 754</a> 标准 来更改舍入的模型：</p>
+<pre><code class="julia">1.1 + 0.1
+
+with_rounding(Float64,RoundDown) do
+1.1 + 0.1
+end
+</code></pre>
+
+<p>默认舍入模型为 <code>RoundNearest</code> ，它舍入到最近的可表示的值，这个被舍入的值使用尽量少的有效数字。</p>
+<h3>背景和参考资料</h3>
+<p>浮点数的算术运算同人们的预期存在着许多差异，特别是对不了解底层实现的人。许多科学计算的书籍都会详细的解释这些差异。下面是一些参考资料：</p>
+<ul>
+<li>关于浮点数算数运算最权威的指南是 <a href="http://standards.ieee.org/findstds/standard/754-2008.html">IEEE 754-2008</a> 标准 ；然而，该指南没有免费的网络版</li>
+<li>一个简短但是清晰地解释了浮点数是怎么表示的, 请参考 John D. Cook 的<a href="http://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/">文章</a> 。它还<a href="http://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstr/">简述</a>了由于浮点数的表示方法不同于理想的实数会带来怎样的问题</li>
+<li>推荐 Bruce Dawson 的<a href="http://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/">关于浮点数的博客</a></li>
+<li>David Goldberg 的<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&amp;rep=rep1&amp;type=pdf">每个计算机科学家都需要了解的浮点数算术计算</a>，是一篇非常精彩的文章， 深入讨论了浮点数和浮点数的精度问题</li>
+<li>更深入的文档, 请参考“浮点数之父”<a href="http://en.wikipedia.org/wiki/William_Kahan">William Kahan</a> 的 collected writings ，其中详细记录了浮点数的历史、理论依据、问题，还有其它很多的数值计算方面的内容。更有兴趣的可以读 <a href="http://www.cs.berkeley.edu/~wkahan/ieee754status/754story.html">采访浮点数之父</a></li>
+</ul>
+<h2>任意精度的算术</h2>
+<p>为保证整数和浮点数计算的精度，Julia 打包了 GNU Multiple Precision Arithmetic Library, GMP(<a href="https://gmplib.org/">https://gmplib.org/</a>) 和 <a href="https://www.mpfr.org/">GNU MPFR Library</a>。Julia 相应提供了 <code>BigInt</code> 和 <code>BigFloat</code> 类型。</p>
+<p>可以通过基础数值类型或 <code>String</code> 类型来构造：</p>
+<pre><code class="julia">BigInt(typemax(Int64)) + 1
+
+BigInt(&quot;123456789012345678901234567890&quot;) + 1
+
+BigFloat(&quot;1.23456789012345678901&quot;)
+
+BigFloat(2.0^66) / 3
+
+factorial(BigInt(40))
+</code></pre>
+
+<p>然而，基础数据类型和 BigInt/BigFloat 不能自动进行类型转换，需要明确指定：</p>
+<pre><code class="julia">x = typemin(Int64)
+
+x = x - 1
+
+typeof(x)
+
+y = BigInt(typemin(Int64))
+
+y = y - 1
+
+typeof(y)
+</code></pre>
+
+<p><em>BigFloat</em> 运算的默认精度（有效数字的位数）和舍入模型，是可以改的。然后，计算就都按照更改之后的设置来运行了：</p>
+<pre><code class="julia">with_rounding(BigFloat,RoundUp) do
+BigFloat(1) + BigFloat(&quot;0.1&quot;)
+end
+</code></pre>
+
+<pre><code class="julia">with_rounding(BigFloat,RoundDown) do
+BigFloat(1) + BigFloat(&quot;0.1&quot;)
+end
+</code></pre>
+
+<pre><code class="julia">with_bigfloat_precision(40) do
+BigFloat(1) + BigFloat(&quot;0.1&quot;)
+end
+</code></pre>
+
+<h2>代数系数</h2>
+<p>Julia 允许在变量前紧跟着数值文本，来表示乘法。这有助于写多项式表达式：</p>
+<pre><code class="julia">x = 3
+
+2x^2 - 3x + 1
+
+1.5x^2 - .5x + 1
+</code></pre>
+
+<p>指数函数也更好看：</p>
+<pre><code class="julia">2^2x
+64
+</code></pre>
+
+<p>数值文本系数同单目运算符一样。因此 $2^3$ 被解析为 <code>2^(3x)</code> ， $2x^3$ 被解析为 <code>2*(x^3)</code> 。</p>
+<p>数值文本也可以作为括号表达式的因子：</p>
+<p>$$
+2(x-1)^2-3(x-1)+1
+$$</p>
+<pre><code class="julia">2(x-1)^2 - 3(x-1) + 1
+3
+</code></pre>
+
+<p>括号表达式可作为变量的因子：</p>
+<pre><code class="julia">(x-1)x
+</code></pre>
+
+<p>不要接着写两个变量括号表达式，也不要把变量放在括号表达式之前。它们不能被用来指代乘法运算：</p>
+<pre><code class="julia">(x-1)(x+1)
+
+x(x+1)
+</code></pre>
+
+<p>这两个表达式都被解析为函数调用：任何非数值文本的表达式，如果后面跟着括号，代表调用函数来处理括号内的数值（详见[函数]）。因此，由于左面的值不是函数，这两个例子都出错了。</p>
+<p>需要注意，代数因子和变量或括号表达式之间不能有空格。</p>
+<h3>语法冲突</h3>
+<p>文本因子与两个数值表达式语法冲突: 十六进制整数文本和浮点数文本的科学计数法：</p>
+<ul>
+<li>十六进制整数文本表达式 <code>0xff</code> 可以被解析为数值文本 <code>0</code> 乘以变量 <code>xff</code></li>
+<li>浮点数文本表达式 <code>1e10</code> 可以被解析为数值文本 <code>1</code> 乘以变量 <code>e10</code> 。<code>E</code> 格式也同样。</li>
+</ul>
+<p>这两种情况下，我们都把表达式解析为数值文本：</p>
+<ul>
+<li>以 <code>0x</code> 开头的表达式，都被解析为十六进制文本</li>
+<li>以数字文本开头，后面跟着 <code>e</code> 或 <code>E</code> ，都被解析为浮点数文本</li>
+</ul>
+<h2>0和1</h2>
+<p>Julia 提供了一些函数, 用以得到特定数据类型的零和一文本。</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>zero(x)</code></td>
+<td align="left">类型 <code>x</code> 或变量 <code>x</code> 的类型下的文本零</td>
+</tr>
+<tr>
+<td align="left"><code>one(x</code>)<code>|类型</code>x<code>或变量</code>x` 的类型下的文本一</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>这俩函数在[数值比较]中可用来避免额外类型转换</p>
+<pre><code class="julia">zero(Float32)
+
+zero(1.0)
+
+one(Int32)
+
+one(BigFloat)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

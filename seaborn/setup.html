@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Seaborn 环境安装及配置 - FreeAIHub</title>
+    <meta name="keywords" content="本课程在线环境的安装,在您本地安装导入库,导入数据集,将数据作为Pandas DataFrame导入,使用P">
+    <meta name="description" content="本课程无需您做任何安装操作，在浏览器中即可开始本课程的学习。让我们从导入Pandas开始，这是一个用于管理关系（表格式）数据集的好库。Seaborn在处理DataFrames时非常方便，DataFrames是用于数据分析的最广泛使用的数据结构。以下命令将帮助您导入Pandas现在，让我们导入Matplotlib库，它可以帮助我们自定义绘图。我们将使用以下命令导入Seaborn库我们已经导入了所需的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/seaborn/index.html">如何学习本课程</a></li>
+<li><a href="/seaborn/intro.html"> sklearn简介 </a></li>
+<li><a class="current"> 安装Seaborn库 </a></li>
+<li><a href="/seaborn/visualization.html"> Seaborn数据可视化 </a></li>
+<li><a href="/seaborn/palette.html"> Seaborn调色板 </a></li>
+<li><a href="/seaborn/multipanel-categorical.html"> Seaborn多面板分类图 </a></li>
+<li><a href="/seaborn/histogram.html"> Seaborn直方图 </a></li>
+<li><a href="/seaborn/pairwise-relationship.html"> Seaborn可视化成对关系 </a></li>
+<li><a href="/seaborn/kde.html"> Seaborn内核密度估计 </a></li>
+<li><a href="/seaborn/pair-grid.html"> Seaborn配对网格 </a></li>
+<li><a href="/seaborn/categorical.html"> Seaborn绘制分类数据 </a></li>
+<li><a href="/seaborn/observations-distribution.html"> Seaborn绘制观测值的分布 </a></li>
+<li><a href="/seaborn/statistical-estimation.html"> Seaborn统计估计 </a></li>
+<li><a href="/seaborn/wideform.html"> Seaborn绘制宽格式数据 </a></li>
+<li><a href="/seaborn/linear-relationships.html"> Seaborn绘制线性关系 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/seaborn/intro.html class='prev_article'> sklearn简介 </a>       |       下一篇：<a href=/seaborn/visualization.html class='next_article'> Seaborn数据可视化 </a>  >
+              
+            <h1>Seaborn 环境安装及配置</h1>
+<h2>本课程在线环境的安装</h2>
+<p>本课程无需您做任何安装操作，在浏览器中即可开始本课程的学习。</p>
+<h3>导入库</h3>
+<p>让我们从导入Pandas开始，这是一个用于管理关系（表格式）数据集的好库。Seaborn在处理DataFrames时非常方便，DataFrames是用于数据分析的最广泛使用的数据结构。</p>
+<p>以下命令将帮助您导入Pandas</p>
+<pre><code class="python"># Pandas for managing datasets
+import pandas as pd
+</code></pre>
+
+<p>现在，让我们导入Matplotlib库，它可以帮助我们自定义绘图。</p>
+<pre><code class="python"># Matplotlib for additional customization
+from matplotlib import pyplot as plt
+</code></pre>
+
+<p>我们将使用以下命令导入Seaborn库</p>
+<pre><code class="python"># Seaborn for plotting and styling
+import seaborn as sb
+</code></pre>
+
+<h3>导入数据集</h3>
+<p>我们已经导入了所需的库。在本节中，我们将了解如何导入所需的数据集。</p>
+<p>Seaborn随附了库中的一些重要数据集。安装Seaborn后，数据集将自动下载。</p>
+<p>您可以使用任何这些数据集进行学习。</p>
+<p>借助以下功能，您可以加载所需的数据集</p>
+<pre><code>load_dataset()
+</code></pre>
+
+<h3>将数据作为Pandas DataFrame导入</h3>
+<p>在本节中，我们将导入数据集。默认情况下，此数据集作为Pandas DataFrame加载。如果Pandas DataFrame中有任何功能，则可以在此DataFrame上使用。</p>
+<p>要查看Seaborn库中的所有可用数据集，可以将以下命令与<strong>get_dataset_names（）</strong>函数一起使用，如下所示-</p>
+<pre><code class="python">import seaborn as sb
+print(sb.get_dataset_names())
+</code></pre>
+
+<p>以下代码行将帮助您导入数据集（注意，该数据集并非内置于seaborn，而是通过https://github.com/mwaskom/seaborn-data下载，有时会因网络问题出现加载时间过长而失败的情况），本课程中均使用本地文件保证加载速度。</p>
+<pre><code class="python"># Seaborn for plotting and styling
+import seaborn as sb
+df = sb.load_dataset('/share/datasets/seaborn-data/tips')
+print(df.head())
+</code></pre>
+
+<p>DataFrames以矩形网格的形式存储数据，通过该网格可以轻松查看数据。矩形网格的每一行都包含一个实例的值，网格的每一列都是一个向量，用于保存特定变量的数据。这意味着DataFrame的行不需要包含相同数据类型的值，它们可以是数字，字符，逻辑等。</p>
+<p>Python的DataFrames随Pandas库一起提供，它们被定义为带有二维标签的数据结构具有可能不同类型的列。</p>
+<h2>在您本地安装</h2>
+<h3>使用Pip安装程序</h3>
+<p>要安装最新版本的Seaborn，可以使用pip-</p>
+<pre><code>pip install seaborn
+</code></pre>
+
+<h3>对于Windows，Linux和Mac使用Anaconda</h3>
+<p>Anaconda（来自https://www.anaconda.com/是针对SciPy堆栈的免费Python发行版，也适用于Linux和Mac。</p>
+<p>也可以使用conda安装发行的版本-</p>
+<pre><code>conda install seaborn
+</code></pre>
+
+<h3>直接从github安装Seaborn的开发版本</h3>
+<p><a href="https://github.com/mwaskom/seaborn">https://github.com/mwaskom/seaborn“</a></p>
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

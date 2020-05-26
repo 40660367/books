@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现数据结构  矩阵 - FreeAIHub</title>
+    <meta name="keywords" content="矩阵示例,访问矩阵中的值,添加一行,添加一列,从矩阵中删除一行,从Matrix中删除一列,更新矩阵中的一行">
+    <meta name="description" content="矩阵是二维数组的特殊情况，它的每个数据元素具有严格相同的大小。 所以每个矩阵也是一个二维数组，但反之亦然。 矩阵是许多数学和科学计算中非常重要的数据结构。 正如在前一章中已经讨论过的二维数组结构，我们将在本章中专注于矩阵特有的数据结构操作。也使用包进行矩阵数据操作。考虑在早上，中午，晚上和深夜测量记录1周温度的情况。 它可以使用数组在中可用的重塑方法以矩阵的形式呈现。矩阵中的数据元素可以通过使用索">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a class="current"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-linked-list.html class='prev_article'> Python实现数据结构 链表(linked list) </a>       |       下一篇：<a href=/ds-in-python/data-structure-node.html class='next_article'> Python实现数据结构 节点(node) </a>  >
+              
+            <h1>Python实现数据结构  矩阵</h1>
+<p>矩阵是二维数组的特殊情况，它的每个数据元素具有严格相同的大小。 所以每个矩阵也是一个二维数组，但反之亦然。 矩阵是许多数学和科学计算中非常重要的数据结构。 正如在前一章中已经讨论过的二维数组结构，我们将在本章中专注于矩阵特有的数据结构操作。</p>
+<p>也使用<a href="/numpy">NumPy</a>包进行矩阵数据操作。</p>
+<h2>矩阵示例</h2>
+<p>考虑在早上，中午，晚上和深夜测量记录1周温度的情况。 它可以使用数组在<code>numpy</code>中可用的重塑方法以<code>7 x 5</code>矩阵的形式呈现。</p>
+<pre><code class="python">from numpy import * 
+a = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m = reshape(a,(7,5))
+print(m)
+</code></pre>
+
+<h2>访问矩阵中的值</h2>
+<p>矩阵中的数据元素可以通过使用索引来访问。 访问方法与在二维数组中访问数据的方式相同。</p>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+# Print data for Wednesday
+print(m[2])
+
+# Print data for friday evening
+print(m[4][3])
+</code></pre>
+
+<h2>添加一行</h2>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m_r = append(m,[['Avg',12,15,13,11]],0)
+
+print(m_r)
+</code></pre>
+
+<h2>添加一列</h2>
+<p>可以使用<code>insert()</code>方法将一列数据添加到矩阵。 这里指定想要添加列的索引以及包含添加的列的新值的数组。 在下面的例子中，在开头的第五个位置添加一个新的列。</p>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m_c = insert(m,[5],[[1],[2],[3],[4],[5],[6],[7]],1)
+
+print(m_c)
+</code></pre>
+
+<h2>从矩阵中删除一行</h2>
+<p>可以使用<code>delete()</code>方法从矩阵中删除一行。 必须指定行的索引以及行的值为<code>0</code>，列的值为<code>1</code>的轴值。</p>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m = delete(m,[2],0)
+
+print(m)
+</code></pre>
+
+<h2>从Matrix中删除一列</h2>
+<p>可以使用<code>delete()</code>方法从矩阵中删除一列。 必须指定列的索引以及一行为<code>0</code>，一列为<code>1</code>的轴值。</p>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m = delete(m,s_[2],1)
+
+print(m)
+</code></pre>
+
+<h2>更新矩阵中的一行</h2>
+<p>要更新矩阵行中的值，只需在行的索引处重新分配值。 在下面的例子中，星期几数据的所有值都标记为<code>0</code>。 该行的索引是<code>3</code>。</p>
+<pre><code class="python">from numpy import * 
+m = array([['Mon',18,20,22,17],['Tue',11,18,21,18],
+           ['Wed',15,21,20,19],['Thu',11,20,22,21],
+           ['Fri',18,17,23,22],['Sat',12,22,20,18],
+           ['Sun',13,15,19,16]])
+
+m[3] = ['Thu',0,0,0,0]
+
+print(m)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 交互 - FreeAIHub</title>
+    <meta name="keywords" content="交互,不同的提示模式,键绑定,Tab 补全">
+    <meta name="description" content="Julia 有一个全功能的交互式命令行 REPL （read-eval-print 循环）内置在可执行的  内。除了允许快速并且简易的评定 Julia 语句，他还有一个可搜索历史的功能，tab 补齐功能，以及更多有用的快捷键，和专门的帮助，并且还有 shell 模式。REPL 能够通过简单的无参数调用或双击执行来进行启动:如果要退出互动会话，敲击  即 control 键加上 d 键 - 或者是编">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a class="current"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/start.html class='prev_article'> Julia开始 </a>       |       下一篇：<a href=/julia/variable.html class='next_article'> Julia变量 </a>  >
+              
+            <h1>Julia 交互</h1>
+<h2>交互</h2>
+<p>Julia 有一个全功能的交互式命令行 REPL （read-eval-print 循环）内置在可执行的 <code>julia</code> 内。除了允许快速并且简易的评定 Julia 语句，他还有一个可搜索历史的功能，tab 补齐功能，以及更多有用的快捷键，和专门的帮助，并且还有 shell 模式。REPL 能够通过简单的无参数调用或双击执行来进行启动:</p>
+<pre><code>julia
+               _
+   _       _ _(_)_     |  A fresh approach to technical computing
+  (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
+   _ _   _| |_  __ _   |  Type &quot;help()&quot; to list help topics
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 0.3.0-prerelease+2834 (2014-04-30 03:13 UTC)
+ _/ |\__'_|_|_|\__'_|  |  Commit 64f437b (0 days old master)
+|__/                   |  x86_64-apple-darwin13.1.0
+
+julia&gt;
+</code></pre>
+
+<p>如果要退出互动会话，敲击 <code>^D</code> 即 control 键加上 d 键 - 或者是编辑 <code>quit()</code>，然后在敲击回车键。REPL 会给你 <code>julia&gt;</code> 提示。</p>
+<h2>不同的提示模式</h2>
+<h3>Julia 模式</h3>
+<p>REPL 有四种主要的操作模式。第一种并且最常见的一种是 Julian 提示。它是默认的操作模式；每一行的开始都会是 <code>julia&gt;</code> 。在这里，你可以输入 Julia 表达式。在一个完整的表达式已经输入好之后敲打回车将会评估该条目并且显示最后一个表达式的结果。</p>
+<pre><code class="julia">string(1 + 2)
+</code></pre>
+
+<p>这里有许多独特的特点可以来进行交互工作。除了显示结果外，REPL 同样将结果绑定到变量 <code>ans</code>。 在该行尾部的分号可以用作一个标志来抑制显示结果。</p>
+<pre><code class="julia">string(3 * 4);
+</code></pre>
+
+<pre><code class="julia">ans
+</code></pre>
+
+<h3>帮助模式</h3>
+<p>当指针在一行的开始位置时，敲击 <code>?</code> 提示将会变为帮助模式。Julia 将会尝试打印在帮助模式中的帮助或是文档：</p>
+<pre><code>    ? # upon typing ?, the prompt changes (in place) to: help&gt;
+
+    help&gt; string
+    Base.string(xs...)
+
+       Create a string from any values using the &quot;print&quot; function.
+</code></pre>
+
+<p>除了方法名，完成方法调用可以看到哪一个方法被指定的参数调用了。宏,类型和变量也可以查询。</p>
+<pre><code>help&gt; string(1)
+
+help&gt; @printf
+
+help&gt; String
+
+想要退出帮助模式可以在一行的开始按下退格键。
+</code></pre>
+
+<h3>Shell 模式</h3>
+<p>帮助模式适用于快速访问文档，另一个常见任务是使用系统 Shell 来执行系统命令。就像当光标在一行的开始位置时 <code>?</code> 来进入帮助模式，使用分号 <code>(;)</code> 可以进入 shell 模式。并且想要退出模式时可以在一行的开始按下退格键。</p>
+<pre><code>; # upon typing ;, the prompt changes (in place) to: shell&gt;
+
+shell&gt; echo hello
+hello
+</code></pre>
+
+<h3>查找模式</h3>
+<p>在所有以上的方法中，所有执行行会被保存到历史文件当中，并且能够被查找。为了初始化一个对先前历史的增量搜索，敲击 <code>^R</code> - control 键加上键盘上的 <code>r</code> 键。提示会被更改为 <code>(reverse-i-search)':</code>，并且随着你敲击，查询请求将会出现在引用中。达到匹配要求的最近一次的结果将会被动态更新在右面的控制台中。想要找到更老的结果就使用相同查询，然后再敲击一次 <code>^R</code>。</p>
+<p><code>^R</code> 是反向查询，而 <code>^S</code> 是正向查询，提示为 <code>(i-search)':</code>。这两个可以相互结合使用来相对的移动到前一个或是后一个匹配结果。</p>
+<h2>键绑定</h2>
+<p>Julia REPL 很好的使用了键绑定功能。上面已经介绍了很多种控制键绑定（<code>^D</code> 用来退出, <code>^R</code> 和 <code>^S</code> 用来查询），但是这里还有更多的键绑定。除了控制键，这里还有很多 meta - 键绑定。这些键绑定因平台的不同而不同，但是大部分终端默认使用 alt - 或 option - 选一个键来发送 meta - 键（或是通过配置）。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Program control</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">^D</td>
+<td align="left">退出（当缓冲区为空）</td>
+</tr>
+<tr>
+<td align="left">^C</td>
+<td align="left">中断或是取消</td>
+</tr>
+<tr>
+<td align="left">Return/Enter, ^J</td>
+<td align="left">新的一行并且如果上一行已经完成则执行上一行</td>
+</tr>
+<tr>
+<td align="left">meta-Return/Enter</td>
+<td align="left">新的一行并且不执行</td>
+</tr>
+<tr>
+<td align="left">? or ;</td>
+<td align="left">进入帮助或是 Shell 模式（在一行的起始位置）</td>
+</tr>
+<tr>
+<td align="left">^R, ^S</td>
+<td align="left">增量历史搜索</td>
+</tr>
+<tr>
+<td align="left"><strong>Cursor movement</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Right arrow, ^F</td>
+<td align="left">向右移动一个字符</td>
+</tr>
+<tr>
+<td align="left">Left arrow, ^B</td>
+<td align="left">向左移动一个字符</td>
+</tr>
+<tr>
+<td align="left">Home, ^A</td>
+<td align="left">移动到该行的起始</td>
+</tr>
+<tr>
+<td align="left">End, ^E</td>
+<td align="left">移动到该行的末尾</td>
+</tr>
+<tr>
+<td align="left">^P</td>
+<td align="left">改变先前或下一个历史条目</td>
+</tr>
+<tr>
+<td align="left">^N</td>
+<td align="left">改变到下一个历史条目</td>
+</tr>
+<tr>
+<td align="left">Up arrow</td>
+<td align="left">移动到上面一行（或是先前的历史条目）</td>
+</tr>
+<tr>
+<td align="left">Down arrow</td>
+<td align="left">移动到下面一行（或是之后的历史条目）</td>
+</tr>
+<tr>
+<td align="left">Page-up</td>
+<td align="left">切换到上一条光标前的文本匹配的历史条目</td>
+</tr>
+<tr>
+<td align="left">Page-down</td>
+<td align="left">切换到下一条光标前的文本匹配的历史条目</td>
+</tr>
+<tr>
+<td align="left">meta-F</td>
+<td align="left">向右移动一个词</td>
+</tr>
+<tr>
+<td align="left">meta-B</td>
+<td align="left">向左移动一个词</td>
+</tr>
+<tr>
+<td align="left"><strong>Editing</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Backspace, ^H</td>
+<td align="left">删除前一个字符</td>
+</tr>
+<tr>
+<td align="left">Delete, ^D</td>
+<td align="left">向后删除一个字符（当缓冲区有文本时）</td>
+</tr>
+<tr>
+<td align="left">meta-Backspace</td>
+<td align="left">删除前一个词</td>
+</tr>
+<tr>
+<td align="left">meta-D</td>
+<td align="left">向后删除一个词</td>
+</tr>
+<tr>
+<td align="left">^W</td>
+<td align="left">删除先前的直到最近的空白的所有文本</td>
+</tr>
+<tr>
+<td align="left">^K</td>
+<td align="left">"杀死"到行的末尾，将文本放至缓冲区</td>
+</tr>
+<tr>
+<td align="left">^Y</td>
+<td align="left">从 kill 缓冲区插入文本</td>
+</tr>
+<tr>
+<td align="left">^T</td>
+<td align="left">根据光标调换字符</td>
+</tr>
+<tr>
+<td align="left">Delete, ^D</td>
+<td align="left">向后删除一个字符（当缓冲区内有文本）</td>
+</tr>
+</tbody>
+</table>
+<h3>自定义快捷键</h3>
+<p>Julia REPL 的快捷键可以通过向 <code>REPL.setup_interface()</code> 传入字典类型的数据来实现自定义. 字典的关键字可以是字符, 也可以是字符串. 字符 <code>*</code> 代表默认默认操作. <code>^x</code> 代表快捷键 Control 键加 <code>x</code> 键. Meta 键加 <code>x</code> 键可以写作 <code>"\\Mx"</code>. 字典的数据必须是 <code>nothing</code> (代表忽略该操作), 或者参数为 <code>(PromptState, AbstractREPL, Char</code> 的函数. 例如, 为了实现绑定上下键到搜索历史记录, 可以把下面的代码加入到 <code>.juliarc.jl</code> :</p>
+<pre><code>import Base: LineEdit, REPL
+
+const mykeys = {
+# Up Arrow
+&quot;\e[A&quot; =&gt; (s,o...)-&gt;(LineEdit.edit_move_up(s) || LineEdit.history_prev(s, LineEdit.mode(s).hist)),
+# Down Arrow
+&quot;\e[B&quot; =&gt; (s,o...)-&gt;(LineEdit.edit_move_up(s) || LineEdit.history_next(s, LineEdit.mode(s).hist))
+}
+
+Base.active_repl.interface = REPL.setup_interface(Base.active_repl; extra_repl_keymap = mykeys)
+</code></pre>
+
+<p>可供使用的按键和操作请参阅 <code>base/LineEdit.jl</code>.</p>
+<h2>Tab 补全</h2>
+<p>在 Julia REPL (或者帮助模式下的 REPL), 可以输入函数或者类型名的前几个字符, 然后按 Tab 键来显示可能的选项::</p>
+<pre><code>stri
+</code></pre>
+
+<p>Tab 键也可以使 LaTeX 数学字符替换成 Unicode 并且显示可能的选项::</p>
+<pre><code> \pi[TAB]
+  π
+  π = 3.1415926535897...
+
+  e\_1[TAB] = [1,0]
+  e₁ = [1,0]
+  2-element Array{Int64,1}:
+   1
+   0
+
+  e\^1[TAB] = [1 0]
+  e¹ = [1 0]
+  1x2 Array{Int64,2}:
+   1  0
+
+  \sqrt[TAB]2     # √ is equivalent to the sqrt() function
+  √2
+  1.4142135623730951
+
+  \hbar[TAB](h) = h / 2\pi[TAB]
+  ħ(h) = h / 2π
+  ħ (generic function with 1 method)
+
+  \h[TAB]
+  \hat              \heartsuit         \hksearow          \hookleftarrow     \hslash
+  \hbar             \hermitconjmatrix  \hkswarow          \hookrightarrow    \hspace
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

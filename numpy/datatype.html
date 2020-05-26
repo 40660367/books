@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 数据类型 - FreeAIHub</title>
+    <meta name="keywords" content="数据类型对象 (dtype)">
+    <meta name="description" content="numpy 支持的数据类型比 Python 内置的类型要多很多，基本上可以和 C 语言的数据类型对应上，其中部分类型对应为 Python 内置的类型。下表列举了常用 NumPy 基本类型。numpy 的数值类型实际上是 dtype 对象的实例，并对应唯一的字符，包括 np.bool_，np.int32，np.float32，等等。数据类型对象是用来描述与数组对应的内存区域如何使用，这依赖如下几个方">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a class="current"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/setup.html class='prev_article'> NumPy安装</a>       |       下一篇：<a href=/numpy/ndarray.html class='next_article'> NumPyNDArray</a>  >
+              
+            <h1>NumPy 数据类型</h1>
+<p>numpy 支持的数据类型比 Python 内置的类型要多很多，基本上可以和 C 语言的数据类型对应上，其中部分类型对应为 Python 内置的类型。下表列举了常用 NumPy 基本类型。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bool_</td>
+<td align="left">布尔型数据类型（True 或者 False）</td>
+</tr>
+<tr>
+<td align="left">int_</td>
+<td align="left">默认的整数类型（类似于 C 语言中的 long，int32 或 int64）</td>
+</tr>
+<tr>
+<td align="left">intc</td>
+<td align="left">与 C 的 int 类型一样，一般是 int32 或 int 64</td>
+</tr>
+<tr>
+<td align="left">intp</td>
+<td align="left">用于索引的整数类型（类似于 C 的 ssize_t，一般情况下仍然是 int32 或 int64）</td>
+</tr>
+<tr>
+<td align="left">int8</td>
+<td align="left">字节（-128 to 127）</td>
+</tr>
+<tr>
+<td align="left">int16</td>
+<td align="left">整数（-32768 to 32767）</td>
+</tr>
+<tr>
+<td align="left">int32</td>
+<td align="left">整数（-2147483648 to 2147483647）</td>
+</tr>
+<tr>
+<td align="left">int64</td>
+<td align="left">整数（-9223372036854775808 to 9223372036854775807）</td>
+</tr>
+<tr>
+<td align="left">uint8</td>
+<td align="left">无符号整数（0 to 255）</td>
+</tr>
+<tr>
+<td align="left">uint16</td>
+<td align="left">无符号整数（0 to 65535）</td>
+</tr>
+<tr>
+<td align="left">uint32</td>
+<td align="left">无符号整数（0 to 4294967295）</td>
+</tr>
+<tr>
+<td align="left">uint64</td>
+<td align="left">无符号整数（0 to 18446744073709551615）</td>
+</tr>
+<tr>
+<td align="left">float_</td>
+<td align="left">float64 类型的简写</td>
+</tr>
+<tr>
+<td align="left">float16</td>
+<td align="left">半精度浮点数，包括：1 个符号位，5 个指数位，10 个尾数位</td>
+</tr>
+<tr>
+<td align="left">float32</td>
+<td align="left">单精度浮点数，包括：1 个符号位，8 个指数位，23 个尾数位</td>
+</tr>
+<tr>
+<td align="left">float64</td>
+<td align="left">双精度浮点数，包括：1 个符号位，11 个指数位，52 个尾数位</td>
+</tr>
+<tr>
+<td align="left">complex_</td>
+<td align="left">complex128 类型的简写，即 128 位复数</td>
+</tr>
+<tr>
+<td align="left">complex64</td>
+<td align="left">复数，表示双 32 位浮点数（实数部分和虚数部分）</td>
+</tr>
+<tr>
+<td align="left">complex128</td>
+<td align="left">复数，表示双 64 位浮点数（实数部分和虚数部分）</td>
+</tr>
+</tbody>
+</table>
+<p>numpy 的数值类型实际上是 dtype 对象的实例，并对应唯一的字符，包括 np.bool_，np.int32，np.float32，等等。</p>
+<hr />
+<h2>数据类型对象 (dtype)</h2>
+<p>数据类型对象是用来描述与数组对应的内存区域如何使用，这依赖如下几个方面：</p>
+<ul>
+<li>数据的类型（整数，浮点数或者 Python 对象）</li>
+<li>数据的大小（例如， 整数使用多少个字节存储）</li>
+<li>数据的字节顺序（小端法或大端法）</li>
+<li>在结构化类型的情况下，字段的名称、每个字段的数据类型和每个字段所取的内存块的部分</li>
+<li>如果数据类型是子数组，它的形状和数据类型</li>
+</ul>
+<p>字节顺序是通过对数据类型预先设定"&lt;"或"&gt;"来决定的。"&lt;"意味着小端法(最小值存储在最小的地址，即低位组放在最前面)。"&gt;"意味着大端法(最重要的字节存储在最小的地址，即高位组放在最前面)。</p>
+<p>dtype 对象是使用以下语法构造的：</p>
+<pre><code>numpy.dtype(object, align, copy)
+</code></pre>
+
+<ul>
+<li>object - 要转换为的数据类型对象</li>
+<li>align - 如果为 true，填充字段使其类似 C 的结构体。</li>
+<li>copy - 复制 dtype 对象 ，如果为 false，则是对内置数据类型对象的引用</li>
+</ul>
+<h5>练习</h5>
+<p>接下来我们可以通过实例来理解。</p>
+<h4>练习 1：使用标量类型</h4>
+<pre><code class="python">import numpy as np 
+
+dt = np.dtype(np.int32) 
+print(dt)
+</code></pre>
+
+<h4>练习 2:  四种数据类型</h4>
+<pre><code class="python">import numpy as np 
+# int8, int16, int32, int64 四种数据类型可以使用字符串 'i1', 'i2','i4','i8' 代替 
+dt = np.dtype('i4') 
+print(dt)
+</code></pre>
+
+<h4>练习 3:字节顺序标注</h4>
+<pre><code class="python">import numpy as np 
+dt = np.dtype('&lt;i4') 
+print(dt)
+</code></pre>
+
+<p>下面实例展示结构化数据类型的使用，类型字段和对应的实际类型将被创建。</p>
+<h4>练习 4:创建结构化数据类型</h4>
+<pre><code class="python">import numpy as np 
+dt = np.dtype([('age',np.int8)])  
+print(dt)
+</code></pre>
+
+<h4>练习 5:将数据类型应用于 ndarray 对象</h4>
+<pre><code class="python">import numpy as np 
+dt = np.dtype([('age',np.int8)])  
+a = np.array([(10,),(20,),(30,)], dtype = dt)  
+print(a)
+</code></pre>
+
+<h4>练习 6:类型字段名可以用于存取实际列</h4>
+<pre><code class="python">import numpy as np 
+dt = np.dtype([('age',np.int8)])  
+a = np.array([(10,),(20,),(30,)], dtype = dt)  
+print(a['age'])
+</code></pre>
+
+<h4>练习 7</h4>
+<p>下面的示例定义一个结构化数据类型 student，包含字符串字段 name，整数字段 age，及浮点字段 marks，并将这个 dtype 应用到 ndarray 对象。</p>
+<pre><code class="python">import numpy as np 
+student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')])
+print(student)
+</code></pre>
+
+<h4>练习 8</h4>
+<pre><code class="python">import numpy as np 
+student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')])  
+a = np.array([('abc', 21, 50),('xyz', 18, 75)], dtype = student)
+print(a)
+</code></pre>
+
+<p>每个内建类型都有一个唯一定义它的字符代码，如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">字符</th>
+<th align="left">对应类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">b</td>
+<td align="left">布尔型</td>
+</tr>
+<tr>
+<td align="left">i</td>
+<td align="left">(有符号) 整型</td>
+</tr>
+<tr>
+<td align="left">u</td>
+<td align="left">无符号整型 integer</td>
+</tr>
+<tr>
+<td align="left">f</td>
+<td align="left">浮点型</td>
+</tr>
+<tr>
+<td align="left">c</td>
+<td align="left">复数浮点型</td>
+</tr>
+<tr>
+<td align="left">m</td>
+<td align="left">timedelta（时间间隔）</td>
+</tr>
+<tr>
+<td align="left">M</td>
+<td align="left">datetime（日期时间）</td>
+</tr>
+<tr>
+<td align="left">O</td>
+<td align="left">(Python) 对象</td>
+</tr>
+<tr>
+<td align="left">S, a</td>
+<td align="left">(byte-)字符串</td>
+</tr>
+<tr>
+<td align="left">U</td>
+<td align="left">Unicode</td>
+</tr>
+<tr>
+<td align="left">V</td>
+<td align="left">原始数据 (void)</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

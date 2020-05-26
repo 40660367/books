@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 排序(sort) - FreeAIHub</title>
+    <meta name="keywords" content="按标签排序,排序顺序,按列排列,按值排序,排序算法">
+    <meta name="description" content="有两种排序方式，它们分别是 - 下面来看看一个输出的例子。在数据值中，标签和值未排序。下面来看看如何按标签来排序。使用方法，通过传递参数和排序顺序，可以对进行排序。 默认情况下，按照升序对行标签进行排序。通过将布尔值传递给升序参数，可以控制排序顺序。 来看看下面的例子来理解一下。通过传递参数值为或，可以对列标签进行排序。 默认情况下，，逐行排列。来看看下面的例子来理解这个概念。像索引排序一样，是按">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a class="current"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/iteration.html class='prev_article'> Pandas迭代</a>       |       下一篇：<a href=/pandas/string-operation.html class='next_article'> Pandas字符串和文本数据</a>  >
+              
+            <h1>Pandas 排序(sort)</h1>
+<p><em>Pandas</em>有两种排序方式，它们分别是 - </p>
+<ul>
+<li>按标签</li>
+<li>按实际值</li>
+</ul>
+<p>下面来看看一个输出的例子。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df=pd.DataFrame(np.random.randn(10,2),index=[1,4,6,2,3,5,9,8,0,7],\
+                         columns=['col2','col1'])
+print(unsorted_df)
+</code></pre>
+
+<p>在<code>unsorted_df</code>数据值中，标签和值未排序。下面来看看如何按标签来排序。</p>
+<h2>按标签排序</h2>
+<p>使用<code>sort_index()</code>方法，通过传递<code>axis</code>参数和排序顺序，可以对<code>DataFrame</code>进行排序。 默认情况下，按照升序对行标签进行排序。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame(np.random.randn(10,2),index=[1,4,6,2,3,5,9,8,0,7],columns = ['col2','col1'])
+
+sorted_df=unsorted_df.sort_index()
+print(sorted_df)
+</code></pre>
+
+<h2>排序顺序</h2>
+<p>通过将布尔值传递给升序参数，可以控制排序顺序。 来看看下面的例子来理解一下。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame(np.random.randn(10,2),index=[1,4,6,2,3,5,9,8,0,7],columns = ['col2','col1'])
+
+sorted_df = unsorted_df.sort_index(ascending=False)
+print(sorted_df)
+</code></pre>
+
+<h2>按列排列</h2>
+<p>通过传递<code>axis</code>参数值为<code>0</code>或<code>1</code>，可以对列标签进行排序。 默认情况下，<code>axis = 0</code>，逐行排列。来看看下面的例子来理解这个概念。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame(np.random.randn(10,2),index=[1,4,6,2,3,5,9,8,0,7],columns = ['col2','col1'])
+
+sorted_df=unsorted_df.sort_index(axis=1)
+
+print(sorted_df)
+</code></pre>
+
+<h2>按值排序</h2>
+<p>像索引排序一样，<code>sort_values()</code>是按值排序的方法。它接受一个<code>by</code>参数，它将使用要与其排序值的<code>DataFrame</code>的列名称。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame({'col1':[2,1,1,1],'col2':[1,3,2,4]})
+sorted_df = unsorted_df.sort_values(by='col1')
+
+print(sorted_df)
+</code></pre>
+
+<blockquote>
+<p>注意： 观察上面的输出结果，<code>col1</code>值被排序，相应的<code>col2</code>值和行索引将随<code>col1</code>一起改变。因此，它们看起来没有排序。</p>
+</blockquote>
+<p>通过<code>by</code>参数指定需要列值，参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame({'col1':[2,1,1,1],'col2':[1,3,2,4]})
+sorted_df = unsorted_df.sort_values(by=['col1','col2'])
+
+print(sorted_df)
+</code></pre>
+
+<h2>排序算法</h2>
+<p><code>sort_values()</code>提供了从<code>mergeesort</code>，<code>heapsort</code>和<code>quicksort</code>中选择算法的一个配置。<code>Mergesort</code>是唯一稳定的算法。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+unsorted_df = pd.DataFrame({'col1':[2,1,1,1],'col2':[1,3,2,4]})
+sorted_df = unsorted_df.sort_values(by='col1' ,kind='mergesort')
+
+print(sorted_df)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Shell 简介 - FreeAIHub</title>
+    <meta name="keywords" content="Shell 提示符,Shell 类型,Shell 脚本,示例脚本：,Shell 注释,扩展Shell脚本：">
+    <meta name="description" content="shell为您提供了对UNIX系统的接口。向你收集的输入，并根据输入执行程序。当一个程序执行完毕后，它会显示该程序的输出。shell是一个环境，我们可以运行我们的命令，程序和shell脚本。shell有不同的风格，就像有不同风格的操作系统。每个的shell的风格，有它自己的一套识别的命令和功能。提示符下这就是所谓的命令提示符下$，发出shell。虽然会显示提示，您可以键入一个命令。shell读取输">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/shell/index.html"> 如何学习本课程 </a></li>
+<li><a class="current"> Shell 简介 </a></li>
+<li><a href="/shell/setup.html"> Shell 安装环境 </a></li>
+<li><a href="/shell/variable.html"> Shell 变量 </a></li>
+<li><a href="/shell/variable-special.html"> Shell 特殊变量 </a></li>
+<li><a href="/shell/array.html"> Shell 数组 </a></li>
+<li><a href="/shell/operator.html"> Shell 运算符 </a></li>
+<li><a href="/shell/logic.html"> Shell 逻辑控制 </a></li>
+<li><a href="/shell/loop.html"> Shell 循环 </a></li>
+<li><a href="/shell/loopcontrol.html"> Shell 循环控制 </a></li>
+<li><a href="/shell/loop-while.html"> Shell 循环-while </a></li>
+<li><a href="/shell/loop-for.html"> Shell 循环-for </a></li>
+<li><a href="/shell/loop-until.html"> Shell 循环-until </a></li>
+<li><a href="/shell/loop-select.html"> Shell 循环-select </a></li>
+<li><a href="/shell/function.html"> Shell 函数 </a></li>
+<li><a href="/shell/quoting.html"> Shell 引用 </a></li>
+<li><a href="/shell/substitution.html"> Shell 替换 </a></li>
+<li><a href="/shell/io-redirection.html"> Shell 输入输出重定向 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/shell/index.html class='prev_article'> 如何学习本课程 </a>       |       下一篇：<a href=/shell/setup.html class='next_article'> Shell 安装环境 </a>  >
+              
+<h1>Shell 简介</h1>
+<p>shell为您提供了对UNIX系统的接口。向你收集的输入，并根据输入执行程序。当一个程序执行完毕后，它会显示该程序的输出。</p>
+<p>shell是一个环境，我们可以运行我们的命令，程序和shell脚本。shell有不同的风格，就像有不同风格的操作系统。每个的shell的风格，有它自己的一套识别的命令和功能。</p>
+<h2>Shell 提示符</h2>
+<p>提示符下这就是所谓的命令提示符下$，发出shell。虽然会显示提示，您可以键入一个命令。</p>
+<p>shell读取输入后按Enter键。它决定了想要的命令和执行输入的第一个字符。一个字是一个完整的字符集。空格和制表符分隔单词。</p>
+<p>以下是一个简单的例子date命令显示当前日期和时间：</p>
+<pre><code class="bash">date
+</code></pre>
+
+<p>你可以定制你的命令提示符下使用环境变量PS1环境教程解释。</p>
+<h2>Shell 类型</h2>
+<p>在UNIX系统下有两种主要类型的shell：</p>
+<ol>
+<li>Bourne shell. 如果您使用的是Bourne类型的shell，默认提示符为$字符。</li>
+<li>C shell.如果您使用的是C型的shell，默认的提示字符％。</li>
+</ol>
+<p>再还有各种Bourne shell的子类别列示如下：</p>
+<ul>
+<li>Bourne shell ( sh)</li>
+<li>Korn shell ( ksh)</li>
+<li>Bourne Again shell ( bash)</li>
+<li>POSIX shell ( sh)</li>
+</ul>
+<p>不同的C型shell如下：</p>
+<ul>
+<li>C shell ( csh)</li>
+<li>ENEX/TOPS C shell ( tcsh)</li>
+</ul>
+<p>原来的UNIX shell写于20世纪70年代中期，由斯蒂芬·伯恩，在新泽西AT＆T贝尔实验室。</p>
+<p>Bourne shell 是第一个shell 出现在UNIX系统上，因此，它被称为 "the shell".</p>
+<p>Bourne shell的安装通常为 /bin/sh 在大多数UNIX版本。出于这个原因，它是编写脚本使用在几个不同的版本的UNIX shell。</p>
+<p>在本教程中，我们将要覆盖大多数基于传播Borne Shell概念。</p>
+<h2>Shell 脚本</h2>
+<p>shell脚本的基本概念是一个命令列表中列出的顺序执行。 ＃是shell脚本注释前面一英镑符号。</p>
+<p>条件测试，如值A大于B值，循环我们去通过大量的数据，读取和存储数据的文件和变量的读取和存储数据，该脚本可能包含的功能。</p>
+<p>shell脚本和函数都解释。这意味着他们不会被编译。</p>
+<p>我们将在接下来的几个教程写了许多脚本。这将是一个简单的文本文件，在其中，我们会把我们所有的命令和其他一些必要的结构，告诉shell环境做什么，什么时候做。</p>
+<h2>示例脚本：</h2>
+<p>假设我们创建了一个test.sh脚本。注意：所有的脚本 .sh扩展。添加任何东西到脚本，需要提醒系统正在启动一个shell脚本。例如：</p>
+<pre><code class="shell">#!/bin/sh
+</code></pre>
+
+<p>这是告诉系统使用Bourne shell的执行下面的命令。</p>
+<p>要创建一个包含这些命令的脚本，然后添加命令：</p>
+<pre><code class="shell">#!/bin/sh
+pwd
+ls
+</code></pre>
+
+<h2>Shell 注释</h2>
+<p>你可以把注释，在你的脚本如下：</p>
+<p>文件名:test.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+# Script follows here
+pwd
+ls
+</code></pre>
+
+<p>现在，你的shell脚本，可随时执行如下：</p>
+<pre><code class="bash">bash /share/lesson/shell/test.sh
+</code></pre>
+
+<p>如果需要使得此脚本可自己执行，就需要给这个脚本加上执行权限：</p>
+<pre><code class="bash">chmod +x test.sh
+</code></pre>
+
+<h2>扩展Shell脚本：</h2>
+<p>Shell脚本有几个必要的结构告诉shell环境做什么，什么时候做。当然，大多数脚本是比上述更加复杂。</p>
+<p>shell毕竟，真正的编程语言，完成变量，控制结构，等等。无论脚本变得多么复杂，但是，它仍然是顺序执行的命令的列表。</p>
+<p>下面的脚本使用读命令从键盘输入，并将其分配给变量PERSON的值，并最终打印在stdout。</p>
+<p>文件名:read.sh                             </p>
+<pre><code class="shell">#!/bin/sh
+# Script follows here
+
+echo &quot;What is your name?&quot;
+read PERSON
+echo &quot;Hello, $PERSON&quot;
+</code></pre>
+
+<p>下面是运行的脚本示例：</p>
+<pre><code class="bash">bash /share/lesson/shell/read.sh
+</code></pre>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

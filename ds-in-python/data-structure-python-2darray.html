@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现数据结构 二维数组(2d array) - FreeAIHub</title>
+    <meta name="keywords" content="访问二维数组中的值,在二维数组中插入值,更新二维数组中的值,删除二维数组中的值">
+    <meta name="description" content="二维数组是数组中的数组。 它是一个数组的数组。 在这种类型的数组中，数据元素的位置由两个索引，而不是一个索引来引用。 所以它表示了一个包含行和列的数据的表。 在下面的二维数组的例子中，每个数组元素本身也是一个数组。考虑每天记录次温度的例子。记录仪器有时会出现故障，我们无法记录数据。 天的这种数据可以如下所示呈现为二维数组。上述数据可以表示为如下的二维数组。可以使用两个索引来访问二维数组中的数据元素">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a class="current"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-hashtable.html class='prev_article'> Python实现数据结构 哈希表(hash table) </a>       |       下一篇：<a href=/ds-in-python/data-structure-graph.html class='next_article'> Python实现数据结构 图(graph) </a>  >
+              
+            <h1>Python实现数据结构 二维数组(2d array)</h1>
+<p>二维数组是数组中的数组。 它是一个数组的数组。 在这种类型的数组中，数据元素的位置由两个索引，而不是一个索引来引用。 所以它表示了一个包含行和列的数据的表。 在下面的二维数组的例子中，每个数组元素本身也是一个数组。</p>
+<p>考虑每天记录<code>4</code>次温度的例子。记录仪器有时会出现故障，我们无法记录数据。 <code>4</code>天的这种数据可以如下所示呈现为二维数组。</p>
+<pre><code class="txt">第1天 - 11 12 5 2 
+第2天 - 15 6 10 
+第3天 - 10 8 12 5 
+第4天 - 12 15 8 6
+</code></pre>
+
+<p>上述数据可以表示为如下的二维数组。</p>
+<pre><code class="python">T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+</code></pre>
+
+<h2>访问二维数组中的值</h2>
+<p>可以使用两个索引来访问二维数组中的数据元素。 一个索引引用主数组或父数组，另一个索引引用内部数组中的数据元素的位置。 如果只使用一个索引，那么将为该索引位置打印整个内部数组。 下面的例子说明了它是如何工作的。</p>
+<pre><code class="python">from array import *
+T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+print(T[0])
+print(T[1][2])
+</code></pre>
+
+<p>要打印出整个二维数组，可以使用python的<code>for</code>循环，如下所示。 使用行尾来打印出不同行中的值。</p>
+<pre><code class="python">from array import *
+
+T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+for r in T:
+    for c in r:
+        print(c,end = &quot; &quot;)
+    print()
+</code></pre>
+
+<h2>在二维数组中插入值</h2>
+<p>可以使用<code>insert()</code>方法并指定索引来在特定位置插入新的数据元素。</p>
+<p>在下面的例子中，一个新的数据元素被插入索引位置是:<code>2</code>。</p>
+<pre><code class="python">from array import *
+T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+
+T.insert(2, [0,5,11,13,6])
+
+for r in T:
+    for c in r:
+        print(c,end = &quot; &quot;)
+    print()
+</code></pre>
+
+<h2>更新二维数组中的值</h2>
+<p>可以通过使用数组索引重新赋值来更新整个内部数组或内部数组的某些特定数据元素。</p>
+<pre><code class="python">from array import *
+
+T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+
+T[2] = [11,9]
+T[0][3] = 7
+for r in T:
+    for c in r:
+        print(c,end = &quot; &quot;)
+    print()
+</code></pre>
+
+<h2>删除二维数组中的值</h2>
+<p>可以通过使用带索引的<code>del()</code>方法重新指定值来删除整个内部数组或内部数组的某些特定数据元素。 但是，如果需要删除其中一个内部数组中的特定数据元素，请使用上述更新过程。</p>
+<pre><code class="python">from array import *
+T = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+
+del T[3]
+
+for r in T:
+    for c in r:
+        print(c,end = &quot; &quot;)
+    print()
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

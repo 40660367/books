@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 序列(series) - FreeAIHub</title>
+    <meta name="keywords" content="pandas.Series,创建一个空的序列,从ndarray创建一个序列,从字典创建一个序列,从标量创建一个序列,从具有位置的序列中访问数据,使用标签检索数据(索引)">
+    <meta name="description" content="序列()是能够保存任何类型的数据(整数，字符串，浮点数，Python对象等)的一维标记数组。轴标签统称为索引。序列可以使用以下构造函数创建 -构造函数的参数如下 -可以使用各种输入创建一个序列，如 -创建一个基本序列是一个空序列。如果数据是，则传递的索引必须具有相同的长度。 如果没有传递索引值，那么默认的索引将是范围()，其中是数组长度，即。这里没有传递任何索引，因此默认情况下，它分配了从到的索引">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a class="current"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/data-structure.html class='prev_article'> Pandas数据结构</a>       |       下一篇：<a href=/pandas/dataframe.html class='next_article'> Pandas数据帧</a>  >
+              
+            <h1>Pandas 序列(series)</h1>
+<p>序列(<code>Series</code>)是能够保存任何类型的数据(整数，字符串，浮点数，Python对象等)的一维标记数组。轴标签统称为索引。</p>
+<h2>pandas.Series</h2>
+<p><em>Pandas</em>序列可以使用以下构造函数创建 -</p>
+<pre><code>pandas.Series( data, index, dtype, copy)。
+</code></pre>
+
+<p>构造函数的参数如下 -</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>data</code></td>
+<td>数据采取各种形式，如：<code>ndarray</code>，<code>list</code>，<code>constants</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>index</code></td>
+<td>索引值必须是唯一的和散列的，与数据的长度相同。 默认<code>np.arange(n)</code>如果没有索引被传递。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>dtype</code></td>
+<td><code>dtype</code>用于数据类型。如果没有，将推断数据类型</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>copy</code></td>
+<td>复制数据，默认为<code>false</code>。</td>
+</tr>
+</tbody>
+</table>
+<p>可以使用各种输入创建一个序列，如 -</p>
+<ul>
+<li>数组</li>
+<li>字典</li>
+<li>标量值或常数</li>
+</ul>
+<h2>创建一个空的序列</h2>
+<p>创建一个基本序列是一个空序列。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+s = pd.Series()
+s
+</code></pre>
+
+<h2>从ndarray创建一个序列</h2>
+<p>如果数据是<code>ndarray</code>，则传递的索引必须具有相同的长度。 如果没有传递索引值，那么默认的索引将是范围(<code>n</code>)，其中<code>n</code>是数组长度，即<code>[0,1,2,3…. range(len(array))-1] - 1]</code>。</p>
+<p><strong>示例1</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+data = np.array(['a','b','c','d'])
+s = pd.Series(data)
+s
+</code></pre>
+
+<p>这里没有传递任何索引，因此默认情况下，它分配了从<code>0</code>到<code>len(data)-1</code>的索引，即：<code>0</code>到<code>3</code>。</p>
+<p><strong>示例2</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+data = np.array(['a','b','c','d'])
+s = pd.Series(data,index=[100,101,102,103])
+s
+</code></pre>
+
+<p>在这里传递了索引值。现在可以在输出中看到自定义的索引值。</p>
+<h2>从字典创建一个序列</h2>
+<p>字典(<code>dict</code>)可以作为输入传递，如果没有指定索引，则按排序顺序取得字典键以构造索引。 如果传递了索引，索引中与标签对应的数据中的值将被拉出。</p>
+<p><strong>示例2</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+data = {'a' : 0., 'b' : 1., 'c' : 2.}
+s = pd.Series(data)
+s
+</code></pre>
+
+<blockquote>
+<p>注意 - 字典键用于构建索引。</p>
+</blockquote>
+<p><strong>示例</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+data = {'a' : 0., 'b' : 1., 'c' : 2.}
+s = pd.Series(data,index=['b','c','d','a'])
+s
+</code></pre>
+
+<blockquote>
+<p>注意观察 - 索引顺序保持不变，缺少的元素使用NaN(不是数字)填充。</p>
+</blockquote>
+<h2>从标量创建一个序列</h2>
+<p>如果数据是标量值，则必须提供索引。将重复该值以匹配索引的长度。</p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+s = pd.Series(5, index=[0, 1, 2, 3])
+s
+</code></pre>
+
+<h2>从具有位置的序列中访问数据</h2>
+<p>序列中的数据可以使用类似于访问<code>ndarray</code>中的数据来访问。</p>
+<p><strong>示例-1</strong></p>
+<p>检索第一个元素。比如已经知道数组从零开始计数，第一个元素存储在零位置等等。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve the first element
+s[0]
+</code></pre>
+
+<p><strong>示例-2</strong></p>
+<p>检索序列中的前三个元素。 如果<code>a:</code>被插入到其前面，则将从该索引向前的所有项目被提取。 如果使用两个参数(使用它们之间)，两个索引之间的项目(不包括停止索引)。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve the first three element
+s[:3]
+</code></pre>
+
+<p><strong>示例-3</strong></p>
+<p>检索最后三个元素，参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve the last three element
+s[-3:]
+</code></pre>
+
+<h2>使用标签检索数据(索引)</h2>
+<p>一个序列就像一个固定大小的字典，可以通过索引标签获取和设置值。</p>
+<p><strong>示例1</strong></p>
+<p>使用索引标签值检索单个元素。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve a single element
+s['a']
+</code></pre>
+
+<p><strong>示例2</strong></p>
+<p>使用索引标签值列表检索多个元素。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve multiple elements
+print(s[['a','c','d']])
+</code></pre>
+
+<p><strong>示例3</strong></p>
+<p>如果不包含标签，则会出现异常。</p>
+<pre><code class="python">import pandas as pd
+s = pd.Series([1,2,3,4,5],index = ['a','b','c','d','e'])
+
+#retrieve multiple elements
+s['f']
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

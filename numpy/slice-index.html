@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 切片和索引(slice and index) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="ndarray对象的内容可以通过索引或切片来访问和修改，与 Python 中 list 的切片操作一样。ndarray 数组可以基于 0 - n 的下标进行索引，切片对象可以通过内置的 slice 函数，并设置 start, stop 及 step 参数进行，从原数组中切割出一个新数组。以上实例中，我们首先通过 arange() 函数创建 ndarray 对象。 然后，分别设置起始，终止和步长的参">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a class="current"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/ndarray-operation.html class='prev_article'> NumPy操作NDArray</a>       |       下一篇：<a href=/numpy/advance-index.html class='next_article'> NumPy高级索引</a>  >
+              
+            <h1>NumPy 切片和索引(slice and index)</h1>
+<p>ndarray对象的内容可以通过索引或切片来访问和修改，与 Python 中 list 的切片操作一样。</p>
+<p>ndarray 数组可以基于 0 - n 的下标进行索引，切片对象可以通过内置的 slice 函数，并设置 start, stop 及 step 参数进行，从原数组中切割出一个新数组。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.arange(10) 
+
+# 从索引 2 开始到索引 7 停止，间隔为2 
+s = slice(2,7,2)   
+a[s]
+</code></pre>
+
+<p>以上实例中，我们首先通过 arange() 函数创建 ndarray 对象。 然后，分别设置起始，终止和步长的参数为 2，7 和 2。</p>
+<p>我们也可以通过冒号分隔切片参数 <strong>start:stop:step</strong> 来进行切片操作：</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np
+a = np.arange(10)
+
+# 从索引 2 开始到索引 7 停止，间隔为 2
+b = a[2:7:2]   
+b
+</code></pre>
+
+<p>冒号 <strong>:</strong> 的解释：如果只放置一个参数，如 <strong>[2]</strong>，将返回与该索引相对应的单个元素。如果为 <strong>[2:]</strong>，表示从该索引开始以后的所有项都将被提取。如果使用了两个参数，如 <strong>[2:7]</strong>，那么则提取两个索引(不包括停止索引)之间的项。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.arange(10)  # [0 1 2 3 4 5 6 7 8 9] 
+b = a[5]
+b
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.arange(10) 
+print(a[2:])
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.arange(10)  # [0 1 2 3 4 5 6 7 8 9] 
+print(a[2:5])
+</code></pre>
+
+<p>多维数组同样适用上述索引提取方法：</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.array([[1,2,3],[3,4,5],[4,5,6]]) 
+print(a) 
+
+# 从某个索引处开始切割
+print('从数组索引 a[1:] 处开始切割') 
+print(a[1:])
+</code></pre>
+
+<p>切片还可以包括省略号 <strong>…</strong>，来使选择元组的长度与数组的维度相同。 如果在行位置使用省略号，它将返回包含行中元素的 ndarray。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+a = np.array([[1,2,3],[3,4,5],[4,5,6]])   
+
+# 第2列元素
+print(a[...,1])   
+
+# 第2行元素 
+print(a[1,...])
+
+# 第2列及剩下的所有元素
+print(a[...,1:])  
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

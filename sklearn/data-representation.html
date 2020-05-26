@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 数据表示 - FreeAIHub</title>
+    <meta name="keywords" content="数据作为特征矩阵,数据作为目标数组">
+    <meta name="description" content="学习即将根据数据创建模型。为此，计算机必须首先了解数据。接下来，我们将讨论表示数据的各种方式，以便计算机可以理解-在Scikit学习中表示数据的最佳方法是表格。表格表示数据的二维网格，其中行表示数据集的各个元素，列表示与这些单个元素相关的数量。通过下面给出的示例，我们可以借助python 库以Pandas DataFrame的形式下载。从上面的输出中，我们可以看到数据的每一行代表一个观察到的花朵，">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a class="current"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/modelling.html class='prev_article'> sklearn建模过程</a>       |       下一篇：<a href=/sklearn/estimator.html class='next_article'> sklearn估算器</a>  >
+              
+            <h1>sklearn 数据表示</h1>
+<p>学习即将根据数据创建模型。为此，计算机必须首先了解数据。接下来，我们将讨论表示数据的各种方式，以便计算机可以理解-</p>
+<p>在Scikit学习中表示数据的最佳方法是表格。表格表示数据的二维网格，其中行表示数据集的各个元素，列表示与这些单个元素相关的数量。</p>
+<h3>例</h3>
+<p>通过下面给出的示例，我们可以借助python <strong><em>sklearn</em></strong>库以Pandas DataFrame的形式下载<strong>*IRIS数据集*</strong>。</p>
+<pre><code class="python">from sklearn import datasets
+iris = datasets.load_iris()
+iris.head()
+</code></pre>
+
+<p>从上面的输出中，我们可以看到数据的每一行代表一个观察到的花朵，行数代表数据集中的花朵总数。通常，我们将矩阵的行称为样本。</p>
+<p>另一方面，数据的每一列代表描述每个样品的定量信息。通常，我们将矩阵的列称为特征。</p>
+<h2>数据作为特征矩阵</h2>
+<p>特征矩阵可以定义为表格布局，其中信息可以被认为是二维矩阵。它存储在名为<strong>X</strong>的变量中，并假定是二维的，形状为[n_samples，n_features]。通常，它包含在NumPy数组或Pandas DataFrame中。如前所述，样本始终代表数据集描述的单个对象，而要素代表以定量方式描述每个样本的不同观察结果。</p>
+<h2>数据作为目标数组</h2>
+<p>除了用X表示的功能矩阵外，我们还有目标数组。也称为标签。用y表示。标签或目标数组通常是一维，长度为n_samples。它通常包含在NumPy <strong><em>数组</em></strong>或Pandas <strong><em>系列中</em></strong>。目标数组可以同时具有值，连续数值和离散值。</p>
+<h3>目标数组与功能列有何不同？</h3>
+<p>我们可以通过一点来区分两者，即目标数组通常是我们要从数据中预测的数量，即，从统计角度来说，它是因变量。</p>
+<h3>例</h3>
+<p>在下面的示例中，我们从IRIS数据集中基于其他测量值来预测花朵的种类。在这种情况下，“种类”列将被视为要素。</p>
+<pre><code class="python">%matplotlib inline
+import seaborn as sns
+import pandas as pd
+
+iris = pd.read_csv('/share/datasets/seaborn-data/iris.csv')
+sns.set()
+
+#画图时间较久，需要稍等半分钟左右
+sns.pairplot(iris, hue='species', height=3);
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

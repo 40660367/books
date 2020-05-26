@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 图像处理(ndimage) - FreeAIHub</title>
+    <meta name="keywords" content="打开和写入图像文件,滤镜,边缘检测">
+    <meta name="description" content="SciPy的子模块专用于图像处理。这里，表示一个维图像。图像处理中一些最常见的任务如下:下面来看看如何使用SciPy实现其中的一些功能。SciPy中的包附带了一些图像。在这里，使用这些图像来学习图像操作。请看看下面的例子。原始格式的任何图像是由矩阵格式中的数字表示的颜色的组合。机器只能根据这些数字理解和操作图像。RGB是一种流行的表示方式。下面来看看上面图片的统计信息。现在，我们已经知道图像是由数">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a class="current"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/linalg.html class='prev_article'> SciPy 线性代数 </a>       |       下一篇：<a href=/scipy/optimize.html class='next_article'> SciPy 优化算法 </a>  >
+              
+            <h1>Scipy 图像处理(ndimage)</h1>
+<p>SciPy的<code>ndimage</code>子模块专用于图像处理。这里，<code>ndimage</code>表示一个<code>n</code>维图像。</p>
+<p>图像处理中一些最常见的任务如下:</p>
+<ul>
+<li>输入/输出，显示图像</li>
+<li>基本操作 - 裁剪，翻转，旋转等</li>
+<li>图像过滤 - 去噪，锐化等</li>
+<li>图像分割 - 标记对应于不同对象的像素</li>
+<li>分类</li>
+<li>特征提取</li>
+<li>注册/配准</li>
+</ul>
+<p>下面来看看如何使用SciPy实现其中的一些功能。</p>
+<h2>打开和写入图像文件</h2>
+<p>SciPy中的<code>misc</code>包附带了一些图像。在这里，使用这些图像来学习图像操作。请看看下面的例子。</p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc
+
+f = misc.face()
+misc.imsave('face.png', f) # uses the Image module (PIL)
+
+import matplotlib.pyplot as plt
+plt.imshow(f)
+plt.show()
+</code></pre>
+
+<p>原始格式的任何图像是由矩阵格式中的数字表示的颜色的组合。机器只能根据这些数字理解和操作图像。RGB是一种流行的表示方式。</p>
+<p>下面来看看上面图片的统计信息。</p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc
+
+f = misc.face()
+misc.imsave('face.png', f) # uses the Image module (PIL)
+
+face = misc.face(gray = False)
+print(face.mean(), face.max(), face.min())
+</code></pre>
+
+<p>现在，我们已经知道图像是由数字组成的，所以数字值的任何变化都会改变原始图像。接下来对图像执行一些几何变换。基本的几何操作是裁剪 - </p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc
+
+f = misc.face()
+misc.imsave('face.png', f) # uses the Image module (PIL)
+face = misc.face(gray = True)
+lx, ly = face.shape
+
+crop_face = face[int(lx/4): -int(lx/4), int(ly/4): -int(ly/4)]
+
+import matplotlib.pyplot as plt
+plt.imshow(crop_face)
+plt.show()
+</code></pre>
+
+<p>也可以执行一些基本的操作，例如像下面描述的那样倒置图像。参考以下代码 - </p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc
+
+face = misc.face()
+flip_ud_face = np.flipud(face)
+
+import matplotlib.pyplot as plt
+plt.imshow(flip_ud_face)
+plt.show()
+</code></pre>
+
+<p>除此之外，还有<code>rotate()</code>函数，它以指定的角度旋转图像。</p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc,ndimage
+face = misc.face()
+rotate_face = ndimage.rotate(face, 45)
+
+import matplotlib.pyplot as plt
+plt.imshow(rotate_face)
+plt.show()
+</code></pre>
+
+<h2>滤镜</h2>
+<p>下面来看看滤镜如何应用在图像处理中。</p>
+<p><strong>图像处理中的滤镜是什么？</strong></p>
+<p>滤镜是一种修改或增强图像的技术。例如，可以过滤图像以强调某些功能或删除其他功能。通过滤镜实现的图像处理操作包括平滑，锐化和边缘增强。</p>
+<p>滤镜是一种邻域操作，其中输出图像中任何给定像素的值是通过对相应输入像素的邻域中的像素的值应用某种算法来确定的。现在使用SciPy ndimage执行一些操作。</p>
+<p><strong>模糊</strong></p>
+<p>模糊广泛用于减少图像中的噪声。可以执行过滤操作并查看图像中的更改。看看下面的例子。</p>
+<pre><code class="python">%matplotlib inline
+from scipy import misc
+face = misc.face()
+blurred_face = ndimage.gaussian_filter(face, sigma=3)
+import matplotlib.pyplot as plt
+plt.imshow(blurred_face)
+plt.show()
+Python
+</code></pre>
+
+<p><code>sigma</code>值表示<code>5</code>级模糊程度。通过调整<code>sigma</code>值，可以看到图像质量的变化。</p>
+<h2>边缘检测</h2>
+<p>讨论边缘检测如何帮助图像处理。</p>
+<p><strong>什么是边缘检测？</strong></p>
+<p>边缘检测是一种用于查找图像内物体边界的图像处理技术。它通过检测亮度不连续性来工作。边缘检测用于诸如图像处理，计算机视觉和机器视觉等领域的图像分割和数据提取。</p>
+<p>最常用的边缘检测算法包括 - </p>
+<ul>
+<li>索贝尔(Sobel)</li>
+<li>坎尼(Canny)</li>
+<li>普鲁伊特(Prewitt)</li>
+<li>罗伯茨Roberts</li>
+<li>模糊逻辑方法</li>
+</ul>
+<p>看看下面的一个例子。</p>
+<pre><code class="python">%matplotlib inline
+import scipy.ndimage as nd
+import numpy as np
+
+im = np.zeros((256, 256))
+im[64:-64, 64:-64] = 1
+im[90:-90,90:-90] = 2
+im = ndimage.gaussian_filter(im, 8)
+
+import matplotlib.pyplot as plt
+plt.imshow(im)
+plt.show()
+</code></pre>
+
+<p>图像看起来像一个方块的颜色。现在，检测这些彩色块的边缘。这里，<code>ndimage</code>提供了一个叫<code>Sobel</code>函数来执行这个操作。而NumPy提供了<code>Hypot</code>函数来将两个合成矩阵合并为一个。</p>
+<p>看看下面的一个例子。参考以下实现代码 - </p>
+<pre><code class="python">%matplotlib inline
+import scipy.ndimage as nd
+import matplotlib.pyplot as plt
+
+
+im = np.zeros((256, 256))
+im[64:-64, 64:-64] = 1
+im[90:-90,90:-90] = 2
+im = ndimage.gaussian_filter(im, 8)
+
+sx = ndimage.sobel(im, axis = 0, mode = 'constant')
+sy = ndimage.sobel(im, axis = 1, mode = 'constant')
+sob = np.hypot(sx, sy)
+
+plt.imshow(sob)
+plt.show()
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

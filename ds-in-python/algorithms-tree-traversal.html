@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现算法:树遍历 - FreeAIHub</title>
+    <meta name="keywords" content="按顺序遍历,前序遍历,后序遍历">
+    <meta name="description" content="遍历是访问树的所有节点的过程，也可以打印它们的值。 因为所有节点都通过边(链接)连接，所以始终从根(头)节点开始。 也就是说，我们不能随机访问树中的一个节点。 这里介绍三种方式来遍历一棵树 -在这种遍历方法中，首先访问左侧子树，然后访问根，然后访问右侧子树。 我们应该永远记住每个节点本身可能代表一个子树。在下面的python程序中，使用类为根节点以及左右节点创建占位符。 然后创建一个函数来将数据添">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a class="current"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/algorithms-sorting.html class='prev_article'> Python实现算法:排序 </a>       |       下一篇：无  >
+              
+            <h1>Python实现算法:树遍历</h1>
+<p>遍历是访问树的所有节点的过程，也可以打印它们的值。 因为所有节点都通过边(链接)连接，所以始终从根(头)节点开始。 也就是说，我们不能随机访问树中的一个节点。 这里介绍三种方式来遍历一棵树 -</p>
+<ul>
+<li>顺序遍历</li>
+<li>前序遍历</li>
+<li>后序遍历</li>
+</ul>
+<h2>按顺序遍历</h2>
+<p>在这种遍历方法中，首先访问左侧子树，然后访问根，然后访问右侧子树。 我们应该永远记住每个节点本身可能代表一个子树。</p>
+<p>在下面的python程序中，使用<code>Node</code>类为根节点以及左右节点创建占位符。 然后创建一个<code>insert()</code>函数来将数据添加到树中。 最后，<code>Inorder</code>遍历逻辑通过创建一个空列表，并首先添加添加根节点或父节点，然后左节点来实现。 最后添加左节点以完成<code>Inorder</code>遍历。 请注意，对于每个子树重复此过程，直到遍历所有节点。</p>
+<pre><code class="python">class Node:
+
+    def __init__(self, data):
+
+        self.left = None
+        self.right = None
+        self.data = data
+# Insert Node
+    def insert(self, data):
+
+        if self.data:
+            if data &lt; self.data:
+                if self.left is None:
+                    self.left = Node(data)
+                else:
+                    self.left.insert(data)
+            elif data &gt; self.data:
+                if self.right is None:
+                    self.right = Node(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data = data
+
+# Print the Tree
+    def PrintTree(self):
+        if self.left:
+            self.left.PrintTree()
+        print( self.data),
+        if self.right:
+            self.right.PrintTree()
+
+# Inorder traversal
+# Left -&gt; Root -&gt; Right
+    def inorderTraversal(self, root):
+        res = []
+        if root:
+            res = self.inorderTraversal(root.left)
+            res.append(root.data)
+            res = res + self.inorderTraversal(root.right)
+        return res
+
+root = Node(27)
+root.insert(14)
+root.insert(35)
+root.insert(10)
+root.insert(19)
+root.insert(31)
+root.insert(42)
+print(root.inorderTraversal(root))
+</code></pre>
+
+<h2>前序遍历</h2>
+<p>在这种遍历方法中，首先访问根节点，然后访问左边的子树，最后访问右边的子树。</p>
+<p>在下面的python程序中，使用<code>Node</code>类为根节点以及左右节点创建占位符。 然后创建一个<code>insert()</code>函数来将数据添加到树中。 最后，前序遍历遍历逻辑通过创建一个空列表并首先添加根节点，然后添加左节点来实现。 最后添加右节点以完成前序遍历。 请注意，对于每个子树重复此过程，直到遍历所有节点。</p>
+<pre><code class="python">class Node:
+
+    def __init__(self, data):
+
+        self.left = None
+        self.right = None
+        self.data = data
+# Insert Node
+    def insert(self, data):
+
+        if self.data:
+            if data &lt; self.data:
+                if self.left is None:
+                    self.left = Node(data)
+                else:
+                    self.left.insert(data)
+            elif data &gt; self.data:
+                if self.right is None:
+                    self.right = Node(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data = data
+
+# Print the Tree
+    def PrintTree(self):
+        if self.left:
+            self.left.PrintTree()
+        print( self.data),
+        if self.right:
+            self.right.PrintTree()
+
+# Preorder traversal
+# Root -&gt; Left -&gt;Right
+    def PreorderTraversal(self, root):
+        res = []
+        if root:
+            res.append(root.data)
+            res = res + self.PreorderTraversal(root.left)
+            res = res + self.PreorderTraversal(root.right)
+        return res
+
+root = Node(27)
+root.insert(14)
+root.insert(35)
+root.insert(10)
+root.insert(19)
+root.insert(31)
+root.insert(42)
+print(root.PreorderTraversal(root))
+</code></pre>
+
+<h2>后序遍历</h2>
+<p>在这个遍历方法中，最后访问根节点。 首先遍历左子树，然后遍历右子树，最后遍历根节点。</p>
+<p>在下面的python程序中，使用<code>Node</code>类为根节点以及左右节点创建占位符。 然后创建一个<code>insert()</code>函数来将数据添加到树中。 最后，通过创建一个空列表并添加左节点，然后添加右节点来实现后序遍历逻辑。 最后，添加根或父节点以完成后序遍历。 请注意，对于每个子树重复此过程，直到遍历所有节点。参考以下代码实现 - </p>
+<pre><code class="python">class Node:
+
+    def __init__(self, data):
+
+        self.left = None
+        self.right = None
+        self.data = data
+# Insert Node
+    def insert(self, data):
+
+        if self.data:
+            if data &lt; self.data:
+                if self.left is None:
+                    self.left = Node(data)
+                else:
+                    self.left.insert(data)
+            elif data &gt; self.data:
+                if self.right is None:
+                    self.right = Node(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data = data
+
+# Print the Tree
+    def PrintTree(self):
+        if self.left:
+            self.left.PrintTree()
+        print( self.data),
+        if self.right:
+            self.right.PrintTree()
+
+# Postorder traversal
+# Left -&gt;Right -&gt; Root
+    def PostorderTraversal(self, root):
+        res = []
+        if root:
+            res = self.PostorderTraversal(root.left)
+            res = res + self.PostorderTraversal(root.right)
+            res.append(root.data)
+        return res
+
+root = Node(27)
+root.insert(14)
+root.insert(35)
+root.insert(10)
+root.insert(19)
+root.insert(31)
+root.insert(42)
+print(root.PostorderTraversal(root))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

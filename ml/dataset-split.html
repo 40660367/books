@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>数据集介绍与划分 - FreeAIHub</title>
+    <meta name="keywords" content="数据集的划分,sklearn数据集介绍,sklearn转换器和估计器,作业">
+    <meta name="description" content="机器学习一般的数据集会划分为两个部分：划分比例：结合后面的数据集作介绍返回的数据类型想一下之前做的特征工程的步骤？我们把特征工程的接口称之为转换器，其中转换器调用有这么几种形式从中可以看出，的作用相当于加上。但是为什么还要提供单独的呢, 我们还是使用原来的来进行标准化看看在sklearn中，估计器(estimator)是一个重要的角色，是一类实现了算法的API">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a class="current"> 机器学习 数据集划分 </a></li>
+<li><a class="current"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/metrics.html class='prev_article'> 机器学习 模型评估 </a>       |       下一篇：<a href=/ml/dataset-split.html class='next_article'> 机器学习 数据集划分 </a>  >
+              
+            <h1>数据集介绍与划分</h1>
+<h2>数据集的划分</h2>
+<p>机器学习一般的数据集会划分为两个部分：</p>
+<ul>
+<li>训练数据：用于训练，构建模型</li>
+<li>测试数据：在模型检验时使用，用于评估模型是否有效</li>
+</ul>
+<p>划分比例：</p>
+<ul>
+<li>训练集：70% 80% 75%</li>
+<li>测试集：30% 20% 30%</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li><code>sklearn.model_selection.train_test_split(arrays, *options)</code></li>
+<li>x 数据集的特征值</li>
+<li>y 数据集的标签值</li>
+<li>test_size 测试集的大小，一般为float</li>
+<li>random_state 随机数种子,不同的种子会造成不同的随机采样结果。相同的种子采样结果相同。</li>
+<li>return ，测试集特征训练集特征值值，训练标签，测试标签(默认随机取)</li>
+</ul>
+<p>结合后面的数据集作介绍</p>
+<h2>sklearn数据集介绍</h2>
+<p><strong>API</strong></p>
+<ul>
+<li><code>sklearn.datasets</code></li>
+<li>加载获取流行数据集</li>
+<li><code>datasets.load_*()</code><ul>
+<li>获取小规模数据集，数据包含在datasets里</li>
+</ul>
+</li>
+<li><code>datasets.fetch_*(data_home=None)</code><ul>
+<li>获取大规模数据集，需要从网络上下载，函数的第一个参数是data_home，表示数据集下载的目录,默认是 ~/scikit_learn_data/</li>
+</ul>
+</li>
+</ul>
+<h3>分类和回归数据集</h3>
+<ul>
+<li>分类数据集</li>
+</ul>
+<p><img alt="分类数据集" src="./images/分类数据集.png" /></p>
+<ul>
+<li>sklearn.datasets.fetch_20newsgroups(data_home=None,subset=‘train’)</li>
+<li>subset: 'train'或者'test','all'，可选，选择要加载的数据集.训练集的“训练”，测试集的“测试”，两者的“全部”</li>
+<li>回归数据集</li>
+</ul>
+<p><img alt="回归数据集" src="./images/回归数据集.png" /></p>
+<h3>返回类型</h3>
+<ul>
+<li><code>load</code>和<code>fetch</code></li>
+</ul>
+<p>返回的数据类型<code>datasets.base.Bunch(字典格式)</code></p>
+<ul>
+<li>data：特征数据数组，是 [n_samples * n_features] 的二维 numpy.ndarray 数组</li>
+<li>target：标签数组，是 n_samples 的一维 numpy.ndarray 数组</li>
+<li>DESCR：数据描述</li>
+<li>feature_names：特征名,新闻数据，手写数字、回归数据集没有</li>
+<li>target_names：标签名</li>
+</ul>
+<h2>sklearn转换器和估计器</h2>
+<h3>1.1 转换器</h3>
+<p>想一下之前做的特征工程的步骤？</p>
+<ul>
+<li>1、实例化 (实例化的是一个转换器类(Transformer))</li>
+<li>2、调用<code>fit_transform</code>(对于文档建立分类词频矩阵，不能同时调用)</li>
+</ul>
+<p>我们把特征工程的接口称之为转换器，其中转换器调用有这么几种形式</p>
+<ul>
+<li><code>fit_transform</code></li>
+<li><code>fit</code></li>
+<li><code>transform</code></li>
+</ul>
+<h4>练习：不同方法的转换</h4>
+<pre><code class="python">from sklearn.preprocessing import StandardScaler
+a = [[1,2,3], [4,5,6]]
+
+std1 = StandardScaler()
+std2 = StandardScaler()
+
+
+print(std1.fit_transform(a))
+print(std2.fit(a))
+
+StandardScaler(copy=True, with_mean=True, with_std=True)
+print(std2.transform(a))
+</code></pre>
+
+<p>从中可以看出，<code>fit_transform</code>的作用相当于<code>transform</code>加上<code>fit</code>。但是为什么还要提供单独的<code>fit</code>呢, 我们还是使用原来的<code>std2</code>来进行标准化看看</p>
+<pre><code class="python">b = [[7,8,9], [10, 11, 12]]
+
+std2.transform(b)
+
+print(std2.fit_transform(b))
+</code></pre>
+
+<h3>估计器(sklearn机器学习算法的实现)</h3>
+<p>在sklearn中，估计器(estimator)是一个重要的角色，是一类实现了算法的API</p>
+<ul>
+<li>1、用于分类的估计器：</li>
+<li><code>sklearn.neighbors</code> k-近邻算法</li>
+<li><code>sklearn.naive_bayes</code> 贝叶斯</li>
+<li><code>sklearn.linear_model.LogisticRegression</code> 逻辑回归</li>
+<li>s<code>klearn.tree</code> 决策树与随机森林</li>
+<li>2、用于回归的估计器：</li>
+<li><code>sklearn.linear_model.LinearRegression</code> 线性回归</li>
+<li><code>sklearn.linear_model.Ridge</code> 岭回归</li>
+<li>3、用于无监督学习的估计器</li>
+<li><code>sklearn.cluster.KMeans</code> 聚类</li>
+</ul>
+<h3>估计器工作流程</h3>
+<p><img alt="估计器工作流程" src="./images/%E4%BC%B0%E8%AE%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" /></p>
+<h2>作业</h2>
+<ul>
+<li>知道数据集的分为训练集和测试集</li>
+<li>知道sklearn的分类、回归数据集</li>
+<li>知道sklearn的转换器和估计器流程</li>
+<li>拿到的数据是否全部都用来训练一个模型？</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

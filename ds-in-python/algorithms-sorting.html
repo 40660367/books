@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现算法:排序 - FreeAIHub</title>
+    <meta name="keywords" content="冒泡排序,合并排序,插入排序,希尔排序,选择排序">
+    <meta name="description" content="排序是指以特定格式排列数据。 排序算法指定按特定顺序排列数据的方式。 最常见的排序是数字或字典顺序。排序的重要性在于，如果数据是以分类方式存储，数据搜索可以优化到非常高的水平。 排序也用于以更易读的格式表示数据。 下面来看看python中实现的5种排序方式。它是一种基于比较的算法，其中每对相邻元素进行比较，如果元素不合适，元素将进行交换。合并排序首先将数组分成相等的一半，然后以排序的方式组合它们。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a class="current"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/algorithms-searching.html class='prev_article'> Python实现算法:搜索 </a>       |       下一篇：<a href=/ds-in-python/algorithms-tree-traversal.html class='next_article'> Python实现算法:树遍历 </a>  >
+              
+            <h1>Python实现算法:排序</h1>
+<p>排序是指以特定格式排列数据。 排序算法指定按特定顺序排列数据的方式。 最常见的排序是数字或字典顺序。</p>
+<p>排序的重要性在于，如果数据是以分类方式存储，数据搜索可以优化到非常高的水平。 排序也用于以更易读的格式表示数据。 下面来看看python中实现的5种排序方式。</p>
+<ul>
+<li>冒泡排序</li>
+<li>合并排序</li>
+<li>插入排序</li>
+<li>希尔排序</li>
+<li>选择排序</li>
+</ul>
+<h2>冒泡排序</h2>
+<p>它是一种基于比较的算法，其中每对相邻元素进行比较，如果元素不合适，元素将进行交换。</p>
+<pre><code class="python">def bubblesort(list):
+
+# Swap the elements to arrange in order
+    for iter_num in range(len(list)-1,0,-1):
+        for idx in range(iter_num):
+            if list[idx]&gt;list[idx+1]:
+                temp = list[idx]
+                list[idx] = list[idx+1]
+                list[idx+1] = temp
+
+
+list = [19,2,31,45,6,11,121,27]
+bubblesort(list)
+print(list)
+</code></pre>
+
+<h2>合并排序</h2>
+<p>合并排序首先将数组分成相等的一半，然后以排序的方式组合它们。参考以下代码实现 - </p>
+<pre><code class="python">def merge_sort(unsorted_list):
+    if len(unsorted_list) &lt;= 1:
+        return unsorted_list
+# Find the middle point and devide it
+    middle = len(unsorted_list) // 2
+    left_list = unsorted_list[:middle]
+    right_list = unsorted_list[middle:]
+
+    left_list = merge_sort(left_list)
+    right_list = merge_sort(right_list)
+    return list(merge(left_list, right_list))
+
+# Merge the sorted halves
+
+def merge(left_half,right_half):
+
+    res = []
+    while len(left_half) != 0 and len(right_half) != 0:
+        if left_half[0] &lt; right_half[0]:
+            res.append(left_half[0])
+            left_half.remove(left_half[0])
+        else:
+            res.append(right_half[0])
+            right_half.remove(right_half[0])
+    if len(left_half) == 0:
+        res = res + right_half
+    else:
+        res = res + left_half
+    return res
+
+unsorted_list = [64, 34, 25, 12, 22, 11, 90]
+
+print(merge_sort(unsorted_list))
+</code></pre>
+
+<h2>插入排序</h2>
+<p>插入排序包括为排序列表中的给定元素找到正确的位置。 所以在开始时比较前两个元素并通过比较来对它们进行排序。 然后选取第三个元素，并在前两个排序元素中找到它的正确位置。 通过这种方式，逐渐将更多元素添加到已排序的列表中，并将它们置于适当的位置。</p>
+<p>参考下面代码的实现 - </p>
+<pre><code class="python">def insertion_sort(InputList):
+    for i in range(1, len(InputList)):
+        j = i-1
+        nxt_element = InputList[i]
+# Compare the current element with next one
+        while (InputList[j] &gt; nxt_element) and (j &gt;= 0):
+            InputList[j+1] = InputList[j]
+            j=j-1
+        InputList[j+1] = nxt_element
+
+list = [19,2,31,45,30,11,121,27]
+insertion_sort(list)
+print(list)
+Python
+</code></pre>
+
+<h2>希尔排序</h2>
+<p>希尔排序涉及排序远离其他的元素。对给定列表的大型子列表进行排序，并继续缩小列表的大小，直到所有元素都被排序。 下面的程序通过将其等于列表大小的一半来找到间隙，然后开始对其中的所有元素进行排序。 然后不断重置差距，直到整个列表被排序。</p>
+<pre><code class="python">def shellSort(input_list):
+
+    gap = len(input_list) / 2
+    while gap &gt; 0:
+
+        for i in range(gap, len(input_list)):
+            temp = input_list[i]
+            j = i
+# Sort the sub list for this gap
+
+            while j &gt;= gap and input_list[j - gap] &gt; temp:
+                input_list[j] = input_list[j - gap]
+                j = j-gap
+            input_list[j] = temp
+
+# Reduce the gap for the next element
+
+        gap = gap/2
+
+list = [19,2,31,45,30,11,121,27]
+
+shellSort(list)
+print(list)
+</code></pre>
+
+<h2>选择排序</h2>
+<p>在选择排序中，首先查找给定列表中的最小值并将其移至排序列表。 然后为未排序列表中的每个剩余元素重复该过程。 输入排序列表的下一个元素将与现有元素进行比较并放置在正确的位置。 所以最后所有来自未排序列表的元素都被排序。参考以下代码实现 - </p>
+<pre><code class="python">def selection_sort(input_list):
+
+    for idx in range(len(input_list)):
+
+        min_idx = idx
+        for j in range( idx +1, len(input_list)):
+            if input_list[min_idx] &gt; input_list[j]:
+                min_idx = j
+# Swap the minimum value with the compared value
+
+        input_list[idx], input_list[min_idx] = input_list[min_idx], input_list[idx]
+
+
+l = [19,2,31,45,30,11,121,27]
+selection_sort(l)
+print(l)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

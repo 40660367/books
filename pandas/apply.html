@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 函数应用(apply) - FreeAIHub</title>
+    <meta name="keywords" content="表格函数应用,行或列合理函数应用,元素合理函数应用">
+    <meta name="description" content="要将自定义或其他库的函数应用于对象，有三个重要的方法，下面来讨论如何使用这些方法。使用适当的方法取决于函数是否期望在整个，行或列或元素上进行操作。可以通过将函数和适当数量的参数作为管道参数来执行自定义操作。 因此，对整个执行操作。例如，为中的所有元素相加一个值。函数将两个数值作为参数相加并返回总和。现在将使用自定义函数对DataFrame进行操作。下面来看看完整的程序 -可以使用方法沿或的轴应用任">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a class="current"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/description.html class='prev_article'> Pandas描述性统计</a>       |       下一篇：<a href=/pandas/reindex.html class='next_article'> Pandas索引重建</a>  >
+              
+            <h1>Pandas 函数应用(apply)</h1>
+<p>要将自定义或其他库的函数应用于<em>Pandas</em>对象，有三个重要的方法，下面来讨论如何使用这些方法。使用适当的方法取决于函数是否期望在整个<code>DataFrame</code>，行或列或元素上进行操作。</p>
+<ul>
+<li>表合理函数应用：<code>pipe()</code></li>
+<li>行或列函数应用：<code>apply()</code></li>
+<li>元素函数应用：<code>applymap()</code></li>
+</ul>
+<h2>表格函数应用</h2>
+<p>可以通过将函数和适当数量的参数作为管道参数来执行自定义操作。 因此，对整个<code>DataFrame</code>执行操作。</p>
+<p>例如，为<code>DataFrame</code>中的所有元素相加一个值<code>2</code>。</p>
+<p><strong>adder 函数</strong></p>
+<p><code>adder</code>函数将两个数值作为参数相加并返回总和。</p>
+<pre><code class="python">def adder(ele1,ele2):
+    return ele1+ele2
+</code></pre>
+
+<p>现在将使用自定义函数对DataFrame进行操作。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.pipe(adder,2)
+</code></pre>
+
+<p>下面来看看完整的程序 -</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+def adder(ele1,ele2):
+   return ele1+ele2
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.pipe(adder,2)
+df
+</code></pre>
+
+<h2>行或列合理函数应用</h2>
+<p>可以使用<code>apply()</code>方法沿<code>DataFrame</code>或<code>Panel</code>的轴应用任意函数，它与描述性统计方法一样，采用可选的<code>axis</code>参数。 默认情况下，操作按列执行，将每列列为数组。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.apply(np.mean)
+df
+</code></pre>
+
+<p>通过传递<code>axis</code>参数，可以在行上执行操作。</p>
+<p><strong>示例-2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.apply(np.mean,axis=1)
+df
+</code></pre>
+
+<p><strong>示例-3</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.apply(lambda x: x.max() - x.min())
+df
+</code></pre>
+
+<h2>元素合理函数应用</h2>
+<p>并不是所有的函数都可以向量化(也不是返回另一个数组的<code>NumPy</code>数组，也不是任何值)，在<code>DataFrame</code>上的方法<code>applymap()</code>和类似于在Series上的<code>map()</code>接受任何Python函数，并且返回单个值。</p>
+<p><strong>示例-1</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+
+# My custom function
+df['col1'].map(lambda x:x*100)
+df
+</code></pre>
+
+<p><strong>示例-2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+# My custom function
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+df.applymap(lambda x:x*100)
+df
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

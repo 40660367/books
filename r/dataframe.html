@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 数据帧(dataframe) - FreeAIHub</title>
+    <meta name="keywords" content="创建数据帧,获取数据帧的结构,数据框中的数据摘要,从数据帧提取数据,扩展数据帧">
+    <meta name="description" content="数据帧是表或二维阵列状结构，其中每一列包含一个变量的值，并且每一行包含来自每一列的一组值。以下是数据帧的特性。通过使用函数可以看到数据帧的结构。可以通过应用函数获取数据的统计摘要和性质。使用列名称从数据框中提取特定列。先提取前两行，然后提取所有列用第2和第4列提取第3和第5行可以通过添加列和行来扩展数据帧。只需使用新的列名称添加列向量。要将更多行永久添加到现有数据帧，我们需要引入与现有数据帧相同结">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a class="current"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/factor.html class='prev_article'> R语言数据类型-因子</a>       |       下一篇：<a href=/r/plot.html class='next_article'> R语言绘图</a>  >
+              
+            <h1>R语言 数据帧(dataframe)</h1>
+<p>数据帧是表或二维阵列状结构，其中每一列包含一个变量的值，并且每一行包含来自每一列的一组值。</p>
+<p>以下是数据帧的特性。</p>
+<ul>
+<li>列名称应为非空。</li>
+<li>行名称应该是唯一的。</li>
+<li>存储在数据帧中的数据可以是数字，因子或字符类型。</li>
+<li>每个列应包含相同数量的数据项。</li>
+</ul>
+<h2>创建数据帧</h2>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+# Print the data frame.         
+print(emp.data) 
+</code></pre>
+
+<h2>获取数据帧的结构</h2>
+<p>通过使用<code>str()</code>函数可以看到数据帧的结构。</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+# Get the structure of the data frame.
+str(emp.data)
+</code></pre>
+
+<h2>数据框中的数据摘要</h2>
+<p>可以通过应用<code>summary()</code>函数获取数据的统计摘要和性质。</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+# Print the summary.
+print(summary(emp.data))  
+</code></pre>
+
+<h2>从数据帧提取数据</h2>
+<p>使用列名称从数据框中提取特定列。</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5),
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25),
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;,&quot;2013-09-23&quot;,&quot;2014-11-15&quot;,&quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+# Extract Specific columns.
+result &lt;- data.frame(emp.data$emp_name,emp.data$salary)
+print(result)
+</code></pre>
+
+<p>先提取前两行，然后提取所有列</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5),
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25),
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+# Extract first two rows.
+result &lt;- emp.data[1:2,]
+print(result)
+</code></pre>
+
+<p>用第2和第4列提取第3和第5行</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+    start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+
+# Extract 3rd and 5th row with 2nd and 4th column.
+result &lt;- emp.data[c(3,5),c(2,4)]
+print(result)
+</code></pre>
+
+<h2>扩展数据帧</h2>
+<p>可以通过添加列和行来扩展数据帧。</p>
+<h3>添加列</h3>
+<p>只需使用新的列名称添加列向量。</p>
+<pre><code class="R"># Create the data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   stringsAsFactors = FALSE
+)
+
+# Add the &quot;dept&quot; coulmn.
+emp.data$dept &lt;- c(&quot;IT&quot;,&quot;Operations&quot;,&quot;IT&quot;,&quot;HR&quot;,&quot;Finance&quot;)
+v &lt;- emp.data
+print(v)
+</code></pre>
+
+<h3>添加行</h3>
+<p>要将更多行永久添加到现有数据帧，我们需要引入与现有数据帧相同结构的新行，并使用<code>rbind()</code>函数。</p>
+<p>在下面的示例中，我们创建一个包含新行的数据帧，并将其与现有数据帧合并以创建最终数据帧。</p>
+<pre><code class="R"># Create the first data frame.
+emp.data &lt;- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+
+   start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+      &quot;2015-03-27&quot;)),
+   dept = c(&quot;IT&quot;,&quot;Operations&quot;,&quot;IT&quot;,&quot;HR&quot;,&quot;Finance&quot;),
+   stringsAsFactors = FALSE
+)
+
+# Create the second data frame
+emp.newdata &lt;-  data.frame(
+   emp_id = c (6:8), 
+   emp_name = c(&quot;Rasmi&quot;,&quot;Pranab&quot;,&quot;Tusar&quot;),
+   salary = c(578.0,722.5,632.8), 
+   start_date = as.Date(c(&quot;2013-05-21&quot;,&quot;2013-07-30&quot;,&quot;2014-06-17&quot;)),
+   dept = c(&quot;IT&quot;,&quot;Operations&quot;,&quot;Fianance&quot;),
+   stringsAsFactors = FALSE
+)
+
+# Bind the two data frames.
+emp.finaldata &lt;- rbind(emp.data,emp.newdata)
+print(emp.finaldata)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>数据结构 简介 - FreeAIHub</title>
+    <meta name="keywords" content="基本术语,为什么需要数据结构,数据结构的优点,数据结构的操作">
+    <meta name="description" content="数据结构可以定义为数据元素组，它提供了在计算机中存储和组织数据的有效方法，以便可以有效地使用它。 数据结构的一些示例是：数组，链表，堆栈，队列等。数据结构广泛用于计算机科学的几乎每个方面，即操作系统，编译器设计，人工智能，图形等等。数据结构是许多计算机科学算法的主要部分，因为它们使程序员能够以有效的方式处理数据。 它在提高软件或程序的性能方面发挥着重要作用，因为软件的主要功能是尽可能快地存储和检索">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/ds-in-c/index.html">如何学习本课程</a></li>
+<li><a class="current"> 数据结构 简介 </a></li>
+<li><a href="/ds-in-c/algorithm.html"> 数据结构算法 </a></li>
+<li><a href="/ds-in-c/pointer.html"> 指针 </a></li>
+<li><a href="/ds-in-c/structure.html"> 结构体(structure)  </a></li>
+<li>数组<li>
+<li><a href="/ds-in-c/array.html"> 数组(array) </a></li>
+<li><a href="/ds-in-c/array-2d.html"> 二维数组 </a></li>
+<li><a href="/ds-in-c/linked-list.html"> 链表  </a></li>
+<li><a href="/ds-in-c/linked-list-single.html"> 单链表 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-at-head.html"> 单链表 开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-at-tail.html"> 单链表 在最后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-after-specified-node.html"> 单链表 在指定节点之后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-after-specified-node.html"> 单链表 删除指定节点之后的节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-at-head.html"> 单链表 删除第一个节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-at-tail.html"> 单链表 删除最后一个节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-searching.html"> 单链表 搜索 </a></li>
+<li><a href="/ds-in-c/linked-list-single-traversing.html"> 单链表 遍历 </a></li>
+<li><a href="/ds-in-c/linked-list-double.html"> 双链表 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-at-head.html"> 双向链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-at-tail.html"> 双向链表 在末尾插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-after-specified-node.html"> 双向链表 在指定节点后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-after-specified-node.html"> 双向链表 删除指定节点之后的节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-at-head.html"> 双向链表 删除开头节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-at-tail.html"> 双向链表 删除末尾节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-searching.html"> 双向链表 搜索特定节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular.html"> 循环单向链表 </a><li>
+<li><a href="/ds-in-c/linked-list-single-circular-insertion-at-head.html"> 循环单链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-insertion-at-tail.html"> 循环单链表 在末尾插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-deletion-at-head.html"> 循环单链表 删除开头元素 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-deletion-at-tail.html"> 循环单链表 删除末尾元素 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-searching.html"> 循环单链表 搜索 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-traversing.html"> 循环单链表 遍历 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular.html"> 循环双向链表 </a><li>
+<li><a href="/ds-in-c/linked-list-double-circular-insertion-at-head.html"> 循环双向链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-insertion-at-tail.html"> 循环双向链表 在末尾插入节点  </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-deletion-at-head.html"> 循环双向链表 删除开头节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-deletion-at-tail.html"> 循环双向链表 删除末尾节点  </a></li>
+<li><a href="/ds-in-c/queue.html"> 队列(queue) </a></li>
+<li><a href="/ds-in-c/queue-circular.html"> 循环队列 </a></li>
+<li><a href="/ds-in-c/queue-implementation-with-array.html"> 队列 数组实现队列 </a></li>
+<li><a href="/ds-in-c/queue-implementation-with-linkedlist.html"> 队列 链表实现队列  </a></li>
+<li><a href="/ds-in-c/stack.html"> 堆栈(stack)  </a></li>
+<li><a href="/ds-in-c/stack-implementation-with-array.html"> 堆栈 数组实现堆栈 </a></li>
+<li><a href="/ds-in-c/stack-implementation-with-lnikedlist.html"> 堆栈 链表实现堆栈 </a></li>
+<li><a href="/ds-in-c/tree.html"> 树 </a></li>
+<li><a href="/ds-in-c/tree-b.html"> B树 </a></li>
+<li><a href="/ds-in-c/tree-binary.html"> 二叉树  </a></li>
+<li><a href="/ds-in-c/tree-bp.html"> B+树 </a></li>
+<li><a href="/ds-in-c/graph.html"> 图 </a></li>
+<li><a href="/ds-in-c/graph-representation.html"> 图的表示 </a></li>
+<li><a href="/ds-in-c/graph-bfs.html"> 图 广度优先搜索算法(bfs) </a></li>
+<li><a href="/ds-in-c/graph-dfs.html"> 图 深度优先搜索算法(dfs)  </a></li>
+<li>搜索</li>
+<li><a href="/ds-in-c/search-linear.html"> 线性搜索  </a></li>
+<li><a href="/ds-in-c/search-binary.html"> 搜索(二分查找)  </a></li>
+<li>排序</li>
+<li><a href="/ds-in-c/sort-bubble.html"> 冒泡排序(bubble sort) </a></li>
+<li><a href="/ds-in-c/sort-bucket.html"> 桶排序(bucket sort) </a></li>
+<li><a href="/ds-in-c/sort-comb.html"> 梳排序(comb sort) </a></li>
+<li><a href="/ds-in-c/sort-counting.html"> 计数排序(couting sort) </a></li>
+<li><a href="/ds-in-c/sort-heap.html"> 堆排序(heap sort) </a></li>
+<li><a href="/ds-in-c/sort-insertion.html"> 插入排序(insertion sort) </a></li>
+<li><a href="/ds-in-c/sort-merge.html"> 合并排序(sort merge) </a></li>
+<li><a href="/ds-in-c/sort-quick.html"> 快速排序(quick sort) </a></li>
+<li><a href="/ds-in-c/sort-radix.html"> 基数排序(radix sort) </a></li>
+<li><a href="/ds-in-c/sort-selection.html"> 选择排序(selection sort) </a></li>
+<li><a href="/ds-in-c/sort-shell.html"> 希尔排序(shell sort) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/ds-in-c/index.html class='prev_article'>如何学习本课程</a>       |       下一篇：<a href=/ds-in-c/algorithm.html class='next_article'> 数据结构算法 </a>  >
+              
+<h1>数据结构 简介</h1>
+<p>数据结构可以定义为数据元素组，它提供了在计算机中存储和组织数据的有效方法，以便可以有效地使用它。 数据结构的一些示例是：数组，链表，堆栈，队列等。数据结构广泛用于计算机科学的几乎每个方面，即操作系统，编译器设计，人工智能，图形等等。</p>
+<p>数据结构是许多计算机科学算法的主要部分，因为它们使程序员能够以有效的方式处理数据。 它在提高软件或程序的性能方面发挥着重要作用，因为软件的主要功能是尽可能快地存储和检索用户的数据。</p>
+<h2>基本术语</h2>
+<p>数据结构是任何程序或软件的构建块(基础块)。为程序选择适当的数据结构对于程序员来说是最困难的任务。就数据结构而言，使用以下术语 - </p>
+<p><strong>数据</strong>：数据可以定义为基本值或值集合，例如，学生的姓名和ID，成绩等就是学生的数据。</p>
+<p><strong>组项</strong>：具有从属数据项的数据项称为组项，例如，学生的姓名由名字和姓氏组成。</p>
+<p><strong>记录</strong>：记录可以定义为各种数据项的集合，例如，如果以学生实体为例，那么学生的名称，地址，课程和标记可以组合在一起形成学生的记录。</p>
+<p><strong>文件</strong>：文件是一种类型实体的各种记录的集合，例如，如果类中有<code>60</code>名员工，则相关文件中将有<code>20</code>条记录，其中每条记录包含有关每个员工的数据。</p>
+<p><strong>属性和实体</strong>：实体表示某些对象的类。它包含各种属性。每个属性表示该实体的特定属性。</p>
+<p><strong>字段</strong>：字段是表示实体属性的单个基本信息单元。</p>
+<h2>为什么需要数据结构</h2>
+<p>随着应用程序变得越来越复杂，数据量日益增加，可能会出现以下问题：</p>
+<ul>
+<li><strong>处理器速度</strong>：要处理非常大的数据，需要高速处理，但随着数据逐日增长到每个实体数十亿个文件，处理器可能无法处理大量数据。</li>
+<li><strong>数据搜索</strong>：假设商店的库存大小是<code>100860</code>个商品，如果应用程序需要搜索某一特定商品，则每次需要遍历<code>100860</code>个商品，这会导致搜索过程变慢。</li>
+<li><strong>大量请求</strong>：如果成千上万的用户在Web服务器上同时搜索数据，在此过程中可能在短时会有一个非常大请求而导致服务器处理不了。</li>
+</ul>
+<p>为了解决上述问题，使用数据结构。组织数据以形成数据结构，使得不需要搜索所有项目并且可以立即搜索所需数据。</p>
+<h2>数据结构的优点</h2>
+<ul>
+<li><strong>效率</strong>：程序的效率取决于数据结构的选择。 例如：假设有一些数据，需要执行搜索特定记录。 在这种情况下，如果在数组中组织数据，则需要逐个元素地搜索。 因此，在这里使用数组可能效率不高。 有更好的数据结构可以使搜索过程像有序数组，二进制搜索树或哈希表一样高效。</li>
+<li><strong>可重用性</strong>：数据结构是可重用的，即当实现了特定的数据结构，就可以在其他地方使用它。也将数据结构的实现编译到不同客户端使用的程序库中。</li>
+<li><strong>抽象</strong>：数据结构由ADT指定，它提供抽象级别。 客户端程序仅通过接口使用数据结构，而不涉及实现细节。</li>
+</ul>
+<p><strong>数据结构分类</strong></p>
+<p><img alt="img" src="./images/ds-intro.png" /></p>
+<h4>1. 线性数据结构</h4>
+<p>如果数据结构的所有元素按线性顺序排列，则称为线性数据结构。 在线性数据结构中，元素以非分层方式存储，除了第一个和最后一个元素，它的每个元素具有后继元素和前导元素。</p>
+<p>线性数据结构的类型如下：</p>
+<ul>
+<li><strong>数组</strong>：数组是类似数据项的集合，每个数据项称为数组的元素。 元素的数据类型可以是任何有效的数据类型，如<code>char</code>，<code>int</code>，<code>float</code>或<code>double</code>。
+  数组的元素共享相同的变量名，但每个元素都带有一个不同的索引号，这些索引号也称为下标。 数组可以是一维的，二维的或多维的。</li>
+</ul>
+<p>示例：数组<code>age</code>的各个元素是：</p>
+<pre><code class="c">age[0], age[1], age[2], age[3],.... age[98], age[99]
+C
+</code></pre>
+
+<ul>
+<li><strong>链表</strong>：链表是一种线性数据结构，用于维护内存中的列表。 它可以看作存储在非连续内存位置的节点集合。链表中的每个节点都包含指向其相邻节点的指针。</li>
+<li><strong>堆栈</strong> ：堆栈是一个线性列表，其中只允许在一端插入和删除，称为<strong>顶部</strong>。
+  堆栈是一种抽象数据类型(ADT)，可以在大多数编程语言中实现。 它被命名为堆栈，因为它的行为类似于真实世界的堆栈，例如：成堆的板块或卡片组等，只能在最顶面上操作。</li>
+<li><strong>队列</strong>：队列是一个线性列表，它的元素只能在一端插入(添加)，也被称为后端，而只在另一端出队(删除)，也被称为前端。</li>
+</ul>
+<h4>2. 非线性数据结构</h4>
+<p>非线性数据结构不形成序列，即每个项目或元素以非线性排列与两个或更多个其他项目连接。 数据元素不按顺序结构排列。</p>
+<p>非线性数据结构的类型如下：</p>
+<ul>
+<li><strong>树</strong>：树是多级数据结构，其元素之间具有层次关系，树的元素也称为节点。层次中最底层的节点称为叶节点，而最顶层节点称为根节点。 每个节点都包含指向相邻节点的指针。
+  树数据结构基于节点之间的父子关系。 除了叶节点之外，树中的每个节点可以具有多个子节点，而除了根节点之外，每个节点可以具有最多一个父节点。 树可以分为许多类别，本教程在稍后章节中将对此进行讨论。</li>
+<li><strong>图</strong>：图可以定义为由称为边缘的链接连接的元素集(由顶点表示)的图表示。 图不同于树，图可以有循环而树不能具有循环。</li>
+</ul>
+<h2>数据结构的操作</h2>
+<ul>
+<li><strong>遍历</strong>：每个数据结构都包含一组数据元素。遍历数据结构表示访问数据结构的每个元素，以便执行某些特定操作，如搜索或排序。<strong>示例</strong> ：如果需要计算学生在<code>6</code>个不同科目中获得的分数的平均值，需要遍历完整的分数数组并计算总和，然后将总分数除以科目数，即<code>6</code>， 最后得到平均值。</li>
+<li><strong>插入</strong>：插入是在任何位置将元素添加到数据结构的过程。如果数据结构的大小是<code>n</code>，那么只能在<code>n-1</code>个数据元素之间插入元素。</li>
+<li><strong>删除</strong>：从数据结构中删除元素的过程称为删除。 可以在任何随机位置删除数据结构中的元素。如果要从空数据结构中删除元素，则会发生下溢。</li>
+<li><strong>搜索</strong>：在数据结构中查找元素位置的过程称为搜索。 有两种算法可以执行搜索，即线性搜索和二进制搜索。在本教程后面讨论这两种搜索算法。</li>
+<li><strong>排序</strong>：按特定顺序排列数据结构的过程称为排序。 有许多算法可用于执行排序，例如，插入排序，选择排序，冒泡排序等。</li>
+<li><strong>合并</strong>：当两个列表分别为大小为<code>M</code>和<code>N</code>的列表<code>A</code>和列表<code>B</code>时，相似类型的元素，连接产生第三个列表，列表<code>C</code>的大小<code>(M + N)</code>，则此过程称为合并。</li>
+</ul>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

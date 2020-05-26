@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Linux 性能监控 - FreeAIHub</title>
+    <meta name="keywords" content="CPU监控相关命令,内存监控相关命令,网络监控,磁盘监控,全系统监控,本节作业命令,">
+    <meta name="description" content="Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况及总体状况。实时显示系统中各个进程的资源占用状况及总体状况。实时系统监控工具，它会报告与多核心CPU相关的统计信息。可以用来快速查看主机的内存使用情况，包括了物理内存和虚拟内存。后面可以加上参数：-h和-m，否则默认会以kb为单位显示。相关参数说明:total：物理内存大小，就是机器实际的内存
+used：已使用的内存大小，这个">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/linux/index.html">如何学习本课程</a></li>
+<li><a href="/linux/intro.html"> Linux简介 </a></li>
+<li><a href="/linux/setup.html"> Linux环境搭建及运行 </a></li>
+<li><a href="/linux/dir.html"> Linux目录 </a></li>
+<li><a href="/linux/file.html"> Linux文件 </a></li>
+<li><a href="/linux/user-usergroup.html"> Linux用户及用户组 </a></li>
+<li><a href="/linux/ssh.html"> Linux远程登陆SSH </a></li>
+<li><a href="/linux/text-processing.html"> Linux文本处理 </a></li>
+<li><a href="/linux/process-task.html"> Linux进程与任务 </a></li>
+<li><a href="/linux/disk.html"> Linux磁盘管理 </a></li>
+<li><a class="current"> Linux性能检测 </a></li>
+<li><a href="/linux/in-out.html"> Linux标准输入输出重定向与管道符 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/linux/disk.html class='prev_article'> Linux磁盘管理 </a>       |       下一篇：<a href=/linux/in-out.html class='next_article'> Linux标准输入输出重定向与管道符 </a>  >
+              
+<h1>Linux 性能监控</h1>
+<h2>CPU监控相关命令</h2>
+<h3><code>top</code></h3>
+<p>Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况及总体状况。实时显示系统中各个进程的资源占用状况及总体状况。</p>
+<h3><code>mpstat</code></h3>
+<p>实时系统监控工具，它会报告与多核心CPU相关的统计信息。</p>
+<pre><code class="bash">apt install sysstat -y
+mpstat 1 #每隔一秒输出CPU占用情况
+</code></pre>
+
+<h2>内存监控相关命令</h2>
+<h3><code>free</code>命令</h3>
+<p>可以用来快速查看主机的内存使用情况，包括了物理内存和虚拟内存。后面可以加上参数：-h和-m，否则默认会以kb为单位显示。</p>
+<pre><code class="bash">free -h
+</code></pre>
+
+<p>相关参数说明:</p>
+<blockquote>
+<p>total：物理内存大小，就是机器实际的内存<br />
+used：已使用的内存大小，这个值包括了 cached 和 应用程序实际使用的内存<br />
+free：未被使用的内存大小<br />
+shared：共享内存大小，是进程间通信的一种方式<br />
+buffers：被缓冲区占用的内存大小<br />
+cached：被缓存占用的内存大小  </p>
+</blockquote>
+<h3><code>vmstat</code></h3>
+<p>vmstat（Virtual Meomory Statistics，虚拟内存统计）是对系统的整体情况进行统计，包括内核进程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息。命令格式：vmstat 2 100，其中2表示刷新间隔，100表示输出次数。</p>
+<pre><code class="bash">vmstat 2 100
+</code></pre>
+
+<h2>网络监控</h2>
+<h3>sar</h3>
+<p><code>sar</code>是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。</p>
+<pre><code class="bash">sar -n DEV 3 100
+</code></pre>
+
+<h3>netstat</h3>
+<p><code>netstat</code>命令一般用于检验本机各端口的网络连接情况，用于显示与IP、TCP、UDP和ICMP协议相关的统计数据。</p>
+<pre><code class="bash">netstat -aup # 输出所有UDP连接状况
+netstat -atp # 输出所有TCP连接状况
+netstat -s # 显示各个协议的网络统计信息
+netstat -i # 显示网卡列表
+netstat -r # 显示路由表信息
+</code></pre>
+
+<h3>tcpdump</h3>
+<p><code>tcpdump</code>是最广泛使用的网络包分析器或者包监控程序之一，它用于捕捉或者过滤网络上指定接口上接收或者传输的TCP/IP包。格式：</p>
+<pre><code class="bash">apt install tcpdump -y
+tcpdump -i eth0 -c 3
+</code></pre>
+
+<p>该命令不是系统自带的，可能需要自己搬运安装。命令执行效果如下：</p>
+<h2>磁盘监控</h2>
+<h3><code>iostat</code></h3>
+<p><code>iostat</code>是一个用于收集显示系统存储设备输入和输出状态统计的简单工具。这个工具常常用来追踪存储设备的性能问题，其中存储设备包括设备、本地磁盘，以及诸如使用NFS等的远端磁盘。常用格式：</p>
+<pre><code class="bash">iostat -x -k 2 100 # 2表示刷新间隔，100表示刷新次数
+</code></pre>
+
+<h3><code>iotop</code></h3>
+<p><code>iotop</code>命令是一个用来监视磁盘I/O使用状况的top类工具。iotop具有与top相似的UI，其中包括PID、用户、I/O、进程等相关信息。Linux下的IO统计工具如iostat，nmon等大多数是只能统计到per设备的读写情况，如果你想知道每个进程是如何使用IO的就比较麻烦，使用iotop命令可以很方便的查看。</p>
+<h2>全系统监控</h2>
+<p>上面分享的都是单个查看Linux系统磁盘、CPU、内存等指标的工具，如果我们想要迅速找出来主机的性能瓶颈所在，我们可以采用以下全能工具：</p>
+<h3>glances</h3>
+<p>Glances是一个用来监视 GNU/Linux 和 FreeBSD 操作系统的 GPL 授权的免费软件，通过 Glances，我们可以监视 CPU，平均负载，内存，网络流量，磁盘 I/O，其他处理器 和 文件系统 空间的利用情况。</p>
+<p>Glances 会用一下几种颜色来代表状态：
+绿色：OK（一切正常） 
+蓝色：CAREFUL（需要注意）
+紫色：WARNING（警告）
+红色：CRITICAL（严重）。</p>
+<p>阀值可以在配置文件中设置，一般阀值被默认设置为（careful=50、warning=70、critical=90）。</p>
+<pre><code class="bash">apt install glances -y
+glances
+</code></pre>
+
+<h3>dstat工具</h3>
+<p>dstat命令是一个用来替换vmstat、iostat、netstat、nfsstat和ifstat这些命令的工具，是一个全能系统信息统计工具。与sysstat相比，dstat拥有一个彩色的界面，在手动观察性能状况时，数据比较显眼容易观察；而且dstat支持即时刷新，譬如输入dstat 3即每三秒收集一次，但最新的数据都会每秒刷新显示。</p>
+<p>直接使用dstat，默认使用的是-cdngy参数，分别显示cpu、disk、net、page、system信息，默认是1s显示一条信息。可以在最后指定显示一条信息的时间间隔，如<code>dstat 5</code>是每5s显示一条，<code>dstat 5 10</code>表示没5s显示一条，一共显示10条。</p>
+<pre><code class="bash">apt install dstat -y
+dstat 5 10
+</code></pre>
+
+<h4>练习</h4>
+<h2>本节作业</h2>
+<h3>1. 创建文件，结果检查：</h3>
+<h3>2. 对文件进行操作</h3>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Shell 引用 - FreeAIHub</title>
+    <meta name="keywords" content="元字符：,单引号：,双引号：,反引号：">
+    <meta name="description" content="UNIX Shell提供各种元字符有特殊的意义，同时利用他们在任何Shell脚本，并导致终止一个字，除非引用。举个例子： ?匹配一个单一的系统字符，而列出文件中的目录和*匹配多个字符。下面是一个清单shell特殊字符（也称为元字符）：它与前可能被引用的字符（例如，放置自身） .下面的例子，显示了如何打印  a * 或 a ?:文件名:quoting1.sh康康现在，让我们尝试使用带引号的字符：文件">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/shell/index.html"> 如何学习本课程 </a></li>
+<li><a href="/shell/intro.html"> Shell 简介 </a></li>
+<li><a href="/shell/setup.html"> Shell 安装环境 </a></li>
+<li><a href="/shell/variable.html"> Shell 变量 </a></li>
+<li><a href="/shell/variable-special.html"> Shell 特殊变量 </a></li>
+<li><a href="/shell/array.html"> Shell 数组 </a></li>
+<li><a href="/shell/operator.html"> Shell 运算符 </a></li>
+<li><a href="/shell/logic.html"> Shell 逻辑控制 </a></li>
+<li><a href="/shell/loop.html"> Shell 循环 </a></li>
+<li><a href="/shell/loopcontrol.html"> Shell 循环控制 </a></li>
+<li><a href="/shell/loop-while.html"> Shell 循环-while </a></li>
+<li><a href="/shell/loop-for.html"> Shell 循环-for </a></li>
+<li><a href="/shell/loop-until.html"> Shell 循环-until </a></li>
+<li><a href="/shell/loop-select.html"> Shell 循环-select </a></li>
+<li><a href="/shell/function.html"> Shell 函数 </a></li>
+<li><a class="current"> Shell 引用 </a></li>
+<li><a href="/shell/substitution.html"> Shell 替换 </a></li>
+<li><a href="/shell/io-redirection.html"> Shell 输入输出重定向 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/shell/function.html class='prev_article'> Shell 函数 </a>       |       下一篇：<a href=/shell/substitution.html class='next_article'> Shell 替换 </a>  >
+              
+<h1>Shell 引用</h1>
+<h2>元字符：</h2>
+<p>UNIX Shell提供各种元字符有特殊的意义，同时利用他们在任何Shell脚本，并导致终止一个字，除非引用。</p>
+<p>举个例子： ?匹配一个单一的系统字符，而列出文件中的目录和*匹配多个字符。下面是一个清单shell特殊字符（也称为元字符）：</p>
+<pre><code class="shell">* ? [ ] ' &quot;  $ ; &amp; ( ) | ^ &lt; &gt; new-line space tab
+</code></pre>
+
+<p>它与前可能被引用的字符（例如，放置自身） .</p>
+<h3>例子：</h3>
+<p>下面的例子，显示了如何打印  a * 或 a ?:</p>
+<p>文件名:quoting1.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+echo Hello; Word
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/quoting1.sh
+</code></pre>
+
+<p>康康</p>
+<p>现在，让我们尝试使用带引号的字符：</p>
+<p>文件名:quoting2.sh</p>
+<p>$符号同样也是一个元字符，所以它必须被引用，以避免特殊处理：</p>
+<pre><code>#!/bin/sh
+echo &quot;Hello; Word&quot;
+echo &quot;I have $1,000&quot;
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/quoting2.sh
+</code></pre>
+
+<p>康康</p>
+<p>以下四种形式引用：</p>
+<table>
+<thead>
+<tr>
+<th>引用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Single quote</strong></td>
+<td>All special characters between these quotes lose their special meaning.</td>
+</tr>
+<tr>
+<td><strong>Double quote</strong></td>
+<td>Most special characters between these quotes lose their special meaning with these exceptions:                                                 $                                   `                                   $                                   '                                   "</td>
+</tr>
+<tr>
+<td><strong>Backslash</strong></td>
+<td>Any character immediately following the backslash loses its special meaning.</td>
+</tr>
+<tr>
+<td><strong>Back Quote</strong></td>
+<td>Anything in between back quotes would be treated as a command and would be executed.</td>
+</tr>
+</tbody>
+</table>
+<h2>单引号：</h2>
+<p>考虑以下echo命令，其中包含许多特殊的shell字符：</p>
+<pre><code class="bash">echo &lt;-$1,000.**?&gt;; [y|n](update)
+</code></pre>
+
+<p>将在每个特殊字符前的反斜杠是繁琐的，使该行难以阅读：</p>
+<p>有一个简单的方法来引用一大组字符。将一个单引号（'）的开头和结尾的字符串：</p>
+<pre><code class="bash">echo '&lt;-$1,000.**?&gt;; [y|n](update)'
+</code></pre>
+
+<p>单引号内的任何字符均以一个反斜杠，就好像是在前面的每个字符。所以，现在这个echo命令将显示正确。</p>
+<p>如果要输出一个字符串内出现一个单引号，你不应该把单引号内的整个字符串，而不是对子进行使用反斜杠（）如下：</p>
+<pre><code class="bash">echo 'It\'s Shell Programming'
+</code></pre>
+
+<h2>双引号：</h2>
+<pre><code class="bash">VAR=Lucy
+echo '$VAR owes &lt;-$1,000.**&gt;; [ as of (`date +%m/%d`) ]'
+</code></pre>
+
+<p>所以这不是你想显示什么。很明显，<strong>单引号防止变量替换。</strong></p>
+<p>如果想替换的变量值和倒置逗号如预期那样运作，那么就需要在双引号命令如下：</p>
+<pre><code class="bash">VAR=Lucy
+echo &quot;$VAR owes &lt;-$1,000.**&gt;; [ as of (`date +%m/%d`) ]&quot;
+</code></pre>
+
+<p>双引号带走下列以外的所有字符的特殊含义：</p>
+<ul>
+<li>$ 参数替代。</li>
+<li>用于命令替换的反引号。</li>
+<li>$ 使字面美元标志。</li>
+<li>` 使文字反引号。</li>
+<li>" 启用嵌入式双引号。</li>
+<li>启用嵌入式反斜杠。</li>
+<li>所有其他字符是文字（而不是指定）。</li>
+</ul>
+<p>单引号内的任何字符均以一个反斜杠，就好像是在前面的每个字符。所以，现在这个echo命令将显示正确。</p>
+<p>如果要输出一个字符串内出现一个单引号，不应该把单引号内的整个字符串，而不是对子进行使用反斜杠（）如下：</p>
+<h2>反引号：</h2>
+<p>把反引号之间的任何shell命令将执行命令</p>
+<h3>语法</h3>
+<p>下面是一个简单的语法，把反引号之间的任何Shell命令：</p>
+<h3>语法</h3>
+<pre><code class="bash">var=`command`
+</code></pre>
+
+<h3>例子：</h3>
+<p>执行date命令，产生的结果将被存储在 DATA 变量。                                            </p>
+<pre><code class="bash">DATE=`date`
+echo &quot;Current Date: $DATE&quot;
+</code></pre>
+
+<p>与上一个例子类似</p>
+<pre><code class="bash">BINS=`ls /usr/bin`
+echo $BINS
+</code></pre>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

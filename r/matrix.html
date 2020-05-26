@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 矩阵(matrix) - FreeAIHub</title>
+    <meta name="keywords" content="语法,矩阵计算">
+    <meta name="description" content="矩阵是其中元素以二维矩形布局布置的R对象。 它们包含相同原子类型的元素。 虽然我们可以创建一个只包含字符或只包含逻辑值的矩阵，但它们没有太多用处。 我们使用包含数字元素的矩阵用于数学计算。使用函数创建一个矩阵。在R语言中创建矩阵的基本语法是以下是所使用的参数的说明 -可以通过使用元素的列和行索引来访问矩阵的元素。 我们考虑上面的矩阵P找到下面的具体元素。使用R运算符对矩阵执行各种数学运算。 操作的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a class="current"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/list.html class='prev_article'> R语言数据类型-列表</a>       |       下一篇：<a href=/r/array.html class='next_article'> R语言数据类型-数组</a>  >
+              
+            <h1>R语言 矩阵(matrix)</h1>
+<p>矩阵是其中元素以二维矩形布局布置的R对象。 它们包含相同原子类型的元素。 虽然我们可以创建一个只包含字符或只包含逻辑值的矩阵，但它们没有太多用处。 我们使用包含数字元素的矩阵用于数学计算。</p>
+<p>使用<code>matrix()</code>函数创建一个矩阵。</p>
+<h2>语法</h2>
+<p>在R语言中创建矩阵的基本语法是<code>matrix(data, nrow, ncol, byrow, dimnames)</code></p>
+<p>以下是所使用的参数的说明 -</p>
+<ul>
+<li>数据是成为矩阵的数据元素的输入向量。</li>
+<li><strong>nrow</strong>是要创建的行数。</li>
+<li><strong>ncol</strong>是要创建的列数。</li>
+<li><strong>byrow</strong>是一个逻辑线索。 如果为TRUE，则输入向量元素按行排列。</li>
+<li><strong>dimname</strong>是分配给行和列的名称。</li>
+</ul>
+<h4>练习：创建一个以数字向量作为输入的矩阵</h4>
+<pre><code class="R"># Elements are arranged sequentially by row.
+M &lt;- matrix(c(3:14), nrow = 4, byrow = TRUE)
+print(M)
+
+# Elements are arranged sequentially by column.
+N &lt;- matrix(c(3:14), nrow = 4, byrow = FALSE)
+print(N)
+
+# Define the column and row names.
+rownames = c(&quot;row1&quot;, &quot;row2&quot;, &quot;row3&quot;, &quot;row4&quot;)
+colnames = c(&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;)
+
+P &lt;- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+print(P)
+</code></pre>
+
+<h4>练习： 访问矩阵的元素</h4>
+<p>可以通过使用元素的列和行索引来访问矩阵的元素。 我们考虑上面的矩阵P找到下面的具体元素。</p>
+<pre><code class="R"># Define the column and row names.
+rownames = c(&quot;row1&quot;, &quot;row2&quot;, &quot;row3&quot;, &quot;row4&quot;)
+colnames = c(&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;)
+
+# Create the matrix.
+P &lt;- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+
+# Access the element at 3rd column and 1st row.
+print(P[1,3])
+
+# Access the element at 2nd column and 4th row.
+print(P[4,2])
+
+# Access only the  2nd row.
+print(P[2,])
+
+# Access only the 3rd column.
+print(P[,3])
+</code></pre>
+
+<h2>矩阵计算</h2>
+<p>使用R运算符对矩阵执行各种数学运算。 操作的结果也是一个矩阵。</p>
+<p>对于操作中涉及的矩阵，维度（行数和列数）应该相同。</p>
+<h4>练习：矩阵加法和减法</h4>
+<pre><code class="R"># Create two 2x3 matrices.
+matrix1 &lt;- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)
+print(matrix1)
+
+matrix2 &lt;- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2)
+print(matrix2)
+
+# Add the matrices.
+result &lt;- matrix1 + matrix2
+cat(&quot;Result of addition&quot;,&quot;
+&quot;)
+print(result)
+
+# Subtract the matrices
+result &lt;- matrix1 - matrix2
+cat(&quot;Result of subtraction&quot;,&quot;
+&quot;)
+print(result)
+</code></pre>
+
+<h4>练习：矩阵乘法和除法</h4>
+<pre><code class="R"># Create two 2x3 matrices.
+matrix1 &lt;- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)
+print(matrix1)
+
+matrix2 &lt;- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2)
+print(matrix2)
+
+# Multiply the matrices.
+result &lt;- matrix1 * matrix2
+cat(&quot;Result of multiplication&quot;,&quot;
+&quot;)
+print(result)
+
+# Divide the matrices
+result &lt;- matrix1 / matrix2
+cat(&quot;Result of division&quot;,&quot;
+&quot;)
+print(result)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

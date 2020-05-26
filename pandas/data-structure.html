@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 数据结构 - FreeAIHub</title>
+    <meta name="keywords" content="维数和描述,系列,数据帧,面板">
+    <meta name="description" content="Pandas处理以下三个数据结构这些数据结构构建在数组之上，这意味着它们很快。考虑这些数据结构的最好方法是，较高维数据结构是其较低维数据结构的容器。 例如，是的容器，是的容器。构建和处理两个或更多个维数组是一项繁琐的任务，用户在编写函数时要考虑数据集的方向。 但是使用数据结构，减少了用户的思考。例如，使用表格数据()，在语义上更有用于考虑索引(行)和列，而不是轴和轴。所有数据结构是值可变的(可以更">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a class="current"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/setup.html class='prev_article'> Pandas安装</a>       |       下一篇：<a href=/pandas/series.html class='next_article'> Pandas序列</a>  >
+              
+            <h1>Pandas 数据结构</h1>
+<p>Pandas处理以下三个数据结构</p>
+<ul>
+<li>系列(<code>Series</code>)</li>
+<li>数据帧(<code>DataFrame</code>)</li>
+</ul>
+<p>这些数据结构构建在<em>Numpy</em>数组之上，这意味着它们很快。</p>
+<h2>维数和描述</h2>
+<p>考虑这些数据结构的最好方法是，较高维数据结构是其较低维数据结构的容器。 例如，<code>DataFrame</code>是<code>Series</code>的容器，<code>Panel</code>是<code>DataFrame</code>的容器。</p>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>维数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序列</td>
+<td>1</td>
+<td><code>1</code>D标记均匀数组，大小不变。</td>
+</tr>
+<tr>
+<td>数据帧</td>
+<td>2</td>
+<td>一般<code>2</code>D标记，大小可变的表结构与潜在的异质类型的列。</td>
+</tr>
+</tbody>
+</table>
+<p>构建和处理两个或更多个维数组是一项繁琐的任务，用户在编写函数时要考虑数据集的方向。 但是使用<em>Pandas</em>数据结构，减少了用户的思考。</p>
+<p>例如，使用表格数据(<code>DataFrame</code>)，在语义上更有用于考虑索引(行)和列，而不是轴<code>0</code>和轴<code>1</code>。</p>
+<p><strong>可变性</strong></p>
+<p>所有<em>Pandas</em>数据结构是值可变的(可以更改)，除了系列都是大小可变的。系列是大小不变的。</p>
+<blockquote>
+<p>注 - <code>DataFrame</code>被广泛使用，是最重要的数据结构之一。面板使用少得多。</p>
+</blockquote>
+<h2>系列</h2>
+<p>系列是具有均匀数据的一维数组结构。例如，以下系列是整数：<code>10</code>,<code>23</code>,<code>56</code>，<code>...</code>的集合。</p>
+<p><img alt="img" src="./images/dataframe1.jpg" /></p>
+<p><strong>关键点</strong></p>
+<ul>
+<li>均匀数据</li>
+<li>尺寸大小不变</li>
+<li>数据的值可变</li>
+</ul>
+<h2>数据帧</h2>
+<p>数据帧(<em>DataFrame</em>)是一个具有异构数据的二维数组。 例如，</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年龄</th>
+<th>性别</th>
+<th>等级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Maxsu</td>
+<td>25</td>
+<td>男</td>
+<td>4.45</td>
+</tr>
+<tr>
+<td>Katie</td>
+<td>34</td>
+<td>女</td>
+<td>2.78</td>
+</tr>
+<tr>
+<td>Vina</td>
+<td>46</td>
+<td>女</td>
+<td>3.9</td>
+</tr>
+<tr>
+<td>Lia</td>
+<td>女</td>
+<td>x女</td>
+<td>4.6</td>
+</tr>
+</tbody>
+</table>
+<p>上表表示具有整体绩效评级组织的销售团队的数据。数据以行和列表示。每列表示一个属性，每行代表一个人。</p>
+<p><strong>列的数据类型</strong></p>
+<p>上面数据帧中四列的数据类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>姓名</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>年龄</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>性别</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>等级</td>
+<td>浮点型</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键点</strong></p>
+<ul>
+<li>异构数据</li>
+<li>大小可变</li>
+<li>数据可变</li>
+</ul>
+<h2>面板</h2>
+<p>面板是具有异构数据的三维数据结构。在图形表示中很难表示面板。但是一个面板可以说明为<code>DataFrame</code>的容器。</p>
+<p><strong>关键点</strong></p>
+<ul>
+<li>异构数据</li>
+<li>大小可变</li>
+<li>数据可变</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 估算器API - FreeAIHub</title>
+    <meta name="keywords" content="什么是估算器API,估算器API的使用,指导原则,使用Estimator API的步骤,监督学习的例子,无监督学习示例模型的估计和解码,将非矩形数据表示映射到矩形数据,核心样本与外围样本之间的区别,一致性,受限的对象层次,组成,合理的默认值,检查,步骤1：选择模型类别,步骤2：选择模型超参数,步骤3：整理资料,步骤4：模型拟合,步骤5：应用模型,选择一种型号,选择模型超参数,整理数据,模型拟合,将模">
+    <meta name="description" content="在本章中，我们将学习（应用程序编程接口）。让我们首先了解什么是Estimator API。它是Scikit-learn实现的主要API之一。它为各种ML应用程序提供了一致的接口，这就是Scikit-Learn中所有机器学习算法都是通过Estimator API实现的原因。从数据中学习（拟合数据）的对象是估计量。它可以与分类，回归，聚类的任何算法一起使用，甚至可以与从原始数据中提取有用特征的转换器一">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a class="current"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/data-representation.html class='prev_article'> sklearn数据表示</a>       |       下一篇：<a href=/sklearn/conventions.html class='next_article'> sklearn约定</a>  >
+              
+            <h1>sklearn 估算器API</h1>
+<p>在本章中，我们将学习<strong>Estimator API</strong>（应用程序编程接口）。让我们首先了解什么是Estimator API。</p>
+<h2>什么是估算器API</h2>
+<p>它是Scikit-learn实现的主要API之一。它为各种ML应用程序提供了一致的接口，这就是Scikit-Learn中所有机器学习算法都是通过Estimator API实现的原因。从数据中学习（拟合数据）的对象是估计量。它可以与分类，回归，聚类的任何算法一起使用，甚至可以与从原始数据中提取有用特征的转换器一起使用。</p>
+<p>为了拟合数据，所有估计器对象都公开一个fit方法</p>
+<pre><code>estimator.fit(data)
+</code></pre>
+
+<p>接下来，当通过相应的属性实例化估算器时，可以如下设置估算器的所有参数。</p>
+<pre><code>estimator = Estimator (param1=1, param2=2)
+estimator.param1
+</code></pre>
+
+<p>将数据与估算器拟合后，即可根据手头的数据估算参数。现在，所有估计的参数将成为估计器对象的属性，并以下划线结尾，如下所示：</p>
+<pre><code>estimator.estimated_param_
+</code></pre>
+
+<h2>估算器API的使用</h2>
+<p>估计器的主要用途如下-</p>
+<h3>模型的估计和解码</h3>
+<p>估计器对象用于模型的估计和解码。此外，该模型被估计为以下确定性函数-</p>
+<ul>
+<li>对象构造中提供的参数。</li>
+<li>如果估计器的random_state参数设置为none，则为全局随机状态（numpy.random）。</li>
+<li>传递给最新调用<strong>fit，fit_transform或fit_predict的</strong>任何数据。</li>
+<li>在对<strong>partial_fit</strong>的调用序列中传递的任何数据。</li>
+</ul>
+<h3>将非矩形数据表示映射到矩形数据</h3>
+<p>它将非矩形数据表示形式映射为矩形数据。用简单的话说，它接受输入，其中每个样本不表示为固定长度的数组状对象，并为每个样本生成特征的数组状对象。</p>
+<h3>核心样本与外围样本之间的区别</h3>
+<p>它使用以下方法对核心样本和外围样本之间的区别进行建模-</p>
+<ul>
+<li>适合</li>
+<li>fit_predict如果是转导的</li>
+<li>预测是否归纳</li>
+</ul>
+<h2>指导原则</h2>
+<p>在设计Scikit-Learn API时，请牢记以下指导原则-</p>
+<h3>一致性</h3>
+<p>该原则指出，所有对象应共享从一组有限的方法中提取的公共接口。文档也应保持一致。</p>
+<h3>受限的对象层次</h3>
+<p>这个指导原则说-</p>
+<ul>
+<li>算法应由Python类表示</li>
+<li>数据集应以标准格式表示，例如NumPy数组，Pandas DataFrames，SciPy稀疏矩阵。</li>
+<li>参数名称应使用标准的Python字符串。</li>
+</ul>
+<h3>组成</h3>
+<p>众所周知，机器学习算法可以表示为许多基本算法的序列。Scikit-learn会在需要时使用这些基本算法。</p>
+<h3>合理的默认值</h3>
+<p>根据此原理，只要ML模型需要用户指定的参数，Scikit-learn库就会定义适当的默认值。</p>
+<h3>检查</h3>
+<p>根据此指导原则，每个指定的参数值都公开为公共属性。</p>
+<h2>使用Estimator API的步骤</h2>
+<p>以下是使用Scikit-Learn估计器API的步骤-</p>
+<h3>步骤1：选择模型类别</h3>
+<p>在第一步中，我们需要选择一类模型。可以通过从Scikit-learn导入适当的Estimator类来完成。</p>
+<h3>步骤2：选择模型超参数</h3>
+<p>在这一步中，我们需要选择类模型超参数。可以通过用所需的值实例化类来完成。</p>
+<h3>步骤3：整理资料</h3>
+<p>接下来，我们需要将数据排列到特征矩阵（X）和目标向量（y）中。</p>
+<h3>步骤4：模型拟合</h3>
+<p>现在，我们需要使模型适合您的数据。可以通过调用模型实例的fit（）方法来完成。</p>
+<h3>步骤5：应用模型</h3>
+<p>拟合模型后，我们可以将其应用于新数据。对于监督学习，请使用<strong>predict（）</strong>方法来预测未知数据的标签。对于无监督学习，请使用<strong>predict（）</strong>或<strong>transform（）</strong>推断数据的属性。</p>
+<h2>监督学习的例子</h2>
+<p>在此，以该过程为例，我们以将线拟合到（x，y）数据的<strong><em>简单*</em>*情况为例，即</strong><em>简单线性回归*</em>*。</p>
+<p>首先，我们需要加载数据集，我们使用IRIS数据集-</p>
+<pre><code class="python">import seaborn as sns
+iris = sns.load_dataset('iris')
+X_iris = iris.drop('species', axis = 1)
+X_iris.shape
+</code></pre>
+
+<pre><code class="python">y_iris = iris['species']
+y_iris.shape
+</code></pre>
+
+<p>现在，对于此回归示例，我们将使用以下样本数据-</p>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+rng = np.random.RandomState(35)
+x = 10*rng.rand(40)
+y = 2*x-1+rng.randn(40)
+plt.scatter(x,y);
+</code></pre>
+
+<p>因此，对于线性回归示例，我们具有以上数据。</p>
+<p>现在，利用这些数据，我们可以应用上述步骤。</p>
+<h3>选择一种型号</h3>
+<p>在这里，要计算一个简单的线性回归模型，我们需要导入线性回归类，如下所示：</p>
+<pre><code class="python">from sklearn.linear_model import LinearRegression
+</code></pre>
+
+<h3>选择模型超参数</h3>
+<p>选择一类模型后，我们需要做出一些重要的选择，这些选择通常表示为超参数，即在模型适合数据之前必须设置的参数。在此，对于线性回归的示例，我们希望通过使用<strong>fit_intercept</strong>超参数来拟合截距，如下所示：</p>
+<pre><code class="python">model = LinearRegression(fit_intercept = True)
+model
+</code></pre>
+
+<h3>整理数据</h3>
+<p>现在，我们知道目标变量<strong>y的*<em>格式正确，即长度为1-D的<strong>n_samples</strong>数组。但是，我们需要调整特征矩阵**X的</em></strong><em>形状，使其</em><em>成为大小为</em><em>[n_samples，n_features]</em>*的矩阵。它可以做到如下-</p>
+<pre><code class="python">X = x[:, np.newaxis]
+X.shape
+</code></pre>
+
+<h3>模型拟合</h3>
+<p>一旦我们整理了数据，就该对模型进行拟合了，即将模型应用于数据。这可以借助<strong>fit（）</strong>方法完成，如下所示：</p>
+<pre><code class="python">model.fit(X, y)
+</code></pre>
+
+<p>在Scikit-learn中，<strong>fit（）</strong>过程带有一些下划线。</p>
+<p>对于此示例，以下参数显示了数据的简单线性拟合的斜率-</p>
+<pre><code class="python">model.coef_
+</code></pre>
+
+<p>以下参数表示对数据的简单线性拟合的截距-</p>
+<pre><code class="python">model.intercept_
+</code></pre>
+
+<h3>将模型应用于新数据</h3>
+<p>训练模型后，我们可以将其应用于新数据。监督式机器学习的主要任务是根据不是训练集一部分的新数据评估模型。可以借助<strong>predict（）</strong>方法完成以下操作：</p>
+<pre><code class="python">xfit = np.linspace(-1, 11)
+Xfit = xfit[:, np.newaxis]
+yfit = model.predict(Xfit)
+plt.scatter(x, y)
+plt.plot(xfit, yfit);
+</code></pre>
+
+<h3>完整的工作/可执行示例</h3>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+iris = sns.load_dataset('iris')
+X_iris = iris.drop('species', axis = 1)
+X_iris.shape
+y_iris = iris['species']
+y_iris.shape
+
+rng = np.random.RandomState(35)
+x = 10*rng.rand(40)
+y = 2*x-1+rng.randn(40)
+plt.scatter(x,y);
+from sklearn.linear_model import LinearRegression
+model = LinearRegression(fit_intercept=True)
+model
+X = x[:, np.newaxis]
+X.shape
+
+model.fit(X, y)
+model.coef_
+model.intercept_
+
+xfit = np.linspace(-1, 11)
+Xfit = xfit[:, np.newaxis]
+yfit = model.predict(Xfit)
+plt.scatter(x, y)
+plt.plot(xfit, yfit);
+</code></pre>
+
+<h2>无监督学习示例</h2>
+<p>在此，作为此过程的示例，我们以降低Iris数据集的维数的常见情况为例，以便我们可以更轻松地对其进行可视化。对于此示例，我们将使用主成分分析（PCA），这是一种快速线性降维技术。</p>
+<p>像上面给出的示例一样，我们可以加载和绘制来自IRIS数据集的随机数据。之后，我们可以按照以下步骤-</p>
+<h3>选择一种型号</h3>
+<pre><code class="python">from sklearn.decomposition import PCA
+</code></pre>
+
+<h3>选择模型超参数</h3>
+<pre><code class="python">model = PCA(n_components=2)
+model
+</code></pre>
+
+<h3>模型拟合</h3>
+<pre><code class="python">model.fit(X_iris)
+</code></pre>
+
+<h3>将数据转换为二维</h3>
+<pre><code class="python">X_2D = model.transform(X_iris)
+</code></pre>
+
+<p>现在，我们可以将结果绘制如下：</p>
+<h3>完整的工作/可执行示例</h3>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+iris = sns.load_dataset('iris')
+X_iris = iris.drop('species', axis = 1)
+X_iris.shape
+y_iris = iris['species']
+y_iris.shape
+rng = np.random.RandomState(35)
+x = 10*rng.rand(40)
+y = 2*x-1+rng.randn(40)
+plt.scatter(x,y);
+from sklearn.decomposition import PCA
+
+model = PCA(n_components=2)
+model
+model.fit(X_iris)
+X_2D = model.transform(X_iris)
+iris['PCA1'] = X_2D[:, 0]
+iris['PCA2'] = X_2D[:, 1]
+sns.lmplot(&quot;PCA1&quot;, &quot;PCA2&quot;, hue='species', data=iris, fit_reg=False);
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

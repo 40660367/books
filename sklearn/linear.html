@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 线性建模之线性回归 - FreeAIHub</title>
+    <meta name="keywords" content="参量,属性">
+    <meta name="description" content="本章将帮助您学习Scikit-Learn中的线性建模。让我们首先了解什么是Sklearn中的线性回归。线性建模是研究因变量（Y）与给定的一组自变量（X）之间的关系的最佳统计模型之一。可以通过拟合最佳路线来建立关系。是用于实现线性回归的模块。下表包含模块使用的参数-下表包含模块使用的属性-首先，导入所需的软件包-现在，提供自变量X的值-接下来，可以如下计算因变量y的值-现在，创建一个线性回归对象，如">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a class="current"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/conventions.html class='prev_article'> sklearn约定</a>       |       下一篇：<a href=/sklearn/logistic.html class='next_article'> sklearn线性建模之逻辑回归</a>  >
+              
+            <h1>sklearn 线性建模之线性回归</h1>
+<p>本章将帮助您学习Scikit-Learn中的线性建模。让我们首先了解什么是Sklearn中的线性回归。</p>
+<p>线性建模是研究因变量（Y）与给定的一组自变量（X）之间的关系的最佳统计模型之一。可以通过拟合最佳路线来建立关系。</p>
+<p><strong>sklearn.linear_model.LinearRegression</strong>是用于实现线性回归的模块。</p>
+<h2>参量</h2>
+<p>下表包含<strong>线性回归</strong>模块使用的参数-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数及说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><em><strong>fit_intercept-</strong>布尔值，可选，默认为True</em>用于计算模型的截距。如果将此设置为false，则不会在计算中使用截距。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>normalize-</strong>布尔值，可选，默认为False</em>如果将此参数设置为True，则回归变量X将在回归之前进行标准化。通过减去平均值并将其除以L2范数来完成归一化。如果fit_intercept = False，则将忽略此参数。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><em><strong>copy_X-</strong>布尔值，可选，默认为True</em>默认情况下为true，这意味着将复制X。但是，如果将其设置为false，则X可能会被覆盖。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><em><strong>n_jobs</strong> -int或None，可选（默认= None）</em>它表示要用于计算的作业数。</td>
+</tr>
+</tbody>
+</table>
+<h2>属性</h2>
+<p>下表包含<strong>线性回归</strong>模块使用的属性-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>属性和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><em><strong>coef_-</strong>数组，shape（n_features）或（n_targets，n_features）</em>它用于估计线性回归问题的系数。如果在拟合过程中传递了多个目标，则它将是一个二维形状数组（n_targets，n_features）。例如 （y 2D）。另一方面，如果在拟合过程中仅传递了一个目标，则它将是一维长度（n_features）的数组。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>Intercept_-</strong>数组</em>这是此线性模型中的一个独立术语。</td>
+</tr>
+</tbody>
+</table>
+<h3>实施实例</h3>
+<p>首先，导入所需的软件包-</p>
+<pre><code class="python">import numpy as np
+from sklearn.linear_model import LinearRegression
+LinearRegression
+</code></pre>
+
+<p>现在，提供自变量X的值-</p>
+<pre><code class="python">X = np.array([[1,1],[1,2],[2,2],[2,3]])
+X
+</code></pre>
+
+<p>接下来，可以如下计算因变量y的值-</p>
+<pre><code class="python">y = np.dot(X, np.array([1,2])) + 3
+y
+</code></pre>
+
+<p>现在，创建一个线性回归对象，如下所示：</p>
+<pre><code class="python">regr = LinearRegression(fit_intercept = True, normalize = True, copy_X = True, n_jobs = 2).fit(X,y)
+regr
+</code></pre>
+
+<p>使用predict）方法使用此线性模型进行预测，如下所示：</p>
+<pre><code class="python">regr.predict(np.array([[3,5]]))
+</code></pre>
+
+<p>要获取预测的确定系数，我们可以使用Score()方法，如下所示：</p>
+<pre><code class="python">regr.score(X,y)
+</code></pre>
+
+<p>我们可以通过使用名为“ coef”的属性来估计系数，如下所示：</p>
+<pre><code class="python">regr.coef_
+</code></pre>
+
+<p>我们可以通过使用名为“ intercept”的属性来计算截距，即当所有X = 0时Y的期望平均值，如下所示-</p>
+<pre><code class="python">regr.intercept_
+</code></pre>
+
+<h3>实施示例的完整代码</h3>
+<pre><code class="python">import numpy as np
+from sklearn.linear_model import LinearRegression
+X = np.array([[1,1],[1,2],[2,2],[2,3]])
+y = np.dot(X, np.array([1,2])) + 3
+regr = LinearRegression(fit_intercept = True, normalize = True, copy_X = True, n_jobs = 2).fit(X,y)
+
+print('predict:',regr.predict(np.array([[3,5]])))
+print('score:',regr.score(X,y))
+print('coef_:',regr.coef_)
+print('intercept_:',regr.intercept_)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

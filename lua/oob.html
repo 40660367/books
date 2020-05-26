@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lua 面向对象编程 - FreeAIHub</title>
+    <meta name="keywords" content="面向对象的特点,Lua面向对象,真实世界的例子,创建一个简单的类,Lua继承">
+    <meta name="description" content="面向对象编程(OOP)是现代编程中使用最多的编程技术之一。 有许多支持OOP的编程语言包括可使用Lua的表和第一类函数在Lua中实现面向对象。 通过将函数和相关数据放入表中，形成对象。可使用元表实现继承，为父对象中不存在的函数(方法)和字段提供查找机制。Lua中的表具有状态和标识等对象的特征，与其值无关。 具有相同值的两个对象(表)是不同的对象，而对象在不同的时间可以具有不同的值，但它始终是相同的">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/lua/index.html">如何学习本课程</a></li>
+<li><a href="/lua/setup.html"> Lua 环境安装配置  </a></li>
+<li><a href="/lua/intro.html"> Lua 简介 </a></li>
+<li><a href="/lua/helloworld.html"> Lua 运行Lua的第一个程序 </a></li>
+<li><a href="/lua/syntax.html"> Lua 基本语法 </a></li>
+<li><a href="/lua/operator.html"> Lua 运算符(operator) </a></li>
+<li><a href="/lua/variable.html"> Lua 变量(variable) </a></li>
+<li><a href="/lua/datatype.html"> Lua 数据类型 </a></li>
+<li><a href="/lua/array.html"> Lua 数组(array) </a></li>
+<li><a href="/lua/string.html"> Lua 字符串(string) </a></li>
+<li><a href="/lua/table.html"> Lua 表(table) </a></li>
+<li><a href="/lua/metatable.html"> Lua 元表(metatable) </a></li>
+<li><a href="/lua/function.html"> Lua 函数(function) </a></li>
+<li><a href="/lua/logic.html"> Lua 逻辑判断 </a></li>
+<li><a href="/lua/logic-if.html"> Lua if语句  </a></li>
+<li><a href="/lua/logic-if-else.html"> Lua if...else语句 </a></li>
+<li><a href="/lua/logic-if-nested.html"> Lua 嵌套if语句 </a></li>
+<li><a href="/lua/loop.html"> Lua 循环(loop) </a></li>
+<li><a href="/lua/loop-for.html"> Lua for循环 </a></li>
+<li><a href="/lua/loop-nested.html"> Lua 嵌套循环 </a></li>
+<li><a href="/lua/loop-repeat-until.html"> Lua repeat...until循环 </a></li>
+<li><a href="/lua/loop-while.html"> Lua while循环 </a></li>
+<li><a href="/lua/loopcontrol-break.html"> Lua 循环控制 break </a></li>
+<li><a class="current"> Lua 面向对象编程 </a></li>
+<li><a href="/lua/coroutine.html"> Lua 协同程序(coroutine) </a></li>
+<li><a href="/lua/io.html"> Lua 文件操作 </a></li>
+<li><a href="/lua/iterator.html"> Lua 迭代器(iterator)  </a></li>
+<li><a href="/lua/module.html"> Lua 模块(module) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/lua/loopcontrol-break.html class='prev_article'> Lua 循环控制 break </a>       |       下一篇：<a href=/lua/coroutine.html class='next_article'> Lua 协同程序(coroutine) </a>  >
+              
+<h1>Lua 面向对象编程</h1>
+<p>面向对象编程(OOP)是现代编程中使用最多的编程技术之一。 有许多支持OOP的编程语言包括</p>
+<ul>
+<li>C++</li>
+<li>Java</li>
+<li>Objective-C</li>
+<li>Smalltalk</li>
+<li>C#</li>
+<li>Ruby</li>
+</ul>
+<h2>面向对象的特点</h2>
+<ul>
+<li><strong>类</strong> - 类是用于创建对象的可扩展模板，为状态(成员变量)和行为实现提供初始值。</li>
+<li><strong>对象</strong> - 它是类的一个实例，并为自己分配了单独的内存。</li>
+<li><strong>继承</strong> - 这是一个概念，通过该概念，一个类的变量和函数由另一个类继承。</li>
+<li><strong>封装</strong> - 这是在类中组合数据和函数的过程。借助函数可以在类的外部访问数据。 它也被称为数据抽象。</li>
+</ul>
+<h2>Lua面向对象</h2>
+<p>可使用Lua的表和第一类函数在Lua中实现面向对象。 通过将函数和相关数据放入表中，形成对象。可使用元表实现继承，为父对象中不存在的函数(方法)和字段提供查找机制。</p>
+<p>Lua中的表具有状态和标识等对象的特征，与其值无关。 具有相同值的两个对象(表)是不同的对象，而对象在不同的时间可以具有不同的值，但它始终是相同的对象。 与对象一样，表的生命周期与谁创建它们或创建位置无关。</p>
+<h2>真实世界的例子</h2>
+<p>面向对象的概念广泛使用，但需要清楚地理解面向对象以获得适当和最大的好处。
+考虑一个简单的数学例子。 我们经常遇到处理不同形状的情况，如圆形，矩形和方形。</p>
+<p>形状可以具有共同的属性<code>area</code>。 因此，使用公共属性区域从基础对象形状扩展其他形状。 每个形状都可以有自己的属性，像矩形这样的函数可以具有属性<code>length</code>，<code>width</code>，<code>area</code>作为属性，<code>printArea</code>和<code>calculateArea</code>作为它的函数。</p>
+<h2>创建一个简单的类</h2>
+<p>下面显示了具有三个属性<code>length</code>，<code>width</code>和<code>area</code>的矩形的简单类实现。 它还有一个<code>printArea</code>函数来打印计算区域面积。</p>
+<pre><code class="lua">-- Meta class
+Rectangle = {area = 0, length = 0, breadth = 0}
+
+-- Derived class method new
+
+function Rectangle:new (o,length,breadth)
+   o = o or {}
+   setmetatable(o, self)
+   self.__index = self
+   self.length = length or 0
+   self.breadth = breadth or 0
+   self.area = length*breadth;
+   return o
+end
+
+-- Derived class method printArea
+
+function Rectangle:printArea ()
+   print(&quot;The area of Rectangle is &quot;,self.area)
+end
+</code></pre>
+
+<p><strong>创建一个对象</strong>
+创建对象是为类实例分配内存的过程。 每个对象都有自己的内存并共享公共类数据。</p>
+<pre><code class="lua">r = Rectangle:new(nil,10,20)
+</code></pre>
+
+<p><strong>访问属性</strong>
+可以使用点(<code>.</code>)运算符访问类中的属性，如下所示 - </p>
+<pre><code class="lua">print(r.length)
+</code></pre>
+
+<p><strong>访问成员函数</strong></p>
+<p>使用带有对象的冒号(<code>:</code>)运算符访问成员函数，如下所示 - </p>
+<pre><code class="lua">r = Rectangle:new(nil,10,20)
+r:printArea()
+</code></pre>
+
+<p>分配内存并设置初始值。可以将初始化过程与其他面向对象语言中的构造函数进行比较。 它只是一个能够设置如上所示的值的函数。</p>
+<p><strong>完整的例子</strong>
+下面来看一下在Lua中使用面向对象的完整示例。</p>
+<p>文件名:oob1.lua</p>
+<pre><code class="lua">-- Meta class
+Shape = {area = 0}
+
+-- Base class method new
+
+function Shape:new (o,side)
+   o = o or {}
+   setmetatable(o, self)
+   self.__index = self
+   side = side or 0
+   self.area = side*side;
+   return o
+end
+
+-- Base class method printArea
+
+function Shape:printArea ()
+   print(&quot;The area is &quot;,self.area)
+end
+
+-- Creating an object
+myshape = Shape:new(nil,10)
+
+myshape:printArea()
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/oob1.lua
+</code></pre>
+
+<p>康康</p>
+<h2>Lua继承</h2>
+<p>继承是将简单的基础对象(如形状)扩展为矩形，正方形等的过程。 它经常在现实世界中用于共享和扩展基本属性和功能。</p>
+<p>下面来看一个简单的类扩展。有一个如下所示的类，</p>
+<pre><code class="lua">-- 元类
+Shape = {area = 0}
+
+-- 基类方法
+function Shape:new (o,side)
+   o = o or {}
+   setmetatable(o, self)
+   self.__index = self
+   side = side or 0
+   self.area = side*side;
+   return o
+end
+
+-- 基类方法 - printArea
+
+function Shape:printArea ()
+   print(&quot;The area is &quot;,self.area)
+end
+</code></pre>
+
+<p>可以将形状扩展为方形类，如下所示。</p>
+<pre><code class="lua">Square = Shape:new()
+
+-- Derived class method new
+
+function Square:new (o,side)
+   o = o or Shape:new(o,side)
+   setmetatable(o, self)
+   self.__index = self
+   return o
+end
+</code></pre>
+
+<p><strong>覆盖基类函数</strong></p>
+<p>可以覆盖基类函数而不是在基类中使用函数，派生类可以有自己的实现，如下所示 - </p>
+<pre><code class="lua">-- Derived class method printArea
+
+function Square:printArea ()
+   print(&quot;The area of square is &quot;,self.area)
+end
+</code></pre>
+
+<p><strong>继承完整示例</strong>
+在另一个<code>new</code>方法的帮助下，使用<code>metatables</code>，扩展Lua中的简单类实现，如上所示。 基类的所有成员变量和函数都保留在派生类中。</p>
+<p>文件名:oob2.lua</p>
+<pre><code class="lua">-- Meta class
+Shape = {area = 0}
+
+-- Base class method new
+
+function Shape:new (o,side)
+   o = o or {}
+   setmetatable(o, self)
+   self.__index = self
+   side = side or 0
+   self.area = side*side;
+   return o
+end
+
+-- Base class method printArea
+
+function Shape:printArea ()
+   print(&quot;The area is &quot;,self.area)
+end
+
+-- Creating an object
+myshape = Shape:new(nil,10)
+myshape:printArea()
+
+Square = Shape:new()
+
+-- Derived class method new
+
+function Square:new (o,side)
+   o = o or Shape:new(o,side)
+   setmetatable(o, self)
+   self.__index = self
+   return o
+end
+
+-- Derived class method printArea
+
+function Square:printArea ()
+   print(&quot;The area of square is &quot;,self.area)
+end
+
+-- Creating an object
+mysquare = Square:new(nil,10)
+mysquare:printArea()
+
+Rectangle = Shape:new()
+
+-- Derived class method new
+
+function Rectangle:new (o,length,breadth)
+   o = o or Shape:new(o)
+   setmetatable(o, self)
+   self.__index = self
+   self.area = length * breadth
+   return o
+end
+
+-- Derived class method printArea
+
+function Rectangle:printArea ()
+    print(&quot;The area of Rectangle is &quot;,self.area)
+end
+
+-- Creating an object
+
+myrectangle = Rectangle:new(nil,10,20)
+myrectangle:printArea()
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/oob2.lua
+</code></pre>
+
+<p>康康</p>
+<p>在上面的例子中，创建了两个派生类 - 基类<code>Square</code>和<code>Rectangle</code>。并在派生类中覆盖基类的函数。 在此示例中，派生类会覆盖函数<code>printArea</code>。</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

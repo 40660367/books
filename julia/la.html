@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 线性代数 - FreeAIHub</title>
+    <meta name="keywords" content="线性代数,矩阵分解,特殊矩阵,基本运算,矩阵分解,缩放运算">
+    <meta name="description" content="是将一个矩阵分解为数个矩阵的乘积，是线性代数中的一个核心概念。下面的表格总结了在 Julia 中实现的几种矩阵分解方式。具体的函数可以参考标准库文档的 章节。线性代数中经常碰到带有对称性结构的特殊矩阵，这些矩阵经常和矩阵分解联系到一起。Julia 内置了非常丰富的特殊矩阵类型，可以快速地对特殊矩阵进行特定的操作.下面的表格总结了 Julia 中特殊的矩阵类型，其中也包含了 LAPACK 中的一些已">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a class="current"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/md-array.html class='prev_article'> Julia多维数组 </a>       |       下一篇：<a href=/julia/net-stream.html class='next_article'> Julia网络和流 </a>  >
+              
+            <h1>Julia 线性代数</h1>
+<h2>线性代数</h2>
+<h2>矩阵分解</h2>
+<p><a href="http://zh.wikipedia.org/zh-cn/矩阵分解">矩阵分解</a>是将一个矩阵分解为数个矩阵的乘积，是线性代数中的一个核心概念。</p>
+<p>下面的表格总结了在 Julia 中实现的几种矩阵分解方式。具体的函数可以参考标准库文档的 <a href="http://julia-cn.readthedocs.org/zh_CN/latest/stdlib/linalg/#stdlib-linalg"><em>Linear Algebra</em></a>章节。</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Cholesky</td>
+<td><a href="http://en.wikipedia.org/wiki/Cholesky_decomposition">Cholesky 分解</a></td>
+</tr>
+<tr>
+<td align="left">CholeskyPivoted</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/主元">主元</a> Cholesky 分解</td>
+</tr>
+<tr>
+<td align="left">LU</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/LU分解">LU 分解</a></td>
+</tr>
+<tr>
+<td align="left">LUTridiagonal</td>
+<td>三对角矩阵的 LU 因子分解</td>
+</tr>
+<tr>
+<td align="left">UmfpackLU</td>
+<td>稀疏矩阵的 LU 分解（使用 UMFPACK 计算）</td>
+</tr>
+<tr>
+<td align="left">QR</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/LU分解">QR 分解</a></td>
+</tr>
+<tr>
+<td align="left">QRCompactWY</td>
+<td>QR 分解的紧凑 WY 形式</td>
+</tr>
+<tr>
+<td align="left">QRPivoted</td>
+<td>主元 <a href="http://zh.wikipedia.org/zh-cn/QR分解">QR 分解</a></td>
+</tr>
+<tr>
+<td align="left">Hessenberg</td>
+<td><a href="http://mathworld.wolfram.com/HessenbergDecomposition.html">Hessenberg 分解</a></td>
+</tr>
+<tr>
+<td align="left">Eigen</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/特征分解">特征分解</a></td>
+</tr>
+<tr>
+<td align="left">SVD</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/奇异值分解">奇异值分解</a></td>
+</tr>
+<tr>
+<td align="left">GeneralizedSVD</td>
+<td><a href="http://en.wikipedia.org/wiki/Generalized_singular_value_decomposition#Higher_order_version">广义奇异值分解</a></td>
+</tr>
+</tbody>
+</table>
+<h2>特殊矩阵</h2>
+<p>线性代数中经常碰到带有对称性结构的特殊矩阵，这些矩阵经常和矩阵分解联系到一起。Julia 内置了非常丰富的特殊矩阵类型，可以快速地对特殊矩阵进行特定的操作.</p>
+<p>下面的表格总结了 Julia 中特殊的矩阵类型，其中也包含了 LAPACK 中的一些已经优化过的运算。</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Hermitian</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/埃尔米特矩阵">埃尔米特矩阵</a></td>
+</tr>
+<tr>
+<td align="left">Triangular</td>
+<td>上/下<a href="http://zh.wikipedia.org/zh-cn/三角矩阵">三角矩阵</a></td>
+</tr>
+<tr>
+<td align="left">Tridiagonal</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/三对角矩阵">三对角矩阵</a></td>
+</tr>
+<tr>
+<td align="left">SymTridiagonal</td>
+<td>对称三对角矩</td>
+</tr>
+<tr>
+<td align="left">Bidiagonal</td>
+<td>上/下<a href="http://en.wikipedia.org/wiki/Bidiagonal_matrix">双对角矩阵</a></td>
+</tr>
+<tr>
+<td align="left">Diagonal</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/對角矩陣">对角矩阵</a></td>
+</tr>
+<tr>
+<td align="left">UniformScaling</td>
+<td><a href="http://zh.wikipedia.org/zh-cn/缩放">缩放矩阵</a></td>
+</tr>
+</tbody>
+</table>
+<h2>基本运算</h2>
+<table>
+<thead>
+<tr>
+<th align="left">矩阵类型</th>
+<th align="left">+</th>
+<th align="left">-</th>
+<th align="left">*</th>
+<th align="left">\</th>
+<th align="left">其它已优化的函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Hermitian</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">XY</td>
+<td align="left">inv, sqrtm, expm</td>
+</tr>
+<tr>
+<td align="left">Triangular</td>
+<td align="left"></td>
+<td align="left">XY</td>
+<td align="left">XY</td>
+<td align="left">inv, det</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SymTridiagonal</td>
+<td align="left">X</td>
+<td align="left">X</td>
+<td align="left">XZ</td>
+<td align="left">XY</td>
+<td align="left">eigmax/min</td>
+</tr>
+<tr>
+<td align="left">Tridiagonal</td>
+<td align="left">X</td>
+<td align="left">X</td>
+<td align="left">XZ</td>
+<td align="left">XY</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Bidiagonal</td>
+<td align="left">X</td>
+<td align="left">X</td>
+<td align="left">XZ</td>
+<td align="left">XY</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Diagnoal</td>
+<td align="left">X</td>
+<td align="left">X</td>
+<td align="left">XY</td>
+<td align="left">XY</td>
+<td align="left">inv, det, logdet, /</td>
+</tr>
+<tr>
+<td align="left">UniformScaling</td>
+<td align="left">X</td>
+<td align="left">X</td>
+<td align="left">XYZ</td>
+<td align="left">XYZ</td>
+<td align="left">/</td>
+</tr>
+</tbody>
+</table>
+<p>图例：</p>
+<table>
+<thead>
+<tr>
+<th align="left">X</th>
+<th align="left">已对矩阵-矩阵运算优化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Y</td>
+<td align="left">已对矩阵-向量运算优化</td>
+</tr>
+<tr>
+<td align="left">Z</td>
+<td align="left">已对矩阵-标量运算优化</td>
+</tr>
+</tbody>
+</table>
+<h2>矩阵分解</h2>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>矩阵类型</strong></th>
+<th align="left"><strong>LAPACK</strong></th>
+<th align="left">eig</th>
+<th align="left">eigvals</th>
+<th align="left">eigvecs</th>
+<th align="left">svd</th>
+<th>svdvals</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Hermitian</td>
+<td align="left">HE</td>
+<td align="left">ABC</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Triangular</td>
+<td align="left">TR</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">SymTridiagonal</td>
+<td align="left">ST</td>
+<td align="left">A</td>
+<td align="left">ABC</td>
+<td align="left">AD</td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Tridiagonal</td>
+<td align="left">GT</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Bidiagonal</td>
+<td align="left">BD</td>
+<td align="left"></td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left"></td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Diagonal</td>
+<td align="left">DI</td>
+<td align="left"></td>
+<td align="left">A</td>
+<td align="left"></td>
+<td align="left"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>图例：</p>
+<table>
+<thead>
+<tr>
+<th align="left">A</th>
+<th align="left">已对寻找特征值和/或特征向量优化</th>
+<th align="left">例如 eigvals(M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">B</td>
+<td align="left">已对寻找 ilth 到 ihth 特征值优化</td>
+<td align="left">eigvals(M, il, ih)</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">已对寻找在 [vl, vh] 之间的特征值优化</td>
+<td align="left">eigvals(M, vl, vh)</td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left">已对寻找特征值 x=[x1, x2,...] 所对应的特征向量优化</td>
+<td align="left">eigvecs(M, x)</td>
+</tr>
+</tbody>
+</table>
+<h2>缩放运算</h2>
+<p>一个 <code>UniformScaling</code> 运算符代表了一个单位算子的标量次数, <code>λ*I</code>。单位算子 <code>I</code> 被定义为一个常量且是 <code>UniformScaling</code> 的一个实例。 这些运算符的尺寸是一般大小，可匹配 <code>+</code>,<code>-</code>,<code>*</code> 和 <code>\</code> 等其它二元运算符中的矩阵。对于 <code>A+I</code> 和 <code>A-I</code> 这意味着 <code>A</code> 必须是一个方阵. 使用了单位算子 <code>I</code> 的乘法运算是一个空操作(除非缩放因子为一) ，因此基本没有开销。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

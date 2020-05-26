@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 标准库(stdlib)概览 - FreeAIHub</title>
+    <meta name="keywords" content="操作系统接口,文件通配符,命令行参数,错误输出重定向和程序终止,字符串正则匹配,数学,访问互联网,日期和时间,数据压缩,性能度量,测试模块">
+    <meta name="description" content="模块提供了不少与操作系统相关联的函数。建议使用 风格而非。这样可以保证随操作系统不同而有所变化的 不会覆盖内置函数。在使用这样的大型模块时内置的和函数非常有用:针对日常的文件和目录管理任务，模块提供了一个易于使用的高级接口:模块提供了一个函数用于从目录通配符搜索中生成文件列表:通用工具脚本经常调用命令行参数。这些命令行参数以链表形式存储于模块的变量。 还有 ， 和  属性，即使在  被重定向时，后">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a class="current"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/package.html class='prev_article'> Python3 模块 </a>       |       下一篇：无  >
+              
+            <h1>Python3 标准库(stdlib)概览</h1>
+<h2>操作系统接口</h2>
+<p><code>os</code>模块提供了不少与操作系统相关联的函数。</p>
+<pre><code class="Python">import os
+print(os.getcwd())      # 返回当前的工作目录
+os.chdir('/')   # 修改当前的工作目录
+print(os.getcwd())
+print(os.system('ls'))   # 执行系统命令 ls
+</code></pre>
+
+<p>建议使用<code>import os</code> 风格而非<code>from os import *</code>。这样可以保证随操作系统不同而有所变化的 <code>os.open()</code>不会覆盖内置函数<code>open()</code>。</p>
+<p>在使用<code>os</code>这样的大型模块时内置的<code>dir()</code>和<code>help()</code>函数非常有用:</p>
+<pre><code class="Python">import os
+dir(os)#&lt;returns a list of all module functions&gt;
+help(os)#&lt;returns an extensive manual page created from the module's docstrings&gt;
+</code></pre>
+
+<p>针对日常的文件和目录管理任务，<code>shutil</code>模块提供了一个易于使用的高级接口:</p>
+<pre><code class="Python">!touch data.db
+
+import shutil
+shutil.copyfile('data.db', 'archive.db')
+shutil.move('/', 'installdir')
+</code></pre>
+
+<h2>文件通配符</h2>
+<p><code>glob</code>模块提供了一个函数<code>glob()</code>用于从目录通配符搜索中生成文件列表:</p>
+<pre><code class="Python">import glob
+glob.glob('*.py')
+</code></pre>
+
+<h2>命令行参数</h2>
+<p>通用工具脚本经常调用命令行参数。这些命令行参数以链表形式存储于<code>sys</code>模块的<code>argv</code>变量。</p>
+<pre><code class="Python">%%write demo.py
+import sys
+print(sys.argv)
+</code></pre>
+
+<pre><code class="Python">#在命令行中执行
+!python demo.py one two three
+</code></pre>
+
+<h2>错误输出重定向和程序终止</h2>
+<p><code>sys</code> 还有 <code>stdin</code>，<code>stdout</code> 和 <code>stderr</code> 属性，即使在 <code>stdout</code> 被重定向时，后者也可以用于显示警告和错误信息。
+<code>sys.stderr.write('Warning, log file not found starting a new one\n')Warning, log file not found starting a new one</code></p>
+<p>大多脚本的定向终止都使用<code>sys.exit()</code>。</p>
+<h2>字符串正则匹配</h2>
+<p>re模块为高级字符串处理提供了正则表达式工具。对于复杂的匹配和处理，正则表达式提供了简洁、优化的解决方案:</p>
+<pre><code class="Python">import re
+re.findall(r'\bf[a-z]*', 'which foot or hand fell fastest')
+re.sub(r'(\b[a-z]+) \1', r'\1', 'cat in the the hat')
+</code></pre>
+
+<p>如果只需要简单的功能，应该首先考虑字符串方法，因为它们非常简单，易于阅读和调试:</p>
+<pre><code class="Python">'tea for too'.replace('too', 'two')
+</code></pre>
+
+<h2>数学</h2>
+<p><code>math</code>模块为浮点运算提供了对底层C函数库的访问:</p>
+<pre><code class="Python">import math
+math.cos(math.pi / 4)
+math.log(1024, 2)
+</code></pre>
+
+<p><code>random</code>提供了生成随机数的工具。</p>
+<pre><code class="Python">import random
+list1=['apple','pear','banana','orange']
+print(random.choice(list1))
+print(random.choice(list1))
+print(random.choice(list1))
+
+
+print(random.sample(range(100), 10))   # sampling without replacement
+print(random.sample(range(100), 10))   # sampling without replacement
+print(random.sample(range(100), 10))   # sampling without replacement
+
+
+print(random.random())    # random float
+print(random.random())    # random float
+print(random.random())    # random float
+
+print(random.randrange(10))    # random integer chosen from range(6)
+print(random.randrange(10))    # random integer chosen from range(6)
+print(random.randrange(10))    # random integer chosen from range(6)
+</code></pre>
+
+<h2>访问互联网</h2>
+<p>有几个模块用于访问互联网以及处理网络通信协议。其中最简单的两个是用于处理从 urls 接收的数据的 <code>urllib.request</code> 以及用于发送电子邮件的 smtplib:</p>
+<pre><code class="Python">from urllib.request import urlopen
+for line in urlopen('http://tycho.usno.navy.mil/cgi-bin/timer.pl'):
+     line = line.decode('utf-8')  # Decoding the binary data to text.
+     if 'EST' in line or 'EDT' in line:  # look for Eastern Time
+         print(line)
+
+            import smtplib
+server = smtplib.SMTP('localhost')
+server.sendmail('soothsayer@example.org', 'jcaesar@example.org',
+ &quot;&quot;&quot;To: jcaesar@example.org
+ From: soothsayer@example.org
+
+ Beware the Ides of March.
+ &quot;&quot;&quot;)
+server.quit()
+</code></pre>
+
+<p>注意第二个例子需要本地有一个在运行的邮件服务器。</p>
+<h2>日期和时间</h2>
+<p><code>datetime</code>模块为日期和时间处理同时提供了简单和复杂的方法。</p>
+<p>支持日期和时间算法的同时，实现的重点放在更有效的处理和格式化输出。</p>
+<p>该模块还支持时区处理:</p>
+<pre><code class="Python"># dates are easily constructed and formatted
+from datetime import date
+now = date.today()
+now
+datetime.date(2020, 2, 2)
+now.strftime(&quot;%m-%d-%y. %d %b %Y is a %A on the %d day of %B.&quot;)
+
+# dates support calendar arithmetic
+birthday = date(1990, 7, 4)
+age = now - birthday
+age.days
+</code></pre>
+
+<h2>数据压缩</h2>
+<p>以下模块直接支持通用的数据打包和压缩格式：zlib，gzip，bz2，zipfile，以及 tarfile。</p>
+<pre><code class="Python">import zlib
+s = b'witch which has which witches wrist watch'
+len(s)
+t = zlib.compress(s)
+len(t)
+zlib.decompress(t)
+zlib.crc32(s)
+</code></pre>
+
+<h2>性能度量</h2>
+<p>有些用户对了解解决同一问题的不同方法之间的性能差异很感兴趣。Python 提供了一个度量工具，为这些问题提供了直接答案。</p>
+<p>例如，使用元组封装和拆封来交换元素看起来要比使用传统的方法要诱人的多,timeit 证明了现代的方法更快一些。</p>
+<pre><code class="Python">from timeit import Timer
+Timer('t=a; a=b; b=t', 'a=1; b=2').timeit()
+Timer('a,b = b,a', 'a=1; b=2').timeit()
+</code></pre>
+
+<p>相对于 timeit 的细粒度，:mod:profile 和 pstats 模块提供了针对更大代码块的时间度量工具。</p>
+<h2>测试模块</h2>
+<p>开发高质量软件的方法之一是为每一个函数开发测试代码，并且在开发过程中经常进行测试</p>
+<p>doctest模块提供了一个工具，扫描模块并根据程序中内嵌的文档字符串执行测试。</p>
+<p>测试构造如同简单的将它的输出结果剪切并粘贴到文档字符串中。</p>
+<p>通过用户提供的例子，它强化了文档，允许 doctest 模块确认代码的结果是否与文档一致:</p>
+<pre><code class="Python">def average(values):
+    &quot;&quot;&quot;Computes the arithmetic mean of a list of numbers.
+
+    print(average([20, 30, 70]))
+    40.0
+    &quot;&quot;&quot;
+    return sum(values) / len(values)
+
+import doctest
+doctest.testmod()   # 自动验证嵌入测试
+</code></pre>
+
+<p><code>unittest</code>模块不像 <code>doctest</code>模块那么容易使用，不过它可以在一个独立的文件里提供一个更全面的测试集:</p>
+<pre><code class="Python">import unittest
+
+class TestStatisticalFunctions(unittest.TestCase):
+
+    def test_average(self):
+        self.assertEqual(average([20, 30, 70]), 40.0)
+        self.assertEqual(round(average([1, 5, 7]), 1), 4.3)
+        self.assertRaises(ZeroDivisionError, average, [])
+        self.assertRaises(TypeError, average, 20, 30, 70)
+
+unittest.main() # Calling from the command line invokes all tests
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

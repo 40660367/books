@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Linux命令在线运行 - FreeAIHub</title>
+    <meta name="keywords" content="如何使用本课程,其他工具介绍,交互式运行Python程序,如何使用本课程,使用帮助Git命令在线运行,关于用户环境,关于代码框,关于代码框输出结果不全的问题：,关于魔法函数%,学习中其它常见问题,IDLE - 自带的集成开发工具,Jupyter Notebook - 更好的交互式编程工具,解释式运行Py">
+    <meta name="description" content="本课程的一大特点是每节的代码都是可以在线实时运行的，您可以随时改变一些命令，通过运行结果进一步理解改动所带来的影响。
+本教程将使用 Linux 的发行版本 Ubuntu 为例来为大家介绍 Linux 系统的应用。
+我们认为，这种交互式的学习体验对于学习Linux非常重要。因为Linux课程的学习在只有文字解释在这时候可能比较苍白无力，而且不足以覆盖所有细节。读者需要不断改动命令、观察运行结果并总结">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/aboutus/index.html"> 关于我们 </a></li>
+<li><a href="/aboutus/advice.html"> 改善建议  </a></li>
+<li><a href="/aboutus/help.html"> 帮助信息 </a></li>
+<li><a href="/aboutus/aggrement.html"> 用户服务协议 </a></li>
+<li><a href="/aboutus/copyright.html"> 版权声明及侵权举报 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            <h1>Linux命令在线运行</h1>
+<p>本课程的一大特点是每节的代码都是可以在线实时运行的，您可以随时改变一些命令，通过运行结果进一步理解改动所带来的影响。<br />
+本教程将使用 Linux 的发行版本 Ubuntu 为例来为大家介绍 Linux 系统的应用。<br />
+我们认为，这种交互式的学习体验对于学习Linux非常重要。因为Linux课程的学习在只有文字解释在这时候可能比较苍白无力，而且不足以覆盖所有细节。读者需要不断改动命令、观察运行结果并总结经验，从而逐步领悟和掌握Linux系统。</p>
+<h4>练习:熟悉在线使用Linux命令</h4>
+<p>使用网页底部的Terminal,输入<code>date</code>并按回车,将得到系统时间。</p>
+<h3>Git命令在线运行</h3>
+<p>本课程的一大特点是每节的代码都是可以在线实时运行的，您可以随时改变一些命令，通过运行结果进一步理解改动所带来的影响。<br />
+本教程将使用 Linux 的发行版本 Ubuntu 为例来为大家介绍Git课程。<br />
+我们认为，这种交互式的学习体验对于学习Linux非常重要。因为Linux课程的学习在只有文字解释在这时候可能比较苍白无力，而且不足以覆盖所有细节。读者需要不断改动命令、观察运行结果并总结经验，从而逐步领悟和掌握Linx系统。</p>
+<h2>如何使用本课程</h2>
+<h3>关于用户环境</h3>
+<p>该课程为每位浏览用户提供独立的在线学习环境，用户可安全，高效地进行学习。</p>
+<p>本课程的后端是基于Jupyter Notebook构建的。</p>
+<p><strong>说明：环境不保留用户任何个人数据，为安全考虑也请勿放置任何含有个人信息的敏感数据。</strong></p>
+<h3>关于代码框</h3>
+<p>本课程中的代码均可在线运行，帮助您提升学习效率。</p>
+<p><strong>Python在线运行的简单示例</strong></p>
+<pre><code class="Python">#从Python中导入并显示Python之禅
+import this
+</code></pre>
+
+<p><strong>注意</strong>：代码框的执行请一定要按顺序执行。</p>
+<h3>关于代码框输出结果不全的问题：</h3>
+<p>通常当您需要在同一个代码框中输出多个结果时，代码框默认只返回最后一个结果。</p>
+<p>如在执行下列代码框，通常会只有最后一行<code>2 /4</code>的结果<code>0.5</code>输出。</p>
+<pre><code class="Python">5 + 4  # 加法
+4.3 - 2 # 减法
+3 * 7  # 乘法
+2 / 4  # 除法，得到一个浮点数
+</code></pre>
+
+<p><strong>解决办法：</strong></p>
+<ul>
+<li>
+<p>使用<code>print()</code>函数将输出结果进行打印</p>
+</li>
+<li>
+<p>使用魔法函数<code>%config ZMQInteractiveShell.ast_node_interactivity='all'</code>后，强制代码框返回所有的结果。</p>
+</li>
+</ul>
+<pre><code class="Python">%config ZMQInteractiveShell.ast_node_interactivity='all'
+</code></pre>
+
+<pre><code class="Python">5 + 4  # 加法
+4.3 - 2 # 减法
+3 * 7  # 乘法
+2 / 4  # 除法，得到一个浮点数
+</code></pre>
+
+<h3>关于魔法函数%</h3>
+<p><code>%</code>开头的为魔法函数的标志，常用于执行普通Python代码不太方便执行的操作，如<code>%%writefile hello.py</code>为把代码框中的内容写入至文件<code>hello.py</code>这个文件中。<code>%%time</code>为计时该代码框运行时间。</p>
+<pre><code class="Python">%%writefile hello.py
+print('Hello,Python')
+</code></pre>
+
+<p><code>!</code>为调用操作系统命令的标志，如<code>!ls</code>为列出当前目录下所有的文件,<code>!pwd</code>为列出当前路径，<code>!python</code>为调用Python</p>
+<p>使用<code>!ls</code>调用<code>ls</code>命令查看上一个代码框写入的文件</p>
+<pre><code class="Python">!ls
+</code></pre>
+
+<p>使用<code>!cat调用</code>cat`命令查看上一个代码框写入的文件的内容</p>
+<pre><code class="Python">!cat hello.py
+</code></pre>
+
+<p>使用<code>!python</code>调用<code>python</code>来执行这个文件</p>
+<pre><code class="Python">!python hello.py
+</code></pre>
+
+<p>关于更多的魔法函数可自行百度。</p>
+<h3>学习中其它常见问题</h3>
+<p>如果您在使用过程中遇到问题，请点击页面最底部的使用帮助，常见问题在那里均可得到解决。</p>
+<p>如果还是没有解决，请加在线客服群，我们将尽快为您解决。 </p>
+<h2>其他工具介绍</h2>
+<h3>IDLE - 自带的集成开发工具</h3>
+<p>IDLE是安装Python环境时自带的集成开发工具，如下图所示。但是由于IDLE的用户体验并不是那么好所以很少在实际开发中被采用。</p>
+<h3>Jupyter Notebook - 更好的交互式编程工具</h3>
+<p>当然，我们可以通过安装Jupyter工具并运行名为notebook的程序在浏览器窗口中进行交互式代码编写操作。</p>
+<p><code>pip install jupyter</code>，然后执行<code>jupyter notebook</code>。实际上本课程的后端也是基于Jupyter Notebook构建的。</p>
+<h2>交互式运行Python程序</h2>
+<p>在您本地环境的命令行后，输入python或python3进入Python交互式环境。</p>
+<p>在《动手学Python》课程网页上已经默认进入交互式环境。</p>
+<h4>练习确认Python的版本</h4>
+<pre><code class="Python">import sys
+
+print(sys.version_info)
+print(sys.version)
+</code></pre>
+
+<h3>解释式运行Python程序</h3>
+<h4>练习：在命令行确认Python的版本</h4>
+<pre><code class="Shell">!python --version
+</code></pre>
+
+<h4>练习：使用Python帮助</h4>
+<pre><code class="Python">!python -h
+</code></pre>
+
+<h4>练习：编写并运行Python源码</h4>
+<p>可以用文本编辑工具（如使用VS Code）编写Python源代码并用py作为后缀名保存文件。</p>
+<p>也可以在《动手学Python》课程网页上直接将源码写入文件。</p>
+<pre><code class="Python">%%writefile hello.py
+print('hello, Python!')
+</code></pre>
+
+<p>使用<code>!cat</code>查看刚刚写入的文件的内容</p>
+<pre><code class="Python">!cat hello.py
+</code></pre>
+
+<p>执行Python源码。看看是否输出了"hello, Python!"。</p>
+<pre><code class="Python">!python hello.py
+</code></pre>
+
+<h2>如何使用本课程</h2>
+<h3>关于用户环境</h3>
+<p>该课程为每位浏览用户提供独立的在线学习环境，用户可安全，高效地进行学习。</p>
+<p>本课程的后端是基于Jupyter Notebook构建的。</p>
+<p><strong>说明：环境不保留用户任何个人数据，为安全考虑也请勿放置任何含有个人信息的敏感数据。</strong></p>
+<h3>关于代码框</h3>
+<p>本课程中的代码均可在线运行，帮助您提升学习效率。</p>
+<p><strong>Python在线运行的简单示例</strong></p>
+<pre><code class="Python">#从Python中导入并显示Python之禅
+import this
+</code></pre>
+
+<p><strong>注意</strong>：代码框的执行请一定要按顺序执行。</p>
+<h3>关于代码框输出结果不全的问题：</h3>
+<p>通常当您需要在同一个代码框中输出多个结果时，代码框默认只返回最后一个结果。</p>
+<p>如在执行下列代码框，通常会只有最后一行<code>2 /4</code>的结果<code>0.5</code>输出。</p>
+<pre><code class="Python">5 + 4  # 加法
+4.3 - 2 # 减法
+3 * 7  # 乘法
+2 / 4  # 除法，得到一个浮点数
+</code></pre>
+
+<p><strong>解决办法：</strong></p>
+<ul>
+<li>
+<p>使用<code>print()</code>函数将输出结果进行打印</p>
+</li>
+<li>
+<p>使用魔法函数<code>%config ZMQInteractiveShell.ast_node_interactivity='all'</code>后，强制代码框返回所有的结果。</p>
+</li>
+</ul>
+<pre><code class="Python">%config ZMQInteractiveShell.ast_node_interactivity='all'
+</code></pre>
+
+<pre><code class="Python">5 + 4  # 加法
+4.3 - 2 # 减法
+3 * 7  # 乘法
+2 / 4  # 除法，得到一个浮点数
+</code></pre>
+
+<h3>关于魔法函数%</h3>
+<p><code>%</code>开头的为魔法函数的标志，常用于执行普通Python代码不太方便执行的操作，如<code>%%writefile hello.py</code>为把代码框中的内容写入至文件<code>hello.py</code>这个文件中。<code>%%time</code>为计时该代码框运行时间。</p>
+<pre><code class="Python">%%writefile hello.py
+print('Hello,Python')
+</code></pre>
+
+<p><code>!</code>为调用操作系统命令的标志，如<code>!ls</code>为列出当前目录下所有的文件,<code>!pwd</code>为列出当前路径，<code>!python</code>为调用Python</p>
+<p>使用<code>!ls</code>调用<code>ls</code>命令查看上一个代码框写入的文件</p>
+<pre><code class="Python">!ls
+</code></pre>
+
+<p>使用<code>!cat调用</code>cat`命令查看上一个代码框写入的文件的内容</p>
+<pre><code class="Python">!cat hello.py
+</code></pre>
+
+<p>使用<code>!python</code>调用<code>python</code>来执行这个文件</p>
+<pre><code class="Python">!python hello.py
+</code></pre>
+
+<p>关于更多的魔法函数可自行百度。\</p>
+<h2>使用帮助</h2>
+<h3>如何使用本教程</h3>
+<p>本《动手学R语言》课程中的代码均可在线运行，帮助您提升学习效率。</p>
+<p>如果您在使用过程中遇到问题，请在询问帮助信息中查看已列出的常见问题。如果还是没有解决，请加在线客服群，我们将尽快为您解决。</p>
+<p><strong><em> 一个R在线运行的简单示例 </em></strong></p>
+<pre><code class="R">#直方图显示1000个来自均值为5的正态分布的随机数
+hist(rnorm(1000,mean=5),col = rainbow(10))
+</code></pre>
+
+<h3>学习中的常见问题</h3>
+<p>请点击页面最底部的使用帮助，常见问题在那里均可得到解决   </p>
+<p>如果您还有困惑，请加入下方互动学习微信群</p>            
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+  </body>
+</html>

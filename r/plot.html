@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 绘图(plot) - FreeAIHub</title>
+    <meta name="keywords" content="条形图,箱线图,直方图,折线图,散点图,饼状图,语法:语法,">
+    <meta name="description" content="条形图表示矩形条中的数据，条的长度与变量的值成比例。 R语言使用函数创建条形图。 R语言可以在条形图中绘制垂直和水平条。 在条形图中，每个条可以给予不同的颜色。在R语言中创建条形图的基本语法是：以下是所使用的参数的描述 - 使用输入向量和每个条的名称创建一个简单的条形图。以下脚本将创建并保存当前R语言工作目录中的条形图。可以通过添加更多参数来扩展条形图的功能。 主要参数用于添加标题。 参数用于向条">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a class="current"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/dataframe.html class='prev_article'> R语言数据类型-数据帧</a>       |       下一篇：<a href=/r/distribution.html class='next_article'> R语言分布</a>  >
+              
+            <h1>R语言 绘图(plot)</h1>
+<h2>条形图</h2>
+<p>条形图表示矩形条中的数据，条的长度与变量的值成比例。 R语言使用函数<strong>barplot()</strong>创建条形图。 R语言可以在条形图中绘制垂直和水平条。 在条形图中，每个条可以给予不同的颜色。</p>
+<h3>语法</h3>
+<p>在R语言中创建条形图的基本语法是：<code>barplot(H, xlab, ylab, main, names.arg, col)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>H</strong>是包含在条形图中使用的数值的向量或矩阵。</li>
+<li><strong>xlab</strong>是x轴的标签。</li>
+<li><strong>ylab</strong>是y轴的标签。</li>
+<li><strong>main</strong>是条形图的标题。</li>
+<li><strong>names.arg</strong>是在每个条下出现的名称的向量。</li>
+<li><strong>col</strong>用于向图中的条形提供颜色。</li>
+</ul>
+<h4>练习：R语言绘制条形图</h4>
+<p>使用输入向量和每个条的名称创建一个简单的条形图。</p>
+<p>以下脚本将创建并保存当前R语言工作目录中的条形图。</p>
+<pre><code class="R"># Create the data for the chart.
+H &lt;- c(7,12,28,3,41)
+
+# Plot the bar chart.
+barplot(H)
+</code></pre>
+
+<h3>条形图标签，标题和颜色</h3>
+<p>可以通过添加更多参数来扩展条形图的功能。 主要参数用于添加标题。 <code>col</code>参数用于向条形添加颜色。 <code>args.name</code>是具有与输入向量相同数量的值的向量，以描述每个条的含义。</p>
+<h4>练习：自定义条形图标签，标题和颜色</h4>
+<p>以下脚本将在当前R语言工作目录中创建并保存条形图。</p>
+<pre><code class="R"># Create the data for the chart.
+H &lt;- c(7,12,28,3,41)
+M &lt;- c(&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;)
+
+# Plot the bar chart.
+barplot(H,names.arg = M,xlab = &quot;Month&quot;,ylab = &quot;Revenue&quot;,col = &quot;blue&quot;,
+main = &quot;Revenue chart&quot;,border = &quot;red&quot;)
+</code></pre>
+
+<h3>组合条形图和堆积条形图</h3>
+<p>我们可以使用矩阵作为输入值，在每个条中创建条形图和堆叠组的条形图。
+超过两个变量表示为用于创建组合条形图和堆叠条形图的矩阵。</p>
+<h4>练习：创建组合条形图和堆叠条形图的矩阵</h4>
+<pre><code class="R"># Create the input vectors.
+colors &lt;- c(&quot;green&quot;,&quot;orange&quot;,&quot;brown&quot;)
+months &lt;- c(&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;)
+regions &lt;- c(&quot;East&quot;,&quot;West&quot;,&quot;North&quot;)
+
+# Create the matrix of the values.
+Values &lt;- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11),nrow = 3,ncol = 5,byrow = TRUE)
+
+# Create the bar chart.
+barplot(Values,main = &quot;total revenue&quot;,names.arg = months,xlab = &quot;month&quot;,ylab = &quot;revenue&quot;,
+   col = colors)
+
+# Add the legend to the chart.
+legend(&quot;topleft&quot;, regions, cex = 1.3, fill = colors)
+</code></pre>
+
+<h2>箱线图</h2>
+<p>箱线图是数据集中的数据分布良好的度量。 它将数据集分成三个四分位数。 此图表表示数据集中的最小值，最大值，中值，第一四分位数和第三四分位数。 它还可用于通过绘制每个数据集的箱线图来比较数据集之间的数据分布。</p>
+<p>R语言中使用<code>boxplot()</code>函数来创建箱线图。</p>
+<h3>语法</h3>
+<p>在R语言中创建箱线图的基本语法是：<code>boxplot(x, data, notch, varwidth, names, main)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是向量或公式。</li>
+<li>数据是数据帧。</li>
+<li><strong>notch</strong>是逻辑值。 设置为TRUE以绘制凹口。</li>
+<li><strong>varwidth</strong>是一个逻辑值。 设置为true以绘制与样本大小成比例的框的宽度。</li>
+<li><strong>names</strong>是将打印在每个箱线图下的组标签。</li>
+<li><strong>main</strong>用于给图表标题。</li>
+</ul>
+<h4>练习：创建基本箱线图</h4>
+<p>我们使用R语言环境中可用的数据集<code>mtcars</code>来创建基本箱线图。 让我们看看<code>mtcars</code>中的列<code>mpg</code>和<code>cyl</code>。</p>
+<pre><code class="R">input &lt;- mtcars[,c('mpg','cyl')]
+print(head(input))
+</code></pre>
+
+<pre><code class="R">#以下脚本将为mpg（英里/加仑）和cyl（气缸数）之间的关系创建箱线图。
+# Plot the chart.
+boxplot(mpg ~ cyl, data = mtcars, xlab = &quot;Number of Cylinders&quot;,
+   ylab = &quot;Miles Per Gallon&quot;, main = &quot;Mileage Data&quot;)
+</code></pre>
+
+<h4>练习： 带槽的箱线图</h4>
+<p>我们可以绘制带槽的箱线图，以了解不同数据组的中值如何相互匹配。</p>
+<pre><code class="R"># Plot the chart.
+boxplot(mpg ~ cyl, data = mtcars, 
+   xlab = &quot;Number of Cylinders&quot;,
+   ylab = &quot;Miles Per Gallon&quot;, 
+   main = &quot;Mileage Data&quot;,
+   notch = TRUE, 
+   varwidth = TRUE, 
+   col = c(&quot;green&quot;,&quot;yellow&quot;,&quot;purple&quot;),
+   names = c(&quot;High&quot;,&quot;Medium&quot;,&quot;Low&quot;)
+)
+</code></pre>
+
+<h2>直方图</h2>
+<p>直方图表示被存储到范围中的变量的值的频率。 直方图类似于条形图，但不同之处在于将值分组为连续范围。 直方图中的每个柱表示该范围中存在的值的数量的高度。</p>
+<p>R语言使用<code>hist()</code>函数创建直方图。 此函数使用向量作为输入，并使用一些更多的参数来绘制直方图。</p>
+<h3>语法</h3>
+<p>使用R语言创建直方图的基本语法是:<code>hist(v,main,xlab,xlim,ylim,breaks,col,border)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>v</strong>是包含直方图中使用的数值的向量。</li>
+<li><strong>main</strong>表示图表的标题。</li>
+<li><strong>col</strong>用于设置条的颜色。</li>
+<li><strong>border</strong>用于设置每个条的边框颜色。</li>
+<li><strong>xlab</strong>用于给出x轴的描述。</li>
+<li><strong>xlim</strong>用于指定x轴上的值的范围。</li>
+<li><strong>ylim</strong>用于指定y轴上的值的范围。</li>
+<li><strong>break</strong>用于提及每个条的宽度。</li>
+</ul>
+<h4>练习: 绘制直方图</h4>
+<p>使用输入<code>vector</code>，<code>label</code>，<code>col</code>和边界参数创建一个简单的直方图。
+下面给出的脚本将创建并保存当前R语言工作目录中的直方图。</p>
+<pre><code class="R"># Create data for the graph.
+v &lt;-  c(9,13,21,8,36,22,12,41,31,33,19)
+
+# Create the histogram.
+hist(v,xlab = &quot;Weight&quot;,col = &quot;yellow&quot;,border = &quot;blue&quot;)
+</code></pre>
+
+<h4>练习：X和Y值的范围</h4>
+<p>要指定X轴和Y轴允许的值的范围，我们可以使用<code>xlim</code>和<code>ylim</code>参数。
+每个条的宽度可以通过使用间隔来确定。</p>
+<pre><code class="R"># Create data for the graph.
+v &lt;- c(9,13,21,8,36,22,12,41,31,33,19)
+
+# Create the histogram.
+hist(v,xlab = &quot;Weight&quot;,col = &quot;green&quot;,border = &quot;red&quot;, xlim = c(0,40), ylim = c(0,5),
+   breaks = 5)
+</code></pre>
+
+<h2>折线图</h2>
+<p>折线图是通过在它们之间绘制线段来连接一系列点的图。 这些点在它们的坐标（通常是x坐标）值之一中排序。 折线图通常用于识别数据中的趋势。</p>
+<p>R语言中的<code>plot()</code>函数用于创建折线图。</p>
+<h3>语法</h3>
+<p>在R语言中创建折线图的基本语法是：<code>plot(v,type,col,xlab,ylab)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>v</strong>是包含数值的向量。</li>
+<li>类型采用值“p”仅绘制点，“l”仅绘制线和“o”绘制点和线。</li>
+<li><strong>xlab</strong>是x轴的标签。</li>
+<li><strong>ylab</strong>是y轴的标签。</li>
+<li><strong>main</strong>是图表的标题。</li>
+<li><strong>col</strong>用于给点和线的颜色。</li>
+</ul>
+<h4>练习：折线图</h4>
+<p>使用输入向量和类型参数“O”创建简单的折线图。 以下脚本将在当前R工作目录中创建并保存折线图。</p>
+<pre><code class="R"># Create the data for the chart.
+v &lt;- c(7,12,28,3,41)
+
+# Plot the bar chart. 
+plot(v,type = &quot;o&quot;)
+</code></pre>
+
+<h3>折线图标题，颜色和标签</h3>
+<p>线图的特征可以通过使用附加参数来扩展。 我们向点和线添加颜色，为图表添加标题，并向轴添加标签。</p>
+<h4>练习：自定义折线图标题，颜色和标签</h4>
+<pre><code class="R"># Create the data for the chart.
+v &lt;- c(7,12,28,3,41)
+
+# Plot the bar chart.
+plot(v,type = &quot;o&quot;, col = &quot;red&quot;, xlab = &quot;Month&quot;, ylab = &quot;Rain fall&quot;,
+   main = &quot;Rain fall chart&quot;)
+</code></pre>
+
+<h3>多线型折线图</h3>
+<p>通过使用<code>lines()</code>函数，可以在同一个图表上绘制多条线。</p>
+<p>在绘制第一行之后，<code>lines()</code>函数可以使用一个额外的向量作为输入来绘制图表中的第二行。</p>
+<h4>练习：多线型折线图</h4>
+<pre><code class="R"># Create the data for the chart.
+v &lt;- c(7,12,28,3,41)
+t &lt;- c(14,7,6,19,3)
+
+# Plot the bar chart.
+plot(v,type = &quot;o&quot;,col = &quot;red&quot;, xlab = &quot;Month&quot;, ylab = &quot;Rain fall&quot;, 
+   main = &quot;Rain fall chart&quot;)
+
+lines(t, type = &quot;o&quot;, col = &quot;blue&quot;)
+</code></pre>
+
+<h2>散点图</h2>
+<p>散点图显示在笛卡尔平面中绘制的许多点。 每个点表示两个变量的值。 在水平轴上选择一个变量，在垂直轴上选择另一个变量。</p>
+<p>使用<code>plot()</code>函数创建简单散点图。</p>
+<h3>语法</h3>
+<p>在R语言中创建散点图的基本语法是 -</p>
+<p><code>plot(x, y, main, xlab, ylab, xlim, ylim, axes)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是其值为水平坐标的数据集。</li>
+<li><strong>y</strong>是其值是垂直坐标的数据集。</li>
+<li><strong>main</strong>要是图形的图块。</li>
+<li><strong>xlab</strong>是水平轴上的标签。</li>
+<li><strong>ylab</strong>是垂直轴上的标签。</li>
+<li><strong>xlim</strong>是用于绘图的x的值的极限。</li>
+<li><strong>ylim</strong>是用于绘图的y的值的极限。</li>
+<li><strong>axes</strong>指示是否应在绘图上绘制两个轴。</li>
+</ul>
+<h4>练习：创建散点图</h4>
+<p>我们使用R语言环境中可用的数据集<code>mtcars</code>来创建基本散点图。 让我们使用<code>mtcars</code>中的<code>wt</code>和<code>mpg</code>列。</p>
+<pre><code class="R">input &lt;- mtcars[,c('wt','mpg')]
+print(head(input))
+</code></pre>
+
+<p>以下脚本将为wt（重量）和mpg（英里/加仑）之间的关系创建一个散点图。</p>
+<pre><code class="R"># Get the input values.
+input &lt;- mtcars[,c('wt','mpg')]
+
+# Plot the chart for cars with weight between 2.5 to 5 and mileage between 15 and 30.
+plot(x = input$wt,y = input$mpg,
+   xlab = &quot;Weight&quot;,
+   ylab = &quot;Milage&quot;,
+   xlim = c(2.5,5),
+   ylim = c(15,30),      
+   main = &quot;Weight vs Milage&quot;
+)
+</code></pre>
+
+<h3>散点图矩阵</h3>
+<p>当我们有两个以上的变量，我们想找到一个变量和其余变量之间的相关性，我们使用散点图矩阵。 我们使用<code>pairs()</code>函数创建散点图的矩阵。</p>
+<p>语法: 在R中创建散点图矩阵的基本语法是:<code>pairs(formula, data)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>formula</strong>表示成对使用的一系列变量。</li>
+<li><strong>data</strong>表示将从其获取变量的数据集。</li>
+</ul>
+<h4>练习:绘制散点图</h4>
+<p>每个变量与每个剩余变量配对。 为每对绘制散点图。</p>
+<pre><code class="R"># Plot the matrices between 4 variables giving 12 plots.
+
+# One variable with 3 others and total 4 variables.
+
+pairs(~wt+mpg+disp+cyl,data = mtcars,
+   main = &quot;Scatterplot Matrix&quot;)
+</code></pre>
+
+<h2>饼状图</h2>
+<p>R编程语言有许多库来创建图表和图表。 饼图是将值表示为具有不同颜色的圆的切片。 切片被标记，并且对应于每个片的数字也在图表中表示。</p>
+<p>在R语言中，饼图是使用<code>pie()</code>函数创建的，它使用正数作为向量输入。 附加参数用于控制标签，颜色，标题等。</p>
+<h2>语法:</h2>
+<p>使用R语言创建饼图的基本语法是:<code>pie(x, labels, radius, main, col, clockwise)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是包含饼图中使用的数值的向量。</li>
+<li><strong>labels</strong>用于给出切片的描述。</li>
+<li><strong>radius</strong>表示饼图圆的半径（值-1和+1之间）。</li>
+<li><strong>main</strong>表示图表的标题。</li>
+<li><strong>col</strong>表示调色板。</li>
+<li><strong>clockwise</strong>是指示片段是顺时针还是逆时针绘制的逻辑值。</li>
+</ul>
+<h4>练习：绘制饼状图</h4>
+<p>使用输入向量和标签创建一个非常简单的饼图。 以下脚本将创建并保存当前R语言工作目录中的饼图。</p>
+<pre><code class="R"># Create data for the graph.
+x &lt;- c(21, 62, 10, 53)
+labels &lt;- c(&quot;London&quot;, &quot;New York&quot;, &quot;Singapore&quot;, &quot;Mumbai&quot;)
+
+
+# Plot the chart.
+pie(x,labels)
+</code></pre>
+
+<h4>练习：饼图标题和颜色</h4>
+<p>我们可以通过向函数中添加更多参数来扩展图表的功能。 我们将使用参数<strong>main</strong>向图表添加标题，另一个参数是<strong>col</strong>，它将在绘制图表时使用彩虹色板。 托盘的长度应与图表中的值的数量相同。 因此，我们使用<strong>length(x)</strong>。</p>
+<p>以下脚本将创建并保存当前R语言工作目录中的饼图。</p>
+<pre><code class="R"># Create data for the graph.
+x &lt;- c(21, 62, 10, 53)
+labels &lt;- c(&quot;London&quot;, &quot;New York&quot;, &quot;Singapore&quot;, &quot;Mumbai&quot;)
+
+# Plot the chart with title and rainbow color pallet.
+pie(x, labels, main = &quot;City pie chart&quot;, col = rainbow(length(x)))
+</code></pre>
+
+<h4>练习：切片百分比和图表图例</h4>
+<p>我们可以通过创建其他图表变量来添加切片百分比和图表图例。</p>
+<pre><code class="R"># Create data for the graph.
+x &lt;-  c(21, 62, 10,53)
+labels &lt;-  c(&quot;London&quot;,&quot;New York&quot;,&quot;Singapore&quot;,&quot;Mumbai&quot;)
+
+piepercent&lt;- round(100*x/sum(x), 1)
+
+# Plot the chart.
+pie(x, labels = piepercent, main = &quot;City pie chart&quot;,col = rainbow(length(x)))
+legend(&quot;topright&quot;, c(&quot;London&quot;,&quot;New York&quot;,&quot;Singapore&quot;,&quot;Mumbai&quot;), cex = 0.8,
+   fill = rainbow(length(x)))
+</code></pre>
+
+<h4>练习：3D饼图</h4>
+<p>可以使用其他软件包绘制具有3个维度的饼图。 软件包<code>plotrix</code>有一个名为<code>pie3D()</code>的函数，用于此。</p>
+<pre><code class="R"># Get the library.
+library(plotrix)
+
+# Create data for the graph.
+x &lt;-  c(21, 62, 10,53)
+lbl &lt;-  c(&quot;London&quot;,&quot;New York&quot;,&quot;Singapore&quot;,&quot;Mumbai&quot;)
+
+# Plot the chart.
+pie3D(x,labels = lbl,explode = 0.1, main = &quot;Pie Chart of Countries &quot;)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

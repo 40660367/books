@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 函数(fucntion) - FreeAIHub</title>
+    <meta name="keywords" content="定义一个函数,函数调用,参数传递,参数,匿名函数,return语句,强制位置参数">
+    <meta name="description" content="函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如。但你也可以自己创建函数，这被叫做用户自定义函数。你可以定义一个由自己想要功能的函数，以下是简单的规则：Python 定义函数使用关键字，一般格式如下：默认情况下，参数值和参数名称是按函数声明中定义的顺序匹配起来的。定义一个函数：给了函数一个名">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a class="current"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/iterator-generator.html class='prev_article'> Python3 迭代器与生成器 </a>       |       下一篇：<a href=/python/errors-execptions.html class='next_article'> Python3 错误和异常 </a>  >
+              
+            <h1>Python3 函数(fucntion)</h1>
+<p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。</p>
+<p>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如<code>print()</code>。但你也可以自己创建函数，这被叫做用户自定义函数。</p>
+<h2>定义一个函数</h2>
+<p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ul>
+<li>函数代码块以 <code>def</code>关键词开头，后接函数标识符名称和圆括号 <code>()</code>。</li>
+<li>任何传入参数和自变量必须放在圆括号中间，圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li><strong>return [表达式]</strong> 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ul>
+<h3>语法</h3>
+<p>Python 定义函数使用<code>def</code>关键字，一般格式如下：</p>
+<pre><code>def 函数名（参数列表）:
+    函数体
+</code></pre>
+
+<p>默认情况下，参数值和参数名称是按函数声明中定义的顺序匹配起来的。</p>
+<h4>练习:使用函数来输出"Hello World！</h4>
+<pre><code class="Python">def hello() :
+   print(&quot;Hello World!&quot;)
+
+hello()
+</code></pre>
+
+<h4>练习:更复杂点的应用，函数中带上参数变量</h4>
+<pre><code class="Python"># 计算面积函数
+def area(width, height):
+    return width * height
+
+w = 4
+h = 5
+print(&quot;width =&quot;, w, &quot; height =&quot;, h, &quot; area =&quot;, area(w, h))
+</code></pre>
+
+<h2>函数调用</h2>
+<p>定义一个函数：给了函数一个名称，指定了函数里包含的参数，和代码块结构。</p>
+<p>这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从 Python 命令提示符执行。</p>
+<h4>练习:调用了<code>printme()</code>函数</h4>
+<pre><code class="Python"># 定义函数
+def printme( str ):
+   # 打印任何传入的字符串
+   print(str)
+   return
+
+# 调用函数
+printme(&quot;我要调用用户自定义函数!&quot;)
+printme(&quot;再次调用同一函数&quot;)
+</code></pre>
+
+<h2>参数传递</h2>
+<p>在 python 中，类型属于对象，变量是没有类型的：</p>
+<pre><code class="Python">a=[1,2,3]
+print(type(a))
+a=&quot;Python&quot;
+print(type(a))
+</code></pre>
+
+<p>以上代码中，<strong>[1,2,3]</strong> 是 List 类型，<strong>"Python"</strong> 是 String 类型，而变量 a 是没有类型，她仅仅是一个对象的引用（一个指针），可以是指向 List 类型对象，也可以是指向 String 类型对象。</p>
+<h3>可更改(mutable)与不可更改(immutable)对象</h3>
+<p>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。</p>
+<ul>
+<li><strong>不可变类型：</strong>变量赋值 <strong>a=5</strong> 后再赋值 <strong>a=10</strong>，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。</li>
+<li><strong>可变类型：</strong>变量赋值 <strong>la=[1,2,3,4]</strong> 后再赋值 <strong>la[2]=5</strong> 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。</li>
+</ul>
+<p>python 函数的参数传递：</p>
+<ul>
+<li><strong>不可变类型：</strong>类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。</li>
+<li><strong>可变类型：</strong>类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</li>
+</ul>
+<p>python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象。</p>
+<h4>练习:python 传不可变对象实例</h4>
+<pre><code class="Python">def ChangeInt( a ):
+    a = 10
+
+b = 2
+ChangeInt(b)
+</code></pre>
+
+<p>实例中有 int 对象 2，指向它的变量是<code>b</code>，在传递给 <code>ChangeInt</code>函数时，按传值的方式复制了变量 <code>b</code>，<code>a</code>和 <code>b</code>都指向了同一个 Int 对象，在<code>a=10</code> 时，则新生成一个 int 值对象 10，并让<code>a</code>指向它。</p>
+<p>可变对象在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。</p>
+<h4>练习:传可变对象</h4>
+<pre><code class="Python"># 可写函数说明
+def changeme( mylist ):
+   &quot;修改传入的列表&quot;
+   mylist.append([1,2,3,4])
+   print(&quot;函数内取值: &quot;, mylist)
+   return
+
+# 调用changeme函数
+mylist = [10,20,30]
+changeme( mylist )
+print(&quot;函数外取值: &quot;, mylist)
+</code></pre>
+
+<h2>参数</h2>
+<p>以下是调用函数时可使用的正式参数类型：</p>
+<ul>
+<li>必需参数</li>
+<li>关键字参数</li>
+<li>默认参数</li>
+<li>不定长参数</li>
+</ul>
+<h3>必需参数</h3>
+<p>必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。</p>
+<p>调用<code>printme()</code>函数，你必须传入一个参数，不然会出现语法错误：</p>
+<h4>练习:必需参数</h4>
+<pre><code class="Python">#可写函数说明
+def printme( str ):
+   &quot;打印任何传入的字符串&quot;
+   print(str)
+   return
+
+# 调用 printme 函数，不加参数会报错
+printme()
+</code></pre>
+
+<h3>关键字参数</h3>
+<p>关键字参数和函数调用关系紧密，函数调用使用关键字参数来确定传入的参数值。</p>
+<p>使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</p>
+<p>以下实例在函数<code>printme()</code>调用时使用参数名：</p>
+<h4>练习:关键字参数</h4>
+<pre><code class="Python">#可写函数说明
+def printme( str ):
+   &quot;打印任何传入的字符串&quot;
+   print(str)
+   return
+
+#调用printme函数
+printme( str = &quot;动手学Python&quot;)
+</code></pre>
+
+<h4>练习:函数参数的使用不需要使用指定顺序</h4>
+<pre><code class="Python">#可写函数说明
+def printinfo( name, age ):
+   &quot;打印任何传入的字符串&quot;
+   print(&quot;名字: &quot;, name)
+   print(&quot;年龄: &quot;, age)
+   return
+
+#调用printinfo函数
+printinfo( age=30, name=&quot;python&quot; )
+</code></pre>
+
+<h3>默认参数</h3>
+<p>调用函数时，如果没有传递参数，则会使用默认参数。</p>
+<h4>练习:调用函数</h4>
+<pre><code class="Python">#如果没有传入`age `参数，则使用默认值
+def printinfo( name, age = 35 ):
+   &quot;打印任何传入的字符串&quot;
+   print(&quot;名字: &quot;, name)
+   print(&quot;年龄: &quot;, age)
+   return
+
+#调用printinfo函数
+printinfo( age=50, name=&quot;python&quot; )
+print(&quot;&quot;)
+printinfo( name=&quot;python&quot; )
+</code></pre>
+
+<h3>不定长参数</h3>
+<p>你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述 2 种参数不同，声明时不会命名。基本语法如下：</p>
+<pre><code>def functionname([formal_args,] *var_args_tuple ):
+   &quot;函数_文档字符串&quot;
+   function_suite
+   return [expression]
+</code></pre>
+
+<p>加了星号<code>*</code>的参数会以元组(tuple)的形式导入，存放所有未命名的变量参数。</p>
+<h4>练习:不定长参数</h4>
+<pre><code class="Python"># 可写函数说明
+def printinfo( arg1, *vartuple ):
+   &quot;打印任何传入的参数&quot;
+   print(&quot;输出: &quot;)
+   print(arg1)
+   print(vartuple)
+
+# 调用printinfo 函数
+printinfo( 70, 60, 50 )
+</code></pre>
+
+<h4>练习:不向函数传递未命名的变量。</h4>
+<p>如果在函数调用时没有指定参数，它就是一个空元组。</p>
+<pre><code class="Python"># 可写函数说明
+def printinfo( arg1, *vartuple ):
+   &quot;打印任何传入的参数&quot;
+   print(&quot;输出: &quot;)
+   print(arg1)
+   for var in vartuple:
+      print(var)
+   return
+
+# 调用printinfo 函数
+printinfo( 10 )
+printinfo( 70, 60, 50 )
+</code></pre>
+
+<h4>练习:以字典形式导入的参数</h4>
+<p>还有一种就是参数带两个星号<code>*\*</code>基本语法如下：</p>
+<pre><code>def functionname([formal_args,] **var_args_dict ):
+   &quot;函数_文档字符串&quot;
+   function_suite
+   return [expression]
+</code></pre>
+
+<p>加了两个星号 <code>**</code> 的参数会以字典的形式导入。</p>
+<pre><code class="Python"># 可写函数说明
+def printinfo( arg1, **vardict ):
+   &quot;打印任何传入的参数&quot;
+   print(&quot;输出: &quot;)
+   print(arg1)
+   print(vardict)
+
+# 调用printinfo 函数
+printinfo(1, a=2,b=3)
+</code></pre>
+
+<p>声明函数时，参数中星号 <strong>*</strong> 可以单独出现，例如:</p>
+<pre><code class="Python">def f(a,b,*,c):
+    return a+b+c
+</code></pre>
+
+<p>如果单独出现星号 <strong>*</strong> 后的参数必须用关键字传入。</p>
+<pre><code class="Python">def f(a,b,*,c):
+    return a+b+c
+
+
+f(1,2,c=3) # 正常
+
+f(1,2,3)   # 报错
+</code></pre>
+
+<h2>匿名函数</h2>
+<p>python 使用lambda 来创建匿名函数。</p>
+<p>所谓匿名，意即不再使用 def 语句这样标准的形式定义一个函数。</p>
+<ul>
+<li>lambda 只是一个表达式，函数体比 def 简单很多。</li>
+<li>lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。</li>
+<li>lambda 函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。</li>
+<li>虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</li>
+</ul>
+<h3>语法</h3>
+<p>lambda 函数的语法只包含一个语句，如下：<code>lambda [arg1 [,arg2,.....argn]]:expression</code></p>
+<h4>练习:</h4>
+<pre><code class="Python"># 可写函数说明
+sum = lambda arg1, arg2: arg1 + arg2
+
+# 调用sum函数
+print(&quot;相加后的值为 : &quot;, sum( 10, 20 ))
+print(&quot;相加后的值为 : &quot;, sum( 20, 20 ))
+</code></pre>
+
+<h2>return语句</h2>
+<p><strong>return [表达式]</strong> 语句用于退出函数，选择性地向调用方返回一个表达式。</p>
+<p>注意：不写任何返回值的return语句返回一个<code>NoneType</code>类型的<code>None</code>对象。之前的例子都没有示范如何返回数值</p>
+<h4>练习:无<code>return</code>对象的函数</h4>
+<pre><code class="Python">#无return函数的对象
+def test()
+    pass
+type(test())
+</code></pre>
+
+<h4>练习:有<code>return</code>对象的函数</h4>
+<pre><code class="Python"># 可写函数说明
+def sum( arg1, arg2 ):
+   # 返回2个参数的和.&quot;
+   total = arg1 + arg2
+   print(&quot;函数内 : &quot;, total)
+   return total
+
+# 调用sum函数
+total = sum( 10, 20 )
+print(&quot;函数外 : &quot;, total)
+</code></pre>
+
+<h2>强制位置参数</h2>
+<p>Python3.8 新增了一个函数形参语法 / 用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式。</p>
+<pre><code class="Python">def f(a, b, /, c, d, *, e, f):
+    print(a, b, c, d, e, f)
+
+f(10, 20, 30, d=40, e=50, f=60)
+
+f(10, b=20, c=30, d=40, e=50, f=60)   # b 不能使用关键字参数的形式
+f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

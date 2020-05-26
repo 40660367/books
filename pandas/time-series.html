@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 时间序列(time series) - FreeAIHub</title>
+    <meta name="keywords" content="连接对象,时间序列">
+    <meta name="description" content="提供了各种工具(功能)，可以轻松地将，对象组合在一起。其中，函数完成了沿轴执行级联操作的所有重要工作。下面代码中，创建不同的对象并进行连接。假设想把特定的键与每个碎片的DataFrame关联起来。可以通过使用键参数来实现这一点 -结果的索引是重复的; 每个索引重复。如果想要生成的对象必须遵循自己的索引，请将设置为。参考以下示例代码 - 观察，索引完全改变，键也被覆盖。如果需要沿添加两个对象，则会添">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a class="current"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/categorical.html class='prev_article'> Pandas分类数据处理 </a>       |       下一篇：<a href=/pandas/window.html class='next_article'> Pandas窗口函数</a>  >
+              
+            <h1>Pandas 时间序列(time series)</h1>
+<p><strong>Pandas</strong>提供了各种工具(功能)，可以轻松地将<code>Series</code>，<code>DataFrame</code>对象组合在一起。</p>
+<pre><code>pd.concat(objs,axis=0,join='outer',join_axes=None,ignore_index=False)
+</code></pre>
+
+<p>其中，</p>
+<ul>
+<li><em>objs</em> - 这是Series，DataFrame或Panel对象的序列或映射。</li>
+<li><em>axis</em> - <code>{0，1，...}</code>，默认为<code>0</code>，这是连接的轴。</li>
+<li><em>join</em> - <code>{'inner', 'outer'}</code>，默认<code>inner</code>。如何处理其他轴上的索引。联合的外部和交叉的内部。</li>
+<li><em>ignore_index</em> − 布尔值，默认为<code>False</code>。如果指定为<code>True</code>，则不要使用连接轴上的索引值。结果轴将被标记为：<code>0，...，n-1</code>。</li>
+<li><em>join_axes</em> - 这是Index对象的列表。用于其他<code>(n-1)</code>轴的特定索引，而不是执行内部/外部集逻辑。</li>
+</ul>
+<h2>连接对象</h2>
+<p><code>concat()</code>函数完成了沿轴执行级联操作的所有重要工作。下面代码中，创建不同的对象并进行连接。</p>
+<pre><code class="python">import pandas as pd
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = pd.concat([one,two])
+print(rs)
+</code></pre>
+
+<p>假设想把特定的键与每个碎片的DataFrame关联起来。可以通过使用键参数来实现这一点 -</p>
+<pre><code class="python">import pandas as pd
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = pd.concat([one,two],keys=['x','y'])
+print(rs)
+</code></pre>
+
+<p>结果的索引是重复的; 每个索引重复。如果想要生成的对象必须遵循自己的索引，请将<code>ignore_index</code>设置为<code>True</code>。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = pd.concat([one,two],keys=['x','y'],ignore_index=True)
+
+print(rs)
+</code></pre>
+
+<p>观察，索引完全改变，键也被覆盖。如果需要沿<code>axis=1</code>添加两个对象，则会添加新列。</p>
+<pre><code class="python">import pandas as pd
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = pd.concat([one,two],axis=1)
+print(rs)
+</code></pre>
+
+<h4>使用附加连接</h4>
+<p>连接的一个有用的快捷方式是在Series和DataFrame实例的<code>append</code>方法。这些方法实际上早于<code>concat()</code>方法。 它们沿<code>axis=0</code>连接，即索引 -</p>
+<pre><code class="python">import pandas as pd
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = one.append(two)
+print(rs)
+</code></pre>
+
+<p><code>append()</code>函数也可以带多个对象 -</p>
+<pre><code class="python">import pandas as pd
+
+one = pd.DataFrame({
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5'],
+         'Marks_scored':[98,90,87,69,78]},
+         index=[1,2,3,4,5])
+
+two = pd.DataFrame({
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5'],
+         'Marks_scored':[89,80,79,97,88]},
+         index=[1,2,3,4,5])
+rs = one.append([two,one,two])
+print(rs)
+</code></pre>
+
+<h2>时间序列</h2>
+<p><em>Pandas</em>为时间序列数据的工作时间提供了一个强大的工具，尤其是在金融领域。在处理时间序列数据时，我们经常遇到以下情况 -</p>
+<ul>
+<li>生成时间序列</li>
+<li>将时间序列转换为不同的频率</li>
+</ul>
+<p><em>Pandas</em>提供了一个相对紧凑和自包含的工具来执行上述任务。</p>
+<h3>获取当前时间</h3>
+<p><code>datetime.now()</code>用于获取当前的日期和时间。</p>
+<pre><code class="python">import pandas as pd
+pd.datetime.now()
+</code></pre>
+
+<h4>创建一个时间戳</h4>
+<p>时间戳数据是时间序列数据的最基本类型，它将数值与时间点相关联。 对于<em>Pandas</em>对象来说，意味着使用时间点。举个例子 -</p>
+<pre><code class="python">import pandas as pd
+time = pd.Timestamp('2018-11-01')
+print(time)
+</code></pre>
+
+<p>也可以转换整数或浮动时期。这些的默认单位是纳秒(因为这些是如何存储时间戳的)。 然而，时代往往存储在另一个可以指定的单元中。 再举一个例子 - </p>
+<pre><code class="python">import pandas as pd
+time = pd.Timestamp(1588686880,unit='s')
+print(time)
+</code></pre>
+
+<h4>创建一个时间范围</h4>
+<pre><code class="python">import pandas as pd
+
+time = pd.date_range(&quot;12:00&quot;, &quot;23:59&quot;, freq=&quot;30min&quot;).time
+print(time)
+</code></pre>
+
+<h4>改变时间的频率</h4>
+<pre><code class="python">import pandas as pd
+
+time = pd.date_range(&quot;12:00&quot;, &quot;23:59&quot;, freq=&quot;H&quot;).time
+print(time)
+</code></pre>
+
+<h4>转换为时间戳</h4>
+<p>要转换类似日期的对象(例如字符串，时代或混合)的序列或类似列表的对象，可以使用<code>to_datetime</code>函数。当传递时将返回一个Series(具有相同的索引)，而类似列表被转换为<code>DatetimeIndex</code>。 看看下面的例子 -</p>
+<pre><code class="python">import pandas as pd
+
+time = pd.to_datetime(pd.Series(['Jul 31, 2009','2019-10-10', None]))
+print(time)
+</code></pre>
+
+<p><code>NaT</code>表示不是一个时间的值(相当于<code>NaN</code>)</p>
+<p>举一个例子，</p>
+<pre><code class="python">import pandas as pd
+import pandas as pd
+time = pd.to_datetime(['2009/11/23', '2019.12.31', None])
+print(time)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

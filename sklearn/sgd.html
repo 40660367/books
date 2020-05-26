@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 随机梯度下降(sgd) - FreeAIHub</title>
+    <meta name="keywords" content="SGD分类器,SGD回归器,SGD的优点和缺点">
+    <meta name="description" content="在这里，我们将学习Sklearn中的优化算法，称为随机梯度下降（SGD）。随机梯度下降法（SGD）是一种简单而有效的优化算法，用于查找使成本函数最小化的函数参数/系数值。换句话说，它用于凸损失函数（例如SVM和Logistic回归）下的线性分类器的判别学习。它已成功应用于大型数据集，因为是针对每个训练实例（而不是在实例结束时）执行系数更新。随机梯度下降（SGD）分类器基本上实现了简单的SGD学习例">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a class="current"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/bayes.html class='prev_article'> sklearn线性建模之贝叶斯岭回归</a>       |       下一篇：<a href=/sklearn/svm.html class='next_article'> sklearn支持向量机(SVM)</a>  >
+              
+            <h1>sklearn 随机梯度下降(sgd)</h1>
+<p>在这里，我们将学习Sklearn中的优化算法，称为随机梯度下降（SGD）。</p>
+<p>随机梯度下降法（SGD）是一种简单而有效的优化算法，用于查找使成本函数最小化的函数参数/系数值。换句话说，它用于凸损失函数（例如SVM和Logistic回归）下的线性分类器的判别学习。它已成功应用于大型数据集，因为是针对每个训练实例（而不是在实例结束时）执行系数更新。</p>
+<h2>SGD分类器</h2>
+<p>随机梯度下降（SGD）分类器基本上实现了简单的SGD学习例程，该例程支持各种损失函数和分类惩罚。Scikit-learn提供了<strong>SGDClassifier</strong>模块来实现SGD分类。</p>
+<h3>参量</h3>
+<p>下表包含<strong>SGDClassifier</strong>模块使用的参数-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数及说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><strong><em>损失</em><em> -str，默认='铰链'</em>它表示实现时要使用的损失函数。默认值为“ hinge”，这将为我们提供线性SVM。可以使用的其他选项是-</strong>log-<strong>这种损失将使我们进行逻辑回归，即概率分类器。</strong>modified_huber-<strong>平滑损失，对异常值和概率估计值具有容忍度。</strong>squared_hinge-<strong>与'hinge'损失相似，但二次惩罚。</strong>感知器** -顾名思义，这是感知器算法使用的线性损耗。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>惩罚</strong> -str，'none'，'l2'，'l1'，'elasticnet'</em>它是模型中使用的正则化术语。默认情况下为L2。我们可以使用L1或'elasticnet; 同样，但是两者都可能给模型带来稀疏性，因此L2无法实现。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><em><strong>alpha-</strong>浮点数，默认= 0.0001</em>Alpha（乘以正则项的常数）是调整参数，它决定了我们要对模型进行多少惩罚。默认值为0.0001。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><em><strong>l1_ratio-</strong>浮点数，默认= 0.15</em>这称为ElasticNet混合参数。其范围为0 &lt;= l1_ratio &lt;=1。如果l1_ratio = 1，则惩罚为L1惩罚。如果l1_ratio = 0，则惩罚为L2惩罚。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><em><strong>fit_intercept-</strong>布尔值，默认为True</em>此参数指定应将常量（偏差或截距）添加到决策函数。如果将其设置为false，则不会在计算中使用截距，并且将假定数据已经居中。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong><em>tol-</em><em>浮点或无，可选，默认= 1.e-3</em>此参数表示迭代的停止标准。其默认值为False，但如果设置为None，则当n </strong><em>损失*</em><em> &gt; </em><strong>best_loss-**<em>连续</em></strong>n_iter_no_change个周期的tol***时，迭代将停止。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><em><strong>shuffle-</strong>布尔值，可选，默认= True</em>此参数表示我们是否希望在每个时期之后对训练数据进行混洗。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><em><strong>详细</strong> -整数，默认= 0</em>它代表了详细程度。其默认值为0。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><em><strong>epsilon-</strong>浮动，默认= 0.1</em>此参数指定不敏感区域的宽度。如果损失=“对ε不敏感”，则当前预测与正确标签之间的任何差异（小于阈值）将被忽略。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><em><strong>max_iter</strong> -int，可选，默认= 1000</em>顾名思义，它代表历时的最大通过次数，即训练数据。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><em><strong>warm_start</strong> -bool，可选，默认= false</em>通过将此参数设置为True，我们可以重用上一个调用的解决方案以适合初始化。如果我们选择默认值，即false，它将删除先前的解决方案。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong><em>random_state</em><em> -int，RandomState实例或无，可选，默认=无</em>此参数表示生成的伪随机数的种子，在对数据进行混洗时会使用该种子。以下是选项。</strong>INT<strong> -在这种情况下，</strong><em>random_state*</em><em>是由随机数生成所使用的种子。</em><em>RandomState实例</em><em> -在这种情况下，</em><em>random_state</em><em>是随机数生成器。</em><em>无</em>* -在这种情况下，随机数生成器是np.random使用的RandonState实例。</td>
+</tr>
+<tr>
+<td>13</td>
+<td><em><strong>n_jobs</strong> − int或无，可选，默认=无</em>它表示用于多类问题的OVA（一个对所有）计算中使用的CPU数量。默认值为none，表示1。</td>
+</tr>
+<tr>
+<td>14</td>
+<td><em><strong>learning_rate-</strong>字符串，可选，默认='最优'</em>如果学习速率为“恒定”，则eta = eta0;如果学习率是“最佳”，则eta = 1.0 /（alpha *（t + t0）），其中t0由Leon Bottou选择；如果学习率='invscalling'，则eta = eta0 / pow（t，power_t）。如果学习率=“自适应”，则eta = eta0。</td>
+</tr>
+<tr>
+<td>15</td>
+<td><em><strong>eta0-</strong>两倍，默认= 0.0</em>它代表上述学习率选项（即“恒定”，“渐进”或“自适应”）的初始学习率。</td>
+</tr>
+<tr>
+<td>16</td>
+<td><em><strong>power_t</strong> -idouble，默认= 0.5</em>它是“增加”学习率的指数。</td>
+</tr>
+<tr>
+<td>17</td>
+<td><em><strong>early_stopping</strong> − bool，默认= False</em>此参数表示当验证分数没有提高时，使用早期停止来终止训练。它的默认值是false，但是当设置为true时，它会自动将训练数据的分层部分留作验证，并在验证得分没有提高时停止训练。</td>
+</tr>
+<tr>
+<td>18岁</td>
+<td><em><strong>validation_fraction-</strong>浮点数，默认= 0.1</em>仅当early_stopping为true时使用。它代表将训练数据设置为辅助参数以尽早终止训练数据的比例。</td>
+</tr>
+<tr>
+<td>19</td>
+<td><em><strong>n_iter_no_change-</strong>整数，默认= 5</em>它表示迭代次数，如果算法在尽早停止之前运行，则没有任何改善。</td>
+</tr>
+<tr>
+<td>20</td>
+<td><em><strong>classs_weight</strong> -dict，{class_label：weight}或“ balanced”，或者“无”，可选</em>此参数表示与类关联的权重。如果未提供，则该类的权重应为1。</td>
+</tr>
+<tr>
+<td>20</td>
+<td><em><strong>warm_start</strong> -bool，可选，默认= false</em>通过将此参数设置为True，我们可以重用上一个调用的解决方案以适合初始化。如果我们选择默认值，即false，它将删除先前的解决方案。</td>
+</tr>
+<tr>
+<td>21</td>
+<td><em><strong>平均值</strong> -iBoolean或int，可选，默认= false</em>它表示用于多类问题的OVA（一个对所有）计算中使用的CPU数量。默认值为none，表示1。</td>
+</tr>
+</tbody>
+</table>
+<h3>属性</h3>
+<p>下表包含<strong>SGDClassifier</strong>模块使用的属性-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>属性和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><em><strong>coef_-</strong>数组，如果n_classes == 2，则形状为（1，n_features），否则为（n_classes，n_features）</em>此属性提供分配给要素的权重。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>intercept_</strong> -阵列的形状（1）如果n_classes == 2，否则（n_classes，）</em>它代表决策功能中的独立项。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><em><strong>n_iter_-</strong>整数</em>它给出了达到停止标准的迭代次数。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实施实例</strong></p>
+<p>像其他分类器一样，随机梯度下降（SGD）必须配备以下两个数组-</p>
+<ul>
+<li>存放训练样本的数组X。它的大小为[n_samples，n_features]。</li>
+<li>保存目标值的数组Y，即训练样本的类别标签。它的大小为[n_samples]。</li>
+</ul>
+<p><strong>例</strong></p>
+<p>以下Python脚本使用SGDClassifier线性模型-</p>
+<pre><code class="python">import numpy as np
+from sklearn import linear_model
+X = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
+Y = np.array([1, 1, 2, 2])
+SGDClf = linear_model.SGDClassifier(max_iter = 1000, tol=1e-3,penalty = &quot;elasticnet&quot;)
+SGDClf.fit(X, Y)
+</code></pre>
+
+<p>现在，一旦拟合，模型可以预测新值，如下所示：</p>
+<pre><code class="python">SGDClf.predict([[2.,2.]])
+</code></pre>
+
+<p>对于上面的示例，我们可以借助以下python脚本获取权重向量-</p>
+<pre><code class="python">SGDClf.coef_
+</code></pre>
+
+<p>同样，我们可以在以下python脚本的帮助下获取拦截的值-</p>
+<pre><code class="python">SGDClf.intercept_
+</code></pre>
+
+<p>我们可以使用以下python脚本中使用的<strong>SGDClassifier.decision_function</strong>来获得到超平面的签名距离-</p>
+<pre><code class="python">SGDClf.decision_function([[2., 2.]])
+</code></pre>
+
+<h2>SGD回归器</h2>
+<p>随机梯度下降（SGD）回归器基本上实现了简单的SGD学习例程，该例程支持各种损失函数和惩罚以适应线性回归模型。Scikit-learn提供了<strong>SGDRegressor</strong>模块来实现SGD回归。</p>
+<h3>参量</h3>
+<p><strong>SGDRegressor</strong>使用的参数与SGDClassifier模块中使用的参数几乎相同。区别在于“损失”参数。对于<strong>SGDRegressor</strong>模块的loss参数，正值如下所示-</p>
+<ul>
+<li><strong>squared_loss-</strong>它是指普通的最小二乘拟合。</li>
+<li><strong>Huber：SGDRegressor-</strong>通过从平方损失切换到线性损失超过ε距离来校正异常值。“休伯”的工作是修改“ squared_loss”，以使算法较少关注校正异常值。</li>
+<li><strong>epsilon_insensitive-</strong>实际上，它忽略小于epsilon的错误。</li>
+<li><strong>squared_epsilon_insensitive-</strong>与epsilon_insensitive相同。唯一的区别是，它变成超过ε容差的平方损耗。</li>
+</ul>
+<p>另一个区别是名为'power_t'的参数的默认值是0.25，而不是<strong>SGDClassifier中的</strong> 0.5 。此外，它没有'class_weight'和'n_jobs'参数。</p>
+<h3>属性</h3>
+<p>SGDRegressor的属性也与SGDClassifier模块的属性相同。相反，它具有三个额外的属性，如下所示：</p>
+<ul>
+<li><strong>average_coef_</strong> −数组，形状（n_features，）</li>
+</ul>
+<p>顾名思义，它提供分配给功能的平均权重。</p>
+<ul>
+<li><strong>average_intercept_-</strong>数组，shape（1，）</li>
+</ul>
+<p>顾名思义，它提供了平均截距项。</p>
+<ul>
+<li><strong>t_-</strong>整数</li>
+</ul>
+<p>它提供了在训练阶段执行的体重更新次数。</p>
+<p><strong>注意</strong> -在将参数“ average”启用为True之后，属性average_coef_和average_intercept_将起作用。</p>
+<p><strong>实施实例</strong></p>
+<p>以下Python脚本使用<strong>SGDRegressor</strong>线性模型-</p>
+<pre><code class="python">import numpy as np
+from sklearn import linear_model
+n_samples, n_features = 10, 5
+rng = np.random.RandomState(0)
+y = rng.randn(n_samples)
+X = rng.randn(n_samples, n_features)
+SGDReg =linear_model.SGDRegressor(
+   max_iter = 1000,penalty = &quot;elasticnet&quot;,loss = 'huber',tol = 1e-3, average = True
+)
+SGDReg.fit(X, y)
+</code></pre>
+
+<p>现在，一旦拟合，我们就可以在以下python脚本的帮助下获得权重向量-</p>
+<pre><code class="python">SGDReg.coef_
+</code></pre>
+
+<p>同样，我们可以在以下python脚本的帮助下获取截距值-</p>
+<pre><code class="python">SGDReg.intercept_
+</code></pre>
+
+<p>我们可以通过以下python脚本获取训练阶段体重更新的次数-</p>
+<pre><code class="python">SGDReg.t_
+</code></pre>
+
+<h2>SGD的优点和缺点</h2>
+<p>遵循SGD的优点-</p>
+<ul>
+<li>随机梯度下降（SGD）非常有效。</li>
+<li>这很容易实现，因为有很多代码调优的机会。</li>
+</ul>
+<p>遵循SGD的缺点-</p>
+<ul>
+<li>随机梯度下降（SGD）需要一些超参数，例如正则化参数。</li>
+<li>它对特征缩放很敏感。</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

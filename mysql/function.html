@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MySQL 函数 - FreeAIHub</title>
+    <meta name="keywords" content="MySQL 字符串函数,MySQL 数字函数,MySQL 日期函数,MySQL 高级函数">
+    <meta name="description" content="MySQL 有很多内置的函数，以下列出了这些函数的说明。">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/mysql/index.html">如何学习本课程</a></li>
+<li><a href="/mysql/intro.html"> MySQL简介 </a></li>
+<li><a href="/mysql/setup.html"> MySQL 安装及环境配置 </a></li>
+<li><a href="/mysql/datatype.html">MySQL 数据类型</a> </li>
+<li><a class="current">MySQL 函数</a> </li>
+
+<li>管理数据库与表</li>
+<li><a href="/mysql/database-create.html"> MySQL 创建数据库 </a></li>
+<li><a href="/mysql/database-delete.html"> MySQL 删除数据库 </a></li>
+<li><a href="/mysql/table-create.html"> MySQL 创建表 </a></li>
+<li><a href="/mysql/table-delete.html"> MySQL 删除表 </a></li>
+<li><a href="/mysql/table-truncate.html"> MySQL 清空表 </a></li>
+<li><a href="/mysql/table-temporary.html"> MySQL 临时表</a></li>
+<li><a href="/mysql/table-rename.html"> MySQL 重命名表</a></li>
+<li><a href="/mysql/table-addcolumn.html"> MySQL 对表添加列</a></li>
+<li><a href="/mysql/table-dropcolumn.html"> MySQL 对表删除列</a></li>
+
+<li>修改表数据</li>
+<li><a href="/mysql/insert.html"> MySQL  INSERT</a></li>
+<li><a href="/mysql/update.html"> MySQL  UPDATE </a></li>
+<li><a href="/mysql/delete.html"> MySQL  DELETE </a></li>
+<li><a href="/mysql/join-update.html"> MySQL UPDATE JOIN</a></li>
+<li><a href="/mysql/join-delete.html"> MySQL DELETE JOIN</a></li>
+<li><a href="/mysql/on-delete-cascade.html"> MySQL ON DELETE CASCADE</a></li>
+<li><a href="/mysql/replace.html"> MySQL REPLACE</a></li>
+
+
+<li>表约束</li>
+<li><a href="/mysql/primarykey.html"> MySQL  主键约束 </a></li>
+<li><a href="/mysql/unique.html"> MySQL  唯一约束 </a></li>
+<li><a href="/mysql/foreignkey.html"> MySQL  外键约束 </a></li>
+
+
+<li>查询数据</li>
+<li><a href="/mysql/select.html"> MySQL SELECT </a></li>
+<li><a href="/mysql/distinct.html"> MySQL DISTINCT </a></li>
+
+
+<li>过滤数据</li>
+<li><a href="/mysql/and.html"> MySQL 和运算AND </a></li>
+<li><a href="/mysql/or.html"> MySQL 或运算OR </a></li>
+<li><a href="/mysql/where.html"> MySQL WHERE子句 </a></li>
+<li><a href="/mysql/between.html"> MySQL BETWEEN </a></li>
+<li><a href="/mysql/like.html"> MySQL LIKE </a></li>
+<li><a href="/mysql/in.html"> MySQL IN </a></li>
+<li><a href="/mysql/limit.html"> MySQL LIMIT </a></li>
+<li><a href="/mysql/regexp.html"> MySQL 基于正则表达式过滤 </a></li>
+
+
+<li>数据分组</li>
+<li><a href="/mysql/groupby.html"> MySQL 分组Groupby </a></li>
+<li><a href="/mysql/having.html"> MySQL 分组过滤Having </a></li>
+
+
+<li>排序数据</li>
+<li><a href="/mysql/orderby.html"> MySQL排序ORDER BY</a></li>
+<li><a href="/mysql/orderby-nature.html"> MySQL自然排序 </a></li>
+
+
+<li>子查询</li>
+<li><a href="/mysql/subquery.html"> MySQL 子查询SubQuery </a></li>
+<li><a href="/mysql/table-derived.html"> MySQL 派生表 </a></li>
+
+<li>连接查询</li>
+<li><a href="/mysql/alias.html">MySQL 别名ALIAS</a> </li>
+<li><a href="/mysql/join-inner.html">MySQL 内连接INNER JOIN</a> </li>
+<li><a href="/mysql/join-left.html">MySQL 左连接LEFT JOIN</a> </li>
+<li><a href="/mysql/join-cross.html">MySQL 交叉连接CROSS JOIN</a> </li>
+<li><a href="/mysql/join-self.html">MySQL 自联接SELF JOIN</a> </li>
+
+<li>用户</li>
+<li><a href="/mysql/user-create.html">MySQL 创建用户</a> </li>
+<li><a href="/mysql/grant.html">MySQL 用户权限</a> </li>
+
+<li>MySQL高级</li>
+<li><a href="/mysql/charset-collation.html">MySQL 字符集与排序规则</a> </li>
+<li><a href="/mysql/indexing.html">MySQL 索引INDEX</a> </li>
+<li><a href="/mysql/view.html">MySQL 视图VIEW</a> </li>
+<li><a href="/mysql/trigger.html">MySQL 触发器TIRGGER</a> </li>
+<li><a href="/mysql/storage-engine.html">MySQL 存储引擎</a> </li>
+<li><a href="/mysql/tx.html"> MySQL 事务 </a></li>
+<li><a href="/mysql/tx-tablelock.html"> MySQL 表锁 </a></li>
+<li><a href="/mysql/fts.html">MySQL 自然语言全文搜索</a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/mysql/datatype.html class='prev_article'>MySQL 数据类型</a>       |       下一篇：<a href=/mysql/database-create.html class='next_article'> MySQL 创建数据库 </a>  >
+              
+<h1>MySQL 函数</h1>
+<p>MySQL 有很多内置的函数，以下列出了这些函数的说明。</p>
+<h2>MySQL 字符串函数</h2>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ASCII(s)</td>
+<td align="left">返回字符串 s 的第一个字符的 ASCII 码。</td>
+<td align="left">返回 CustomerName 字段第一个字母的 ASCII 码：<code>SELECT ASCII(CustomerName) AS NumCodeOfFirstChar FROM Customers;</code></td>
+</tr>
+<tr>
+<td align="left">CHAR_LENGTH(s)</td>
+<td align="left">返回字符串 s 的字符数</td>
+<td align="left">返回字符串 MYSQL 的字符数<code>SELECT CHAR_LENGTH("MYSQL") AS LengthOfString;</code></td>
+</tr>
+<tr>
+<td align="left">CHARACTER_LENGTH(s)</td>
+<td align="left">返回字符串 s 的字符数</td>
+<td align="left">返回字符串 MYSQL 的字符数<code>SELECT CHARACTER_LENGTH("MYSQL") AS LengthOfString;</code></td>
+</tr>
+<tr>
+<td align="left">CONCAT(s1,s2...sn)</td>
+<td align="left">字符串 s1,s2 等多个字符串合并为一个字符串</td>
+<td align="left">合并多个字符串<code>SELECT CONCAT("SQL ", "MYSQL ", "Gooogle ", "Facebook") AS ConcatenatedString;</code></td>
+</tr>
+<tr>
+<td align="left">CONCAT_WS(x, s1,s2...sn)</td>
+<td align="left">同 CONCAT(s1,s2,...) 函数，但是每个字符串之间要加上 x，x 可以是分隔符</td>
+<td align="left">合并多个字符串，并添加分隔符：<code>SELECT CONCAT_WS("-", "SQL", "Tutorial", "is", "fun!")AS ConcatenatedString;</code></td>
+</tr>
+<tr>
+<td align="left">FIELD(s,s1,s2...)</td>
+<td align="left">返回第一个字符串 s 在字符串列表(s1,s2...)中的位置</td>
+<td align="left">返回字符串 c 在列表值中的位置：<code>SELECT FIELD("c", "a", "b", "c", "d", "e");</code></td>
+</tr>
+<tr>
+<td align="left">FIND_IN_SET(s1,s2)</td>
+<td align="left">返回在字符串s2中与s1匹配的字符串的位置</td>
+<td align="left">返回字符串 c 在指定字符串中的位置：<code>SELECT FIND_IN_SET("c", "a,b,c,d,e");</code></td>
+</tr>
+<tr>
+<td align="left">FORMAT(x,n)</td>
+<td align="left">函数可以将数字 x 进行格式化 "#,###.##", 将 x 保留到小数点后 n 位，最后一位四舍五入。</td>
+<td align="left">格式化数字 "#,###.##" 形式：<code>SELECT FORMAT(250500.5634, 2);     -- 输出 250,500.56</code></td>
+</tr>
+<tr>
+<td align="left">INSERT(s1,x,len,s2)</td>
+<td align="left">字符串 s2 替换 s1 的 x 位置开始长度为 len 的字符串</td>
+<td align="left">从字符串第一个位置开始的 6 个字符替换为 MYSQL：<code>SELECT INSERT("google.com", 1, 6, "mysql");  -- 输出：MYSQL.com</code></td>
+</tr>
+<tr>
+<td align="left">LOCATE(s1,s)</td>
+<td align="left">从字符串 s 中获取 s1 的开始位置</td>
+<td align="left">获取 b 在字符串 abc 中的位置：<code>SELECT LOCATE('st','myteststring');  -- 5</code>返回字符串 abc 中 b 的位置：<code>SELECT LOCATE('b', 'abc') -- 2</code></td>
+</tr>
+<tr>
+<td align="left">LCASE(s)</td>
+<td align="left">将字符串 s 的所有字母变成小写字母</td>
+<td align="left">字符串 MYSQL 转换为小写：<code>SELECT LCASE('MYSQL') -- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">LEFT(s,n)</td>
+<td align="left">返回字符串 s 的前 n 个字符</td>
+<td align="left">返回字符串 MYSQL 中的前两个字符：<code>SELECT LEFT('MYSQL',2) -- ru</code></td>
+</tr>
+<tr>
+<td align="left">LOWER(s)</td>
+<td align="left">将字符串 s 的所有字母变成小写字母</td>
+<td align="left">字符串 MYSQL 转换为小写：<code>SELECT LOWER('MYSQL') -- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">LPAD(s1,len,s2)</td>
+<td align="left">在字符串 s1 的开始处填充字符串 s2，使字符串长度达到 len</td>
+<td align="left">将字符串 xx 填充到 abc 字符串的开始处：<code>SELECT LPAD('abc',5,'xx') -- xxabc</code></td>
+</tr>
+<tr>
+<td align="left">LTRIM(s)</td>
+<td align="left">去掉字符串 s 开始处的空格</td>
+<td align="left">去掉字符串 MYSQL开始处的空格：<code>SELECT LTRIM("    MYSQL") AS LeftTrimmedString;-- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">MID(s,n,len)</td>
+<td align="left">从字符串 s 的 n 位置截取长度为 len 的子字符串，同 SUBSTRING(s,n,len)</td>
+<td align="left">从字符串 MYSQL 中的第 2 个位置截取 3个 字符：<code>SELECT MID("MYSQL", 2, 3) AS ExtractString; -- UNO</code></td>
+</tr>
+<tr>
+<td align="left">POSITION(s1 IN s)</td>
+<td align="left">从字符串 s 中获取 s1 的开始位置</td>
+<td align="left">返回字符串 abc 中 b 的位置：<code>SELECT POSITION('b' in 'abc') -- 2</code></td>
+</tr>
+<tr>
+<td align="left">REPEAT(s,n)</td>
+<td align="left">将字符串 s 重复 n 次</td>
+<td align="left">将字符串 MYSQL 重复三次：<code>SELECT REPEAT('MYSQL',3) -- MYSQLMYSQLMYSQL</code></td>
+</tr>
+<tr>
+<td align="left">REPLACE(s,s1,s2)</td>
+<td align="left">将字符串 s2 替代字符串 s 中的字符串 s1</td>
+<td align="left">将字符串 abc 中的字符 a 替换为字符 x：<code>SELECT REPLACE('abc','a','x') --xbc</code></td>
+</tr>
+<tr>
+<td align="left">REVERSE(s)</td>
+<td align="left">将字符串s的顺序反过来</td>
+<td align="left">将字符串 abc 的顺序反过来：<code>SELECT REVERSE('abc') -- cba</code></td>
+</tr>
+<tr>
+<td align="left">RIGHT(s,n)</td>
+<td align="left">返回字符串 s 的后 n 个字符</td>
+<td align="left">返回字符串 MYSQL 的后两个字符：<code>SELECT RIGHT('MYSQL',2) -- ob</code></td>
+</tr>
+<tr>
+<td align="left">RPAD(s1,len,s2)</td>
+<td align="left">在字符串 s1 的结尾处添加字符串 s2，使字符串的长度达到 len</td>
+<td align="left">将字符串 xx 填充到 abc 字符串的结尾处：<code>SELECT RPAD('abc',5,'xx') -- abcxx</code></td>
+</tr>
+<tr>
+<td align="left">RTRIM(s)</td>
+<td align="left">去掉字符串 s 结尾处的空格</td>
+<td align="left">去掉字符串 MYSQL 的末尾空格：<code>SELECT RTRIM("MYSQL     ") AS RightTrimmedString;   -- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">SPACE(n)</td>
+<td align="left">返回 n 个空格</td>
+<td align="left">返回 10 个空格：<code>SELECT SPACE(10);</code></td>
+</tr>
+<tr>
+<td align="left">STRCMP(s1,s2)</td>
+<td align="left">比较字符串 s1 和 s2，如果 s1 与 s2 相等返回 0 ，如果 s1&gt;s2 返回 1，如果 s1&lt;s2 返回 -1</td>
+<td align="left">比较字符串：<code>SELECT STRCMP("MYSQL", "MYSQL");  -- 0</code></td>
+</tr>
+<tr>
+<td align="left">SUBSTR(s, start, length)</td>
+<td align="left">从字符串 s 的 start 位置截取长度为 length 的子字符串</td>
+<td align="left">从字符串 MYSQL 中的第 2 个位置截取 3个 字符：<code>SELECT SUBSTR("MYSQL", 2, 3) AS ExtractString; -- UNO</code></td>
+</tr>
+<tr>
+<td align="left">SUBSTRING(s, start, length)</td>
+<td align="left">从字符串 s 的 start 位置截取长度为 length 的子字符串</td>
+<td align="left">从字符串 MYSQL 中的第 2 个位置截取 3个 字符：<code>SELECT SUBSTRING("MYSQL", 2, 3) AS ExtractString; -- UNO</code></td>
+</tr>
+<tr>
+<td align="left">SUBSTRING_INDEX(s, delimiter, number)</td>
+<td align="left">返回从字符串 s 的第 number 个出现的分隔符 delimiter 之后的子串。 如果 number 是正数，返回第 number 个字符左边的字符串。 如果 number 是负数，返回第(number 的绝对值(从右边数))个字符右边的字符串。</td>
+<td align="left"><code>SELECT SUBSTRING_INDEX('a*b','*',1) -- a SELECT SUBSTRING_INDEX('a*b','*',-1)  -- b SELECT SUBSTRING_INDEX(SUBSTRING_INDEX('a*b*c*d*e','*',3),'*',-1)  -- c</code></td>
+</tr>
+<tr>
+<td align="left">TRIM(s)</td>
+<td align="left">去掉字符串 s 开始和结尾处的空格</td>
+<td align="left">去掉字符串 MYSQL 的首尾空格：<code>SELECT TRIM('    MYSQL    ') AS TrimmedString;</code></td>
+</tr>
+<tr>
+<td align="left">UCASE(s)</td>
+<td align="left">将字符串转换为大写</td>
+<td align="left">将字符串 MYSQL 转换为大写：<code>SELECT UCASE("MYSQL"); -- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">UPPER(s)</td>
+<td align="left">将字符串转换为大写</td>
+<td align="left">将字符串 MYSQL 转换为大写：<code>SELECT UPPER("MYSQL"); -- MYSQL</code></td>
+</tr>
+</tbody>
+</table>
+<h2>MySQL 数字函数</h2>
+<table>
+<thead>
+<tr>
+<th align="left">函数名</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ABS(x)</td>
+<td align="left">返回 x 的绝对值</td>
+<td align="left">返回 -1 的绝对值：<code>SELECT ABS(-1) -- 返回1</code></td>
+</tr>
+<tr>
+<td align="left">ACOS(x)</td>
+<td align="left">求 x 的反余弦值(参数是弧度)</td>
+<td align="left"><code>SELECT ACOS(0.25);</code></td>
+</tr>
+<tr>
+<td align="left">ASIN(x)</td>
+<td align="left">求反正弦值(参数是弧度)</td>
+<td align="left"><code>SELECT ASIN(0.25);</code></td>
+</tr>
+<tr>
+<td align="left">ATAN(x)</td>
+<td align="left">求反正切值(参数是弧度)</td>
+<td align="left"><code>SELECT ATAN(2.5);</code></td>
+</tr>
+<tr>
+<td align="left">ATAN2(n, m)</td>
+<td align="left">求反正切值(参数是弧度)</td>
+<td align="left"><code>SELECT ATAN2(-0.8, 2);</code></td>
+</tr>
+<tr>
+<td align="left">AVG(expression)</td>
+<td align="left">返回一个表达式的平均值，expression 是一个字段</td>
+<td align="left">返回 Products 表中Price 字段的平均值：<code>SELECT AVG(Price) AS AveragePrice FROM Products;</code></td>
+</tr>
+<tr>
+<td align="left">CEIL(x)</td>
+<td align="left">返回大于或等于 x 的最小整数</td>
+<td align="left"><code>SELECT CEIL(1.5) -- 返回2</code></td>
+</tr>
+<tr>
+<td align="left">CEILING(x)</td>
+<td align="left">返回大于或等于 x 的最小整数</td>
+<td align="left"><code>SELECT CEIL(1.5) -- 返回2</code></td>
+</tr>
+<tr>
+<td align="left">COS(x)</td>
+<td align="left">求余弦值(参数是弧度)</td>
+<td align="left"><code>SELECT COS(2);</code></td>
+</tr>
+<tr>
+<td align="left">COT(x)</td>
+<td align="left">求余切值(参数是弧度)</td>
+<td align="left"><code>SELECT COT(6);</code></td>
+</tr>
+<tr>
+<td align="left">COUNT(expression)</td>
+<td align="left">返回查询的记录总数，expression 参数是一个字段或者 * 号</td>
+<td align="left">返回 Products 表中 products 字段总共有多少条记录：<code>SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;</code></td>
+</tr>
+<tr>
+<td align="left">DEGREES(x)</td>
+<td align="left">将弧度转换为角度</td>
+<td align="left"><code>SELECT DEGREES(3.1415926535898) -- 180</code></td>
+</tr>
+<tr>
+<td align="left">n DIV m</td>
+<td align="left">整除，n 为被除数，m 为除数</td>
+<td align="left">计算 10 除于 5：<code>SELECT 10 DIV 5;  -- 2</code></td>
+</tr>
+<tr>
+<td align="left">EXP(x)</td>
+<td align="left">返回 e 的 x 次方</td>
+<td align="left">计算 e 的三次方：<code>SELECT EXP(3) -- 20.085536923188</code></td>
+</tr>
+<tr>
+<td align="left">FLOOR(x)</td>
+<td align="left">返回小于或等于 x 的最大整数</td>
+<td align="left">小于或等于 1.5 的整数：<code>SELECT FLOOR(1.5) -- 返回1</code></td>
+</tr>
+<tr>
+<td align="left">GREATEST(expr1, expr2, expr3, ...)</td>
+<td align="left">返回列表中的最大值</td>
+<td align="left">返回以下数字列表中的最大值：<code>SELECT GREATEST(3, 12, 34, 8, 25); -- 34</code>返回以下字符串列表中的最大值：<code>SELECT GREATEST("Google", "MYSQL", "Apple");   -- MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">LEAST(expr1, expr2, expr3, ...)</td>
+<td align="left">返回列表中的最小值</td>
+<td align="left">返回以下数字列表中的最小值：<code>SELECT LEAST(3, 12, 34, 8, 25); -- 3</code>返回以下字符串列表中的最小值：<code>SELECT LEAST("Google", "MYSQL", "Apple");   -- Apple</code></td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.MYSQL.com/mysql/func_mysql_ln.asp">LN</a></td>
+<td align="left">返回数字的自然对数</td>
+<td align="left">返回 2 的自然对数：<code>SELECT LN(2);  -- 0.6931471805599453</code></td>
+</tr>
+<tr>
+<td align="left">LOG(x)</td>
+<td align="left">返回自然对数(以 e 为底的对数)</td>
+<td align="left"><code>SELECT LOG(20.085536923188) -- 3</code></td>
+</tr>
+<tr>
+<td align="left">LOG10(x)</td>
+<td align="left">返回以 10 为底的对数</td>
+<td align="left"><code>SELECT LOG10(100) -- 2</code></td>
+</tr>
+<tr>
+<td align="left">LOG2(x)</td>
+<td align="left">返回以 2 为底的对数</td>
+<td align="left">返回以 2 为底 6 的对数：<code>SELECT LOG2(6);  -- 2.584962500721156</code></td>
+</tr>
+<tr>
+<td align="left">MAX(expression)</td>
+<td align="left">返回字段 expression 中的最大值</td>
+<td align="left">返回数据表 Products 中字段 Price 的最大值：<code>SELECT MAX(Price) AS LargestPrice FROM Products;</code></td>
+</tr>
+<tr>
+<td align="left">MIN(expression)</td>
+<td align="left">返回字段 expression 中的最小值</td>
+<td align="left">返回数据表 Products 中字段 Price 的最小值：<code>SELECT MIN(Price) AS LargestPrice FROM Products;</code></td>
+</tr>
+<tr>
+<td align="left">MOD(x,y)</td>
+<td align="left">返回 x 除以 y 以后的余数</td>
+<td align="left">5 除于 2 的余数：<code>SELECT MOD(5,2) -- 1</code></td>
+</tr>
+<tr>
+<td align="left">PI()</td>
+<td align="left">返回圆周率(3.141593）</td>
+<td align="left"><code>SELECT PI() --3.141593</code></td>
+</tr>
+<tr>
+<td align="left">POW(x,y)</td>
+<td align="left">返回 x 的 y 次方</td>
+<td align="left">2 的 3 次方：<code>SELECT POW(2,3) -- 8</code></td>
+</tr>
+<tr>
+<td align="left">POWER(x,y)</td>
+<td align="left">返回 x 的 y 次方</td>
+<td align="left">2 的 3 次方：<code>SELECT POWER(2,3) -- 8</code></td>
+</tr>
+<tr>
+<td align="left">RADIANS(x)</td>
+<td align="left">将角度转换为弧度</td>
+<td align="left">180 度转换为弧度：<code>SELECT RADIANS(180) -- 3.1415926535898</code></td>
+</tr>
+<tr>
+<td align="left">RAND()</td>
+<td align="left">返回 0 到 1 的随机数</td>
+<td align="left"><code>SELECT RAND() --0.93099315644334</code></td>
+</tr>
+<tr>
+<td align="left">ROUND(x)</td>
+<td align="left">返回离 x 最近的整数</td>
+<td align="left"><code>SELECT ROUND(1.23456) --1</code></td>
+</tr>
+<tr>
+<td align="left">SIGN(x)</td>
+<td align="left">返回 x 的符号，x 是负数、0、正数分别返回 -1、0 和 1</td>
+<td align="left"><code>SELECT SIGN(-10) -- (-1)</code></td>
+</tr>
+<tr>
+<td align="left">SIN(x)</td>
+<td align="left">求正弦值(参数是弧度)</td>
+<td align="left"><code>SELECT SIN(RADIANS(30)) -- 0.5</code></td>
+</tr>
+<tr>
+<td align="left">SQRT(x)</td>
+<td align="left">返回x的平方根</td>
+<td align="left">25 的平方根：<code>SELECT SQRT(25) -- 5</code></td>
+</tr>
+<tr>
+<td align="left">SUM(expression)</td>
+<td align="left">返回指定字段的总和</td>
+<td align="left">计算 OrderDetails 表中字段 Quantity 的总和：<code>SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;</code></td>
+</tr>
+<tr>
+<td align="left">TAN(x)</td>
+<td align="left">求正切值(参数是弧度)</td>
+<td align="left"><code>SELECT TAN(1.75);  -- -5.52037992250933</code></td>
+</tr>
+<tr>
+<td align="left">TRUNCATE(x,y)</td>
+<td align="left">返回数值 x 保留到小数点后 y 位的值（与 ROUND 最大的区别是不会进行四舍五入）</td>
+<td align="left"><code>SELECT TRUNCATE(1.23456,3) -- 1.234</code></td>
+</tr>
+</tbody>
+</table>
+<h2>MySQL 日期函数</h2>
+<table>
+<thead>
+<tr>
+<th align="left">函数名</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ADDDATE(d,n)</td>
+<td align="left">计算起始日期 d 加上 n 天的日期</td>
+<td align="left"><code>SELECT ADDDATE("2017-06-15", INTERVAL 10 DAY); -&gt;2017-06-25</code></td>
+</tr>
+<tr>
+<td align="left">ADDTIME(t,n)</td>
+<td align="left">时间 t 加上 n 秒的时间</td>
+<td align="left"><code>SELECT ADDTIME('2011-11-11 11:11:11', 5) -&gt;2011-11-11 11:11:16 (秒)</code></td>
+</tr>
+<tr>
+<td align="left">CURDATE()</td>
+<td align="left">返回当前日期</td>
+<td align="left"><code>SELECT CURDATE(); -&gt; 2018-09-19</code></td>
+</tr>
+<tr>
+<td align="left">CURRENT_DATE()</td>
+<td align="left">返回当前日期</td>
+<td align="left"><code>SELECT CURRENT_DATE(); -&gt; 2018-09-19</code></td>
+</tr>
+<tr>
+<td align="left">CURRENT_TIME</td>
+<td align="left">返回当前时间</td>
+<td align="left"><code>SELECT CURRENT_TIME(); -&gt; 19:59:02</code></td>
+</tr>
+<tr>
+<td align="left">CURRENT_TIMESTAMP()</td>
+<td align="left">返回当前日期和时间</td>
+<td align="left"><code>SELECT CURRENT_TIMESTAMP() -&gt; 2018-09-19 20:57:43</code></td>
+</tr>
+<tr>
+<td align="left">CURTIME()</td>
+<td align="left">返回当前时间</td>
+<td align="left"><code>SELECT CURTIME(); -&gt; 19:59:02</code></td>
+</tr>
+<tr>
+<td align="left">DATE()</td>
+<td align="left">从日期或日期时间表达式中提取日期值</td>
+<td align="left"><code>SELECT DATE("2017-06-15");     -&gt; 2017-06-15</code></td>
+</tr>
+<tr>
+<td align="left">DATEDIFF(d1,d2)</td>
+<td align="left">计算日期 d1-&gt;d2 之间相隔的天数</td>
+<td align="left"><code>SELECT DATEDIFF('2001-01-01','2001-02-02') -&gt; -32</code></td>
+</tr>
+<tr>
+<td align="left">DATE_ADD(d，INTERVAL expr type)</td>
+<td align="left">计算起始日期 d 加上一个时间段后的日期</td>
+<td align="left"><code>SELECT ADDDATE('2011-11-11 11:11:11',1) -&gt; 2011-11-12 11:11:11  (默认是天) SELECT ADDDATE('2011-11-11 11:11:11', INTERVAL 5 MINUTE) -&gt; 2011-11-11 11:16:11 (TYPE的取值与上面那个列出来的函数类似)</code></td>
+</tr>
+<tr>
+<td align="left">DATE_FORMAT(d,f)</td>
+<td align="left">按表达式 f的要求显示日期 d</td>
+<td align="left"><code>SELECT DATE_FORMAT('2011-11-11 11:11:11','%Y-%m-%d %r') -&gt; 2011-11-11 11:11:11 AM</code></td>
+</tr>
+<tr>
+<td align="left">DATE_SUB(date,INTERVAL expr type)</td>
+<td align="left">函数从日期减去指定的时间间隔。</td>
+<td align="left">Orders 表中 OrderDate 字段减去 2 天：<code>SELECT OrderId,DATE_SUB(OrderDate,INTERVAL 2 DAY) AS OrderPayDate FROM Orders</code></td>
+</tr>
+<tr>
+<td align="left">DAY(d)</td>
+<td align="left">返回日期值 d 的日期部分</td>
+<td align="left"><code>SELECT DAY("2017-06-15");   -&gt; 15</code></td>
+</tr>
+<tr>
+<td align="left">DAYNAME(d)</td>
+<td align="left">返回日期 d 是星期几，如 Monday,Tuesday</td>
+<td align="left"><code>SELECT DAYNAME('2011-11-11 11:11:11') -&gt;Friday</code></td>
+</tr>
+<tr>
+<td align="left">DAYOFMONTH(d)</td>
+<td align="left">计算日期 d 是本月的第几天</td>
+<td align="left"><code>SELECT DAYOFMONTH('2011-11-11 11:11:11') -&gt;11</code></td>
+</tr>
+<tr>
+<td align="left">DAYOFWEEK(d)</td>
+<td align="left">日期 d 今天是星期几，1 星期日，2 星期一，以此类推</td>
+<td align="left"><code>SELECT DAYOFWEEK('2011-11-11 11:11:11') -&gt;6</code></td>
+</tr>
+<tr>
+<td align="left">DAYOFYEAR(d)</td>
+<td align="left">计算日期 d 是本年的第几天</td>
+<td align="left"><code>SELECT DAYOFYEAR('2011-11-11 11:11:11') -&gt;315</code></td>
+</tr>
+<tr>
+<td align="left">EXTRACT(type FROM d)</td>
+<td align="left">从日期 d 中获取指定的值，type 指定返回的值。 type可取值为： MICROSECONDSECONDMINUTEHOURDAYWEEKMONTHQUARTERYEARSECOND_MICROSECONDMINUTE_MICROSECONDMINUTE_SECONDHOUR_MICROSECONDHOUR_SECONDHOUR_MINUTEDAY_MICROSECONDDAY_SECONDDAY_MINUTEDAY_HOURYEAR_MONTH</td>
+<td align="left"><code>SELECT EXTRACT(MINUTE FROM '2011-11-11 11:11:11')  -&gt; 11</code></td>
+</tr>
+<tr>
+<td align="left">FROM_DAYS(n)</td>
+<td align="left">计算从 0000 年 1 月 1 日开始 n 天后的日期</td>
+<td align="left"><code>SELECT FROM_DAYS(1111) -&gt; 0003-01-16</code></td>
+</tr>
+<tr>
+<td align="left">HOUR(t)</td>
+<td align="left">返回 t 中的小时值</td>
+<td align="left"><code>SELECT HOUR('1:2:3') -&gt; 1</code></td>
+</tr>
+<tr>
+<td align="left">LAST_DAY(d)</td>
+<td align="left">返回给给定日期的那一月份的最后一天</td>
+<td align="left"><code>SELECT LAST_DAY("2017-06-20"); -&gt; 2017-06-30</code></td>
+</tr>
+<tr>
+<td align="left">LOCALTIME()</td>
+<td align="left">返回当前日期和时间</td>
+<td align="left"><code>SELECT LOCALTIME() -&gt; 2018-09-19 20:57:43</code></td>
+</tr>
+<tr>
+<td align="left">LOCALTIMESTAMP()</td>
+<td align="left">返回当前日期和时间</td>
+<td align="left"><code>SELECT LOCALTIMESTAMP() -&gt; 2018-09-19 20:57:43</code></td>
+</tr>
+<tr>
+<td align="left">MAKEDATE(year, day-of-year)</td>
+<td align="left">基于给定参数年份 year 和所在年中的天数序号 day-of-year 返回一个日期</td>
+<td align="left"><code>SELECT MAKEDATE(2017, 3); -&gt; 2017-01-03</code></td>
+</tr>
+<tr>
+<td align="left">MAKETIME(hour, minute, second)</td>
+<td align="left">组合时间，参数分别为小时、分钟、秒</td>
+<td align="left"><code>SELECT MAKETIME(11, 35, 4); -&gt; 11:35:04</code></td>
+</tr>
+<tr>
+<td align="left">MICROSECOND(date)</td>
+<td align="left">返回日期参数所对应的微秒数</td>
+<td align="left"><code>SELECT MICROSECOND("2017-06-20 09:34:00.000023"); -&gt; 23</code></td>
+</tr>
+<tr>
+<td align="left">MINUTE(t)</td>
+<td align="left">返回 t 中的分钟值</td>
+<td align="left"><code>SELECT MINUTE('1:2:3') -&gt; 2</code></td>
+</tr>
+<tr>
+<td align="left">MONTHNAME(d)</td>
+<td align="left">返回日期当中的月份名称，如 November</td>
+<td align="left"><code>SELECT MONTHNAME('2011-11-11 11:11:11') -&gt; November</code></td>
+</tr>
+<tr>
+<td align="left">MONTH(d)</td>
+<td align="left">返回日期d中的月份值，1 到 12</td>
+<td align="left"><code>SELECT MONTH('2011-11-11 11:11:11') -&gt;11</code></td>
+</tr>
+<tr>
+<td align="left">NOW()</td>
+<td align="left">返回当前日期和时间</td>
+<td align="left"><code>SELECT NOW() -&gt; 2018-09-19 20:57:43</code></td>
+</tr>
+<tr>
+<td align="left">PERIOD_ADD(period, number)</td>
+<td align="left">为 年-月 组合日期添加一个时段</td>
+<td align="left"><code>SELECT PERIOD_ADD(201703, 5);    -&gt; 201708</code></td>
+</tr>
+<tr>
+<td align="left">PERIOD_DIFF(period1, period2)</td>
+<td align="left">返回两个时段之间的月份差值</td>
+<td align="left"><code>SELECT PERIOD_DIFF(201710, 201703); -&gt; 7</code></td>
+</tr>
+<tr>
+<td align="left">QUARTER(d)</td>
+<td align="left">返回日期d是第几季节，返回 1 到 4</td>
+<td align="left"><code>SELECT QUARTER('2011-11-11 11:11:11') -&gt; 4</code></td>
+</tr>
+<tr>
+<td align="left">SECOND(t)</td>
+<td align="left">返回 t 中的秒钟值</td>
+<td align="left"><code>SELECT SECOND('1:2:3') -&gt; 3</code></td>
+</tr>
+<tr>
+<td align="left">SEC_TO_TIME(s)</td>
+<td align="left">将以秒为单位的时间 s 转换为时分秒的格式</td>
+<td align="left"><code>SELECT SEC_TO_TIME(4320) -&gt; 01:12:00</code></td>
+</tr>
+<tr>
+<td align="left">STR_TO_DATE(string, format_mask)</td>
+<td align="left">将字符串转变为日期</td>
+<td align="left"><code>SELECT STR_TO_DATE("August 10 2017", "%M %d %Y"); -&gt; 2017-08-10</code></td>
+</tr>
+<tr>
+<td align="left">SUBDATE(d,n)</td>
+<td align="left">日期 d 减去 n 天后的日期</td>
+<td align="left"><code>SELECT SUBDATE('2011-11-11 11:11:11', 1) -&gt;2011-11-10 11:11:11 (默认是天)</code></td>
+</tr>
+<tr>
+<td align="left">SUBTIME(t,n)</td>
+<td align="left">时间 t 减去 n 秒的时间</td>
+<td align="left"><code>SELECT SUBTIME('2011-11-11 11:11:11', 5) -&gt;2011-11-11 11:11:06 (秒)</code></td>
+</tr>
+<tr>
+<td align="left">SYSDATE()</td>
+<td align="left">返回当前日期和时间</td>
+<td align="left"><code>SELECT SYSDATE() -&gt; 2018-09-19 20:57:43</code></td>
+</tr>
+<tr>
+<td align="left">TIME(expression)</td>
+<td align="left">提取传入表达式的时间部分</td>
+<td align="left"><code>SELECT TIME("19:30:10"); -&gt; 19:30:10</code></td>
+</tr>
+<tr>
+<td align="left">TIME_FORMAT(t,f)</td>
+<td align="left">按表达式 f 的要求显示时间 t</td>
+<td align="left"><code>SELECT TIME_FORMAT('11:11:11','%r') 11:11:11 AM</code></td>
+</tr>
+<tr>
+<td align="left">TIME_TO_SEC(t)</td>
+<td align="left">将时间 t 转换为秒</td>
+<td align="left"><code>SELECT TIME_TO_SEC('1:12:00') -&gt; 4320</code></td>
+</tr>
+<tr>
+<td align="left">TIMEDIFF(time1, time2)</td>
+<td align="left">计算时间差值</td>
+<td align="left"><code>SELECT TIMEDIFF("13:10:11", "13:10:10"); -&gt; 00:00:01</code></td>
+</tr>
+<tr>
+<td align="left">TIMESTAMP(expression, interval)</td>
+<td align="left">单个参数时，函数返回日期或日期时间表达式；有2个参数时，将参数加和</td>
+<td align="left"><code>SELECT TIMESTAMP("2017-07-23",  "13:10:11"); -&gt; 2017-07-23 13:10:11</code></td>
+</tr>
+<tr>
+<td align="left">TO_DAYS(d)</td>
+<td align="left">计算日期 d 距离 0000 年 1 月 1 日的天数</td>
+<td align="left"><code>SELECT TO_DAYS('0001-01-01 01:01:01') -&gt; 366</code></td>
+</tr>
+<tr>
+<td align="left">WEEK(d)</td>
+<td align="left">计算日期 d 是本年的第几个星期，范围是 0 到 53</td>
+<td align="left"><code>SELECT WEEK('2011-11-11 11:11:11') -&gt; 45</code></td>
+</tr>
+<tr>
+<td align="left">WEEKDAY(d)</td>
+<td align="left">日期 d 是星期几，0 表示星期一，1 表示星期二</td>
+<td align="left"><code>SELECT WEEKDAY("2017-06-15"); -&gt; 3</code></td>
+</tr>
+<tr>
+<td align="left">WEEKOFYEAR(d)</td>
+<td align="left">计算日期 d 是本年的第几个星期，范围是 0 到 53</td>
+<td align="left"><code>SELECT WEEKOFYEAR('2011-11-11 11:11:11') -&gt; 45</code></td>
+</tr>
+<tr>
+<td align="left">YEAR(d)</td>
+<td align="left">返回年份</td>
+<td align="left"><code>SELECT YEAR("2017-06-15"); -&gt; 2017</code></td>
+</tr>
+<tr>
+<td align="left">YEARWEEK(date, mode)</td>
+<td align="left">返回年份及第几周（0到53），mode 中 0 表示周天，1表示周一，以此类推</td>
+<td align="left"><code>SELECT YEARWEEK("2017-06-15"); -&gt; 201724</code></td>
+</tr>
+</tbody>
+</table>
+<h2>MySQL 高级函数</h2>
+<table>
+<thead>
+<tr>
+<th align="left">函数名</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">BIN(x)</td>
+<td align="left">返回 x 的二进制编码</td>
+<td align="left">15 的 2 进制编码:<code>SELECT BIN(15); -- 1111</code></td>
+</tr>
+<tr>
+<td align="left">BINARY(s)</td>
+<td align="left">将字符串 s 转换为二进制字符串</td>
+<td align="left"><code>SELECT BINARY "MYSQL"; -&gt; MYSQL</code></td>
+</tr>
+<tr>
+<td align="left"><code>CASE expression    WHEN condition1 THEN result1    WHEN condition2 THEN result2   ...    WHEN conditionN THEN resultN    ELSE result END</code></td>
+<td align="left">CASE 表示函数开始，END 表示函数结束。如果 condition1 成立，则返回 result1, 如果 condition2 成立，则返回 result2，当全部不成立则返回 result，而当有一个成立之后，后面的就不执行了。</td>
+<td align="left"><code>SELECT CASE  　WHEN 1 &gt; 0 　THEN '1 &gt; 0' 　WHEN 2 &gt; 0 　THEN '2 &gt; 0' 　ELSE '3 &gt; 0' 　END -&gt;1 &gt; 0</code></td>
+</tr>
+<tr>
+<td align="left">CAST(x AS type)</td>
+<td align="left">转换数据类型</td>
+<td align="left">字符串日期转换为日期：<code>SELECT CAST("2017-08-29" AS DATE); -&gt; 2017-08-29</code></td>
+</tr>
+<tr>
+<td align="left">COALESCE(expr1, expr2, ...., expr_n)</td>
+<td align="left">返回参数中的第一个非空表达式（从左向右）</td>
+<td align="left"><code>SELECT COALESCE(NULL, NULL, NULL, 'MYSQL.com', NULL, 'google.com'); -&gt; MYSQL.com</code></td>
+</tr>
+<tr>
+<td align="left">CONNECTION_ID()</td>
+<td align="left">返回服务器的连接数</td>
+<td align="left"><code>SELECT CONNECTION_ID(); -&gt; 4292835</code></td>
+</tr>
+<tr>
+<td align="left">CONV(x,f1,f2)</td>
+<td align="left">返回 f1 进制数变成 f2 进制数</td>
+<td align="left"><code>SELECT CONV(15, 10, 2); -&gt; 1111</code></td>
+</tr>
+<tr>
+<td align="left">CONVERT(s USING cs)</td>
+<td align="left">函数将字符串 s 的字符集变成 cs</td>
+<td align="left"><code>SELECT CHARSET('ABC') -&gt;utf-8     SELECT CHARSET(CONVERT('ABC' USING gbk)) -&gt;gbk</code></td>
+</tr>
+<tr>
+<td align="left">CURRENT_USER()</td>
+<td align="left">返回当前用户</td>
+<td align="left"><code>SELECT CURRENT_USER(); -&gt; guest@%</code></td>
+</tr>
+<tr>
+<td align="left">DATABASE()</td>
+<td align="left">返回当前数据库名</td>
+<td align="left"><code>SELECT DATABASE();    -&gt; MYSQL</code></td>
+</tr>
+<tr>
+<td align="left">IF(expr,v1,v2)</td>
+<td align="left">如果表达式 expr 成立，返回结果 v1；否则，返回结果 v2。</td>
+<td align="left"><code>SELECT IF(1 &gt; 0,'正确','错误')     -&gt;正确</code></td>
+</tr>
+<tr>
+<td align="left">IFNULL(v1,v2)</td>
+<td align="left">如果 v1 的值不为 NULL，则返回 v1，否则返回 v2。</td>
+<td align="left"><code>SELECT IFNULL(null,'Hello Word') -&gt;Hello Word</code></td>
+</tr>
+<tr>
+<td align="left">ISNULL(expression)</td>
+<td align="left">判断表达式是否为 NULL</td>
+<td align="left"><code>SELECT ISNULL(NULL); -&gt;1</code></td>
+</tr>
+<tr>
+<td align="left">LAST_INSERT_ID()</td>
+<td align="left">返回最近生成的 AUTO_INCREMENT 值</td>
+<td align="left"><code>SELECT LAST_INSERT_ID(); -&gt;6</code></td>
+</tr>
+<tr>
+<td align="left">NULLIF(expr1, expr2)</td>
+<td align="left">比较两个字符串，如果字符串 expr1 与 expr2 相等 返回 NULL，否则返回 expr1</td>
+<td align="left"><code>SELECT NULLIF(25, 25); -&gt;</code></td>
+</tr>
+<tr>
+<td align="left">SESSION_USER()</td>
+<td align="left">返回当前用户</td>
+<td align="left"><code>SELECT SESSION_USER(); -&gt; guest@%</code></td>
+</tr>
+<tr>
+<td align="left">SYSTEM_USER()</td>
+<td align="left">返回当前用户</td>
+<td align="left"><code>SELECT SYSTEM_USER(); -&gt; guest@%</code></td>
+</tr>
+<tr>
+<td align="left">USER()</td>
+<td align="left">返回当前用户</td>
+<td align="left"><code>SELECT USER(); -&gt; guest@%</code></td>
+</tr>
+<tr>
+<td align="left">VERSION()</td>
+<td align="left">返回数据库的版本号</td>
+<td align="left"><code>SELECT VERSION() -&gt; 5.6.34</code></td>
+</tr>
+</tbody>
+</table>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

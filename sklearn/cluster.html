@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>skelarn 聚类(cluster) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="在此示例中，我们将在数字数据集上应用K均值聚类。该算法将在不使用原始标签信息的情况下识别相似的数字。此输出显示数字数据集包含1797个具有64个特征的样本。现在，如下执行K-Means聚类：此输出显示K-means聚类创建了具有64个要素的10个聚类。接下来，下面的Python脚本将匹配学习到的集群标签（通过K-Means）和在其中找到的真实标签-我们还可以借助下面提到的命令检查准确性。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a class="current"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/rf.html class='prev_article'> sklearn随机决策树(RF)</a>       |       下一篇：<a href=/sklearn/pca.html class='next_article'> sklearn降维(PCA)</a>  >
+              
+            <h1>skelarn 聚类(cluster)</h1>
+<h3>Scikit学习数字数据集的K均值聚类（K-Means）</h3>
+<p>在此示例中，我们将在数字数据集上应用K均值聚类。该算法将在不使用原始标签信息的情况下识别相似的数字。</p>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_digits
+digits = load_digits()
+digits.data.shape
+</code></pre>
+
+<p>此输出显示数字数据集包含1797个具有64个特征的样本。</p>
+<p>现在，如下执行K-Means聚类：</p>
+<pre><code class="python">kmeans = KMeans(n_clusters = 10, random_state = 0)
+clusters = kmeans.fit_predict(digits.data)
+kmeans.cluster_centers_.shape
+</code></pre>
+
+<p>此输出显示K-means聚类创建了具有64个要素的10个聚类。</p>
+<pre><code class="python">%matplotlib inline
+fig, ax = plt.subplots(2, 5, figsize = (8, 3))
+centers = kmeans.cluster_centers_.reshape(10, 8, 8)
+for axi, center in zip(ax.flat, centers):
+    axi.set(xticks = [], yticks = [])
+    axi.imshow(center, interpolation = 'nearest', cmap = plt.cm.binary)
+</code></pre>
+
+<p>接下来，下面的Python脚本将匹配学习到的集群标签（通过K-Means）和在其中找到的真实标签-</p>
+<pre><code class="python">from scipy.stats import mode
+labels = np.zeros_like(clusters)
+for i in range(10):
+    mask = (clusters == i)
+    labels[mask] = mode(digits.target[mask])[0]
+</code></pre>
+
+<p>我们还可以借助下面提到的命令检查准确性。</p>
+<pre><code class="python">from sklearn.metrics import accuracy_score
+accuracy_score(digits.target, labels)
+</code></pre>
+
+<h3>完整实例</h3>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+import numpy as np
+
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_digits
+digits = load_digits()
+digits.data.shape
+kmeans = KMeans(n_clusters = 10, random_state = 0)
+clusters = kmeans.fit_predict(digits.data)
+kmeans.cluster_centers_.shape
+fig, ax = plt.subplots(2, 5, figsize = (8, 3))
+centers = kmeans.cluster_centers_.reshape(10, 8, 8)
+for axi, center in zip(ax.flat, centers):
+    axi.set(xticks=[], yticks = [])
+    axi.imshow(center, interpolation = 'nearest', cmap = plt.cm.binary)
+from scipy.stats import mode
+labels = np.zeros_like(clusters)
+for i in range(10):
+    mask = (clusters == i)
+    labels[mask] = mode(digits.target[mask])[0]
+from sklearn.metrics import accuracy_score
+accuracy_score(digits.target, labels)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

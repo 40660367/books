@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python自带数据结构 字典(dict) - FreeAIHub</title>
+    <meta name="keywords" content="访问字典中的值,更新字词,删除字典元素,字典键的属性">
+    <meta name="description" content="在Python字典中，每个键和值之间使用冒号()分隔，每个项之间用逗号()隔开，整个字典数据用大括号括起来。 如果是没有任何项目的空字典则使用两个大括号编写，如下所示:。键在字典中是唯一的，而值可能不是唯一的。 字典的值可以是任何类型，但键必须是不可变的数据类型，例如:字符串，数字或元组。要访问字典元素，可以使用方括号和键来获取它的值。 以下是一个简单的例子 -如果尝试使用不属于字典的键来访问数据">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a class="current"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-array.html class='prev_article'> Python自带数据结构 数组(array)  </a>       |       下一篇：<a href=/ds-in-python/data-structure-python-heap.html class='next_article'> Python自带数据结构 堆(heap) </a>  >
+              
+            <h1>Python自带数据结构 字典(dict)</h1>
+<p>在Python字典中，每个键和值之间使用冒号(<code>:</code>)分隔，每个项之间用逗号(<code>,</code>)隔开，整个字典数据用大括号括起来。 如果是没有任何项目的空字典则使用两个大括号编写，如下所示:<code>{}</code>。</p>
+<p>键在字典中是唯一的，而值可能不是唯一的。 字典的值可以是任何类型，但键必须是不可变的数据类型，例如:字符串，数字或元组。</p>
+<h2>访问字典中的值</h2>
+<p>要访问字典元素，可以使用方括号和键来获取它的值。 以下是一个简单的例子 -</p>
+<pre><code class="python">dict = {'Name': 'Maxsu', 'Age': 27, 'Class': 'First'}
+print(&quot;dict['Name']: &quot;, dict['Name'])
+print(&quot;dict['Age']: &quot;, dict['Age'])
+</code></pre>
+
+<p>如果尝试使用不属于字典的键来访问数据项，那么会得到错误，如下 -</p>
+<pre><code class="python">dict = {'Name': 'Maxsu', 'Age': 27, 'Class': 'First'}
+print (&quot;dict['Alice']: &quot;, dict['Gender'])
+</code></pre>
+
+<h2>更新字词</h2>
+<p>可以通过添加新条目或键值对，修改现有条目或删除现有条目来更新字典，如简单示例中所示 -</p>
+<pre><code class="python">dict = {'Name': 'Maxsu', 'Age': 25, 'Class': 'First'}
+dict['Age'] = 28; # update existing entry
+dict['School'] = &quot;DPS School&quot;; # Add new entry
+
+print (&quot;dict['Age']: &quot;, dict['Age'])
+print (&quot;dict['School']: &quot;, dict['School'])
+</code></pre>
+
+<h2>删除字典元素</h2>
+<p>可以删除单个字典元素，也可以清除字典的全部内容。 也可以在一个操作中删除整个字典。
+要显式删除整个字典，只需使用<code>del</code>语句。 以下是一个简单的例子 -</p>
+<pre><code class="python">dict = {'Name': 'Maxsu', 'Age': 27, 'Class': 'First'}
+del dict['Name']; # remove entry with key 'Name'
+dict.clear();     # remove all entries in dict
+del dict ;        # delete entire dictionary
+
+print(&quot;dict['Age']: &quot;, dict['Age'])
+print(&quot;dict['School']: &quot;, dict['School'])
+</code></pre>
+
+<blockquote>
+<p>请注意，由于执行<code>del dict</code>之后，字典不再存在所以这里会引发异常</p>
+</blockquote>
+<h2>字典键的属性</h2>
+<p>字典值没有限制。 它们可以是任何任意的Python对象，无论是标准对象还是用户定义的对象。 但是，对于键就有所限制了。</p>
+<p>关于字典键有两点要记住 -</p>
+<p><strong>第1点:</strong> 每个键不得超过一个条目，这意味着不允许重复键。 在分配过程中遇到重复键时，则以最后一次分配的为准。 例如 -</p>
+<pre><code class="python">dict = {'Name': 'maxsu', 'Age': 27, 'Name': 'Manni'}
+print (&quot;dict['Name']: &quot;, dict['Name'])
+</code></pre>
+
+<p><strong>第2点:</strong> 键必须是不可变的。 这意味着您可以使用字符串，数字或元组作为字典的键，但不允许使用<code>['key']</code>。 以下是一个简单的例子 -</p>
+<pre><code class="python">#!/usr/bin/python
+
+dict = {['Name']: 'Maxsu', 'Age': 27}
+print (&quot;dict['Name']: &quot;, dict['Name'])
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

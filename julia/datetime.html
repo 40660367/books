@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 日期和时间 - FreeAIHub</title>
+    <meta name="keywords" content="日期和时间,构造函数,时间间隔/比较,访问函数,查询函数,时间间隔算术运算,调整函数,时间间隔">
+    <meta name="description" content=" 模块提供了两种关于时间的数据类型:  和 , 精度分别为天和毫秒, 都是抽象数据类型  的子类型. 使用两种数据类型的原因很简单: 某些操作本身很简单, 无论是从代码上看还是逻辑上, 使用高精度的数据类型是完全没有必要的. 例如,  只精确到天 (也就是说, 没有小时, 分钟或者秒), 所以使用时就不需要考虑时区, 夏令时和闰秒. 和  都不过是  的简单封装, 仅有的一个成员变量  实际上的类">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a class="current"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/module.html class='prev_article'> Julia模块 </a>       |       下一篇：<a href=/julia/meta.html class='next_article'> Julia元编程 </a>  >
+              
+            <h1>Julia 日期和时间</h1>
+<h2>日期和时间</h2>
+<p><code>Dates</code> 模块提供了两种关于时间的数据类型: <code>Date</code> 和 <code>DateTime</code>, 精度分别为天和毫秒, 都是抽象数据类型 <code>TimeType</code> 的子类型. 使用两种数据类型的原因很简单: 某些操作本身很简单, 无论是从代码上看还是逻辑上, 使用高精度的数据类型是完全没有必要的. 例如, <code>Date</code> 只精确到天 (也就是说, 没有小时, 分钟或者秒), 所以使用时就不需要考虑时区, 夏令时和闰秒.</p>
+<p><code>Date</code> 和 <code>DateTime</code> 都不过是 <code>Int64</code> 的简单封装, 仅有的一个成员变量 <code>instant</code> 实际上的类型是 <code>UTInstant{P}</code>, 代表的是基于世界时的机器时间 [1]. <code>Datetime</code> 类型是 <em>不考虑时区</em> 的 (根据 Python 的讲法), 或者说是 Java 8 里面的 <em>本地时间</em>. 额外的时间日期操作可以通过 <a href="https://github.com/quinnj/Timezones.jl/">Timezones.jl</a> 扩展包来获取, 其中的数据来自 <a href="http://www.iana.org/time-zones">Olsen Time Zone Database</a> . <code>Date</code> 和 <code>DateTime</code> 遵循 ISO 8601 标准. 值得注意的一点是, ISO 8601 关于公元前日期的处理比较特殊. 简单来说, 公元前的最后一天是公元前 1-12-31, 接下来第二天是公元 1-1-1, 所以是没有公元 0 年存在的. 而 ISO 标准认定, 公元前 1 年是 0 年, 所以 <code>0000-12-21</code> 是 <code>0001-01-01</code> 的前一天, <code>-0001</code> 是公元前 2 年, <code>-0003</code> 是公元前 3 年, 等等.</p>
+<p>[1] 一般来说有两种常用的时间表示法, 一种是基于地球的自转状态 (地球转一整圈 = 1 天), 另一种基于 SI 秒 (固定的常量). 这两种表示方法是不一样的. 试想一下, 因为地球自转, 基于世界时的的秒可能是不等长的. 但总得来说, 基于世界时的 <code>Date</code> 和 <code>DateTime</code> 是一种简化的方案, 例如闰秒的情况不需要考虑. 这种表示时间的方案的正式名称为<a href="http://en.wikipedia.org/wiki/Universal_Time">世界时</a> . 这意味着, 每一分钟有 60 秒, 每一天有 60 小时, 这样使得关于时间的计算更自然, 简单.</p>
+<h2>构造函数</h2>
+<p><code>Date</code> 和 <code>DateType</code> 可以通过整数或者 <code>Period</code> 构造, 通过直接传入, 或者作为与特定时间的差值:</p>
+<pre><code class="julia">DateTime(2013)
+
+DateTime(2013,7)
+
+DateTime(2013,7,1)
+
+DateTime(2013,7,1,12)
+
+DateTime(2013,7,1,12,30)
+
+DateTime(2013,7,1,12,30,59)
+
+DateTime(2013,7,1,12,30,59,1)
+
+Date(2013)
+
+Date(2013,7)
+
+Date(2013,7,1)
+
+Date(Dates.Year(2013),Dates.Month(7),Dates.Day(1))
+
+Date(Dates.Month(7),Dates.Year(2013))
+</code></pre>
+
+<p><code>Date</code> 和 <code>DateTime</code> 解析是通过格式化的字符串实现的. 格式化的字符串是指 <em>分隔</em> 的或者 <em>固定宽度</em> 的 "字符段" 来表示一段时间, 然后传递给 <code>Date</code> 或者 <code>DateTime</code> 的构造函数.</p>
+<p>使用分隔的字符段方法, 需要显示指明分隔符, 所以 <code>"y-m-d"</code> 告诉解析器第一个和第二个字符段中间有一个 <code>-</code>, 例如 <code>"2014-07-16"</code>, <code>y</code>, <code>m</code> 和 <code>d</code> 字符告诉解析器每个字符段的含义.</p>
+<p>固定宽度字符段是使用固定宽度的字符串来表示时间. 所以 <code>"yyyymmdd"</code> 相对应的时间字符串为 <code>"20140716"</code>.</p>
+<p>同时字符表示的月份也可以被解析, 通过使用 <code>u</code> 和 <code>U</code>, 分别是月份的简称和全称. 默认支持英文的月份名称, 所以 <code>u</code> 对应于 <code>Jan</code>, <code>Feb</code>, <code>Mar</code> 等等, <code>U</code> 对应于 <code>January</code>, <code>February</code>, <code>March</code> 等等. 然而, 同 <code>dayname</code> 和 <code>monthname</code> 一样, 本地化的输出也可以实现, 通过向 <code>Dates.MONTHTOVALUEABBR</code> 和 <code>Dates.MONTHTOVALUE</code> 字典添加 <code>locale=&gt;Dict{UTF8String, Int}</code> 类型的映射.</p>
+<p>更多的解析和格式化的例子可以参考 <a href="https://github.com/JuliaLang/julia/blob/master/test/dates/io.jl">tests/dates/io.jl</a> .</p>
+<h2>时间间隔/比较</h2>
+<p>计算两个 <code>Date</code> 或者 <code>DateTime</code> 之间的间隔是很直观的, 考虑到他们不过是 <code>UTInstant{Day}</code> 和 <code>UTInstant{Millisecond}</code> 的简单封装. 不同点是, 计算两个 <code>Date</code> 的时间间隔, 返回的是 <code>Day</code>, 而计算 <code>DateTime</code> 时间间隔返回的是 <code>Millisecond</code>. 同样的, 比较两个 <code>TimeType</code> 本质上是比较两个 <code>Int64</code></p>
+<pre><code class="julia">dt = Date(2012,2,29)
+
+dt2 = Date(2000,2,1)
+
+dump(dt)
+
+dump(dt2)
+
+dt &gt; dt2
+
+dt != dt2
+
+dt + dt2
+
+dt * dt2
+
+dt / dt2
+
+dt - dt2
+
+dt2 - dt
+
+dt = DateTime(2012,2,29)
+
+dt2 = DateTime(2000,2,1)
+
+dt - dt2
+</code></pre>
+
+<h2>访问函数</h2>
+<p>因为 <code>Date</code> 和 <code>DateTime</code> 类型是使用 <code>Int64</code> 的封装, 具体的某一部分可以通过访问函数来获得. 小写字母的获取函数返回值为整数:</p>
+<pre><code class="julia">t = Date(2014,1,31
+
+Dates.year(t)
+
+Dates.month(t)
+
+Dates.week(t)
+
+Dates.day(t)
+</code></pre>
+
+<p>大写字母的获取函数返回值为 <code>Period</code> :</p>
+<pre><code class="julia">Dates.Year(t)
+
+Dates.Day(t)
+</code></pre>
+
+<p>如果需要一次性获取多个字段, 可以使用符合函数:</p>
+<pre><code class="julia">Dates.yearmonth(t)
+
+Dates.monthday(t)
+
+Dates.yearmonthday(t)
+</code></pre>
+
+<p>也可以直接获取底层的 <code>UTInstant</code> 或 整数数值 :</p>
+<pre><code class="julia">dump(t)
+
+t.instant
+
+Dates.value(t)
+</code></pre>
+
+<h2>查询函数</h2>
+<p>查询函数可以用来获得关于 <code>TimeType</code> 的额外信息, 例如某个日期是星期几:</p>
+<pre><code class="julia">t = Date(2014,1,31)
+
+Dates.dayofweek(t)
+
+Dates.dayname(t)
+
+Dates.dayofweekofmonth(t)
+</code></pre>
+
+<p>月份信息 :</p>
+<pre><code class="julia">Dates.monthname(t)
+
+Dates.daysinmonth(t)
+</code></pre>
+
+<p>年份信息和季节信息 :</p>
+<pre><code class="julia">Dates.isleapyear(t)
+
+Dates.dayofyear(t)
+
+Dates.quarterofyear(t)
+
+Dates.dayofquarter(t)
+
+</code></pre>
+
+<p><code>dayname</code> 和 <code>monthname</code> 可以传入可选参数 <code>locale</code> 来显示</p>
+<pre><code class="julia">const french_daysofweek =
+  [1=&gt;&quot;Lundi&quot;,2=&gt;&quot;Mardi&quot;,3=&gt;&quot;Mercredi&quot;,4=&gt;&quot;Jeudi&quot;,5=&gt;&quot;Vendredi&quot;,6=&gt;&quot;Samedi&quot;,7=&gt;&quot;Dimanche&quot;];
+
+  # Load the mapping into the Dates module under locale name &quot;french&quot;
+Dates.VALUETODAYOFWEEK[&quot;french&quot;] = french_daysofweek;
+
+Dates.dayname(t;locale=&quot;french&quot;)
+</code></pre>
+
+<p><code>monthname</code> 与之类似的, 这时, <code>Dates.VALUETOMONTH</code> 需要加载 <code>locale=&gt;Dict{Int, UTF8String}</code>.</p>
+<h2>时间间隔算术运算</h2>
+<p>在使用任何一门编程语言/时间日期框架前, 最好了解下时间间隔是怎么处理的, 因为有些地方需要<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/01/the-joys-of-date-time-arithmetic.aspx">特殊的技巧</a>.</p>
+<p><code>Dates</code> 模块的工作方式是这样的, 在做 <code>period</code> 算术运算时, 每次都做尽量小的改动. 这种方式被称之为 <em>日历</em> 算术, 或者就是平时日常交流中惯用的方式. 这些到底是什么? 举个经典的例子: 2014 年 1 月 31 号加一月. 答案是什么? JavaScript 会得出 <a href="http://www.markhneedham.com/blog/2009/01/07/javascript-add-a-month-to-a-date/">3月3号</a> (假设31天). PHP 会得到 <code>3月2号 &lt;http://stackoverflow.com/questions/5760262/php-adding-months-to-a-date-while-not-exceeding-the-last-day-of-the-month&gt;</code>_ (假设30天). 事实上, 这个问题没有正确答案. <code>Dates</code> 模块会给出 2月28号的答案. 它是怎么得出的? 试想下赌场的 7-7-7 赌博游戏.</p>
+<p>设想下, 赌博机的槽不是 7-7-7, 而是年-月-日, 或者在我们的例子中, 2014-01-31. 当你想要在这个日期上增加一个月时, 对应于月份的那个槽会增加1, 所以现在是 2014-02-31, 然后检查年-月-日中的日是否超过了这个月最大的合法的数字 (28). 这种方法有什么后果呢? 我们继续加上一个月, <code>2014-02-28 + Month(1) == 2014-03-28</code>. 什么? 你是不是期望结果是3月的最后一天? 抱歉, 不是的, 想一下 7-7-7. 因为要改变尽量少的槽, 所以我们在月份上加1, 2014-03-28, 然后就没有然后了, 因为这是个合法的日期. 然而, 如果我们在原来的日期(2014-01-31)上加上2个月, 我们会得到预想中的 2014-03-31. 这种方式带来的另一个问题是损失了可交换性, 如果强制加法的顺序的话 (也就是说,用不用的顺序相加会得到不同的结果). 例如 ::</p>
+<pre><code class="julia">(Date(2014,1,29)+Dates.Day(1)) + Dates.Month(1)
+
+(Date(2014,1,29)+Dates.Month(1)) + Dates.Day(1)
+</code></pre>
+
+<p>这是怎么回事? 第一个例子中, 我们往1月29号加上一天, 得到 2014-01-30; 然后加上一月, 得到 2014-02-30, 然后被调整到 2014-02-28. 在第二个例子中, 我们 <em>先</em> 加一个月, 得到 2014-02-29, 然后被调整到 2014-02-28, <em>然后</em> 加一天, 得到 2014-03-01. 在处理这种问题时的一个设计原则是, 如果有多个时间间隔, 操作的顺序是按照间隔的 <em>类型</em> 排列的, 而不是按照他们的值大小或者出现顺序; 这就是说, 第一个加的是 <code>Year</code>, 然后是 <code>Month</code>, 然后是 <code>Week</code>, 等等. 所以下面的例子 <em>是</em> 符合可交换性的 ::</p>
+<pre><code class="julia">Date(2014,1,29) + Dates.Day(1) + Dates.Month(1)
+
+Date(2014,1,29) + Dates.Month(1) + Dates.Day(1)
+</code></pre>
+
+<p>很麻烦? 也许吧. 一个 <code>Dates</code> 的初级用户该怎么办呢? 最基本的是要清楚, 当操作月份时, 如果强制指明操作的顺序, 可能会产生意想不到的结果, 其他的就没什么了. 幸运的是, 这基本就是所有的特殊情况了 (UT 时间已经免除了夏令时, 闰秒之类的麻烦).</p>
+<h2>调整函数</h2>
+<p>时间间隔的算术运算是很方便, 但同时, 有些时间的操作是基于 <em>日历</em> 或者 <em>时间</em> 本身的, 而不是一个固定的时间间隔. 例如假期的计算, 诸如 "纪念日 = 五月的最后一个周一", 或者 "感恩节 = 十一月的第四个周四". 这些时间的计算牵涉到基于日历的规则, 例如某个月的第一天或者最后一天, 下一个周四, 或者第一个和第三个周三, 等等.</p>
+<p><code>Dates</code> 模块提供几个了 <em>调整</em> 函数, 这样可以简单简洁的描述时间规则. 第一组是关于周, 月, 季度, 年的第一和最后一个元素. 函数参数为 <code>TimeType</code>, 然后按照规则返回或者 <em>调整</em> 到正确的日期。</p>
+<pre><code class="julia"># 调整时间到相应的周一
+Dates.firstdayofweek(Date(2014,7,16))
+
+# 调整时间到这个月的最后一天
+Dates.lastdayofmonth(Date(2014,7,16))
+
+# 调整时间到这个季度的最后一天
+Dates.lastdayofquarter(Date(2014,7,16))
+</code></pre>
+
+<p>接下来一组高阶函数, <code>tofirst</code>, <code>tolast</code>, <code>tonext</code>, and <code>toprev</code>, 第一个参数为 <code>DateFunction</code>, 第二个参数 <code>TimeType</code> 作为起点日期. 一个 <code>DateFunction</code> 类型的变量是一个函数, 通常是匿名函数, 这个函数接受 <code>TimeType</code> 作为输入, 返回 <code>Bool</code>, <code>true</code> 来表示是否满足特定的条件. 例如 ::</p>
+<pre><code class="julia">istuesday = x-&gt;Dates.dayofweek(x) == Dates.Tuesday  # 如果是周二, 返回 true
+
+Dates.tonext(istuesday, Date(2014,7,13)) # 2014-07-13 is a 是周日
+
+# 同时也额外提供了一些函数, 使得对星期几之类的操作更加方便
+Dates.tonext(Date(2014,7,13), Dates.Tuesday)
+</code></pre>
+
+<p>如果是复杂的时间表达式, 使用 <code>do-block</code> 会很方便:</p>
+<pre><code class="julia">Dates.tonext(Date(2014,7,13)) do x
+            # 如果是十一月的第四个星期四, 返回 true (感恩节)
+            Dates.dayofweek(x) == Dates.Thursday &amp;&amp;
+            Dates.dayofweekofmonth(x) == 4 &amp;&amp;
+            Dates.month(x) == Dates.November
+        end
+</code></pre>
+
+<p>类似的, <code>tofirst</code> 和 <code>tolast</code> 第一个参数为 <code>DateFunction</code>, 但是默认的调整范围位当月, 或者可以用关键字参数指明调整范围为当年 :</p>
+<pre><code class="julia">Dates.tofirst(istuesday, Date(2014,7,13)) # 默认位当月
+
+Dates.tofirst(istuesday, Date(2014,7,13); of=Dates.Year)
+
+Dates.tolast(istuesday, Date(2014,7,13))
+
+Dates.tolast(istuesday, Date(2014,7,13); of=Dates.Year)
+
+</code></pre>
+
+<p>最后一个函数为 <code>recur</code>. <code>recur</code> 函数是向量化的调整过程, 输入为起始和结束日期 (或者指明 <code>StepRange</code>), 加上一个 <code>DateFunction</code> 来判断某个日期是否应该返回. 这种情况下, <code>DateFunction</code> 又被经常称为 "包括" 函数, 因为它指明了 (通过返回 true) 某个日期是否应该出现在返回的日期数组中。</p>
+<pre><code class="julia"> # 匹兹堡大街清理日期; 从四月份到十一月份每月的第二个星期二
+   # 时间范围从2014年1月1号到2015年1月1号
+ dr = Dates.Date(2014):Dates.Date(2015);
+ recur(dr) do x
+              Dates.dayofweek(x) == Dates.Tue &amp;&amp;
+              Dates.April &lt;= Dates.month(x) &lt;= Dates.Nov &amp;&amp;
+              Dates.dayofweekofmonth(x) == 2
+          end
+   8-element Array{Date,1}:
+    2014-04-08
+    2014-05-13
+    2014-06-10
+    2014-07-08
+    2014-08-12
+    2014-09-09
+    2014-10-14
+    2014-11-11
+</code></pre>
+
+<p>更多的例子和测试可以参考 <a href="https://github.com/JuliaLang/julia/blob/master/test/dates/adjusters.jl">test/dates/adjusters.jl</a> .</p>
+<h2>时间间隔</h2>
+<p>时间间隔是从人的角度考虑的一段时间, 有时是不规则的. 想下一个月; 如果从天数上讲, 不同情况下, 它可能代表 28, 29, 30, 或者 31. 或者一年可以代表 365 或者 366 天. <code>Period</code> 类型是 <code>Int64</code> 类型的简单封装, 可以通过任何可以转换成 <code>Int64</code> 类型的数据构造出来, 比如 <code>Year(1)</code> 或者 <code>Month(3.0)</code>. 相同类型的时间间隔的行为类似于整数 :</p>
+<pre><code class="julia">y1 = Dates.Year(1)
+
+y2 = Dates.Year(2)
+
+y3 = Dates.Year(10)
+
+y1 + y2
+
+div(y3,y2)
+
+y3 - y2
+
+y3 * y2
+
+y3 % y2
+
+y1 + 20
+
+div(y3,3) # 类似于整数除法
+</code></pre>
+
+<p>另加详细的信息可以参考 :mod:<code>Dates</code> 模块的 <a href="http://docs.julialang.org/en/latest/stdlib/dates/">API 索引</a>.</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

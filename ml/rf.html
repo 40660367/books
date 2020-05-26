@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>集成学习方法之随机森林 - FreeAIHub</title>
+    <meta name="keywords" content="什么是集成学习方法,什么是随机森林,随机森林原理过程,总结,作业：">
+    <meta name="description" content="集成学习通过建立几个模型组合的来解决单一预测问题。它的工作原理是，各自独立地学习和作出预测。在机器学习中，，并且其输出的类别是由个别树输出的类别的众数而定。例如, 如果你训练了5个树, 其中有4个树的结果是True, 1个数的结果是False, 那么最终投票结果就是True学习算法根据下列算法而建造每棵树：min_samples_leaf:叶子节点的最小样本数超参数：n_estimator, ma">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a class="current"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/dt.html class='prev_article'> 机器学习算法 决策树 </a>       |       下一篇：<a href=/ml/lr.html class='next_article'> 机器学习算法 线性回归 </a>  >
+              
+            <h1>集成学习方法之随机森林</h1>
+<h2>什么是集成学习方法</h2>
+<p>集成学习通过建立几个模型组合的来解决单一预测问题。它的工作原理是<strong>生成多个分类器/模型</strong>，各自独立地学习和作出预测。<strong>这些预测最后结合成组合预测，因此优于任何一个单分类的做出预测。</strong></p>
+<h2>什么是随机森林</h2>
+<p>在机器学习中，<strong>随机森林是一个包含多个决策树的分类器</strong>，并且其输出的类别是由个别树输出的类别的众数而定。</p>
+<p><img alt="随机森林" src="./images/随机森林.png" /></p>
+<p>例如, 如果你训练了5个树, 其中有4个树的结果是True, 1个数的结果是False, 那么最终投票结果就是True</p>
+<p><img alt="投票" src="./images/投票.png" /></p>
+<h2>随机森林原理过程</h2>
+<p>学习算法根据下列算法而建造每棵树：</p>
+<ul>
+<li>用N来表示训练用例（样本）的个数，M表示特征数目。</li>
+<li>1、一次随机选出一个样本，重复N次， （有可能出现重复的样本）</li>
+<li>2、随机去选出m个特征, m &lt;&lt;M，建立决策树</li>
+<li>采取bootstrap抽样</li>
+</ul>
+<h3>为什么采用BootStrap抽样</h3>
+<ul>
+<li>为什么要随机抽样训练集？　　</li>
+<li>如果不进行随机抽样，每棵树的训练集都一样，那么最终训练出的树分类结果也是完全一样的</li>
+<li>为什么要有放回地抽样？</li>
+<li>如果不是有放回的抽样，那么每棵树的训练样本都是不同的，都是没有交集的，这样每棵树都是“有偏的”，都是绝对“片面的”（当然这样说可能不对），也就是说每棵树训练出来都是有很大的差异的；而随机森林最后分类取决于多棵树（弱分类器）的投票表决。</li>
+</ul>
+<p><strong>API</strong></p>
+<ul>
+<li><code>class sklearn.ensemble.RandomForestClassifier(n_estimators=10, criterion=’gini’, max_depth=None, bootstrap=True, random_state=None, min_samples_split=2)</code></li>
+<li>随机森林分类器</li>
+<li>n_estimators：integer，optional（default = 10）森林里的树木数量120,200,300,500,800,1200</li>
+<li>criteria：string，可选（default =“gini”）分割特征的测量方法</li>
+<li>max_depth：integer或None，可选（默认=无）树的最大深度 5,8,15,25,30</li>
+<li>max_features="auto”,每个决策树的最大特征数量<ul>
+<li>If "auto", then <code>max_features=sqrt(n_features)</code>.</li>
+<li>If "sqrt", then <code>max_features=sqrt(n_features)</code> (same as "auto").</li>
+<li>If "log2", then <code>max_features=log2(n_features)</code>.</li>
+<li>If None, then <code>max_features=n_features</code>.</li>
+</ul>
+</li>
+<li>bootstrap：boolean，optional（default = True）是否在构建树时使用放回抽样</li>
+<li>min_samples_split:节点划分最少样本数</li>
+<li>
+<p>min_samples_leaf:叶子节点的最小样本数</p>
+</li>
+<li>
+<p>超参数：n_estimator, max_depth, min_samples_split,min_samples_leaf</p>
+</li>
+</ul>
+<h3>代码</h3>
+<pre><code class="python">from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+iris = load_iris()
+x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=22)
+</code></pre>
+
+<pre><code class="python">from sklearn.ensemble import RandomForestClassifier  
+from sklearn.model_selection import GridSearchCV
+
+# 随机森林去进行预测
+rf = RandomForestClassifier()
+
+param = {&quot;n_estimators&quot;: [120,200,300,500,800,1200], &quot;max_depth&quot;: [5, 8, 15, 25, 30]}
+
+# 超参数调优
+gc = GridSearchCV(rf, param_grid=param, cv=2)
+
+gc.fit(x_train, y_train)
+
+print(&quot;随机森林预测的准确率为：&quot;, gc.score(x_test, y_test))
+</code></pre>
+
+<h2>总结</h2>
+<ul>
+<li>在当前所有算法中，具有极好的准确率</li>
+<li>能够有效地运行在大数据集上，处理具有高维特征的输入样本，而且不需要降维</li>
+<li>能够评估各个特征在分类问题上的重要性</li>
+</ul>
+<h2>作业：</h2>
+<ul>
+<li>说名随机森林每棵决策树的建立过程</li>
+<li>知道为什么需要随机有放回(Bootstrap)的抽样</li>
+<li>说明随机森林的超参数</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

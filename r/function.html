@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 函数(function) - FreeAIHub</title>
+    <meta name="keywords" content="函数定义,函数的组成">
+    <meta name="description" content="函数是一组组合在一起以执行特定任务的语句。 R语言具有大量内置函数，用户可以创建自己的函数。在R语言中，函数是一个对象，因此R语言解释器能够将控制传递给函数，以及函数完成动作所需的参数。该函数依次执行其任务并将控制返回到解释器以及可以存储在其他对象中的任何结果。使用关键字函数创建R语言的函数。 R语言的函数定义的基本语法如下函数的不同部分 -
+-  -这是函数的实际名称。 它作为具有此名称的对象存">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a class="current"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/library.html class='prev_article'> R语言包</a>       |       下一篇：<a href=/r/string.html class='next_article'> R语言数据类型-字符串</a>  >
+              
+            <h1>R语言 函数(function)</h1>
+<p>函数是一组组合在一起以执行特定任务的语句。 R语言具有大量内置函数，用户可以创建自己的函数。</p>
+<p>在R语言中，函数是一个对象，因此R语言解释器能够将控制传递给函数，以及函数完成动作所需的参数。</p>
+<p>该函数依次执行其任务并将控制返回到解释器以及可以存储在其他对象中的任何结果。</p>
+<h2>函数定义</h2>
+<p>使用关键字函数创建R语言的函数。 R语言的函数定义的基本语法如下</p>
+<pre><code>function_name &lt;- function(arg_1, arg_2, ...) {
+   Function body 
+}
+</code></pre>
+
+<h2>函数的组成</h2>
+<p>函数的不同部分 -
+- <strong>函数名称</strong> -这是函数的实际名称。 它作为具有此名称的对象存储在R环境中。
+- <strong>参数</strong> -参数是一个占位符。 当函数被调用时，你传递一个值到参数。 参数是可选的; 也就是说，一个函数可能不包含参数。 参数也可以有默认值。
+- <strong>函数体</strong> -函数体包含定义函数的功能的语句集合。
+- <strong>返回值</strong> -函数的返回值是要评估的函数体中的最后一个表达式。</p>
+<p>R语言有许多内置函数，可以在程序中直接调用而无需先定义它们。我们还可以创建和使用我们自己的函数，称为用户定义的函数。</p>
+<h4>练习：内置功能</h4>
+<p>内置函数的简单示例是<strong>seq()</strong>，<strong>mean()</strong>，<strong>max()</strong>，<strong>sum(x)</strong>和<strong>paste(...)</strong>等。它们由用户编写的程序直接调用。 您可以参考最广泛使用的R函数。</p>
+<pre><code class="R"># Create a sequence of numbers from 32 to 44.
+print(seq(32,44))
+
+# Find mean of numbers from 25 to 82.
+print(mean(25:82))
+
+# Find sum of numbers frm 41 to 68.
+print(sum(41:68))
+</code></pre>
+
+<h4>练习： 用户定义的函数</h4>
+<p>我们可以在R语言中创建用户定义的函数。它们特定于用户想要的，一旦创建，它们就可以像内置函数一样使用。 下面是一个创建和使用函数的例子。</p>
+<pre><code class="R"># Create a function to print squares of numbers in sequence.
+new.function &lt;- function(a) {
+   for(i in 1:a) {
+      b &lt;- i^2
+      print(b)
+   }
+}   
+</code></pre>
+
+<h4>练习： 调用函数</h4>
+<pre><code class="R"># Create a function to print squares of numbers in sequence.
+new.function &lt;- function(a) {
+   for(i in 1:a) {
+      b &lt;- i^2
+      print(b)
+   }
+}
+
+# Call the function new.function supplying 6 as an argument.
+new.function(6)
+</code></pre>
+
+<h4>练习： 调用没有参数的函数</h4>
+<pre><code class="R"># Create a function without an argument.
+new.function &lt;- function() {
+   for(i in 1:5) {
+      print(i^2)
+   }
+}   
+
+# Call the function without supplying an argument.
+new.function()
+</code></pre>
+
+<h4>练习：使用参数值调用函数（按位置和名称）</h4>
+<p>函数调用的参数可以按照函数中定义的顺序提供，也可以以不同的顺序提供，但分配给参数的名称。</p>
+<pre><code class="R"># Create a function with arguments.
+new.function &lt;- function(a,b,c) {
+   result &lt;- a * b + c
+   print(result)
+}
+
+# Call the function by position of arguments.
+new.function(5,3,11)
+
+# Call the function by names of the arguments.
+new.function(a = 11, b = 5, c = 3)
+</code></pre>
+
+<h4>练习： 使用默认参数调用函数</h4>
+<p>我们可以在函数定义中定义参数的值，并调用函数而不提供任何参数以获取默认结果。 但是我们也可以通过提供参数的新值来获得非默认结果来调用这样的函数。</p>
+<pre><code class="R"># Create a function with arguments.
+new.function &lt;- function(a = 3, b = 6) {
+   result &lt;- a * b
+   print(result)
+}
+
+# Call the function without giving any argument.
+new.function()
+
+# Call the function with giving new values of the argument.
+new.function(9,5)
+</code></pre>
+
+<h4>练习：功能的延迟计算</h4>
+<p>对函数的参数进行延迟评估，这意味着它们只有在函数体需要时才进行评估。</p>
+<pre><code class="R"># Create a function with arguments.
+new.function &lt;- function(a, b) {
+   print(a^2)
+   print(a)
+   print(b)
+}
+
+# Evaluate the function without supplying one of the arguments.
+new.function(6)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 元编程 - FreeAIHub</title>
+    <meta name="keywords" content="元编程,表达式和求值,宏,反射">
+    <meta name="description" content="类似 Lisp ，Julia 自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。Julia 代码表示为由 Julia 的  类型的数据结构而构成的语法树。下面是  类型的定义： 是标明表达式种类的符号； 是子表达式数组，它可能是求值时引用变量值的符号，也可">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a class="current"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/datetime.html class='prev_article'> Julia日期和时间 </a>       |       下一篇：<a href=/julia/md-array.html class='next_article'> Julia多维数组 </a>  >
+              
+            <h1>Julia 元编程</h1>
+<h2>元编程</h2>
+<p>类似 Lisp ，Julia 自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。</p>
+<h2>表达式和求值</h2>
+<p>Julia 代码表示为由 Julia 的 <code>Expr</code> 类型的数据结构而构成的语法树。下面是 <code>Expr</code> 类型的定义：</p>
+<pre><code>type Expr
+  head::Symbol
+  args::Array{Any,1}
+  typ
+end
+</code></pre>
+
+<p><code>head</code> 是标明表达式种类的符号；<code>args</code> 是子表达式数组，它可能是求值时引用变量值的符号，也可能是嵌套的 <code>Expr</code> 对象，还可能是真实的对象值。 <code>typ</code> 域被类型推断用来做类型注释，通常可以被忽略。</p>
+<p>有两种“引用”代码的方法，它们可以简单地构造表达式对象，而不需要显式构造 <code>Expr</code> 对象。第一种是内联表达式，使用 <code>:</code> ，后面跟单表达式；第二种是代码块儿，放在 <code>quote ... end</code> 内部。下例是第一种方法，引用一个算术表达式：</p>
+<pre><code class="julia">ex = :(a+b*c+1)
+:(a + b * c + 1)
+
+typeof(ex)
+
+ex.head
+
+typeof(ans)
+
+ex.args
+
+typeof(ex.args[1])
+
+typeof(ex.args[2])
+
+typeof(ex.args[3])
+
+typeof(ex.args[4])
+</code></pre>
+
+<p>下例是第二种方法：</p>
+<pre><code class="julia">quote
+         x = 1
+         y = 2
+         x + y
+       end
+quote  # none, line 2:
+    x = 1 # line 3:
+    y = 2 # line 4:
+    x + y
+end
+</code></pre>
+
+<h3>符号</h3>
+<p><code>:</code> 的参数为符号时，结果为 <code>Symbol</code> 对象，而不是 <code>Expr</code> ：</p>
+<pre><code class="julia">:foo
+:foo
+
+typeof(ans)
+Symbol
+</code></pre>
+
+<p>在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于符号的作用域（详见<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/variables-and-scoping/#man-variables-and-scoping"><em>变量的作用域</em></a>）。</p>
+<p>有时, 为了防止解析时产生歧义，<code>:</code> 的参数需要添加额外的括号：</p>
+<pre><code class="julia">:(:)
+
+:(::)
+</code></pre>
+
+<p><code>Symbol</code> 也可以使用 <code>symbol</code> 函数来创建，参数为一个字符或者字符串：</p>
+<pre><code>symbol('\'')
+
+symbol(&quot;'&quot;)
+</code></pre>
+
+<h3>求值和内插</h3>
+<p>指定一个表达式，Julia 可以使用 <code>eval</code> 函数在 global 作用域对其求值。</p>
+<pre><code class="julia">:(1 + 2)
+
+eval(ans)
+
+ex = :(a + b)
+
+eval(ex)
+
+a = 1; b = 2;
+
+eval(ex)
+</code></pre>
+
+<p>每一个<a href="https://www.w3cschool.cn/julia/module-learning.html">组件</a> 有在它全局范围内评估计算表达式的 <code>eval</code> 表达式。传递给 <code>eval</code> 的表达式不限于返回一个值 - 他们也会具有改变封闭模块的环境状态的副作用：</p>
+<pre><code class="julia">ex = :(x = 1)
+:(x = 1)
+
+x
+
+eval(ex)
+
+x
+</code></pre>
+
+<p>表达式仅仅是一个 <code>Expr</code> 对象，它可以通过编程构造，然后对其求值：</p>
+<pre><code class="julia">a = 1;
+
+ex = Expr(:call, :+,a,:b)
+
+a = 0; b = 2;
+
+eval(ex)
+</code></pre>
+
+<p>注意上例中 <code>a</code> 与 <code>b</code> 使用时的区别：</p>
+<ul>
+<li>表达式构造时，直接使用<em>变量</em> <code>a</code> 的值。因此，对表达式求值时 <code>a</code> 的值没有任何影响：表达式中的值为 <code>1</code>，与现在 <code>a</code> 的值无关</li>
+<li>表达式构造时，使用的是<em>符号</em> <code>:b</code> 。因此，构造时变量 <code>b</code> 的值是无关的—— <code>:b</code> 仅仅是个符号，此时变量 <code>b</code> 还未定义。对表达式求值时，通过查询变量 <code>b</code> 的值来解析符号 <code>:b</code> 的值</li>
+</ul>
+<p>这样构造 <code>Expr</code> 对象太丑了。Julia 允许对表达式对象内插。因此上例可写为：</p>
+<pre><code class="julia">a = 1;
+
+ex = :($a + b)
+</code></pre>
+
+<p>编译器自动将这个语法翻译成上面带 <code>Expr</code> 的语法。</p>
+<h3>代码生成</h3>
+<p>Julia 使用表达式内插和求值来生成重复的代码。下例定义了一组操作三个参数的运算符： ::</p>
+<pre><code class="julia">for op = (:+, :*, :&amp;, :|, :$)
+  eval(quote
+    ($op)(a,b,c) = ($op)(($op)(a,b),c)
+  end)
+end
+</code></pre>
+
+<p>上例可用 <code>:</code> 前缀引用格式写的更精简： ::</p>
+<pre><code class="julia">for op = (:+, :*, :&amp;, :|, :$)
+  eval(:(($op)(a,b,c) = ($op)(($op)(a,b),c)))
+end
+</code></pre>
+
+<p>使用 <code>eval(quote(...))</code> 模式进行语言内的代码生成，这种方式太常见了。Julia 用宏来简写这个模式： </p>
+<pre><code class="julia">for op = (:+, :*, :&amp;, :|, :$)
+  @eval ($op)(a,b,c) = ($op)(($op)(a,b),c)
+end
+</code></pre>
+
+<p><code>@eval</code> 宏重写了这个调用，使得代码更精简。 <code>@eval</code> 的参数也可以是块代码：</p>
+<pre><code class="julia">@eval begin
+  # multiple lines
+end
+</code></pre>
+
+<p>对非引用表达式进行内插，会引发编译时错误：</p>
+<pre><code class="julia">$a + b
+</code></pre>
+
+<h2>宏</h2>
+<p>宏有点儿像编译时的表达式生成函数。正如函数会通过一组参数得到一个返回值,宏可以进行表达式的变换，这些宏允许程序员在最后的程序语法树中对表达式进行任意的转化。调用宏的语法为：</p>
+<p><code>@name expr1 expr2 ...</code>,<code>@name(expr1, expr2, ...)</code></p>
+<p>注意，宏名前有 <code>@</code> 符号。第一种形式，参数表达式之间没有逗号；第二种形式，宏名后没有空格。这两种形式不要记混。例如，下面的写法的结果就与上例不同，它只向宏传递了一个参数，此参数为多元组 <code>(expr1, expr2, ...)</code>:<code>@name (expr1, expr2, ...)</code></p>
+<p>程序运行前， <code>@name</code> 展开函数会对表达式参数处理，用结果替代这个表达式。使用关键字 <code>macro</code> 来定义展开函数：</p>
+<pre><code class="julia">macro name(expr1, expr2, ...)
+    ...
+    return resulting_expr
+end
+</code></pre>
+
+<p>下例是 Julia 中 <code>@assert</code> 宏的简单定义：</p>
+<pre><code class="julia">macro assert(ex)
+    return :($ex ? nothing : error(&quot;Assertion failed: &quot;, $(string(ex))))
+end
+</code></pre>
+
+<p>这个宏可如下使用：</p>
+<pre><code class="julia">@assert 1==1.0
+
+@assert 1==0
+</code></pre>
+
+<p>宏调用在解析时被展开为返回的结果。这等价于：</p>
+<pre><code class="julia">1==1.0 ? nothing : error(&quot;Assertion failed: &quot;, &quot;1==1.0&quot;)
+1==0 ? nothing : error(&quot;Assertion failed: &quot;, &quot;1==0&quot;)
+</code></pre>
+
+<p>上面的代码的意思是，当第一次调用表达式 <code>:(1==1.0)</code> 的时候，会被拼接为条件语句，而 <code>string(:(1==1.0))</code> 会被替换成一个断言。因此所有这些表达式构成了程序的语法树。然后在运行期间，如果表达式为真，则返回 <code>nothing</code>，如果条件为假，一个提示语句将会表明这个表达式为假。注意，这里无法用函数来代替，因为在函数中只有值可以被传递，如果这么做的话我们无法在最后的错误结果中得到具体的表达式是什么样子的。</p>
+<p>在标准库中真实的 <code>@assert</code> 定义要复杂一些，它可以允许用户去操作错误信息，而不只是打印出来。和函数一样宏也可以有可变参数，我们可以看下面的这个定义：</p>
+<pre><code class="julia">macro assert(ex, msgs...)
+    msg_body = isempty(msgs) ? ex : msgs[1]
+    msg = string(&quot;assertion failed: &quot;, msg_body)
+    return :($ex ? nothing : error($msg))
+end
+</code></pre>
+
+<p>现在根据参数的接收数目我们可以把 <code>@assert</code> 分为两种操作模式。如果只有一个参数，表达式会被 <code>msgs</code> 捕获为空，并且如上面所示作为一个更简单的定义。如果用户填上第二个参数, 这个参数会被作为打印参数而不是错误的表达式。你可以在下面名为 <code>macroexpand</code> 的函数中检查宏扩展的结果:</p>
+<pre><code class="julia">macroexpand(:(@assert a==b))
+:(if a == b
+        nothing
+    else
+        Base.error(&quot;assertion failed: a == b&quot;)
+    end)
+
+macroexpand(:(@assert a==b &quot;a should equal b!&quot;))
+:(if a == b
+        nothing
+    else
+        Base.error(&quot;assertion failed: a should equal b!&quot;)
+    end)
+</code></pre>
+
+<p>在实际的 <code>@assert</code> 宏定义中会有另一种情况：如果不仅仅是要打印 "a should equal b,"，我们还想要打印它们的值呢？有些人可能天真的想插入字符串变量如:<code>@assert a==b "a ($a) should equal b ($b)!"</code>，但是这个宏不会如我们所愿的执行。你能看出是为什么吗？回顾字符串的那一章，一个字符串的重写函数，请进行比较：</p>
+<pre><code class="julia">typeof(:(&quot;a should equal b&quot;))
+
+typeof(:(&quot;a ($a) should equal b ($b)!&quot;))
+
+dump(:(&quot;a ($a) should equal b ($b)!&quot;))
+</code></pre>
+
+<p>所以现在不应该得到一个面上的字符串 <code>msg_body</code>，这个宏接收整个表达式且需要如我们所期望的计算。这可以直接拼接成返回的表达式来作为 <code>string</code> 调用的一个参数。通过看 <a href="https://github.com/JuliaLang/julia/blob/master/base/error.jl">error.jl</a>源码得到完整的实现。</p>
+<p><code>@assert</code> 宏极大地通过宏替换实现了表达式的简化功能。</p>
+<h3>卫生宏</h3>
+<p><a href="http://en.wikipedia.org/wiki/Hygienic_macro">卫生宏</a>是个更复杂的宏。一般来说，宏必须确保变量的引入不会和现有的上下文变量发送冲突。相反的，宏中的表达式作为参数应该可以和上下文代码有机的结合在一起，进行交互。另一个令人关注的问题是，当宏用不同方式定义的时候是否被应该称为另一种模式。在这种情况下，我们需要确保所有的全局变量应该被纳入正确的模式中来。Julia 已经在宏方面有了很大的优势相比其它语言（比如 C）。所有的变量（比如 <code>@assert</code>中的 <code>msg</code>）遵循这一标准。</p>
+<p>来看一下 <code>@time</code> 宏，它的参数是一个表达式。它先记录下时间，运行表达式，再记录下时间，打印出这两次之间的时间差，它的最终值是表达式的值：</p>
+<pre><code class="julia">macro time(ex)
+  return quote
+    local t0 = time()
+    local val = $ex
+    local t1 = time()
+    println(&quot;elapsed time: &quot;, t1-t0, &quot; seconds&quot;)
+    val
+  end
+end
+</code></pre>
+
+<p><code>t0</code>, <code>t1</code>, 及 <code>val</code> 应为私有临时变量，而 <code>time</code> 是标准库中的 <code>time</code> 函数，而不是用户可能使用的某个叫 <code>time</code> 的变量（ <code>println</code> 函数也如此）。</p>
+<p>Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变量被分类为本地变量或全局变量。如果变量被赋值（且未被声明为全局变量）、被声明为本地变量、或被用作函数参数名，则它被认为是本地变量；否则，它被认为是全局变量。本地变量被重命名为一个独一无二的名字（使用 <code>gensym</code> 函数产生新符号），全局变量被解析到宏定义环境中。</p>
+<p>但还有个问题没解决。考虑下例：</p>
+<pre><code class="julia">module MyModule
+import Base.@time
+
+time() = ... # compute something
+
+@time time()
+end
+</code></pre>
+
+<p>此例中， <code>ex</code> 是对 <code>time</code> 的调用，但它并不是宏使用的 <code>time</code> 函数。它实际指向的是 <code>MyModule.time</code> 。因此我们应对要解析到宏调用环境中的 <code>ex</code> 代码做修改。这是通过 <code>esc</code> 函数的对表达式“转义”完成的：</p>
+<pre><code class="julia">macro time(ex)
+    ...
+    local val = $(esc(ex))
+    ...
+end
+</code></pre>
+
+<p>这样，封装的表达式就不会被宏展开机制处理，能够正确的在宏调用环境中解析。</p>
+<p>必要时这个转义机制可以用来“破坏”卫生，从而引入或操作自定义变量。下例在调用环境中宏将 <code>x</code> 设置为 0 ：</p>
+<pre><code class="julia">macro zerox()
+  return esc(:(x = 0))
+end
+
+function foo()
+  x = 1
+  @zerox
+  x  # is zero
+end
+</code></pre>
+
+<p>应审慎使用这种操作。</p>
+<h3>非标准字符串文本</h3>
+<p><a href="https://www.w3cschool.cn/julia/string-learning.html">字符串</a>中曾讨论过带标识符前缀的字符串文本被称为非标准字符串文本，它们有特殊的语义。例如：</p>
+<ul>
+<li><code>r"^\s*(?:#|$)"</code> 生成正则表达式对象而不是字符串</li>
+<li><code>b"DATA\xff\u2200"</code> 是字节数组文本 <code>[68,65,84,65,255,226,136,128]</code></li>
+</ul>
+<p>事实上，这些行为不是 Julia 解释器或编码器内置的，它们调用的是特殊名字的宏。例如，正则表达式宏的定义如下：</p>
+<pre><code class="julia">macro r_str(p)
+  Regex(p)
+end
+</code></pre>
+
+<p>因此，表达式 <code>r"^\s*(?:#|$)"</code> 等价于把下列对象直接放入语法树：</p>
+<pre><code class="julia">Regex(&quot;^\\s*(?:#|\$)&quot;)
+</code></pre>
+
+<p>这么写不仅字符串文本短，而且效率高：正则表达式需要被编译，而 <code>Regex</code> 仅在 <em>代码编译时</em> 才构造，因此仅编译一次，而不是每次执行都编译。下例中循环中有一个正则表达式：</p>
+<pre><code class="julia">for line = lines
+  m = match(r&quot;^\s*(?:#|$)&quot;, line)
+  if m == nothing
+    # non-comment
+  else
+    # comment
+  end
+end
+</code></pre>
+
+<p>如果不想使用宏，要使上例只编译一次，需要如下改写：</p>
+<pre><code class="julia">re = Regex(&quot;^\\s*(?:#|\$)&quot;)
+for line = lines
+  m = match(re, line)
+  if m == nothing
+    # non-comment
+  else
+    # comment
+  end
+end
+</code></pre>
+
+<p>由于编译器优化的原因，上例依然不如使用宏高效。但有时，不使用宏可能更方便：要对正则表达式内插时必须使用这种麻烦点儿的方式；正则表达式模式本身是动态的，每次循环迭代都会改变，生成新的正则表达式。</p>
+<p>不止非标准字符串文本，命令文本语法（ <code>echo "Hello, $person"</code>）也是用宏实现的：</p>
+<pre><code class="julia">macro cmd(str)
+  :(cmd_gen($shell_parse(str)))
+end
+</code></pre>
+
+<p>当然，大量复杂的工作被这个宏定义中的函数隐藏了，但是这些函数也是用 Julia 写的。你可以阅读源代码，看看它如何工作。它所做的事儿就是构造一个表达式对象，用于插入到你的程序的语法树中。</p>
+<h2>反射</h2>
+<p>除了使用元编程语法层面的反思，朱丽亚还提供了一些其他的运行时反射能力。</p>
+<p><strong>类型字段</strong> 数据类型的域的名称（或模块成员）可以使用 <code>names</code> 命令来询问。例如，给定以下类型：</p>
+<pre><code class="julia">type Point
+  x::FloatingPoint
+  y
+end
+</code></pre>
+
+<p><code>names(Point)</code> 将会返回指针 <code>Any[:x, :y]</code>。在一个 <code>Point</code> 中每一个域的类型都会被存储在指针对象的 <code>types</code>域中：</p>
+<pre><code class="julia">typeof(Point)
+DataType
+Point.types
+(FloatingPoint,Any)
+</code></pre>
+
+<p><strong>亚型</strong></p>
+<p>任何数据类型的<em>直接</em>亚型可以使用 <code>subtypes(t::DataType)</code> 来列表查看。例如，抽象数据类型 <code>FloatingPoint</code> 包含四种（具体的）亚型：：</p>
+<pre><code class="julia">subtypes(FloatingPoint)
+</code></pre>
+
+<p>任何一个抽象的亚型也将被列入此列表中，但其进一步的亚型则不会；“亚型”的递归应用程序允许建立完整的类型树。</p>
+<p><strong>类型内部</strong></p>
+<p>当使用到 C 代码接口时类型的内部表示是非常重要的。<code>isbits(T::DataType)</code> 在 <code>T</code> 存储在 C 语言兼容定位时返回 true 。每一个域内的补偿量可以使用 <code>fieldoffsets(T::DataType)</code> 语句实现列表显示。</p>
+<p><strong>函数方法</strong></p>
+<p>函数内的所有方法可以通过 <code>methods(f::Function)</code> 语句列表显示出来。</p>
+<p><strong>函数表示</strong></p>
+<p>函数可以在几个表示层次上实现内部检查。一个函数的更低形式在使用 <code>code_lowered(f::Function, (Args...))</code>时是可用的，而类型推断的更低形式在使用 <code>code_typed(f::Function, (Args...))</code>时是可用的。</p>
+<p>更接近机器的是，LLVM 的中间表示的函数是通过 <code>code_llvm(f::Function, (Args...))</code> 打印的，并且最终的由此产生的汇编指令在使用 <code>code_native(f::Function, (Args...)</code> 时是可用的。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

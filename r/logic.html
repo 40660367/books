@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 逻辑判断(logic) - FreeAIHub</title>
+    <meta name="keywords" content="语句,语法,语句,语句">
+    <meta name="description" content="决策结构要求程序员指定要由程序评估或测试的一个或多个条件，以及如果条件被确定为真则要执行的一个或多个语句，如果条件为假则执行其他语句。R提供以下类型的决策语句。 单击以下链接以检查其详细信息。由一个布尔表达式后跟一个或多个语句组成。在R中创建语句的基本语法是：如果布尔表达式的计算结果为true，那么语句中的代码块将被执行。 如果布尔表达式的计算结果为false，那么第一组代码在语句结束之后（在结束">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a class="current"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/operator.html class='prev_article'> R语言操作符</a>       |       下一篇：<a href=/r/library.html class='next_article'> R语言包</a>  >
+              
+            <h1>R语言 逻辑判断(logic)</h1>
+<p>决策结构要求程序员指定要由程序评估或测试的一个或多个条件，以及如果条件被确定为真则要执行的一个或多个语句，如果条件为假则执行其他语句。</p>
+<p>R提供以下类型的决策语句。 单击以下链接以检查其详细信息。</p>
+<table>
+<thead>
+<tr>
+<th>声明</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if</code>语句</td>
+<td align="left"><code>if</code>语句由一个布尔表达式后跟一个或多个语句组成。</td>
+</tr>
+<tr>
+<td><code>if ... else</code>语句</td>
+<td align="left"><code>if</code>语句后面可以有一个可选的<code>else</code>语句，当布尔表达式为false时执行。</td>
+</tr>
+<tr>
+<td><code>switch</code>语句</td>
+<td align="left"><code>switch</code>语句允许根据值列表测试变量的相等性。</td>
+</tr>
+</tbody>
+</table>
+<h2><code>if</code>语句</h2>
+<p><code>if</code>由一个布尔表达式后跟一个或多个语句组成。</p>
+<h3>语法</h3>
+<p>在R中创建<code>if</code>语句的基本语法是：</p>
+<pre><code>if(boolean_expression) {
+   // statement(s) will execute if the boolean expression is true.
+}
+</code></pre>
+
+<p>如果布尔表达式的计算结果为true，那么<code>if</code>语句中的代码块将被执行。 如果布尔表达式的计算结果为false，那么第一组代码在<code>if</code>语句结束之后（在结束大括号之后）将被执行。</p>
+<h4>练习：</h4>
+<pre><code class="R">x &lt;- 30L
+if(is.integer(x))
+{
+   print(&quot;X is an Integer&quot;)
+}
+</code></pre>
+
+<h1><code>if...else</code>语句</h1>
+<p>if语句后面可以是一个可选的<code>else</code>语句，当布尔表达式为false时执行。</p>
+<h2>语法</h2>
+<p>在R中创建<code>if ... else</code>语句的基本语法是:</p>
+<pre><code>if(boolean_expression) {
+   // statement(s) will execute if the boolean expression is true.
+} else {
+   // statement(s) will execute if the boolean expression is false.
+}
+</code></pre>
+
+<p>如果布尔表达式的计算结果为真，则将执行if代码块，否则将执行代码块。</p>
+<h3>流程图</h3>
+<p><img alt="img" src="../image/r-ifelse.jpg" /></p>
+<h4>练习</h4>
+<pre><code class="R">x &lt;- c(&quot;what&quot;,&quot;is&quot;,&quot;truth&quot;)
+
+if(&quot;Truth&quot; %in% x) {
+   print(&quot;Truth is found&quot;)
+} else {
+   print(&quot;Truth is not found&quot;)
+}
+</code></pre>
+
+<p>这里“Truth”和“truth”是两个不同的字符串。</p>
+<h2><code>if ... else if ... else</code>语句</h2>
+<p><code>if</code>语句后面可以跟一个可选的<code>else if ... else</code>语句，这对于使用single<code>if ... else if</code>语句测试各种条件非常有用。</p>
+<p>当使用<code>if，else if，else</code>语句有几点要记住。
+- 如果可以有零或一个<code>else</code>，它必须在任何其他if之后。
+- 一个<code>i</code>f可以有0到许多<code>else if</code>和它们必须在<code>else</code>之前。
+- 一旦一个<code>else</code>如果成功，没有任何剩余的<code>else if</code>或<code>els</code>e将被测试。</p>
+<h3>语法</h3>
+<p>在R中创建<code>if ... else if ... else</code>语句的基本语法是</p>
+<pre><code>if(boolean_expression 1) {
+   // Executes when the boolean expression 1 is true.
+} else if( boolean_expression 2) {
+   // Executes when the boolean expression 2 is true.
+} else if( boolean_expression 3) {
+   // Executes when the boolean expression 3 is true.
+} else {
+   // executes when none of the above condition is true.
+}
+</code></pre>
+
+<h4>练习：</h4>
+<pre><code class="R">x &lt;- c(&quot;what&quot;,&quot;is&quot;,&quot;truth&quot;)
+
+if(&quot;Truth&quot; %in% x) {
+   print(&quot;Truth is found the first time&quot;)
+} else if (&quot;truth&quot; %in% x) {
+   print(&quot;truth is found the second time&quot;)
+} else {
+   print(&quot;No truth found&quot;)
+}
+</code></pre>
+
+<h2><code>switch</code>语句</h2>
+<p><code>switch</code>语句允许根据值列表测试变量的相等性。 每个值都称为大小写，并且针对每种情况检查打开的变量。</p>
+<h3>语法</h3>
+<p>在R中创建switch语句的基本语法是 -<code>switch(expression, case1, case2, case3....)</code></p>
+<p>以下规则适用于<code>switch</code>语句：</p>
+<ul>
+<li>如果<code>expression</code>的值不是字符串，那么它被强制为整数。</li>
+<li>在交换机中可以有任意数量的<code>case</code>语句。 每个案例后面都跟要比较的值和冒号。</li>
+<li>如果整数的值在1和nargs() - 1（参数的最大数目）之间，则对case条件的相应元素求值并返回结果。</li>
+<li>如果表达式求值为字符串，那么该字符串与元素的名称匹配。</li>
+<li>如果有多个匹配，则返回第一个匹配元素。</li>
+<li>无默认参数可用。</li>
+<li>在没有匹配的情况下，如果有一个未命名的元素...它的值被返回。 （如果有多个这样的参数，则返回错误。）</li>
+</ul>
+<h3>流程图</h3>
+<p><img alt="img" src="./images/r-switch.jpg" /></p>
+<h4>练习：switch</h4>
+<pre><code class="R">x &lt;- switch(3,   &quot;first&quot;,   &quot;second&quot;,   &quot;third&quot;,   &quot;fourth&quot; ) 
+print(x)
+</code></pre>
+
+<p>当上面的代码被编译和执行时，它产生以下结果 <code>[1] "third"</code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

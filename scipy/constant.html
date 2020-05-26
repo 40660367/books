@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 常量 - FreeAIHub</title>
+    <meta name="keywords" content="SciPy常量包,可用的常量列表">
+    <meta name="description" content="SciPy常量()包提供了广泛的常量，用于一般科学领域。包提供了各种常量。必须导入所需的常量并根据需要来使用它们。下面看看这些常量变量是如何导入和使用的。首先，通过下面的例子来比较值。下表简要介绍了各种常数(常量)。下表列出了最常用的物理常量。下表列出了SI单位。这些单位范围从，，，，，，，，到。下表列出了SciPy中使用的其他重要常量。要记住所有这些都有点困难。可使用方法获取指定键的简单方法。 ">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a class="current"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/cluster.html class='prev_article'> SciPy 簇聚 </a>       |       下一篇：<a href=/scipy/fftpack.html class='next_article'> Scipy 快速傅立叶变换 </a>  >
+              
+            <h1>Scipy 常量</h1>
+<p>SciPy常量(<code>constant</code>)包提供了广泛的常量，用于一般科学领域。</p>
+<h2>SciPy常量包</h2>
+<p><code>scipy.constants</code>包提供了各种常量。必须导入所需的常量并根据需要来使用它们。下面看看这些常量变量是如何导入和使用的。</p>
+<p>首先，通过下面的例子来比较<code>'pi'</code>值。</p>
+<pre><code class="python">#Import pi constant from both the packages
+from scipy import constants
+import math
+
+
+print(&quot;scipy - pi = %.16f&quot;%constants.pi)
+print(&quot;math - pi = %.16f&quot;%math.pi)
+</code></pre>
+
+<h2>可用的常量列表</h2>
+<p>下表简要介绍了各种常数(常量)。</p>
+<p><strong>数学常量</strong></p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>常量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>pi</code></td>
+<td>PI值</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>golden</code></td>
+<td>黄金比例</td>
+</tr>
+</tbody>
+</table>
+<p><strong>物理常量</strong></p>
+<p>下表列出了最常用的物理常量。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>常量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>c</code></td>
+<td>真空中的光速</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>speed_of_light</code></td>
+<td>真空中的光速</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>h</code></td>
+<td>普朗克常数</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>Planck</code></td>
+<td>普朗克常数<code>h</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>G</code></td>
+<td>牛顿的引力常数</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>e</code></td>
+<td>基本电荷</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>R</code></td>
+<td>摩尔气体常数</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>Avogadro</code></td>
+<td>阿伏加德罗常数</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>k</code></td>
+<td>波尔兹曼常数</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>electron_mass</code>或者 <code>m_e</code></td>
+<td>电子质量</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>proton_mass</code>或者<code>m_p</code></td>
+<td>质子质量</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>neutron_mass</code>或<code>m_n</code></td>
+<td>中子质量</td>
+</tr>
+</tbody>
+</table>
+<p><strong>单位</strong></p>
+<p>下表列出了SI单位。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>单位</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>milli</code></td>
+<td>0.001</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>micro</code></td>
+<td>1e-06</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>kilo</code></td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<p>这些单位范围从<code>yotta</code>，<code>zetta</code>，<code>exa</code>，<code>peta</code>，<code>tera ...... kilo</code>，<code>hector</code>，<code>... nano</code>，<code>pico</code>，<code>...</code>到<code>zepto</code>。</p>
+<p><strong>其他重要常量</strong></p>
+<p>下表列出了SciPy中使用的其他重要常量。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>单位</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>gram</code></td>
+<td>0.001 kg</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>atomic_mass</code></td>
+<td>原子质量常数</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>degree</code></td>
+<td>弧度</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>minute</code></td>
+<td>一分钟秒数(60)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>day</code></td>
+<td>一天的秒数</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>inch</code></td>
+<td>一米的英寸数</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>micron</code></td>
+<td>一米的微米数</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>light_year</code></td>
+<td>一光年的米数</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>atm</code></td>
+<td>帕斯卡标准大气压</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>acre</code></td>
+<td>一平方米的英亩数</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>liter</code></td>
+<td>一立方米的升数</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>gallon</code></td>
+<td>一立方米的加仑数</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>kmh</code></td>
+<td>公里每小时，以米/秒为单位</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>degree_fahrenheit</code></td>
+<td>一凯尔文的华氏数</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>eV</code></td>
+<td>一焦耳的电子伏特数</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>hp</code></td>
+<td>一瓦特的马力数</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>dyn</code></td>
+<td>一牛顿的达因数</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>lambda2nu</code></td>
+<td>将波长转换为光频率</td>
+</tr>
+</tbody>
+</table>
+<p>要记住所有这些都有点困难。可使用<code>scipy.constants.find()</code>方法获取指定键的简单方法。 看看下面的例子。</p>
+<pre><code class="python">import scipy.constants
+res = scipy.constants.physical_constants[&quot;alpha particle mass&quot;]
+print(res)
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

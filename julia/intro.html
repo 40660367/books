@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 简介 - FreeAIHub</title>
+    <meta name="keywords" content="简介">
+    <meta name="description" content="Julia 是个灵活的动态语言，适合科学和数值计算，性能可与传统静态类型语言媲美。由于 Julia 的编译器与像 Python 或者 R 语言的解释器不同，你可能首先会发现 Julia 的性能并不那么直观。如果你发现哪些地方比较慢， 我们强烈建议你在做任何尝试之前通读一下[代码性能优化]章节。一旦你明白了 Julia 是如何工作的，你就可以写出来速度媲美 C 语言的代码。通过使用类型推断和 ，以及">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a class="current"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/index.html class='prev_article'> 如何学习本课程 </a>       |       下一篇：<a href=/julia/setup.html class='next_article'> Julia环境搭建及运行 </a>  >
+              
+            <h1>Julia 简介</h1>
+<h2>简介</h2>
+<p>Julia 是个灵活的动态语言，适合科学和数值计算，性能可与传统静态类型语言媲美。</p>
+<p>由于 Julia 的编译器与像 Python 或者 R 语言的解释器不同，你可能首先会发现 Julia 的性能并不那么直观。如果你发现哪些地方比较慢， 我们强烈建议你在做任何尝试之前通读一下[代码性能优化]章节。一旦你明白了 Julia 是如何工作的，你就可以写出来速度媲美 C 语言的代码。</p>
+<p>通过使用类型推断和<a href="http://zh.wikipedia.org/zh-cn/即時編譯">即时(JIT)编译</a> ，以及 <a href="http://zh.wikipedia.org/wiki/LLVM">LLVM</a> ，Julia 具有可选的类型声明，重载，高性能等特性。Julia 是多编程范式的，包含指令式、函数式和面向对象编程的特征。 它提供了简易和简洁的高等数值计算，它类似于 R 、 MATLAB 和 Python ，支持一般用途的编程。 为了达到这个目的，Julia 在数学编程语言的基础上，参考了不少流行动态语言：<a href="http://zh.wikipedia.org/zh-cn/LISP">Lisp</a> 、 <a href="http://zh.wikipedia.org/zh-cn/Perl">Perl</a> 、 <a href="http://zh.wikipedia.org/zh-cn/Python">Python</a> 、 <a href="http://zh.wikipedia.org/zh-cn/Lua">Lua</a> 和 <a href="http://zh.wikipedia.org/zh-cn/Ruby">Ruby</a>。</p>
+<p>Julia 与传统动态语言最大的区别是：</p>
+<ul>
+<li>核心语言很小；标准库是用 Julia 本身写的，如整数运算在内的基础运算</li>
+<li>完善的类型，方便构造对象和做类型声明</li>
+<li>基于参数类型进行函数<a href="http://en.wikipedia.org/wiki/Multiple_dispatch">重载</a></li>
+<li>参数类型不同，自动生成高效、专用的代码</li>
+<li>高性能，接近静态编译语言，如 C 语言</li>
+</ul>
+<p>动态语言是有类型的：每个对象，不管是基础的还是用户自定义的，都有类型。许多动态语言没有类型声明，意味着它不能告诉编译器值的类型，也就不能准确的判断出类型。静态语言必须告诉编译器值的类型，类型仅存在于编译时，在运行时则不能更改。在 Julia 中，类型本身就是运行时对象，同时它也可以把信息传递给编译器。</p>
+<p>重载函数由参数（参数列表）的类型来区别，调用函数时传入的参数类型，决定了选取哪个函数来进行调用。对于数学领域的程序设计来说，这种方式比起传统面向对象程序设计中操作属于某个对象的方法的方式更显自然。在 Julia 中运算符仅仅是函数的别名。程序员可以为新数据类型定义 “+” 的新方法，原先的代码就可以无缝地重载到新数据类型上。</p>
+<p>因为运行时类型推断（得益于可选的类型声明），以及从开始就看重性能，Julia 的计算性能超越了其他动态语言，甚至可与静态编译语言媲美。在大数据处理的问题上，性能一直是决定性的因素：在刚刚过去的十年中，数据量还在以摩尔定律增长着。</p>
+<p>Julia 想要变成一个前所未有的集易用、强大、高效于一体的语言。除此之外，Julia 的优势还在于：</p>
+<ul>
+<li>免费开源（<a href="https://github.com/JuliaLang/julia/blob/master/LICENSE.md">MIT 协议</a> ）</li>
+<li>自定义类型与内置类型同样高效、紧凑</li>
+<li>不需要把代码向量化；非向量化的代码跑得也很快</li>
+<li>为并行和分布式计算而设计</li>
+<li>轻量级“绿色”线程（<a href="http://zh.wikipedia.org/zh-cn/协程">协程</a> ）</li>
+<li>低调又牛逼的类型系统</li>
+<li>优雅、可扩展的类型转换</li>
+<li>高效支持 <a href="http://zh.wikipedia.org/zh-cn/Unicode">Unicode</a>, 包括且不只 <a href="http://zh.wikipedia.org/zh-cn/UTF-8">UTF-8</a></li>
+<li>直接调用 C 函数（不需封装或 API）</li>
+<li>像 Shell 一样强大的管理其他进程的能力</li>
+<li>像 Lisp 一样的宏和其他元编程工具</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

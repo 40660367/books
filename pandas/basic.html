@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 基本功能 - FreeAIHub</title>
+    <meta name="keywords" content="系列基本功能,DataFrame基本功能">
+    <meta name="description" content="到目前为止，我们了解了两种种数据结构以及如何创建它们。接下来将主要关注数据帧(DataFrame)对象，因为它在实时数据处理中非常重要，并且还讨论其他数据结构。现在创建一个系列并演示如何使用上面所有列出的属性操作。返回系列的标签列表。参考以下示例代码 - 上述结果是从到的值列表的紧凑格式，即：。返回布尔值，表示对象是否为空。返回则表示对象为空。返回对象的维数。根据定义，一个系列是一个数据结构，参考">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a class="current"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/dataframe.html class='prev_article'> Pandas数据帧</a>       |       下一篇：<a href=/pandas/description.html class='next_article'> Pandas描述性统计</a>  >
+              
+            <h1>Pandas 基本功能</h1>
+<p>到目前为止，我们了解了两种种<em>Pandas</em>数据结构以及如何创建它们。接下来将主要关注数据帧(DataFrame)对象，因为它在实时数据处理中非常重要，并且还讨论其他数据结构。</p>
+<h2>系列基本功能</h2>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>属性或方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>axes</code></td>
+<td>返回行轴标签列表。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>dtype</code></td>
+<td>返回对象的数据类型(<code>dtype</code>)。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>empty</code></td>
+<td>如果系列为空，则返回<code>True</code>。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>ndim</code></td>
+<td>返回底层数据的维数，默认定义：<code>1</code>。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>size</code></td>
+<td>返回基础数据中的元素数。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>values</code></td>
+<td>将系列作为<code>ndarray</code>返回。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>head()</code></td>
+<td>返回前<code>n</code>行。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>tail()</code></td>
+<td>返回最后<code>n</code>行。</td>
+</tr>
+</tbody>
+</table>
+<p>现在创建一个系列并演示如何使用上面所有列出的属性操作。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 100 random numbers
+s = pd.Series(np.random.randn(4))
+s
+</code></pre>
+
+<p><strong>axes示例</strong></p>
+<p>返回系列的标签列表。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 100 random numbers
+s = pd.Series(np.random.randn(4))
+print(&quot;The axes are:&quot;)
+s.axes
+</code></pre>
+
+<p>上述结果是从<code>0</code>到<code>5</code>的值列表的紧凑格式，即：<code>[0,1,2,3,4]</code>。</p>
+<p><strong>empty示例</strong></p>
+<p>返回布尔值，表示对象是否为空。返回<code>True</code>则表示对象为空。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 100 random numbers
+s = pd.Series(np.random.randn(4))
+print(&quot;Is the Object empty?&quot;)
+s.empty
+</code></pre>
+
+<p><strong>ndim示例</strong></p>
+<p>返回对象的维数。根据定义，一个系列是一个<code>1D</code>数据结构，参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 4 random numbers
+s = pd.Series(np.random.randn(4))
+print(s)
+
+print(&quot;The dimensions of the object:&quot;)
+print(s.ndim)
+</code></pre>
+
+<p><strong>size示例</strong></p>
+<p>返回系列的大小(长度)。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 4 random numbers
+s = pd.Series(np.random.randn(2))
+print(s)
+print(&quot;The size of the object:&quot;)
+print(s.size)
+</code></pre>
+
+<p><strong>values示例</strong></p>
+<p>以数组形式返回系列中的实际数据值。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 4 random numbers
+s = pd.Series(np.random.randn(4))
+print(s)
+
+print(&quot;The actual data series is:&quot;)
+print(s.values)
+</code></pre>
+
+<p><strong>head()和tail()方法示例</strong></p>
+<p>要查看Series或DataFrame对象的小样本，请使用<code>head()</code>和<code>tail()</code>方法。</p>
+<p><code>head()</code>返回前<code>n</code>行(观察索引值)。要显示的元素的默认数量为<code>5</code>，但可以传递自定义这个数字值。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 4 random numbers
+s = pd.Series(np.random.randn(4))
+print(&quot;The original series is:&quot;)
+print(s)
+
+print(&quot;The first two rows of the data series:&quot;)
+print(s.head(2))
+</code></pre>
+
+<p><code>tail()</code>返回最后<code>n</code>行(观察索引值)。 要显示的元素的默认数量为<code>5</code>，但可以传递自定义数字值。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a series with 4 random numbers
+s = pd.Series(np.random.randn(4))
+print(&quot;The original series is:&quot;)
+print(s)
+
+print(&quot;The last two rows of the data series:&quot;)
+print(s.tail(2))
+</code></pre>
+
+<h2>DataFrame基本功能</h2>
+<p>下面来看看数据帧(DataFrame)的基本功能有哪些？下表列出了DataFrame基本功能的重要属性或方法。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>属性或方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>T</code></td>
+<td>转置行和列。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>axes</code></td>
+<td>返回一个列，行轴标签和列轴标签作为唯一的成员。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>dtypes</code></td>
+<td>返回此对象中的数据类型(<code>dtypes</code>)。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>empty</code></td>
+<td>如果<code>NDFrame</code>完全为空[无项目]，则返回为<code>True</code>; 如果任何轴的长度为<code>0</code>。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>ndim</code></td>
+<td>轴/数组维度大小。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>shape</code></td>
+<td>返回表示<code>DataFrame</code>的维度的元组。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>size</code></td>
+<td><code>NDFrame</code>中的元素数。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>values</code></td>
+<td>NDFrame的Numpy表示。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>head()</code></td>
+<td>返回开头前<code>n</code>行。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>tail()</code></td>
+<td>返回最后<code>n</code>行。</td>
+</tr>
+</tbody>
+</table>
+<p>下面来看看如何创建一个DataFrame并使用上述属性和方法。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our data series is:&quot;)
+df
+</code></pre>
+
+<p><strong>T(转置)示例</strong></p>
+<p>返回<code>DataFrame</code>的转置。行和列将交换。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+# Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+# Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;The transpose of the data series is:&quot;)
+df.T
+</code></pre>
+
+<p><strong>axes示例</strong></p>
+<p>返回行轴标签和列轴标签列表。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Row axis labels and column axis labels are:&quot;)
+df.axes
+</code></pre>
+
+<p><strong>dtypes示例</strong></p>
+<p>返回每列的数据类型。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;The data types of each column are:&quot;)
+df.dtypes
+</code></pre>
+
+<p><strong>empty示例</strong></p>
+<p>返回布尔值，表示对象是否为空; 返回<code>True</code>表示对象为空。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Is the object empty?&quot;)
+print(df.empty)
+</code></pre>
+
+<p><strong>ndim示例</strong></p>
+<p>返回对象的维数。根据定义，DataFrame是一个<code>2D</code>对象。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our object is:&quot;)
+print(df)
+print(&quot;The dimension of the object is:&quot;)
+print(df.ndim)
+</code></pre>
+
+<p><strong>shape示例</strong></p>
+<p>返回表示<code>DataFrame</code>的维度的元组。 元组<code>(a，b)</code>，其中<code>a</code>表示行数，<code>b</code>表示列数。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our object is:&quot;)
+print(df)
+print(&quot;The shape of the object is:&quot;)
+print(df.shape)
+</code></pre>
+
+<p><strong>size示例</strong></p>
+<p>返回DataFrame中的元素数。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our object is:&quot;)
+print(df)
+print(&quot;The total number of elements in our object is:&quot;)
+print(df.size)
+</code></pre>
+
+<p><strong>values示例</strong></p>
+<p>将<code>DataFrame</code>中的实际数据作为<code>NDarray</code>返回。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our object is:&quot;)
+print(df)
+print(&quot;The actual data in our data frame is:&quot;)
+print(df.values)
+</code></pre>
+
+<p><strong>head()和tail()示例</strong></p>
+<p>要查看DataFrame对象的小样本，可使用<code>head()</code>和<code>tail()</code>方法。<code>head()</code>返回前<code>n</code>行(观察索引值)。显示元素的默认数量为<code>5</code>，但可以传递自定义数字值。参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our data frame is:&quot;)
+print(df)
+print(&quot;The first two rows of the data frame is:&quot;)
+print(df.head(2))
+</code></pre>
+
+<p><code>tail()</code>返回最后<code>n</code>行(观察索引值)。显示元素的默认数量为<code>5</code>，但可以传递自定义数字值。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]), 
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(&quot;Our data frame is:&quot;)
+print( df)
+print(&quot;The last two rows of the data frame is:&quot;)
+print(df.tail(2))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

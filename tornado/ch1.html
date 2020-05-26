@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tornado 第一章：引言 - FreeAIHub</title>
+    <meta name="keywords" content="简单的Web服务1.2.1 Hello To">
+    <meta name="description" content="在过去的五年里，Web开发人员的可用工具实现了跨越式地增长。当技术专家不断推动极限，使Web应用无处不在时，我们也不得不升级我们的工具、创建框架以保证构建更好的应用。我们希望能够使用新的工具，方便我们写出更加整洁、可维护的代码，使部署到世界各地的用户时拥有高效的可扩展性。这就让我们谈论到Tornado，一个编写易创建、扩展和部署的强力Web应用的梦幻选择。我们三个都因为Tornado的速度、简单和">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/tornado/index.html"> 如何学习本课程</a></li>
+<li><a href="/tornado/intro.html"> Tornado 简介 </a></li>
+<li><a href="/tornado/setup.html"> Tornado 开发环境安装 </a></li>
+<li><a class="current"> Tornado 第一章：引言 </a></li>
+<li><a href="/tornado/ch2.html"> Tornado 第二章：表单和模板 </a></li>
+<li><a href="/tornado/ch3.html"> Tornado 第三章：模板扩展 </a></li>
+<li><a href="/tornado/ch4.html"> Tornado 第四章：数据库 </a></li>
+<li><a href="/tornado/ch5.html"> Tornado 第五章：异步Web服务 </a></li>
+<li><a href="/tornado/ch6.html"> Tornado 第六章：编写安全应用 </a></li>
+<li><a href="/tornado/ch7.html"> Tornado 第七章：外部服务认证 </a></li>
+<li><a href="/tornado/ch8.html"> Tornado 第八章：部署Tornado </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/tornado/setup.html class='prev_article'> Tornado 开发环境安装 </a>       |       下一篇：<a href=/tornado/ch2.html class='next_article'> Tornado 第二章：表单和模板 </a>  >
+              
+<h1>Tornado 第一章：引言</h1>
+<p>在过去的五年里，Web开发人员的可用工具实现了跨越式地增长。当技术专家不断推动极限，使Web应用无处不在时，我们也不得不升级我们的工具、创建框架以保证构建更好的应用。我们希望能够使用新的工具，方便我们写出更加整洁、可维护的代码，使部署到世界各地的用户时拥有高效的可扩展性。</p>
+<p>这就让我们谈论到Tornado，一个编写易创建、扩展和部署的强力Web应用的梦幻选择。我们三个都因为Tornado的速度、简单和可扩展性而深深地爱上了它，在一些个人项目中尝试之后，我们将其运用到日常工作中。我们已经看到，Tornado在很多大型或小型的项目中提升了开发者的速度（和乐趣！），同时，其鲁棒性和轻量级也给开发者一次又一次留下了深刻的印象。</p>
+<p>本书的目的是对Tornado Web服务器进行一个概述，通过框架基础、一些示例应用和真实世界使用的最佳实践来引导读者。我们将使用示例来详细讲解Tornado如何工作，你可以用它做什么，以及在构建自己第一个应用时要避免什么。</p>
+<p>在本书中，我们假定你对Python已经有了粗略的了解，知道Web服务如何运作，对数据库有一定的熟悉。有一些不错的书籍可以为你深入了解这些提供参考（比如Learning Python，Restful Web Service和MongoDB: The Definitive Guide）。</p>
+<p>你可以在<a href="https://github.com/Introduction-to-Tornado">Github</a>上获得本书中示例的代码。如果你有关于这些示例或其他方面的任何思想，欢迎在那里告诉我们。</p>
+<p>所以，事不宜迟，让我们开始深入了解吧！</p>
+<h2>简单的Web服务</h2>
+<p>既然我们已经知道了Tornado是什么了，现在让我们看看它能做什么吧。我们首先从使用Tornado编写一个简单的Web应用开始。</p>
+<h3>1.2.1 Hello Tornado</h3>
+<p>Tornado是一个编写对HTTP请求响应的框架。作为程序员，你的工作是编写响应特定条件HTTP请求的响应的handler。下面是一个全功能的Tornado应用的基础示例：</p>
+<p>文件名:hello.py</p>
+<pre><code class="python">import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+
+from tornado.options import define, options
+define(&quot;port&quot;, default=80, help=&quot;run on the given port&quot;, type=int)
+
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        greeting = self.get_argument('greeting', 'Hello')
+        self.write(greeting + ', friendly user!')
+
+if __name__ == &quot;__main__&quot;:
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(handlers=[(r&quot;/&quot;, IndexHandler)])
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()
+</code></pre>
+
+<p>编写一个Tornado应用中最多的工作是定义类继承Tornado的RequestHandler类。在这个例子中，我们创建了一个简单的应用，在给定的端口监听请求，并在根目录（"/"）响应请求。</p>
+<p>你可以在命令行里尝试运行这个程序以测试输出：</p>
+<pre><code class="bash">python /share/lesson/tornado/hello.py &amp;
+</code></pre>
+
+<p>现在你可以在浏览器中打开<code>{host0.http_url}</code>，<code>{host0.http_url}?greeting=Salutations</code>,或者打开另一个终端窗口使用curl测试我们的应用：</p>
+<pre><code class="bash">curl {host0.http_url} &amp;&amp; curl {host0.http_url}?greeting=Salutations
+</code></pre>
+
+<p><strong>注意：</strong></p>
+<p>该样例学习完成后,输入<code>fg</code>命令，把在后台运行的torando web服务提到前台，然后按<kbd>Ctrl</kbd>+<kbd>c</kbd>结束 ，以免阻塞后面示例的学习</p>
+<pre><code class="bash">fg
+</code></pre>
+
+<h3>分步解析</h3>
+<p>让我们把这个例子分成小块，逐步分析它们：</p>
+<pre><code class="python">import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+</code></pre>
+
+<p>在程序的最顶部，我们导入了一些Tornado模块。虽然Tornado还有另外一些有用的模块，但在这个例子中我们必须至少包含这四个模块。</p>
+<pre><code class="python">from tornado.options import define, options
+define(&quot;port&quot;, default=80, help=&quot;run on the given port&quot;, type=int)
+</code></pre>
+
+<p>Tornado包括了一个有用的模块（tornado.options）来从命令行中读取设置。我们在这里使用这个模块指定我们的应用监听HTTP请求的端口。它的工作流程如下：如果一个与define语句中同名的设置在命令行中被给出，那么它将成为全局options的一个属性。如果用户运行程序时使用了<code>--help</code>选项，程序将打印出所有你定义的选项以及你在define函数的help参数中指定的文本。如果用户没有为这个选项指定值，则使用default的值进行代替。Tornado使用type参数进行基本的参数类型验证，当不合适的类型被给出时抛出一个异常。因此，我们允许一个整数的port参数作为options.port来访问程序。如果用户没有指定值，则默认为80。</p>
+<pre><code class="python">class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        greeting = self.get_argument('greeting', 'Hello')
+        self.write(greeting + ', friendly user!')
+</code></pre>
+
+<p>这是Tornado的请求处理函数类。当处理一个请求时，Tornado将这个类实例化，并调用与HTTP请求方法所对应的方法。在这个例子中，我们只定义了一个get方法，也就是说这个处理函数将对HTTP的GET请求作出响应。我们稍后将看到实现不止一个HTTP方法的处理函数。</p>
+<pre><code class="python">greeting = self.get_argument('greeting', 'Hello')
+</code></pre>
+
+<p>Tornado的RequestHandler类有一系列有用的内建方法，包括get_argument，我们在这里从一个查询字符串中取得参数greeting的值。（如果这个参数没有出现在查询字符串中，Tornado将使用get_argument的第二个参数作为默认值。）</p>
+<pre><code class="python">self.write(greeting + ', friendly user!')
+</code></pre>
+
+<p>RequestHandler的另一个有用的方法是write，它以一个字符串作为函数的参数，并将其写入到HTTP响应中。在这里，我们使用请求中greeting参数提供的值插入到greeting中，并写回到响应中。</p>
+<pre><code class="python">if __name__ == &quot;__main__&quot;:
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(handlers=[(r&quot;/&quot;, IndexHandler)])
+</code></pre>
+
+<p>这是真正使得Tornado运转起来的语句。首先，我们使用Tornado的options模块来解析命令行。然后我们创建了一个Tornado的Application类的实例。传递给Application类<strong>init</strong>方法的最重要的参数是handlers。它告诉Tornado应该用哪个类来响应请求。马上我们讲解更多相关知识。</p>
+<pre><code class="python">http_server = tornado.httpserver.HTTPServer(app)
+http_server.listen(options.port)
+tornado.ioloop.IOLoop.instance().start()
+</code></pre>
+
+<p>从这里开始的代码将会被反复使用：一旦Application对象被创建，我们可以将其传递给Tornado的HTTPServer对象，然后使用我们在命令行指定的端口进行监听（通过options对象取出。）最后，在程序准备好接收HTTP请求后，我们创建一个Tornado的IOLoop的实例。</p>
+<h4>1.2.1.1 参数handlers</h4>
+<p>让我们再看一眼hello.py示例中的这一行：</p>
+<pre><code class="python">app = tornado.web.Application(handlers=[(r&quot;/&quot;, IndexHandler)])
+</code></pre>
+
+<p>这里的参数handlers非常重要，值得我们更加深入的研究。它应该是一个元组组成的列表，其中每个元组的第一个元素是一个用于匹配的正则表达式，第二个元素是一个RequestHanlder类。在hello.py中，我们只指定了一个正则表达式-RequestHanlder对，但你可以按你的需要指定任意多个。</p>
+<h4>1.2.1.2 使用正则表达式指定路径</h4>
+<p>Tornado在元组中使用正则表达式来匹配HTTP请求的路径。（这个路径是URL中主机名后面的部分，不包括查询字符串和碎片。）Tornado把这些正则表达式看作已经包含了行开始和结束锚点（即，字符串"/"被看作为"^/$"）。</p>
+<p>如果一个正则表达式包含一个捕获分组（即，正则表达式中的部分被括号括起来），匹配的内容将作为相应HTTP请求的参数传到RequestHandler对象中。我们将在下个例子中看到它的用法。</p>
+<h3>1.2.2 字符串服务</h3>
+<p>例1-2是一个我们目前为止看到的更复杂的例子，它将介绍更多Tornado的基本概念。</p>
+<p>文件名:string_service.py</p>
+<pre><code class="python">import textwrap
+
+import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+
+from tornado.options import define, options
+define(&quot;port&quot;, default=80, help=&quot;run on the given port&quot;, type=int)
+
+class ReverseHandler(tornado.web.RequestHandler):
+    def get(self, input):
+        self.write(input[::-1])
+
+class WrapHandler(tornado.web.RequestHandler):
+    def post(self):
+        text = self.get_argument('text')
+        width = self.get_argument('width', 40)
+        self.write(textwrap.fill(text, int(width)))
+
+if __name__ == &quot;__main__&quot;:
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(
+        handlers=[
+            (r&quot;/reverse/(\w+)&quot;, ReverseHandler),
+            (r&quot;/wrap&quot;, WrapHandler)
+        ]
+    )
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()
+</code></pre>
+
+<p>如同运行第一个例子，你可以在命令行中运行这个例子使用如下的命令：</p>
+<pre><code class="bash">python /share/lesson/tornado/string_service.py &amp;
+</code></pre>
+
+<p>这个程序是一个通用的字符串操作的Web服务端基本框架。到目前为止，你可以用它做两件事情。其一，到<code>/reverse/string</code>的GET请求将会返回URL路径中指定字符串的反转形式。</p>
+<p>访问：<code>{host0.http_url}reverse/stressed</code>，和<code>{host0.http_url}reverse/slipup</code>，比较区别。</p>
+<p>其二，到<code>/wrap</code>的POST请求将从参数text中取得指定的文本，并返回按照参数width指定宽度装饰的文本。下面的请求指定一个没有宽度的字符串，所以它的输出宽度被指定为程序中的get_argument的默认值40个字符。</p>
+<pre><code class="bash">curl {host0.http_ur}wrap -d text=Lorem+ipsum+dolor+sit+amet,+consectetuer+adipiscing+elit.
+</code></pre>
+
+<p>字符串服务示例和上一节示例代码中大部分是一样的。让我们关注那些新的代码。首先，让我们看看传递给Application构造函数的handlers参数的值：</p>
+<pre><code class="python">app = tornado.web.Application(handlers=[
+    (r&quot;/reverse/(\w+)&quot;, ReverseHandler),
+    (r&quot;/wrap&quot;, WrapHandler)
+])
+</code></pre>
+
+<p>在上面的代码中，Application类在"handlers"参数中实例化了两个RequestHandler类对象。第一个引导Tornado传递路径匹配下面的正则表达式的请求：</p>
+<pre><code class="python">/reverse/(\w+)
+</code></pre>
+
+<p>正则表达式告诉Tornado匹配任何以字符串/reverse/开始并紧跟着一个或多个字母的路径。括号的含义是让Tornado保存匹配括号里面表达式的字符串，并将其作为请求方法的一个参数传递给RequestHandler类。让我们检查ReverseHandler的定义来看看它是如何工作的：</p>
+<pre><code class="python">class ReverseHandler(tornado.web.RequestHandler):
+    def get(self, input):
+        self.write(input[::-1])
+</code></pre>
+
+<p>你可以看到这里的get方法有一个额外的参数input。这个参数将包含匹配处理函数正则表达式第一个括号里的字符串。（如果正则表达式中有一系列额外的括号，匹配的字符串将被按照在正则表达式中出现的顺序作为额外的参数传递进来。）</p>
+<p>现在，让我们看一下WrapHandler的定义：</p>
+<pre><code class="python">class WrapHandler(tornado.web.RequestHandler):
+    def post(self):
+        text = self.get_argument('text')
+        width = self.get_argument('width', 40)
+        self.write(textwrap.fill(text, int(width)))
+</code></pre>
+
+<p>WrapHandler类处理匹配路径为<code>/wrap</code>的请求。这个处理函数定义了一个post方法，也就是说它接收HTTP的POST方法的请求。</p>
+<p>我们之前使用RequestHandler对象的get_argument方法来捕获请求查询字符串的的参数。同样，我们也可以使用相同的方法来获得POST请求传递的参数。（Tornado可以解析URLencoded和multipart结构的POST请求）。一旦我们从POST中获得了文本和宽度的参数，我们使用Python内建的textwrap模块来以指定的宽度装饰文本，并将结果字符串写回到HTTP响应中。</p>
+<h3>1.2.3 关于RequestHandler的更多知识</h3>
+<p>到目前为止，我们已经了解了RequestHandler对象的基础：如何从一个传入的HTTP请求中获得信息（使用get_argument和传入到get和post的参数）以及写HTTP响应（使用write方法）。除此之外，还有很多需要学习的，我们将在接下来的章节中进行讲解。同时，还有一些关于RequestHandler和Tornado如何使用它的只是需要记住。</p>
+<h4>1.2.3.1 HTTP方法</h4>
+<p>截止到目前讨论的例子，每个RequestHandler类都只定义了一个HTTP方法的行为。但是，在同一个处理函数中定义多个方法是可能的，并且是有用的。把概念相关的功能绑定到同一个类是一个很好的方法。比如，你可能会编写一个处理函数来处理数据库中某个特定ID的对象，既使用GET方法，也使用POST方法。想象GET方法来返回这个部件的信息，而POST方法在数据库中对这个ID的部件进行改变：</p>
+<pre><code class="python"># matched with (r&quot;/widget/(\d+)&quot;, WidgetHandler)
+class WidgetHandler(tornado.web.RequestHandler):
+    def get(self, widget_id):
+        widget = retrieve_from_db(widget_id)
+        self.write(widget.serialize())
+
+    def post(self, widget_id):
+        widget = retrieve_from_db(widget_id)
+        widget['foo'] = self.get_argument('foo')
+        save_to_db(widget)
+</code></pre>
+
+<p>我们到目前为止只是用了GET和POST方法，但Tornado支持任何合法的HTTP请求（GET、POST、PUT、DELETE、HEAD、OPTIONS）。你可以非常容易地定义上述任一种方法的行为，只需要在RequestHandler类中使用同名的方法。下面是另一个想象的例子，在这个例子中针对特定frob ID的HEAD请求只根据frob是否存在给出信息，而GET方法返回整个对象：</p>
+<pre><code class="python"># matched with (r&quot;/frob/(\d+)&quot;, FrobHandler)
+class FrobHandler(tornado.web.RequestHandler):
+    def head(self, frob_id):
+        frob = retrieve_from_db(frob_id)
+        if frob is not None:
+            self.set_status(200)
+        else:
+            self.set_status(404)
+    def get(self, frob_id):
+        frob = retrieve_from_db(frob_id)
+        self.write(frob.serialize())
+</code></pre>
+
+<h4>1.2.3.2 HTTP状态码</h4>
+<p>从上面的代码可以看出，你可以使用RequestHandler类的ser_status()方法显式地设置HTTP状态码。然而，你需要记住在某些情况下，Tornado会自动地设置HTTP状态码。下面是一个常用情况的纲要：</p>
+<h5>404 Not Found</h5>
+<p>Tornado会在HTTP请求的路径无法匹配任何RequestHandler类相对应的模式时返回404（Not Found）响应码。</p>
+<h5>400 Bad Request</h5>
+<p>如果你调用了一个没有默认值的get_argument函数，并且没有发现给定名称的参数，Tornado将自动返回一个400（Bad Request）响应码。</p>
+<h5>405 Method Not Allowed</h5>
+<p>如果传入的请求使用了RequestHandler中没有定义的HTTP方法（比如，一个POST请求，但是处理函数中只有定义了get方法），Tornado将返回一个405（Methos Not Allowed）响应码。</p>
+<h5>500 Internal Server Error</h5>
+<p>当程序遇到任何不能让其退出的错误时，Tornado将返回500（Internal Server Error）响应码。你代码中任何没有捕获的异常也会导致500响应码。</p>
+<h5>200 OK</h5>
+<p>如果响应成功，并且没有其他返回码被设置，Tornado将默认返回一个200（OK）响应码。</p>
+<p>当上述任何一种错误发生时，Tornado将默认向客户端发送一个包含状态码和错误信息的简短片段。如果你想使用自己的方法代替默认的错误响应，你可以重写write_error方法在你的RequestHandler类中。比如，代码清单1-3是hello.py示例添加了常规的错误消息的版本。</p>
+<p>文件名:hello-errors.py</p>
+<pre><code class="python">import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+
+from tornado.options import define, options
+define(&quot;port&quot;, default=80, help=&quot;run on the given port&quot;, type=int)
+
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        greeting = self.get_argument('greeting', 'Hello')
+        self.write(greeting + ', friendly user!')
+    def write_error(self, status_code, **kwargs):
+        self.write(&quot;Gosh darnit, user! You caused a %d error.&quot; % status_code)
+
+if __name__ == &quot;__main__&quot;:
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(handlers=[(r&quot;/&quot;, IndexHandler)])
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()
+</code></pre>
+
+<pre><code class="bash">python /share/lesson/tornado/hello-errors.py &amp;
+</code></pre>
+
+<p>当我们尝试一个POST请求时，会得到下面的响应。一般来说，我们应该得到Tornado默认的错误响应，但因为我们覆写了write_error，我们会得到不一样的东西：</p>
+<pre><code class="bash">curl -d foo=bar {host0.http_url}
+</code></pre>
+
+<h3>1.2.4 下一步</h3>
+<p>现在你已经明白了最基本的东西，我们渴望你想了解更多。在接下来的章节，我们将向你展示能够帮助你使用Tornado创建成熟的Web服务和应用的功能和技术。首先是：Tornado的模板系统。</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

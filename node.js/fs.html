@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Node.js文件系统 - FreeAIHub</title>
+    <meta name="keywords" content="同步和异步,示例文件准备：,打开一个文件,Flags,获取文件信息,写入文件,读取文件,关闭文件,截断文件,删除文件,创建目录,读取目录,删除目录示例,语法,参数,示例,语法,语法,示例,语法,参数,示例,语法">
+    <meta name="description" content="Node实现文件I/O使用标准的POSIX函数的简单包装。Node文件系统(FS)模块可以使用以下语法输入：在fs模块的每一个方法都有同步和异步形式。异步方法需要最后一个参数为完成回调函数和回调函数的第一个参数是错误的。它优选使用异步方法来代替同步方法，前者从来不阻止程序的执行，作为第二使用。在当前路径下生成名为input.txt的文本文件文件名:fs-readfile.js康康以下部分将提供有关">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/node.js/index.html">如何学习本课程</a></li>
+<li><a href="/node.js/intro.html"> Node.js 简介 </a></li>
+<li><a href="/node.js/setup.html"> node.js 环境安装配置 </a></li>
+<li><a href="/node.js/helloworld.html"> node.js HelloWorld! </a></li>
+<li><a href="/node.js/repl.html"> node.js交互式解释器REPL </a></li>
+<li><a href="/node.js/npm.html"> NPM使用介绍 </a></li>
+<li><a href="/node.js/globalobject.html"> Node.js 全局对象 </a></li>
+<li><a class="current"> Node.js 文件系统 </a></li>
+<li><a href="/node.js/buffer.html"> node.js 缓冲器 </a></li>
+<li><a href="/node.js/callback.html"> Node.js 回调函数 </a></li>
+<li><a href="/node.js/eventemitter.html"> node.js 事件发射器 </a></li>
+<li><a href="/node.js/eventloop.html"> node.js 事件循环 </a></li>
+<li><a href="/node.js/stream.html"> Node.js 流(Stream) </a></li>
+<li><a href="/node.js/webmodule.html"> node.js Web模块 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/node.js/globalobject.html class='prev_article'> Node.js 全局对象 </a>       |       下一篇：<a href=/node.js/buffer.html class='next_article'> node.js 缓冲器 </a>  >
+              
+<h1>Node.js文件系统</h1>
+<p>Node实现文件I/O使用标准的POSIX函数的简单包装。Node文件系统(FS)模块可以使用以下语法输入：</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;)
+</code></pre>
+
+<h2>同步和异步</h2>
+<p>在fs模块的每一个方法都有同步和异步形式。异步方法需要最后一个参数为完成回调函数和回调函数的第一个参数是错误的。它优选使用异步方法来代替同步方法，前者从来不阻止程序的执行，作为第二使用。</p>
+<h2>示例文件准备：</h2>
+<p>在当前路径下生成名为input.txt的文本文件</p>
+<pre><code class="bash">echo To go in is giving yourself learning content to teach the world in simple and easy way!!!!! &gt; input.txt
+</code></pre>
+
+<h3>示例</h3>
+<p>文件名:fs-readfile.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+// Asynchronous read
+fs.readFile('input.txt', function (err, data) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;Asynchronous read: &quot; + data.toString());
+});
+
+// Synchronous read
+var data = fs.readFileSync('input.txt');
+console.log(&quot;Synchronous read: &quot; + data.toString());
+
+console.log(&quot;Program Ended&quot;);
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-readfile.js
+</code></pre>
+
+<h2>打开一个文件</h2>
+<p>以下部分将提供有关主要文件I/ O方法很好的例子。</p>
+<h3>语法</h3>
+<p>以下是在异步模式下打开文件的方法的语法：</p>
+<pre><code class="js">fs.open(path, flags[, mode], callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li><strong>path</strong> - 这是文件名，包括路径字符串。</li>
+<li><strong>flags</strong> - 标志告知要打开的文件的行为。所有可能的值已经提及以下。</li>
+<li><strong>mode</strong> - 这将设置文件模式(许可和粘性位)，但前提是在创建该文件。它默认为0666，读取和写入。</li>
+<li><strong>callback</strong> - 这是回调函数得到两个参数(err, fd)。</li>
+</ul>
+<h2>Flags</h2>
+<p>标志进行读/写操作是：</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>打开文件进行读取。如果该文件不存在发生异常。</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>打开文件进行读取和写入。如果该文件不存在发生异常。</td>
+</tr>
+<tr>
+<td>rs</td>
+<td>打开文件，用于读取在同步方式。</td>
+</tr>
+<tr>
+<td>rs+</td>
+<td>打开文件进行读取和写入，告诉OS同步地打开它。对于'rs'有关使用此慎用见注解。</td>
+</tr>
+<tr>
+<td>w</td>
+<td>打开文件进行写入。该文件被创建（如果它不存在）或截断（如果它存在）。</td>
+</tr>
+<tr>
+<td>wx</td>
+<td>类似'w'，如果路径存在则失败。</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>打开文件进行读取和写入。该文件被创建（如果它不存在）或截断（如果它存在）。</td>
+</tr>
+<tr>
+<td>wx+</td>
+<td>类似“w+”，但如果路径存在则失败。</td>
+</tr>
+<tr>
+<td>a</td>
+<td>打开文件进行追加。如果它不存在，则创建该文件。</td>
+</tr>
+<tr>
+<td>ax</td>
+<td>类似“a”，但如果路径存在则失败。</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>打开文件进行读取和附加。如果它不存在，则创建该文件。</td>
+</tr>
+<tr>
+<td>ax+</td>
+<td>类似'a+'，但如果路径存在则失败。</td>
+</tr>
+</tbody>
+</table>
+<h3>示例</h3>
+<p>文件名fs-open.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+// Asynchronous - Opening File
+console.log(&quot;Going to open file!&quot;);
+fs.open('input.txt', 'r+', function(err, fd) {
+   if (err) {
+       return console.error(err);
+   }
+  console.log(&quot;File opened successfully!&quot;);     
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-open.js
+</code></pre>
+
+<h2>获取文件信息</h2>
+<h3>语法</h3>
+<p>下面是获取一个文件有关的信息的方法的语法：</p>
+<pre><code class="js">fs.stat(path, callback)
+</code></pre>
+
+<h3>语法</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li><strong>path</strong> - 这是有文件名，包括路径字符串。</li>
+<li><strong>callback</strong> - 这是回调函数得到两个参数(err, stats) ，其中统计数据是这是印在下面的例子中的fs.Stats类型的对象。</li>
+</ul>
+<p>除了这些在下面的例子中打印的重要属性， 还有可以用于检查文件类型的fs.Stats类可用的有用的方法。这些方法列于下表中。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stats.isFile()</td>
+<td>返回true，如果文件类型是一个简单的文件</td>
+</tr>
+<tr>
+<td>stats.isDirectory()</td>
+<td>返回true，如果文件类型是目录</td>
+</tr>
+<tr>
+<td>stats.isBlockDevice()</td>
+<td>返回true，如果文件类型是块设备</td>
+</tr>
+<tr>
+<td>stats.isCharacterDevice()</td>
+<td>返回true，如果文件类型是字符设备</td>
+</tr>
+<tr>
+<td>stats.isSymbolicLink()</td>
+<td>返回true，如果文件类型是符号连接</td>
+</tr>
+<tr>
+<td>stats.isFIFO()</td>
+<td>返回true，如果文件类型是FIFO</td>
+</tr>
+<tr>
+<td>stats.isSocket()</td>
+<td>返回true，如果文件类型是套接字</td>
+</tr>
+</tbody>
+</table>
+<h3>示例</h3>
+<p>文件名:file-stats.js</p>
+<pre><code>var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to get file info!&quot;);
+fs.stat('input.txt', function (err, stats) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(stats);
+   console.log(&quot;Got file info successfully!&quot;);
+
+   // Check file type
+   console.log(&quot;isFile ? &quot; + stats.isFile());
+   console.log(&quot;isDirectory ? &quot; + stats.isDirectory());    
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/file-stats.js
+</code></pre>
+
+<h2>写入文件</h2>
+<h3>语法</h3>
+<p>下面是写入到一个文件中的方法之一的语法：</p>
+<pre><code class="js">fs.writeFile(filename, data[, options], callback)
+</code></pre>
+
+<p>这种方法如果文件已经存在将会覆盖文件。如果想写入到现有的文件，那么你应该使用其他的方法。</p>
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li><strong>path</strong> - 这是有文件名，包括路径字符串</li>
+<li><strong>data</strong> - 这是字符串或缓冲将被写入到文件中</li>
+<li><strong>options</strong> - 第三个参数是一个对象，它将于{编码，模式，标志}。默认编码是UTF8，模式是八进制值0666和标志 'w'</li>
+<li><strong>callback</strong> - 这是回调函数获取一个参数err，并用于在发生任何写入错误返回错误。</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:file-write.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to write into existing file&quot;);
+fs.writeFile('input.txt', 'Simply Easy Learning!',  function(err) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;Data written successfully!&quot;);
+   console.log(&quot;Let's read newly written data&quot;);
+   fs.readFile('input.txt', function (err, data) {
+      if (err) {
+         return console.error(err);
+      }
+      console.log(&quot;Asynchronous read: &quot; + data.toString());
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/file-stats.js
+</code></pre>
+
+<h2>读取文件</h2>
+<h3>语法</h3>
+<p>以下是从文件读取的方法之一的语法：</p>
+<pre><code>fs.read(fd, buffer, offset, length, position, callback)
+</code></pre>
+
+<p>此方法将使用文件描述符来读取文件，如果你想直接使用文件名，那么应该使用其他可用的方法来读取文件。</p>
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li><strong>fd</strong> - 这是通过文件fs.open()方法返回的文件描述符</li>
+<li><strong>buffer</strong> - 这是该数据将被写入到缓冲器</li>
+<li><strong>offset</strong> - 这是偏移量在缓冲器开始写入处</li>
+<li><strong>length</strong> - 这是一个整数，指定要读取的字节的数目</li>
+<li><strong>position</strong> - 这是一个整数，指定从文件中开始读取。如果位置为null，数据将从当前文件位置读取。</li>
+<li><strong>callback</strong> - 这是回调函数获取三个参数，(err, bytesRead, buffer).</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:file-read.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+var buf = new Buffer(1024);
+
+console.log(&quot;Going to open an existing file&quot;);
+fs.open('input.txt', 'r+', function(err, fd) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;File opened successfully!&quot;);
+   console.log(&quot;Going to read the file&quot;);
+   fs.read(fd, buf, 0, buf.length, 0, function(err, bytes){
+      if (err){
+         console.log(err);
+      }
+      console.log(bytes + &quot; bytes read&quot;);
+
+      // Print only read bytes to avoid junk.
+      if(bytes &gt; 0){
+         console.log(buf.slice(0, bytes).toString());
+      }
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/file-read.js
+</code></pre>
+
+<h2>关闭文件</h2>
+<h3>语法</h3>
+<p>以下是关闭一个打开的文件的方法之一的语法：</p>
+<pre><code class="js">fs.close(fd, callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li><strong>fd</strong> - 这是通过文件fs.open()方法返回的文件描述符。</li>
+<li><strong>callback</strong> - 这是回调函数</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-close.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+var buf = new Buffer(1024);
+
+console.log(&quot;Going to open an existing file&quot;);
+fs.open('input.txt', 'r+', function(err, fd) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;File opened successfully!&quot;);
+   console.log(&quot;Going to read the file&quot;);
+   fs.read(fd, buf, 0, buf.length, 0, function(err, bytes){
+      if (err){
+         console.log(err);
+      }
+
+      // Print only read bytes to avoid junk.
+      if(bytes &gt; 0){
+         console.log(buf.slice(0, bytes).toString());
+      }
+
+      // Close the opened file.
+      fs.close(fd, function(err){
+         if (err){
+            console.log(err);
+         } 
+         console.log(&quot;File closed successfully.&quot;);
+      });
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-close.js
+</code></pre>
+
+<h2>截断文件</h2>
+<h3>语法</h3>
+<p>下面是要截断的打开文件的方法的语法：</p>
+<pre><code>fs.ftruncate(fd, len, callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li>fd - 这是通过文件fs.open()方法返回的文件描述符。</li>
+<li>len - 这是后的文件将被截断文件的长度。</li>
+<li>callback - 这是回调函数</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-ftruncate.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+var buf = new Buffer(1024);
+
+console.log(&quot;Going to open an existing file&quot;);
+fs.open('input.txt', 'r+', function(err, fd) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;File opened successfully!&quot;);
+   console.log(&quot;Going to truncate the file after 10 bytes&quot;);
+
+   // Truncate the opened file.
+   fs.ftruncate(fd, 10, function(err){
+      if (err){
+         console.log(err);
+      } 
+      console.log(&quot;File truncated successfully.&quot;);
+      console.log(&quot;Going to read the same file&quot;); 
+      fs.read(fd, buf, 0, buf.length, 0, function(err, bytes){
+         if (err){
+            console.log(err);
+         }
+
+         // Print only read bytes to avoid junk.
+         if(bytes &gt; 0){
+            console.log(buf.slice(0, bytes).toString());
+         }
+
+         // Close the opened file.
+         fs.close(fd, function(err){
+            if (err){
+               console.log(err);
+            } 
+            console.log(&quot;File closed successfully.&quot;);
+         });
+      });
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-ftruncate.js
+</code></pre>
+
+<h2>删除文件</h2>
+<h3>语法</h3>
+<p>以下是删除文件的方法的语法：</p>
+<pre><code class="js">fs.unlink(path, callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li>path - 这是文件名，包括路径</li>
+<li>callback - 这是回调函数</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-unlink.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to delete an existing file&quot;);
+fs.unlink('input.txt', function(err) {
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;File deleted successfully!&quot;);
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-unlink.js
+</code></pre>
+
+<h2>创建目录</h2>
+<h3>语法</h3>
+<p>下面是创建一个目录的方法的语法：</p>
+<pre><code class="js">fs.mkdir(path[, mode], callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li>path - 这是包括路径的目录名。</li>
+<li>mode - 这是要设置的目录权限。默认为0777。</li>
+<li>callback - 这是回调函数</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-mkdir.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to create directory /tmp/test&quot;);
+fs.mkdir('/tmp/test',function(err){
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;Directory created successfully!&quot;);
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-mkdir.js
+</code></pre>
+
+<p>验证:</p>
+<pre><code class="bash">ls /tmp
+</code></pre>
+
+<h2>读取目录</h2>
+<h3>语法</h3>
+<p>下面是读取一个目录的方法的语法：</p>
+<pre><code class="js">fs.readdir(path, callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li>path - 这是包括路径的目录名。</li>
+<li>callback - 这是回调函数得到两个参数（err, files），其中文件的文件名的目录中的数组排除 '.' 和  '..'.</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-readdir.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to read directory /tmp&quot;);
+fs.readdir(&quot;/tmp/&quot;,function(err, files){
+   if (err) {
+       return console.error(err);
+   }
+   files.forEach( function (file){
+       console.log( file );
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-readdir.js
+</code></pre>
+
+<h2>删除目录</h2>
+<h3>语法</h3>
+<p>下面是该方法删除目录的语法：</p>
+<pre><code class="js">fs.rmdir(path, callback)
+</code></pre>
+
+<h3>参数</h3>
+<p>下面是使用的参数的说明：</p>
+<ul>
+<li>path - 这是包括路径的目录名。</li>
+<li>callback - 这是回调函数</li>
+</ul>
+<h3>示例</h3>
+<p>文件名:fs-rmdir.js</p>
+<pre><code class="js">var fs = require(&quot;fs&quot;);
+
+console.log(&quot;Going to delete directory /tmp/test&quot;);
+fs.rmdir(&quot;/tmp/test&quot;,function(err){
+   if (err) {
+       return console.error(err);
+   }
+   console.log(&quot;Going to read directory /tmp&quot;);
+   fs.readdir(&quot;/tmp/&quot;,function(err, files){
+      if (err) {
+          return console.error(err);
+      }
+      files.forEach( function (file){
+          console.log( file );
+      });
+   });
+});
+</code></pre>
+
+<p>康康</p>
+<pre><code class="bash">node /share/lesson/node.js/fs-rmdir.js
+</code></pre>
+
+<p>验证</p>
+<pre><code class="bash">ls /tmp
+</code></pre>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

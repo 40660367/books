@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 数据类型(datatype) - FreeAIHub</title>
+    <meta name="keywords" content="Vectors 向量,Lists 列表,Matrices 矩阵,Arrays 数组,Factors 因子,Data Frames 数据帧">
+    <meta name="description" content="通常，在使用任何编程语言进行编程时，您需要使用各种变量来存储各种信息。 变量只是保留值的存储位置。 这意味着，当你创建一个变量，你必须在内存中保留一些空间来存储它们。您可能想存储各种数据类型的信息，如字符，宽字符，整数，浮点，双浮点，布尔等。基于变量的数据类型，操作系统分配内存并决定什么可以存储在保留内存中。与其他编程语言（如C中的C和java）相反，变量不会声明为某种数据类型。 变量分配有R对象">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a class="current"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/syntax.html class='prev_article'> R语言基础语法</a>       |       下一篇：<a href=/r/variable.html class='next_article'> R语言变量</a>  >
+              
+            <h1>R语言 数据类型(datatype)</h1>
+<p>通常，在使用任何编程语言进行编程时，您需要使用各种变量来存储各种信息。 变量只是保留值的存储位置。 这意味着，当你创建一个变量，你必须在内存中保留一些空间来存储它们。</p>
+<p>您可能想存储各种数据类型的信息，如字符，宽字符，整数，浮点，双浮点，布尔等。基于变量的数据类型，操作系统分配内存并决定什么可以存储在保留内存中。</p>
+<p>与其他编程语言（如C中的C和java）相反，变量不会声明为某种数据类型。 变量分配有R对象，R对象的数据类型变为变量的数据类型。尽管有很多类型的R对象，但经常使用的是：</p>
+<ul>
+<li>矢量</li>
+<li>列表</li>
+<li>矩阵</li>
+<li>数组</li>
+<li>因子</li>
+<li>数据帧</li>
+</ul>
+<p>这些对象中最简单的是向量对象，并且这些原子向量有六种数据类型，也称为六类向量。 其他R对象建立在原子向量之上。</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">示例</th>
+<th align="left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Logical（逻辑型）   TRUE, FALSE</td>
+<td align="left"><code>v &lt;- TRUE;print(class(v))</code></td>
+<td align="left">[1] "logical"</td>
+</tr>
+<tr>
+<td align="left">Numeric（数字）    12.3，5，999</td>
+<td align="left"><code>v &lt;- 23.5;print(class(v))</code></td>
+<td align="left">[1] "numeric"</td>
+</tr>
+<tr>
+<td align="left">Integer（整型）    2L，34L，0L</td>
+<td align="left"><code>v &lt;- 2L;print(class(v))</code></td>
+<td align="left">[1] "integer"</td>
+</tr>
+<tr>
+<td align="left">Complex（复合型）   3 + 2i</td>
+<td align="left"><code>v &lt;- 2+5i;print(class(v))</code></td>
+<td align="left">[1] "complex"</td>
+</tr>
+<tr>
+<td align="left">Character（字符）  'a',"god","TRUE",'23.4';</td>
+<td align="left"><code>v &lt;- "TRUE";print(class(v))</code></td>
+<td align="left">[1] "character"</td>
+</tr>
+<tr>
+<td align="left">Raw(原型)"Hello"被存储为 48 65 6c 6c 6f</td>
+<td align="left"><code>v &lt;- charToRaw("Hello");print(class(v))</code></td>
+<td align="left">[1] "raw"</td>
+</tr>
+</tbody>
+</table>
+<p>在R编程中，非常基本的数据类型是称为向量的R对象，其保存如上所示的不同类的元素。 请注意，在R中，类的数量不仅限于上述六种类型。</p>
+<p>例如，我们可以使用许多原子向量并创建一个数组，其类将成为数组。</p>
+<h2>Vectors 向量</h2>
+<p>当你想用多个元素创建向量时，你应该使用c()函数，这意味着将元素组合成一个向量。</p>
+<pre><code class="R"># Create a vector.
+apple &lt;- c('red','green',&quot;yellow&quot;)
+print(apple)
+
+# Get the class of the vector.
+print(class(apple))
+</code></pre>
+
+<h2>Lists 列表</h2>
+<p>列表是一个R对象，它可以在其中包含许多不同类型的元素，如向量，函数甚至其中的另一个列表。</p>
+<pre><code class="R"># Create a list.
+list1 &lt;- list(c(2,5,3),21.3,sin)
+
+# Print the list.
+print(list1)
+</code></pre>
+
+<h2>Matrices 矩阵</h2>
+<p>矩阵是二维矩形数据集。 它可以使用矩阵函数的向量输入创建。</p>
+<pre><code class="R"># Create a matrix.
+M = matrix( c('a','a','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
+print(M)
+</code></pre>
+
+<h2>Arrays 数组</h2>
+<p>虽然矩阵被限制为二维，但阵列可以具有任何数量的维度。 数组函数使用一个dim属性创建所需的维数。 在下面的例子中，我们创建了一个包含两个元素的数组，每个元素为3x3个矩阵。</p>
+<pre><code class="R"># Create an array.
+a &lt;- array(c('green','yellow'),dim = c(3,3,2))
+print(a)
+</code></pre>
+
+<h2>Factors 因子</h2>
+<p>因子是使用向量创建的r对象。 它将向量与向量中元素的不同值一起存储为标签。 标签总是字符，不管它在输入向量中是数字还是字符或布尔等。 它们在统计建模中非常有用。 使用<code>factor()</code>函数创建因子。<code>nlevels()</code>函数给出级别计数。</p>
+<pre><code class="R"># Create a vector.
+apple_colors &lt;- c('green','green','yellow','red','red','red','green')
+
+# Create a factor object.
+factor_apple &lt;- factor(apple_colors)
+
+# Print the factor.
+print(factor_apple)
+print(nlevels(factor_apple))
+</code></pre>
+
+<h2>Data Frames 数据帧</h2>
+<p>数据帧是表格数据对象。 与数据帧中的矩阵不同，每列可以包含不同的数据模式。 第一列可以是数字，而第二列可以是字符，第三列可以是逻辑的。 它是等长度的向量的列表。 使用<code>data.frame()</code>函数创建数据帧。</p>
+<pre><code class="R"># Create the data frame.
+BMI &lt;-  data.frame(
+   gender = c(&quot;Male&quot;, &quot;Male&quot;,&quot;Female&quot;),
+   height = c(152, 171.5, 165),
+   weight = c(81,93, 78),
+   Age = c(42,38,26)
+)
+print(BMI)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

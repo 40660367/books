@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Shell 基本运算符 - FreeAIHub</title>
+    <meta name="keywords" content="expr命令,算术运算符：,关系运算符：,布尔运算：,字符串运算符：,文件测试操作：">
+    <meta name="description" content="有各种不同的运算符shell都支持。本教程是基于默认shell（Bourne），所以我们要涵盖所有重要的Bourne Shell运算符。有以下的运算符，我们将要讨论的：Bourne shell的最初并没有任何机制来执行简单的算术，但它使用外部程序，无论是awk或必须简单的程序expr。下面是简单的例子，把两个数相加：文件名: expr.sh康康算术运算符有以下Bourne Shell支持。假设变量">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/shell/index.html"> 如何学习本课程 </a></li>
+<li><a href="/shell/intro.html"> Shell 简介 </a></li>
+<li><a href="/shell/setup.html"> Shell 安装环境 </a></li>
+<li><a href="/shell/variable.html"> Shell 变量 </a></li>
+<li><a href="/shell/variable-special.html"> Shell 特殊变量 </a></li>
+<li><a href="/shell/array.html"> Shell 数组 </a></li>
+<li><a class="current"> Shell 运算符 </a></li>
+<li><a href="/shell/logic.html"> Shell 逻辑控制 </a></li>
+<li><a href="/shell/loop.html"> Shell 循环 </a></li>
+<li><a href="/shell/loopcontrol.html"> Shell 循环控制 </a></li>
+<li><a href="/shell/loop-while.html"> Shell 循环-while </a></li>
+<li><a href="/shell/loop-for.html"> Shell 循环-for </a></li>
+<li><a href="/shell/loop-until.html"> Shell 循环-until </a></li>
+<li><a href="/shell/loop-select.html"> Shell 循环-select </a></li>
+<li><a href="/shell/function.html"> Shell 函数 </a></li>
+<li><a href="/shell/quoting.html"> Shell 引用 </a></li>
+<li><a href="/shell/substitution.html"> Shell 替换 </a></li>
+<li><a href="/shell/io-redirection.html"> Shell 输入输出重定向 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/shell/array.html class='prev_article'> Shell 数组 </a>       |       下一篇：<a href=/shell/logic.html class='next_article'> Shell 逻辑控制 </a>  >
+              
+<h1>Shell 基本运算符</h1>
+<p>有各种不同的运算符shell都支持。本教程是基于默认shell（Bourne），所以我们要涵盖所有重要的Bourne Shell运算符。</p>
+<p>有以下的运算符，我们将要讨论的：</p>
+<ul>
+<li>算术运算符。</li>
+<li>关系运算符。</li>
+<li>布尔运算符。</li>
+<li>字符串运算符。</li>
+<li>文件测试操作。</li>
+</ul>
+<h2>expr命令</h2>
+<p>Bourne shell的最初并没有任何机制来执行简单的算术，但它使用外部程序，无论是awk或必须简单的程序expr。</p>
+<p>下面是简单的例子，把两个数相加：</p>
+<p>文件名: expr.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+val=&quot;1 + 1&quot;
+echo &quot;Total value : $val&quot;
+
+var2=`expr 1+1`
+echo &quot;Total value : $var2&quot;
+
+var3=`expr 1 + 1`
+echo &quot;Total value : $var3&quot;
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/expr.sh
+</code></pre>
+
+<p>康康</p>
+<ul>
+<li>运算符和表达式之间必须有空格，例如1+1是不正确的，因为它应该写成1 + 1。</li>
+<li>``，称为倒逗号之间应包含完整的表达。</li>
+</ul>
+<h2>算术运算符：</h2>
+<p>算术运算符有以下Bourne Shell支持。</p>
+<p>假设变量a=10,变量b=20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>Addition - Adds values on either side of the operator</td>
+<td><code>expr $a + $b</code> will give 30</td>
+</tr>
+<tr>
+<td>-</td>
+<td>Subtraction - Subtracts right hand operand from left hand operand</td>
+<td><code>expr $a - $b</code> will give -10</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Multiplication - Multiplies values on either side of the operator</td>
+<td><code>expr $a * $b</code> will give 200</td>
+</tr>
+<tr>
+<td>/</td>
+<td>Division - Divides left hand operand by right hand operand</td>
+<td><code>expr $b / $a</code> will give 2</td>
+</tr>
+<tr>
+<td>%</td>
+<td>Modulus - Divides left hand operand by right hand operand and returns remainder</td>
+<td><code>expr $b % $a</code> will give 0</td>
+</tr>
+<tr>
+<td>=</td>
+<td>Assignment - Assign right operand in left operand</td>
+<td>a=$b would assign value of b into a</td>
+</tr>
+<tr>
+<td>==</td>
+<td>Equality - Compares two numbers, if both are same then returns true.</td>
+<td>[ $a == $b ] would return false.</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>Not Equality - Compares two numbers, if both are different then returns true.</td>
+<td>[ $a != $b ] would return true.</td>
+</tr>
+</tbody>
+</table>
+<p>这是非常重要的，这里要注意，所有的条件式将放在方括号内，他们身边有一个空格，例如 [ $a == $b ]是正确的，为[$a==$b] 是不正确的。</p>
+<p>所有的算术计算，使用长整数。</p>
+<p><strong>示例：</strong></p>
+<p>文件名:operator-arithmetic.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+a=10
+b=20
+val=`expr $a + $b`
+echo &quot;a + b : $val&quot;
+
+val=`expr $a - $b`
+echo &quot;a - b : $val&quot;
+
+val=`expr $a * $b`
+echo &quot;a * b : $val&quot;
+
+val=`expr $b / $a`
+echo &quot;b / a : $val&quot;
+
+val=`expr $b % $a`
+echo &quot;b % a : $val&quot;
+
+if [ $a == $b ]
+then
+   echo &quot;a is equal to b&quot;
+fi
+
+if [ $a != $b ]
+then
+   echo &quot;a is not equal to b&quot;
+fi
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/operator-arithmetic.sh
+</code></pre>
+
+<p>康康</p>
+<h2>关系运算符：</h2>
+<p>Bourne Shell的支持，关系运算符的具体数值。这些运算符不能使用字符串值，除非它们的值是数字。</p>
+<p>例如，运算符将努力检查10和20之间的关系，以及在“10”和“20”，但不是“10”和“21”之间。</p>
+<p>假设变量a=10,变量b=20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td>Checks if the value of two operands are equal or not, if yes then condition becomes true.</td>
+<td>[ $a -eq $b ] is not true.</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>Checks if the value of two operands are equal or not, if values are not equal then condition becomes true.</td>
+<td>[ $a -ne $b ] is true.</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>Checks if the value of left operand is greater than the value of right operand, if yes then condition becomes true.</td>
+<td>[ $a -gt $b ] is not true.</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>Checks if the value of left operand is less than the value of right operand, if yes then condition becomes true.</td>
+<td>[ $a -lt $b ] is true.</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>Checks if the value of left operand is greater than or equal to the value of right operand, if yes then condition becomes true.</td>
+<td>[ $a -ge $b ] is not true.</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>Checks if the value of left operand is less than or equal to the value of right operand, if yes then condition becomes true.</td>
+<td>[ $a -le $b ] is true.</td>
+</tr>
+</tbody>
+</table>
+<p>这里要注意，所有的条件式将放在方括号内，他们周围有一个空格，这是非常重要的，例如 [ $a &lt;= $b ]是正确的， [$a &lt;= $b]是不正确的。</p>
+<p>示例：</p>
+<p>文件名：operator-relational.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+a=10
+b=20
+
+if [ $a -eq $b ]
+then
+   echo &quot;$a -eq $b : a is equal to b&quot;
+else
+   echo &quot;$a -eq $b: a is not equal to b&quot;
+fi
+
+if [ $a -ne $b ]
+then
+   echo &quot;$a -ne $b: a is not equal to b&quot;
+else
+   echo &quot;$a -ne $b : a is equal to b&quot;
+fi
+
+if [ $a -gt $b ]
+then
+   echo &quot;$a -gt $b: a is greater than b&quot;
+else
+   echo &quot;$a -gt $b: a is not greater than b&quot;
+fi
+
+if [ $a -lt $b ]
+then
+   echo &quot;$a -lt $b: a is less than b&quot;
+else
+   echo &quot;$a -lt $b: a is not less than b&quot;
+fi
+
+if [ $a -ge $b ]
+then
+   echo &quot;$a -ge $b: a is greater or  equal to b&quot;
+else
+   echo &quot;$a -ge $b: a is not greater or equal to b&quot;
+fi
+
+if [ $a -le $b ]
+then
+   echo &quot;$a -le $b: a is less or  equal to b&quot;
+else
+   echo &quot;$a -le $b: a is not less or equal to b&quot;
+fi
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/operator-relational.sh
+</code></pre>
+
+<p>康康</p>
+<h2>布尔运算：</h2>
+<p>布尔运算符有以下Bourne Shell的支持。</p>
+<p>假设变量一个变量b=10，然后变量b=20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>This is logical negation. This inverts a true condition into false and vice versa.</td>
+<td>[ ! false ] is true.</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>This is logical OR. If one of the operands is true then condition would be true.</td>
+<td>[ $a -lt 20 -o $b -gt 100 ] is true.</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>This is logical AND. If both the operands are true then condition would be true otherwise it would be false.</td>
+<td>[ $a -lt 20 -a $b -gt 100 ] is false.</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<p>文件名：operator-boolean.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+a=10
+b=20
+
+if [ $a != $b ]
+then
+   echo &quot;$a != $b : a is not equal to b&quot;
+else
+   echo &quot;$a != $b: a is equal to b&quot;
+fi
+
+if [ $a -lt 100 -a $b -gt 15 ]
+then
+   echo &quot;$a -lt 100 -a $b -gt 15 : returns true&quot;
+else
+   echo &quot;$a -lt 100 -a $b -gt 15 : returns false&quot;
+fi
+
+if [ $a -lt 100 -o $b -gt 100 ]
+then
+   echo &quot;$a -lt 100 -o $b -gt 100 : returns true&quot;
+else
+   echo &quot;$a -lt 100 -o $b -gt 100 : returns false&quot;
+fi
+
+if [ $a -lt 5 -o $b -gt 100 ]
+then
+   echo &quot;$a -lt 100 -o $b -gt 100 : returns true&quot;
+else
+   echo &quot;$a -lt 100 -o $b -gt 100 : returns false&quot;
+fi
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/operator-boolean.sh
+</code></pre>
+
+<p>康康</p>
+<h2>字符串运算符：</h2>
+<p>有下列字符串运算由Bourne Shell支持。</p>
+<p>假设变量a=“abc”和变量b=“efg”：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>Checks if the value of two operands are equal or not, if yes then condition becomes true.</td>
+<td>[ $a = $b ] is not true.</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>Checks if the value of two operands are equal or not, if values are not equal then condition becomes true.</td>
+<td>[ $a != $b ] is true.</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>Checks if the given string operand size is zero. If it is zero length then it returns true.</td>
+<td>[ -z $a ] is not true.</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>Checks if the given string operand size is non-zero. If it is non-zero length then it returns true.</td>
+<td>[ -z $a ] is not false.</td>
+</tr>
+<tr>
+<td>str</td>
+<td>Check if str is not the empty string. If it is empty then it returns false.</td>
+<td>[ $a ] is not false.</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<p>文件名：operator-string.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+a=&quot;abc&quot;
+b=&quot;efg&quot;
+
+if [ $a = $b ]
+then
+   echo &quot;$a = $b : a is equal to b&quot;
+else
+   echo &quot;$a = $b: a is not equal to b&quot;
+fi
+
+if [ $a != $b ]
+then
+   echo &quot;$a != $b : a is not equal to b&quot;
+else
+   echo &quot;$a != $b: a is equal to b&quot;
+fi
+
+if [ -z $a ]
+then
+   echo &quot;-z $a : string length is zero&quot;
+else
+   echo &quot;-z $a : string length is not zero&quot;
+fi
+
+if [ -n $a ]
+then
+   echo &quot;-n $a : string length is not zero&quot;
+else
+   echo &quot;-n $a : string length is zero&quot;
+fi
+
+if [ $a ]
+then
+   echo &quot;$a : string is not empty&quot;
+else
+   echo &quot;$a : string is empty&quot;
+fi
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/operator-string.sh
+</code></pre>
+
+<p>康康</p>
+<p>注意：运算符和表达式之间必须有空格，例如2+2是不正确的，因为它应该写成2 + 2.</p>
+<h2>文件测试操作：</h2>
+<p>有以下是操作测试Unix文件相关联的各种属性。</p>
+<p>假设一个的变量文件保存现有文件名“test”，其大小为100字节，有读，写和执行权限：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b file</td>
+<td>Checks if file is a block special file if yes then condition becomes true.</td>
+<td>[ -b $file ] is false.</td>
+</tr>
+<tr>
+<td>-c file</td>
+<td>Checks if file is a character special file if yes then condition becomes true.</td>
+<td>[ -b $file ] is false.</td>
+</tr>
+<tr>
+<td>-d file</td>
+<td>Check if file is a directory if yes then condition becomes true.</td>
+<td>[ -d $file ] is not true.</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td>Check if file is an ordinary file as opposed to a directory or special file if yes then condition becomes true.</td>
+<td>[ -f $file ] is true.</td>
+</tr>
+<tr>
+<td>-g file</td>
+<td>Checks if file has its set group ID (SGID) bit set if yes then condition becomes true.</td>
+<td>[ -g $file ] is false.</td>
+</tr>
+<tr>
+<td>-k file</td>
+<td>Checks if file has its sticky bit set if yes then condition becomes true.</td>
+<td>[ -k $file ] is false.</td>
+</tr>
+<tr>
+<td>-p file</td>
+<td>Checks if file is a named pipe if yes then condition becomes true.</td>
+<td>[ -p $file ] is false.</td>
+</tr>
+<tr>
+<td>-t file</td>
+<td>Checks if file descriptor is open and associated with a terminal if yes then condition becomes true.</td>
+<td>[ -t $file ] is false.</td>
+</tr>
+<tr>
+<td>-u file</td>
+<td>Checks if file has its set user id (SUID) bit set if yes then condition becomes true.</td>
+<td>[ -u $file ] is false.</td>
+</tr>
+<tr>
+<td>-r file</td>
+<td>Checks if file is readable if yes then condition becomes true.</td>
+<td>[ -r $file ] is true.</td>
+</tr>
+<tr>
+<td>-w file</td>
+<td>Check if file is writable if yes then condition becomes true.</td>
+<td>[ -w $file ] is true.</td>
+</tr>
+<tr>
+<td>-x file</td>
+<td>Check if file is execute if yes then condition becomes true.</td>
+<td>[ -x $file ] is true.</td>
+</tr>
+<tr>
+<td>-s file</td>
+<td>Check if file has size greater than 0 if yes then condition becomes true.</td>
+<td>[ -s $file ] is true.</td>
+</tr>
+<tr>
+<td>-e file</td>
+<td>Check if file exists. Is true even if file is a directory but exists.</td>
+<td>[ -e $file ] is true.</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<p>文件名：operator-file.sh</p>
+<pre><code class="shell">#!/bin/sh
+
+file=&quot;/share/lesson/shell/operator-file.sh&quot;
+
+if [ -r $file ]
+then
+   echo &quot;File has read access&quot;
+else
+   echo &quot;File does not have read access&quot;
+fi
+
+if [ -w $file ]
+then
+   echo &quot;File has write permission&quot;
+else
+   echo &quot;File does not have write permission&quot;
+fi
+
+if [ -x $file ]
+then
+   echo &quot;File has execute permission&quot;
+else
+   echo &quot;File does not have execute permission&quot;
+fi
+
+if [ -f $file ]
+then
+   echo &quot;File is an ordinary file&quot;
+else
+   echo &quot;This is sepcial file&quot;
+fi
+
+if [ -d $file ]
+then
+   echo &quot;File is a directory&quot;
+else
+   echo &quot;This is not a directory&quot;
+fi
+
+if [ -s $file ]
+then
+   echo &quot;File size is zero&quot;
+else
+   echo &quot;File size is not zero&quot;
+fi
+
+if [ -e $file ]
+then
+   echo &quot;File exists&quot;
+else
+   echo &quot;File does not exist&quot;
+fi
+</code></pre>
+
+<pre><code class="bash">bash /share/lesson/shell/operator-file.sh
+</code></pre>
+
+<p>与使用stat命令查看该文件信息，两者进行对比</p>
+<pre><code class="bash">stat /share/lesson/shell/operator-file.sh
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

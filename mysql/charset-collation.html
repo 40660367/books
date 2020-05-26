@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MySQL 字符集与排序规则 - FreeAIHub</title>
+    <meta name="keywords" content="MySQL字符集简介,转换不同的字符集,MySQL排序规则简介,设置字符集和排序规则,设置字符集和排序规则的示例">
+    <meta name="description" content="在本教程中，您将了解MySQL中的字符集。 在本教程之后，您将了解如何获取MySQL中的所有字符集，如何在字符集之间转换字符串以及如何为客户端连接配置正确的字符集。了解MySQL排序规则以及如何设置MySQL服务器，数据库，表和列的字符集和排序规则。MySQL字符集是一组在字符串中合法的字符。 例如，我们有一个从到的字母。要为每个字母分配一个数字，例如，等。字母是一个符号，数字与字母相关联就是一种">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/mysql/index.html">如何学习本课程</a></li>
+<li><a href="/mysql/intro.html"> MySQL简介 </a></li>
+<li><a href="/mysql/setup.html"> MySQL 安装及环境配置 </a></li>
+<li><a href="/mysql/datatype.html">MySQL 数据类型</a> </li>
+<li><a href="/mysql/function.html">MySQL 函数</a> </li>
+
+<li>管理数据库与表</li>
+<li><a href="/mysql/database-create.html"> MySQL 创建数据库 </a></li>
+<li><a href="/mysql/database-delete.html"> MySQL 删除数据库 </a></li>
+<li><a href="/mysql/table-create.html"> MySQL 创建表 </a></li>
+<li><a href="/mysql/table-delete.html"> MySQL 删除表 </a></li>
+<li><a href="/mysql/table-truncate.html"> MySQL 清空表 </a></li>
+<li><a href="/mysql/table-temporary.html"> MySQL 临时表</a></li>
+<li><a href="/mysql/table-rename.html"> MySQL 重命名表</a></li>
+<li><a href="/mysql/table-addcolumn.html"> MySQL 对表添加列</a></li>
+<li><a href="/mysql/table-dropcolumn.html"> MySQL 对表删除列</a></li>
+
+<li>修改表数据</li>
+<li><a href="/mysql/insert.html"> MySQL  INSERT</a></li>
+<li><a href="/mysql/update.html"> MySQL  UPDATE </a></li>
+<li><a href="/mysql/delete.html"> MySQL  DELETE </a></li>
+<li><a href="/mysql/join-update.html"> MySQL UPDATE JOIN</a></li>
+<li><a href="/mysql/join-delete.html"> MySQL DELETE JOIN</a></li>
+<li><a href="/mysql/on-delete-cascade.html"> MySQL ON DELETE CASCADE</a></li>
+<li><a href="/mysql/replace.html"> MySQL REPLACE</a></li>
+
+
+<li>表约束</li>
+<li><a href="/mysql/primarykey.html"> MySQL  主键约束 </a></li>
+<li><a href="/mysql/unique.html"> MySQL  唯一约束 </a></li>
+<li><a href="/mysql/foreignkey.html"> MySQL  外键约束 </a></li>
+
+
+<li>查询数据</li>
+<li><a href="/mysql/select.html"> MySQL SELECT </a></li>
+<li><a href="/mysql/distinct.html"> MySQL DISTINCT </a></li>
+
+
+<li>过滤数据</li>
+<li><a href="/mysql/and.html"> MySQL 和运算AND </a></li>
+<li><a href="/mysql/or.html"> MySQL 或运算OR </a></li>
+<li><a href="/mysql/where.html"> MySQL WHERE子句 </a></li>
+<li><a href="/mysql/between.html"> MySQL BETWEEN </a></li>
+<li><a href="/mysql/like.html"> MySQL LIKE </a></li>
+<li><a href="/mysql/in.html"> MySQL IN </a></li>
+<li><a href="/mysql/limit.html"> MySQL LIMIT </a></li>
+<li><a href="/mysql/regexp.html"> MySQL 基于正则表达式过滤 </a></li>
+
+
+<li>数据分组</li>
+<li><a href="/mysql/groupby.html"> MySQL 分组Groupby </a></li>
+<li><a href="/mysql/having.html"> MySQL 分组过滤Having </a></li>
+
+
+<li>排序数据</li>
+<li><a href="/mysql/orderby.html"> MySQL排序ORDER BY</a></li>
+<li><a href="/mysql/orderby-nature.html"> MySQL自然排序 </a></li>
+
+
+<li>子查询</li>
+<li><a href="/mysql/subquery.html"> MySQL 子查询SubQuery </a></li>
+<li><a href="/mysql/table-derived.html"> MySQL 派生表 </a></li>
+
+<li>连接查询</li>
+<li><a href="/mysql/alias.html">MySQL 别名ALIAS</a> </li>
+<li><a href="/mysql/join-inner.html">MySQL 内连接INNER JOIN</a> </li>
+<li><a href="/mysql/join-left.html">MySQL 左连接LEFT JOIN</a> </li>
+<li><a href="/mysql/join-cross.html">MySQL 交叉连接CROSS JOIN</a> </li>
+<li><a href="/mysql/join-self.html">MySQL 自联接SELF JOIN</a> </li>
+
+<li>用户</li>
+<li><a href="/mysql/user-create.html">MySQL 创建用户</a> </li>
+<li><a href="/mysql/grant.html">MySQL 用户权限</a> </li>
+
+<li>MySQL高级</li>
+<li><a class="current">MySQL 字符集与排序规则</a> </li>
+<li><a href="/mysql/indexing.html">MySQL 索引INDEX</a> </li>
+<li><a href="/mysql/view.html">MySQL 视图VIEW</a> </li>
+<li><a href="/mysql/trigger.html">MySQL 触发器TIRGGER</a> </li>
+<li><a href="/mysql/storage-engine.html">MySQL 存储引擎</a> </li>
+<li><a href="/mysql/tx.html"> MySQL 事务 </a></li>
+<li><a href="/mysql/tx-tablelock.html"> MySQL 表锁 </a></li>
+<li><a href="/mysql/fts.html">MySQL 自然语言全文搜索</a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/mysql/grant.html class='prev_article'>MySQL 用户权限</a>       |       下一篇：<a href=/mysql/indexing.html class='next_article'>MySQL 索引INDEX</a>  >
+              
+<h1>MySQL 字符集与排序规则</h1>
+<p>在本教程中，您将了解MySQL中的字符集。 在本教程之后，您将了解如何获取MySQL中的所有字符集，如何在字符集之间转换字符串以及如何为客户端连接配置正确的字符集。了解MySQL排序规则以及如何设置MySQL服务器，数据库，表和列的字符集和排序规则。</p>
+<h2>MySQL字符集简介</h2>
+<p>MySQL字符集是一组在字符串中合法的字符。 例如，我们有一个从<code>a</code>到<code>z</code>的字母。要为每个字母分配一个数字，例如<code>a = 1</code>，<code>b = 2</code>等。字母<code>a</code>是一个符号，数字<code>1</code>与字母<code>a</code>相关联就是一种编码。 从<code>a</code>到<code>z</code>的所有字母和它们相应的编码的组合是一个字符集。</p>
+<p>每个字符集具有一个或多个排序规则，其定义用于比较字符集中的字符的一组规则。 </p>
+<p>MySQL支持各种字符集，允许您几乎可将每个字符存储在字符串中。 要获取MySQL数据库服务器中的所有可用字符集，请使用<code>SHOW CHARACTER SET</code>语句如下：</p>
+<pre><code class="sql">SHOW CHARACTER SET;
+</code></pre>
+
+<p>MySQL中的默认字符集是<code>latin1</code>。如果要在单列中存储多种语言的字符，可以使用<code>Unicode</code>字符集，即<code>utf8</code>或<code>ucs2</code>。</p>
+<p><code>Maxlen</code>列中的值指定字符集中的字符持有的字节数。一些字符集包含单字节字符，例如：<code>latin1</code>，<code>latin2</code>，<code>cp850</code>等，而其他字符集包含多字节字符。</p>
+<p>MySQL提供了<code>LENGTH</code>函数来获取字节的长度，以字节为单位，<code>CHAR_LENGTH</code>函数用于获取字符串的长度。如果字符串包含多字节字符，则<code>LENGTH</code>函数的结果大于<code>CHAR_LENGTH()</code>函数的结果。 请参阅以下示例：</p>
+<pre><code class="sql">SET @str = CONVERT('我的MySQL' USING ucs2);
+
+SELECT LENGTH(@str), CHAR_LENGTH(@str);
+</code></pre>
+
+<p><code>CONVERT</code>函数将字符串转换为指定的字符集。在这个例子中，它将MySQL字符集字符串的字符集转换为<code>ucs2</code>。 因为<code>ucs2</code>字符集包含<code>2</code>个字节的字符，因此<code>@str</code>字符串的长度(以字节为单位)大于其字符长度。</p>
+<p>请注意，某些字符集包含多字节字符，但其字符串可能只包含单字节字符，例如<code>utf8</code>，如以下语句所示：</p>
+<pre><code class="sql">SET @str = CONVERT('MySQL Character Set' USING utf8);
+SELECT LENGTH(@str), CHAR_LENGTH(@str);
+</code></pre>
+
+<p>但是，如果<code>utf8</code>字符串包含特殊字符，例如<code>ü</code>在<code>pingüino</code>字符串中; 其字节长度不同，请参见以下示例：</p>
+<pre><code class="sql">SET @str = CONVERT('pingüino' USING utf8);
+SELECT LENGTH(@str), CHAR_LENGTH(@str);
+</code></pre>
+
+<p>一个使用中文的示例 - </p>
+<pre><code class="sql">SET @str = CONVERT('中文示例' USING utf8);
+SELECT LENGTH(@str), CHAR_LENGTH(@str);
+SQL
+</code></pre>
+
+<p>在使用<code>utf8</code>字符集编码时，中文字占<code>3</code>个长度。</p>
+<h2>转换不同的字符集</h2>
+<p>MySQL提供了两个函数，允许您在不同字符集之间转换字符串：<code>CONVERT</code>和<code>CAST</code>。 在上面的例子中，我们多次使用了<code>CONVERT</code>函数。</p>
+<p><strong><code>CONVERT</code>函数的语法如下：</strong></p>
+<pre><code class="sql">CONVERT(expression USING character_set_name)
+</code></pre>
+
+<p>CAST函数类似于<code>CONVERT</code>函数。它将字符串转换为不同的字符集：</p>
+<pre><code class="sql">CAST(string AS character_type CHARACTER SET character_set_name)
+</code></pre>
+
+<p>看一下使用<code>CAST</code>函数的以下示例：</p>
+<pre><code class="sql">SELECT CAST(_latin1'MySQL character set' AS CHAR CHARACTER SET utf8);
+</code></pre>
+
+<h2>MySQL排序规则简介</h2>
+<p>MySQL排序规则是用于比较特定字符集中的字符的一组规则。 MySQL中的每个字符集可以有多个排序规则，并且至少具有一个默认排序规则。两个字符集不能具有相同的归类。</p>
+<p>MySQL提供了<code>SHOW CHARACTER SET</code>语句，查看字符集的默认排序规则。</p>
+<p>默认排序规则列的值指定字符集的默认排序规则。</p>
+<p>按照惯例，字符集的排序规则以字符集名称开头，以<code>_ci</code>(不区分大小写)<code>_cs</code>(区分大小写)或<code>_bin</code>(二进制文件)结尾。</p>
+<p>要获取给定字符集的所有排序规则，请使用<code>SHOW COLLATION</code>语句如下：</p>
+<pre><code class="sql">SHOW COLLATION LIKE 'character_set_name%';
+</code></pre>
+
+<p>例如，要获取<code>latin1</code>字符集的所有排序规则，请使用以下语句：</p>
+<pre><code class="sql">SHOW COLLATION LIKE 'latin1%';
+</code></pre>
+
+<p>执行上面语句，得到用于<code>latin1</code>字符集的MySQL排序规则，如下结果 - </p>
+<pre><code class="sql">SHOW COLLATION LIKE 'latin1%';
+</code></pre>
+
+<p>如上所述，每个字符集都具有默认排序规则，例如<code>latin1_swedish_ci</code>是<code>latin1</code>字符集的默认排序规则。</p>
+<h2>设置字符集和排序规则</h2>
+<p>MySQL允许您在四个级别指定字符集和排序规则：服务器，数据库，表和列。</p>
+<p><strong>在服务器级别设置字符集和排序规则</strong></p>
+<p>注意MySQL使用<code>latin1</code>作为默认字符集，因此，其默认排序规则为<code>latin1_swedish_ci</code>。 您可以在服务器启动时更改这些设置。</p>
+<p>如果在服务器启动时仅指定一个字符集，MySQL将使用字符集的默认排序规则。 如果您明确指定了一个字符集和排序规则，MySQL将使用数据库服务器中的字符集和排序规则来创建的所有数据库。</p>
+<p>以下语句通过命令行启动并设置服务器使用<code>utf8</code>字符集和<code>utf8_unicode_cs</code>排序规则：</p>
+<pre><code class="bash">mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+</code></pre>
+
+<p><strong>在数据库级别设置字符集和排序规则</strong></p>
+<p>创建数据库时，如果不指定其字符集和排序规则，MySQL将使用数据库的服务器的默认字符集和排序规则。</p>
+<p>可以使用CREATE DATABASE或ALTER DATABASE语句来覆盖数据库级的默认设置，如下所示：</p>
+<pre><code class="sql">CREATE DATABASE database_name
+CHARACTER SET character_set_name
+COLLATE collation_name
+
+-- 修改排序规则
+ALTER  DATABASE database_name
+CHARACTER SET character_set_name
+COLLATE collation_name
+</code></pre>
+
+<p>MySQL在数据库级使用数据库中创建的所有表的字符集和排序规则。</p>
+<p><strong>在表级别设置字符集和排序规则</strong></p>
+<p>数据库可能包含与默认数据库的字符集和排序规则不同的字符集和排序规则的表。</p>
+<p>当您通过使用<code>CREATE TABLE</code>语句创建表或使用<code>ALTER TABLE</code>语句更改表的结构时，可以指定表的默认字符集和排序规则。</p>
+<pre><code class="sql">CREATE TABLE table_name(
+)
+CHARACTER SET character_set_name
+COLLATE collation_name
+</code></pre>
+
+<p><strong>在列级别设置字符集和排序规则</strong></p>
+<p><code>CHAR</code>，<code>VARCHAR</code>或<code>TEXT</code>类型的列可以使用与表的默认字符集和排序规则不同的，自己指定的字符集和排序规则。</p>
+<p>可以按照<code>CREATE TABLE</code>或<code>ALTER TABLE</code>语句的列定义中的列指定字符集和排序规则，如下所示：</p>
+<pre><code class="sql">column_name [CHAR | VARCHAR | TEXT] (length)
+CHARACTER SET character_set_name
+COLLATE collation_name
+</code></pre>
+
+<p>以下是设置字符集和排序规则的规则：</p>
+<ul>
+<li>如果显式指定字符集和排序规则，则使用字符集和排序规则。</li>
+<li>如果指定一个字符集并忽略排序规则，则使用字符集的默认排序规则。</li>
+<li>如果指定没有字符集的排序规则，则使用与排序规则相关联的字符集。</li>
+<li>如果省略字符集和排序规则，则使用默认字符集和排序规则。</li>
+</ul>
+<p>我们来看一些设置字符集和排序规则的例子。</p>
+<h2>设置字符集和排序规则的示例</h2>
+<p><strong>首先</strong>，我们使用<code>utf8</code>作为字符集创建一个新数据库，将<code>utf8_unicode_ci</code>作为默认排序规则：</p>
+<pre><code class="sql">CREATE DATABASE mydbdemo
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+</code></pre>
+
+<p>因为明确指定<code>mydbdemo</code>数据库的字符集和排序规则，所以<code>mydbdemo</code>数据库不会在服务器级别采用默认字符集和排序规则。</p>
+<p><strong>其次</strong>，我们在<code>mydbdemo</code>数据库中创建一个名为<code>t1</code>的新表，但不指定字符集和排序规则：</p>
+<pre><code class="sql">USE mydbdemo; 
+CREATE TABLE t1(
+    c1 char(25)
+);
+</code></pre>
+
+<p>如上所示，我们并没有为<code>t1</code>表指定字符集和排序规则; MySQL将检查数据库级别以确定<code>t1</code>表的字符集和排序规则。 在这种情况下，<code>t1</code>表将使用<code>utf8</code>作为默认字符集，<code>utf8_unicode_ci</code>作为默认排序规则。</p>
+<p><strong>第三</strong>，对于<code>t1</code>表，我们将其字符集更改为<code>latin1</code>，并将其排序规则改为<code>latin1_german1_ci</code>：</p>
+<pre><code class="sql">ALTER TABLE t1
+CHARACTER SET latin1
+COLLATE latin1_german1_ci;
+</code></pre>
+
+<p><code>t1</code>表中的<code>c1</code>列使用<code>latin1</code>作为字符集，<code>latin1_german1_ci</code>作为排序规则。</p>
+<p><strong>第四</strong>，将<code>c1</code>列的字符集更改为<code>latin1</code>：</p>
+<pre><code class="sql">ALTER TABLE t2
+MODIFY c1 VARCHAR(25)
+CHARACTER SET latin1;
+</code></pre>
+
+<p>现在，<code>c1</code>列使用<code>latin1</code>字符集，但是它的排序规则呢？ 是否从表的排序规则继承了<code>latin1_german1_ci</code>排序规则？ 不是的，因为<code>latin1</code>字符集的默认排序规则是<code>latin1_swedish_ci</code>，所以<code>c1</code>列具有<code>latin1_swedish_ci</code>排序规则。</p>
+<p>在本教程中，您已经了解了MySQL排序规则以及如何为MySQL服务器，数据库，表和列指定字符集和排序规则。</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

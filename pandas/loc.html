@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 索引和选择数据 - FreeAIHub</title>
+    <meta name="keywords" content=".loc(),.iloc(),.ix(),使用符号,属性访问">
+    <meta name="description" content="在本章中，我们将讨论如何切割和丢弃日期，并获取中大对象的子集。Python和NumPy索引运算符和属性运算符。 可以在广泛的用例中快速轻松地访问数据结构。然而，由于要访问的数据类型不是预先知道的，所以直接使用标准运算符具有一些优化限制。对于生产环境的代码，我们建议利用本章介绍的优化数据访问方法。现在支持三种类型的多轴索引; 这三种类型在下表中提到 -提供了各种方法来完成基于标签的索引。 切片时，也">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a class="current"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/option.html class='prev_article'> Pandas选项和自定义</a>       |       下一篇：<a href=/pandas/statistics.html class='next_article'> Pandas统计函数</a>  >
+              
+            <h1>Pandas 索引和选择数据</h1>
+<p>在本章中，我们将讨论如何切割和丢弃日期，并获取<em>Pandas</em>中大对象的子集。</p>
+<p>Python和NumPy索引运算符<code>"[]"</code>和属性运算符<code>"."</code>。 可以在广泛的用例中快速轻松地访问<em>Pandas</em>数据结构。然而，由于要访问的数据类型不是预先知道的，所以直接使用标准运算符具有一些优化限制。对于生产环境的代码，我们建议利用本章介绍的优化<em>Pandas</em>数据访问方法。</p>
+<p><em>Pandas</em>现在支持三种类型的多轴索引; 这三种类型在下表中提到 -</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>索引</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>.loc()</code></td>
+<td>基于标签</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>.iloc()</code></td>
+<td>基于整数</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>.ix()</code></td>
+<td>基于标签和整数</td>
+</tr>
+</tbody>
+</table>
+<h2>.loc()</h2>
+<p><em>Pandas</em>提供了各种方法来完成基于标签的索引。 切片时，也包括起始边界。整数是有效的标签，但它们是指标签而不是位置。</p>
+<p><code>.loc()</code>具有多种访问方式，如 -</p>
+<ul>
+<li>单个标量标签</li>
+<li>标签列表</li>
+<li>切片对象</li>
+<li>一个布尔数组</li>
+</ul>
+<p><code>loc</code>需要两个单/列表/范围运算符，用<code>","</code>分隔。第一个表示行，第二个表示列。</p>
+<p><strong>示例1</strong></p>
+<pre><code class="python">#import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4),
+index = ['a','b','c','d','e','f','g','h'], columns = ['A', 'B', 'C', 'D'])
+
+#select all rows for a specific column
+print(df.loc[:,'A'])
+</code></pre>
+
+<p><strong>示例2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4),
+index = ['a','b','c','d','e','f','g','h'], columns = ['A', 'B', 'C', 'D'])
+
+# Select all rows for multiple columns, say list[]
+print(df.loc[:,['A','C']])
+</code></pre>
+
+<p><strong>示例3</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4),
+index = ['a','b','c','d','e','f','g','h'], columns = ['A', 'B', 'C', 'D'])
+
+# Select few rows for multiple columns, say list[]
+print(df.loc[['a','b','f','h'],['A','C']])
+# Select all rows for multiple columns, say list[]
+print(df.loc[:,['A','C']])
+</code></pre>
+
+<p><strong>示例4</strong></p>
+<pre><code class="python"># import the pandas library and aliasing as pd
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4),
+index = ['a','b','c','d','e','f','g','h'], columns = ['A', 'B', 'C', 'D'])
+
+# Select range of rows for all columns
+print(df.loc['a':'h'])
+</code></pre>
+
+<p><strong>示例5</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4),
+index = ['a','b','c','d','e','f','g','h'], columns = ['A', 'B', 'C', 'D'])
+
+# for getting values with a boolean array
+print(df.loc['a']&gt;0)
+</code></pre>
+
+<h2>.iloc()</h2>
+<p><em>Pandas</em>提供了各种方法，以获得纯整数索引。像python和numpy一样，第一个位置是基于<code>0</code>的索引。</p>
+<p>各种访问方式如下 -</p>
+<ul>
+<li>整数</li>
+<li>整数列表</li>
+<li>系列值</li>
+</ul>
+<p><strong>示例1</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+# select all rows for a specific column
+print(df.iloc[:4])
+</code></pre>
+
+<p><strong>示例2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+# Integer slicing
+print(df.iloc[:4])
+print(df.iloc[1:5, 2:4])
+</code></pre>
+
+<p><strong>示例3</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+# Slicing through list of values
+print(df.iloc[[1, 3, 5], [1, 3]])
+print(df.iloc[1:3, :])
+print(df.iloc[:,1:3])
+</code></pre>
+
+<h2>.ix()</h2>
+<p>除了基于纯标签和整数之外，<em>Pandas</em>还提供了一种使用<code>.ix()</code>运算符进行选择和子集化对象的混合方法。</p>
+<p><strong>示例1</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+# Integer slicing
+print(df.ix[:4])
+</code></pre>
+
+<p><strong>示例2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+# Index slicing
+print(df.ix[:,'A'])
+</code></pre>
+
+<h2>使用符号</h2>
+<p>使用多轴索引从Pandas对象获取值可使用以下符号 -</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>索引</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Series</td>
+<td><code>s.loc[indexer]</code></td>
+<td>标量值</td>
+</tr>
+<tr>
+<td>DataFrame</td>
+<td><code>df.loc[row_index,col_index]</code></td>
+<td>标量对象</td>
+</tr>
+<tr>
+<td>Panel</td>
+<td><code>p.loc[item_index,major_index, minor_index]</code></td>
+<td>p.loc[item_index,major_index, minor_index]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意 - <code>.iloc()</code>和<code>.ix()</code>应用相同的索引选项和返回值。</p>
+</blockquote>
+<p>现在来看看如何在DataFrame对象上执行每个操作。这里使用基本索引运算符<code>[]</code> -</p>
+<p><strong>示例1</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+print(df['A'])
+</code></pre>
+
+<p><strong>示例2</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+print(df[['A','B']])
+</code></pre>
+
+<p><strong>示例3</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+print(df[2:2])
+</code></pre>
+
+<h2>属性访问</h2>
+<p>可以使用属性运算符<code>.</code>来选择列。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.randn(8, 4), columns = ['A', 'B', 'C', 'D'])
+
+print(df.A)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

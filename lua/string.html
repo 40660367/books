@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lua 字符串(string) - FreeAIHub</title>
+    <meta name="keywords" content="字符串操作">
+    <meta name="description" content="字符串是由一系列字符以及控制字符组成，如换页符。 字符串可以用三种形式初始化，包括以下示出了上述三种形式的示例。字符串中使用转义序列字符来更改字符的正常解释。例如，要打印双引号()，在上面的示例中使用了。转义序列及其用法列在下表中。Lua支持字符串来操作字符串 - 现在，来深入了解一些示例，以准确了解这些字符串操作函数的行为方式。下面给出了用于将字符串转换为大写和小写的示例代码。文件名:strin">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/lua/index.html">如何学习本课程</a></li>
+<li><a href="/lua/setup.html"> Lua 环境安装配置  </a></li>
+<li><a href="/lua/intro.html"> Lua 简介 </a></li>
+<li><a href="/lua/helloworld.html"> Lua 运行Lua的第一个程序 </a></li>
+<li><a href="/lua/syntax.html"> Lua 基本语法 </a></li>
+<li><a href="/lua/operator.html"> Lua 运算符(operator) </a></li>
+<li><a href="/lua/variable.html"> Lua 变量(variable) </a></li>
+<li><a href="/lua/datatype.html"> Lua 数据类型 </a></li>
+<li><a href="/lua/array.html"> Lua 数组(array) </a></li>
+<li><a class="current"> Lua 字符串(string) </a></li>
+<li><a href="/lua/table.html"> Lua 表(table) </a></li>
+<li><a href="/lua/metatable.html"> Lua 元表(metatable) </a></li>
+<li><a href="/lua/function.html"> Lua 函数(function) </a></li>
+<li><a href="/lua/logic.html"> Lua 逻辑判断 </a></li>
+<li><a href="/lua/logic-if.html"> Lua if语句  </a></li>
+<li><a href="/lua/logic-if-else.html"> Lua if...else语句 </a></li>
+<li><a href="/lua/logic-if-nested.html"> Lua 嵌套if语句 </a></li>
+<li><a href="/lua/loop.html"> Lua 循环(loop) </a></li>
+<li><a href="/lua/loop-for.html"> Lua for循环 </a></li>
+<li><a href="/lua/loop-nested.html"> Lua 嵌套循环 </a></li>
+<li><a href="/lua/loop-repeat-until.html"> Lua repeat...until循环 </a></li>
+<li><a href="/lua/loop-while.html"> Lua while循环 </a></li>
+<li><a href="/lua/loopcontrol-break.html"> Lua 循环控制 break </a></li>
+<li><a href="/lua/oob.html"> Lua 面向对象编程 </a></li>
+<li><a href="/lua/coroutine.html"> Lua 协同程序(coroutine) </a></li>
+<li><a href="/lua/io.html"> Lua 文件操作 </a></li>
+<li><a href="/lua/iterator.html"> Lua 迭代器(iterator)  </a></li>
+<li><a href="/lua/module.html"> Lua 模块(module) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/lua/array.html class='prev_article'> Lua 数组(array) </a>       |       下一篇：<a href=/lua/table.html class='next_article'> Lua 表(table) </a>  >
+              
+<h1>Lua 字符串(string)</h1>
+<p>字符串是由一系列字符以及控制字符组成，如换页符。 字符串可以用三种形式初始化，包括</p>
+<ul>
+<li>单引号之间的字符</li>
+<li>双引号之间的字符</li>
+<li><code>[[</code>和<code>]]</code>之间的字符</li>
+</ul>
+<p>以下示出了上述三种形式的示例。</p>
+<pre><code class="lua">string1 = &quot;Lua&quot;
+print(&quot;&quot;String 1 is&quot;&quot;,string1)
+
+string2 = 'Lua Tutorial'
+print(&quot;String 2 is&quot;,string2)
+
+string3 = [[&quot;Lua Tutorial&quot;]]
+print(&quot;String 3 is&quot;,string3)
+</code></pre>
+
+<p>字符串中使用转义序列字符来更改字符的正常解释。例如，要打印双引号(<code>""</code>)，在上面的示例中使用了<code>"</code>。转义序列及其用法列在下表中。</p>
+<table>
+<thead>
+<tr>
+<th>转义序列</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\a</code></td>
+<td>铃</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>退格</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>新行</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>反斜杠</td>
+</tr>
+<tr>
+<td><code>"</code></td>
+<td>双引号</td>
+</tr>
+<tr>
+<td><code>'</code></td>
+<td>单引号</td>
+</tr>
+<tr>
+<td><code>\[</code></td>
+<td>左方括号</td>
+</tr>
+<tr>
+<td><code>\]</code></td>
+<td>右方括号</td>
+</tr>
+</tbody>
+</table>
+<h2>字符串操作</h2>
+<p>Lua支持字符串来操作字符串 - </p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>string.upper(argument)</code></td>
+<td>返回参数的大写表示。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>string.lower(argument)</code></td>
+<td>返回参数的小写表示。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>string.gsub(mainString,findString,replaceString)</code></td>
+<td>返回用<code>replaceString</code>替换<code>findString</code>后字符串。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>string.find(mainString,findString, optionalStartIndex,optionalEndIndex)</code></td>
+<td>返回<code>mainString</code>中<code>findString</code>的起始索引和结束索引找到字符串，如果未找到则返回<code>nil</code>。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>string.reverse(arg)</code></td>
+<td>将传递的字符串<code>arg</code>反转后的字符串。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>string.format(...)</code></td>
+<td>返回格式化字符串。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>string.char(arg)</code> 和 <code>string.byte(arg)</code></td>
+<td>返回输入参数的内部数字和字符表示。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>string.len(arg)</code></td>
+<td>返回传递字符串<code>arg</code>的长度。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>string.rep(string, n))</code></td>
+<td>通过重复相同的字符串<code>n</code>次返回一个字符串。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>..</code></td>
+<td>此运算符连接两个字符串。</td>
+</tr>
+</tbody>
+</table>
+<p>现在，来深入了解一些示例，以准确了解这些字符串操作函数的行为方式。</p>
+<h4>大小写操作</h4>
+<p>下面给出了用于将字符串转换为大写和小写的示例代码。</p>
+<p>文件名:string1.lua</p>
+<pre><code class="lua">string = &quot;Lua Tutorial&quot;
+
+-- replacing strings
+newstring = string.gsub(string,&quot;Tutorial&quot;,&quot;Language&quot;)
+print(&quot;The new string is &quot;..newstring)
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/string1.lua
+</code></pre>
+
+<p>康康</p>
+<h4>寻找和反转</h4>
+<p>下面给出了用于查找子串索引和反转字符串的示例代码。</p>
+<p>文件名:string2.lua</p>
+<pre><code class="lua">string = &quot;Lua Tutorial&quot;
+
+-- replacing strings
+print(string.find(string,&quot;Tutorial&quot;))
+reversedString = string.reverse(string)
+print(&quot;The new string is&quot;,reversedString)
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/string2.lua
+</code></pre>
+
+<p>康康</p>
+<h4>格式化字符串</h4>
+<p>在Lua编程中，有时需要以格式化的方式打印字符串。 那么可使用<code>string.format</code>函数格式化输出，如下所示。</p>
+<p>文件名:string3.lua</p>
+<pre><code class="lua">string1 = &quot;Lua&quot;
+string2 = &quot;Tutorial&quot;
+
+number1 = 10
+number2 = 20
+
+-- Basic string formatting
+print(string.format(&quot;Basic formatting %s %s&quot;,string1,string2))
+
+-- Date formatting
+date = 2; month = 1; year = 2014
+print(string.format(&quot;Date formatting %02d/%02d/%03d&quot;, date, month, year))
+
+-- Decimal formatting
+print(string.format(&quot;%.4f&quot;,1/3))
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/string3.lua
+</code></pre>
+
+<p>康康</p>
+<h4>字符和字节表示</h4>
+<p>字符和字节表示的示例代码，用于将字符串从字符串转换为内部表示，反之亦然。</p>
+<p>文件名:string4.lua</p>
+<pre><code class="lua">-- Byte conversion
+
+-- First character
+print(string.byte(&quot;Lua&quot;))
+
+-- Third character
+print(string.byte(&quot;Lua&quot;,3))
+
+-- first character from last
+print(string.byte(&quot;Lua&quot;,-1))
+
+-- Second character
+print(string.byte(&quot;Lua&quot;,2))
+
+-- Second character from last
+print(string.byte(&quot;Lua&quot;,-2))
+
+-- Internal Numeric ASCII Conversion
+print(string.char(97))
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/string4.lua
+</code></pre>
+
+<p>康康</p>
+<h4>其他常用函数</h4>
+<p>常见的字符串操作包括字符串连接，查找字符串的长度以及有时多次重复相同的字符串。 下面给出了这些操作的示例。</p>
+<p>文件名:string5.lua</p>
+<pre><code class="lua">string1 = &quot;Lua&quot;
+string2 = &quot;Tutorial&quot;
+
+-- String Concatenations using ..
+print(&quot;Concatenated string&quot;,string1..string2)
+
+-- Length of string
+print(&quot;Length of string1 is &quot;,string.len(string1))
+
+-- Repeating strings
+repeatedString = string.rep(string1,3)
+print(repeatedString)
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/string5.lua
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 决策树(decision tree) - FreeAIHub</title>
+    <meta name="keywords" content="安装R语言包,语法">
+    <meta name="description" content="决策树是以树的形式表示选择及其结果的图。图中的节点表示事件或选择，并且图的边缘表示决策规则或条件。它主要用于使用R的机器学习和数据挖掘应用程序。决策树的使用的例子是 - 预测电子邮件是垃圾邮件或非垃圾邮件，预测肿瘤癌变，或者基于这些因素预测贷款的信用风险。通常，使用观测数据（也称为训练数据）来创建模型。然后使用一组验证数据来验证和改进模型。 R具有用于创建和可视化决策树的包。对于新的预测变量集合，">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a class="current"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/chisq.html class='prev_article'> R语言卡方检验</a>       |       下一篇：<a href=/r/lm.html class='next_article'> R语言线性回归</a>  >
+              
+            <h1>R语言 决策树(decision tree)</h1>
+<p>决策树是以树的形式表示选择及其结果的图。图中的节点表示事件或选择，并且图的边缘表示决策规则或条件。它主要用于使用R的机器学习和数据挖掘应用程序。</p>
+<p>决策树的使用的例子是 - 预测电子邮件是垃圾邮件或非垃圾邮件，预测肿瘤癌变，或者基于这些因素预测贷款的信用风险。通常，使用观测数据（也称为训练数据）来创建模型。然后使用一组验证数据来验证和改进模型。 R具有用于创建和可视化决策树的包。对于新的预测变量集合，我们使用此模型来确定R包<code>party</code>用于创建决策树。</p>
+<h2>安装R语言包</h2>
+<p>在R语言控制台中使用以下命令安装软件包。您还必须安装相关软件包（如果有）。</p>
+<p><code>install.packages("party")</code>,<code>party</code>包具有用于创建和分析决策树的函数<code>ctree()</code>。</p>
+<h2>语法</h2>
+<p>在R中创建决策树的基本语法是 -</p>
+<p><code>ctree(formula, data)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>formula</strong>是描述预测变量和响应变量的公式。</li>
+<li><strong>data</strong>是所使用的数据集的名称。</li>
+</ul>
+<h4>练习：</h4>
+<p>输入数据：</p>
+<p>我们将使用名为<code>readingSkills</code>的R内置数据集来创建决策树。 它描述了某人的readingSkills的分数，如果我们知道变量<code>年龄</code>，<code>shoesize</code>，<code>分数</code>，以及该人是否为母语者。</p>
+<p>这里是示例数据。</p>
+<pre><code class="R">install.packages(&quot;party&quot;)
+# Load the party package. It will automatically load other dependent packages.
+library(party)
+
+# Print some records from data set readingSkills.
+print(head(readingSkills))
+</code></pre>
+
+<p>我们将使用<code>ctree()</code>函数创建决策树并查看其图形。</p>
+<pre><code class="R"># Load the party package. It will automatically load other dependent packages.
+library(party)
+
+# Create the input data frame.
+input.dat &lt;- readingSkills[c(1:105),]
+
+
+# Create the tree.
+output.tree &lt;- ctree(
+nativeSpeaker ~ age + shoeSize + score, 
+data = input.dat)
+
+# Plot the tree.
+plot(output.tree)
+</code></pre>
+
+<h3>结论</h3>
+<p>从上面显示的决策树，我们可以得出结论，其readingSkills分数低于38.3和年龄超过6的人不是一个母语者。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

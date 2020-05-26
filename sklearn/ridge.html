@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 线性建模之岭回归 - FreeAIHub</title>
+    <meta name="keywords" content="参量,属性">
+    <meta name="description" content="Ridge回归或Tikhonov正则化是执行L2正则化的正则化技术。它通过添加等于系数幅度平方的损失（收缩量）来修改损耗函数。
+$$
+\displaystyle\sum\limits_{j=1}^m\left(Y_{i}-W_{0}-\displaystyle\sum\limits_{i=1}^nW_{i}X_{ji} \right)^{2}+\alpha\displaystyle\sum\lim">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a class="current"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/logistic.html class='prev_article'> sklearn线性建模之逻辑回归</a>       |       下一篇：<a href=/sklearn/bayes.html class='next_article'> sklearn线性建模之贝叶斯岭回归</a>  >
+              
+            <h1>sklearn 线性建模之岭回归</h1>
+<p>Ridge回归或Tikhonov正则化是执行L2正则化的正则化技术。它通过添加等于系数幅度平方的损失（收缩量）来修改损耗函数。
+$$
+\displaystyle\sum\limits_{j=1}^m\left(Y_{i}-W_{0}-\displaystyle\sum\limits_{i=1}^nW_{i}X_{ji} \right)^{2}+\alpha\displaystyle\sum\limits_{i=1}^nW_i^2=loss_{-}function+\alpha\displaystyle\sum\limits_{i=1}^nW_i^2
+$$
+<strong>sklearn.linear_model.Ridge</strong>是用于求解回归模型的模块，其中损失函数为线性最小二乘法，正则<strong>化为</strong> L2。</p>
+<h2>参量</h2>
+<p>下表包含<strong>Ridge</strong>模块使用的参数-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数及说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><em><strong>alpha-</strong> {float，like-array}，shape（n_targets）</em>Alpha是调整参数，它决定了我们要对模型进行多少惩罚。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>fit_intercept-</strong>布尔值</em>此参数指定应将常量（偏差或截距）添加到决策函数。如果将其设置为false，则不会在计算中使用截距。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><em><strong>tol-</strong>浮动，可选，默认值= 1e-4</em>它代表了解决方案的精度。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong><em>normalize-</em><em>布尔值，可选，默认= False</em>如果将此参数设置为True，则回归变量X将在回归之前进行标准化。通过减去平均值并将其除以L2范数来完成归一化。如果</strong>fit_intercept = False**，则将忽略此参数。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><em><strong>copy_X-</strong>布尔值，可选，默认= True</em>默认情况下为true，这意味着将复制X。但是，如果将其设置为false，则X可能会被覆盖。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><em><strong>max_iter</strong> -int，可选</em>顾名思义，它表示共轭梯度求解器的最大迭代次数。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong><em>求解器</em><em> -str，{'auto'，'svd'，'cholesky'，'lsqr'，'sparse_cg'，'sag'，'saga'}'</em>此参数表示在计算例程中使用哪个求解器。以下是此参数下选项的属性</strong>自动<strong> -可以根据数据类型自动选择求解器。</strong>svd-<strong>为了计算Ridge系数，此参数使用X的奇异值分解。</strong>cholesky-<strong>此参数使用标准的</strong>scipy.linalg.solve（）<strong>函数获取封闭形式的解决方案。</strong>lsqr-<strong>它是最快的，并使用专用的正则化最小二乘例程scipy.sparse.linalg.lsqr。</strong>松弛<strong> -它使用迭代过程和随机平均梯度下降。</strong>saga-**还使用了迭代过程和改进的随机平均梯度下降。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong><em>random_state</em><em> -int，RandomState实例或无，可选，默认=无</em>此参数表示生成的伪随机数的种子，在对数据进行混洗时会使用该种子。以下是选项-</strong>INT<strong> -在这种情况下，</strong>random_state<strong>是由随机数生成所使用的种子。</strong>RandomState实例<strong> -在这种情况下，</strong>random_state<strong>是随机数生成器。</strong>无** -在这种情况下，随机数生成器是np.random使用的RandonState实例。</td>
+</tr>
+</tbody>
+</table>
+<h2>属性</h2>
+<p>跟随表包含<strong>Ridge</strong>模块使用的属性-</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>属性和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个</td>
+<td><em><strong>coef_-</strong>数组，shape（n_features）或（n_target，n_features）</em>此属性提供权重向量。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><em><strong>截距</strong> -浮动| 数组，形状=（n_targets）</em>它代表决策功能中的独立项。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><em><strong>n_iter_-</strong>数组或无，形状（n_targets）</em>仅适用于“ sag”和“ lsqr”求解器，返回每个目标的实际迭代数。</td>
+</tr>
+</tbody>
+</table>
+<h3>实施实例</h3>
+<p>以下Python脚本提供了实现Ridge回归的简单示例。我们正在使用15个示例和10个功能。在我们的例子中，alpha的值为0.5。有两种方法，分别是<strong>fit（）</strong>和<strong>score（）</strong>来拟合该模型并计算分数。</p>
+<pre><code class="python">from sklearn.linear_model import Ridge
+import numpy as np
+n_samples, n_features = 15, 10
+rng = np.random.RandomState(0)
+y = rng.randn(n_samples)
+X = rng.randn(n_samples, n_features)
+rdg = Ridge(alpha = 0.5)
+rdg.fit(X, y)
+rdg.score(X,y)
+</code></pre>
+
+<p>输出显示，上面的Ridge回归模型给出的得分约为76％。为了获得更高的准确性，我们可以增加样本和特征的数量。</p>
+<p>对于上面的示例，我们可以借助以下python脚本获取权重向量-</p>
+<pre><code class="python">rdg.coef_
+</code></pre>
+
+<p>同样，我们可以在以下python脚本的帮助下获取拦截的值-</p>
+<pre><code class="python">rdg.intercept_
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

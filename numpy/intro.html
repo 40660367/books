@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 简介 - FreeAIHub</title>
+    <meta name="keywords" content="NumPy简介,NumPy用途,NumPy 应用,Python 特点,Numpy的使用">
+    <meta name="description" content="NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。NumPy 的前身 Numeric 最早是由 Jim Hugunin 与其它协作者共同开发，2005 年，Travis Oliphant 在 Numeric 中结合了另一个同性质的程序库 Numarray 的特色，并加入了其它扩展而开发了 N">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a class="current"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/index.html class='prev_article'> 如何学习本课程</a>       |       下一篇：<a href=/numpy/setup.html class='next_article'> NumPy安装</a>  >
+              
+            <h1>NumPy 简介</h1>
+<h2>NumPy简介</h2>
+<p>NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。</p>
+<p>NumPy 的前身 Numeric 最早是由 Jim Hugunin 与其它协作者共同开发，2005 年，Travis Oliphant 在 Numeric 中结合了另一个同性质的程序库 Numarray 的特色，并加入了其它扩展而开发了 NumPy。NumPy 为开放源代码并且由许多协作者共同维护开发。</p>
+<h2>NumPy用途</h2>
+<p>NumPy 是一个运行速度非常快的数学库，主要用于数组计算，</p>
+<p>包含：</p>
+<p>一个强大的N维数组对象 ndarray
+广播功能函数
+整合 C/C++/Fortran 代码的工具
+线性代数、傅里叶变换、随机数生成等功能</p>
+<h2>NumPy 应用</h2>
+<p>NumPy 通常与 SciPy（Scientific Python）和 Matplotlib（绘图库）一起使用， 这种组合广泛用于替代 MatLab，是一个强大的科学计算环境，有助于我们通过 Python 学习数据科学或者机器学习。</p>
+<p>SciPy 是一个开源的 Python 算法库和数学工具包。</p>
+<p>SciPy 包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算。</p>
+<p>Matplotlib 是 Python 编程语言及其数值数学扩展包 NumPy 的可视化操作界面。它为利用通用的图形用户界面工具包，如 Tkinter, wxPython, Qt 或 GTK+ 向应用程序嵌入式绘图提供了应用程序接口（API）。</p>
+<h2>Python 特点</h2>
+<ul>
+<li><strong>1.易于学习：</strong>Python有相对较少的关键字，结构简单，和一个明确定义的语法，学习起来更加简单。</li>
+<li><strong>2.易于阅读：</strong>Python代码定义的更清晰。</li>
+<li><strong>3.易于维护：</strong>Python的成功在于它的源代码是相当容易维护的。</li>
+<li><strong>4.一个广泛的标准库：</strong>Python的最大的优势之一是丰富的库，跨平台的，在UNIX，Windows和Macintosh兼容很好。</li>
+<li><strong>5.互动模式：</strong>互动模式的支持，您可以从终端输入执行代码并获得结果的语言，互动的测试和调试代码片断。</li>
+<li><strong>6.可移植：</strong>基于其开放源代码的特性，Python已经被移植（也就是使其工作）到许多平台。</li>
+<li><strong>7.可扩展：</strong>如果你需要一段运行很快的关键代码，或者是想要编写一些不愿开放的算法，你可以使用C或C++完成那部分程序，然后从你的Python程序中调用。</li>
+<li><strong>8.数据库：</strong>Python提供所有主要的商业数据库的接口。</li>
+<li><strong>9.GUI编程：</strong>Python支持GUI可以创建和移植到许多系统调用。</li>
+<li><strong>10.可嵌入:</strong> 你可以将Python嵌入到C/C++程序，让你的程序的用户获得"脚本化"的能力。</li>
+</ul>
+<h2>Numpy的使用</h2>
+<pre><code class="python">import numpy as np
+np
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

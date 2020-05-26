@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 循环 - FreeAIHub</title>
+    <meta name="keywords" content="while 循环,for 循环, 和 , 语句及循环中的 ,子句,语句,函数">
+    <meta name="description" content="本章节将为大家介绍 Python 循环语句的使用。Python 中的循环语句有和Python 中语句的一般形式：同样需要注意冒号和缩进。另外，在 Python 中没有do..while 循环。无限循环也常被叫做死循环，我们可以通过设置条件表达式永远不为 false 来实现无限循环你可以使用  来退出当前的无限循环。无限循环在服务器上客户端的实时请求非常有用。在在条件语句为 false 时执行 el">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a class="current"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/logic.html class='prev_article'> Python3 逻辑判断 </a>       |       下一篇：<a href=/python/iterator-generator.html class='next_article'> Python3 迭代器与生成器 </a>  >
+              
+            <h1>Python3 循环</h1>
+<p>本章节将为大家介绍 Python 循环语句的使用。</p>
+<p>Python 中的循环语句有<code>for</code>和<code>while</code></p>
+<h2>while 循环</h2>
+<p>Python 中<code>while</code>语句的一般形式：</p>
+<pre><code>while 判断条件(condition)：
+    执行语句(statements)……
+</code></pre>
+
+<p>同样需要注意冒号和缩进。另外，在 Python 中没有do..while 循环。</p>
+<h4>练习:使用<code>while</code>来计算 1 到 100 的总和</h4>
+<pre><code class="Python">n = 100
+
+sum = 0
+counter = 1
+while counter &lt;= n:
+    sum = sum + counter
+    counter += 1
+
+print(&quot;1 到 %d 之和为: %d&quot; % (n,sum))
+</code></pre>
+
+<h3>无限循环</h3>
+<p>无限循环也常被叫做死循环，我们可以通过设置条件表达式永远不为 false 来实现无限循环</p>
+<h4>练习：无限循环</h4>
+<pre><code class="Python">var = 1
+while var == 1 :  # 表达式永远为 true
+   num = int(input(&quot;输入一个数字  :&quot;))
+   print(&quot;你输入的数字是: &quot;, num)
+   if num == 99:#输入99跳出无限循环
+      break
+
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<p>你可以使用 <strong>CTRL+C</strong> 来退出当前的无限循环。</p>
+<p>无限循环在服务器上客户端的实时请求非常有用。</p>
+<h3>while 循环使用 else 语句</h3>
+<p>在<code>while … else</code>在条件语句为 false 时执行 else 的语句块。</p>
+<p>语法格式如下：</p>
+<pre><code>while &lt;expr&gt;:
+    &lt;statement(s)&gt;
+else:
+    &lt;additional_statement(s)&gt;
+</code></pre>
+
+<h4>练习:循环输出数字，并判断大小</h4>
+<pre><code class="Python">count = 0
+while count &lt; 5:
+   print(count, &quot; 小于 5&quot;)
+   count = count + 1
+else:
+   print(count, &quot; 大于或等于 5&quot;)
+</code></pre>
+
+<h3>简单语句组</h3>
+<p>类似<code>if</code>语句的语法，如果你的<code>while</code>循环体中只有一条语句，你可以将该语句与<code>while</code>写在同一行中</p>
+<h4>练习：简单while语句循环</h4>
+<pre><code class="Python">flag = 1
+
+while (flag): print('I Love Python!')
+
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<p><strong>注意：</strong>以上的无限循环你可以使用 CTRL+C 来中断循环。</p>
+<h2>for 循环</h2>
+<p>Python<code>for</code>循环可以遍历任何序列的项目，如一个列表或者一个字符串。</p>
+<p>for循环的一般格式如下：</p>
+<pre><code>if 表达式1:
+    语句
+    if 表达式2:
+        语句
+    elif 表达式3:
+        语句
+    else:
+        语句
+elif 表达式4:
+    语句
+else:
+    语句
+</code></pre>
+
+<h4>练习:for 实例</h4>
+<pre><code class="Python">languages = [&quot;C&quot;, &quot;C++&quot;, &quot;Perl&quot;, &quot;Python&quot;] 
+for x in languages: 
+    print(x)
+</code></pre>
+
+<h4>练习:使用了 break 语句，break 语句用于跳出当前循环体：</h4>
+<pre><code class="Python">sites = [&quot;Baidu&quot;, &quot;Google&quot;,&quot;Python&quot;,&quot;Taobao&quot;]
+for site in sites:
+    if site == &quot;Python&quot;:
+        print(&quot;Python教程!&quot;)
+        break
+    print(&quot;循环数据 &quot; + site)
+else:
+    print(&quot;没有循环数据!&quot;)
+print(&quot;完成循环!&quot;)
+</code></pre>
+
+<h2><code>break</code> 和 <code>continue</code> 语句及循环中的 <code>else</code>子句</h2>
+<p><code>break</code> 语句可以跳出 for 和 while 的循环体。如果你从 for 或 while 循环中终止，任何对应的循环 else 块将不执行。</p>
+<p><code>continue</code>语句被用来告诉 Python 跳过当前循环块中的剩余语句，然后继续进行下一轮循环。</p>
+<h4>练习:<code>while</code>中使用 <code>break</code>：</h4>
+<pre><code class="Python">n = 5
+while n &gt; 0:
+    n -= 1
+    if n == 2:
+        break
+    print(n)
+print('循环结束。')
+</code></pre>
+
+<h4>练习:<code>while</code> 中使用<code>continue</code></h4>
+<pre><code class="Python">n = 5
+while n &gt; 0:
+    n -= 1
+    if n == 2:
+        continue
+    print(n)
+print('循环结束。')
+</code></pre>
+
+<h4>练习:循环中使用<code>break</code></h4>
+<pre><code class="Python">for letter in 'Python':     # 第一个实例
+   if letter == 'o':
+      break
+   print('当前字母为 :', letter)
+
+var = 10                    # 第二个实例
+while var &gt; 0:              
+   print('当期变量值为 :', var)
+   var = var -1
+   if var == 5:
+      break
+
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<h4>练习:以下实例循环字符串Python，碰到字母 o 跳过输出</h4>
+<pre><code class="Python">for letter in 'Python':     # 第一个实例
+   if letter == 'o':        # 字母为 o 时跳过输出
+      continue
+   print('当前字母 :', letter)
+
+var = 10                    # 第二个实例
+while var &gt; 0:              
+   var = var -1
+   if var == 5:             # 变量为 5 时跳过输出
+      continue
+   print('当前变量值 :', var)
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<p>循环语句可以有<code>else</code>子句，它在穷尽列表(以<code>for</code>循环)或条件变为 false (以<code>while</code>循环)导致循环终止时被执行，但循环被 <code>break</code>终止时不执行。</p>
+<h4>练习:查询质数的循环</h4>
+<pre><code class="Python">for n in range(2, 10):
+    for x in range(2, n):
+        if n % x == 0:
+            print(n, '等于', x, '*', n//x)
+            break
+    else:
+        # 循环中没有找到元素
+        print(n, ' 是质数')
+</code></pre>
+
+<h2><code>pass</code>语句</h2>
+<p><code>pass</code>是空语句，是为了保持程序结构的完整性。<code>pass</code> 不做任何事情，一般用做占位语句</p>
+<h4>练习：空循环</h4>
+<pre><code>while True:
+    pass  # 等待键盘中断 (Ctrl+C)
+</code></pre>
+
+<h4>练习:最小的类</h4>
+<pre><code class="Python">class MyEmptyClass:
+    pass
+
+MyEmptyClass
+</code></pre>
+
+<h4>练习:以下实例在字母为 o 时 执行 pass 语句块:</h4>
+<pre><code class="Python">for letter in 'Python': 
+   if letter == 'o':
+      pass
+      print('执行 pass 块')
+   print('当前字母 :', letter)
+
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<h4>练习:斐波纳契数列</h4>
+<pre><code class="Python"># Fibonacci series: 斐波纳契数列
+# 两个元素的总和确定了下一个数
+a, b = 0, 1
+while b &lt; 10:
+    print(b)
+    a, b = b, a+b
+</code></pre>
+
+<p>其中代码 <strong>a, b = b, a+b</strong> 的计算方式为先计算右边表达式，然后同时赋值给左边，等价于：<code>n=b;m=a+b;a=n;b=m</code></p>
+<p>这个例子介绍了几个新特征。</p>
+<p>第一行包含了一个复合赋值：变量<code>a</code>和<code>b</code>同时得到新值 0 和 1。最后一行再次使用了同样的方法，可以看到，右边的表达式会在赋值变动之前执行。右边表达式的执行顺序是从左往右的。</p>
+<h2><code>range()</code>函数</h2>
+<p>如果你需要遍历数字序列，可以使用内置<code>range()</code>函数。它会生成数列，例如:</p>
+<h4>练习:使用<code>range()</code>产生数列</h4>
+<pre><code class="Python">for i in range(5):
+    print(i)
+</code></pre>
+
+<h4>练习:<code>range()</code>指定区间的值：</h4>
+<pre><code class="Python">for i in range(5,9) :
+    print(i)
+</code></pre>
+
+<h4>练习:也可以使range以指定数字开始并指定不同的步长</h4>
+<pre><code>for i in range(0, 10, 3) :
+    print(i)
+</code></pre>
+
+<p>甚至可以是负数</p>
+<pre><code class="Python">for i in range(-10, -100, -30) :
+    print(i)
+</code></pre>
+
+<h4>练习:结合<code>range()</code>和<code>len()</code>函数以遍历一个序列的索引</h4>
+<pre><code class="Python">a = ['Google', 'Baidu', 'Python', 'Taobao', 'QQ']
+for i in range(len(a)):
+    print(i, a[i])
+</code></pre>
+
+<h4>练习:可以使用range()函数来创建一个列表</h4>
+<pre><code class="Python">list(range(50)) 
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

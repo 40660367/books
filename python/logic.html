@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 逻辑判断 - FreeAIHub</title>
+    <meta name="keywords" content="if 语句,if 嵌套">
+    <meta name="description" content="Python 条件语句是通过一条或多条语句的执行结果（True 或者 False）来决定执行的代码块。可以通过下图来简单了解条件语句的执行过程:代码执行过程：Python中if语句的一般形式如下所示：Python 中用代替了，所以if语句的关键字为：。从结果可以看到由于变量  为 0，所以对应的 内的语句没有执行。以下为中常用的操作运算符:在嵌套 if 语句中，可以把结构放在另外一个结构中。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a class="current"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/datastructure.html class='prev_article'> Python3 数据结构 </a>       |       下一篇：<a href=/python/loop.html class='next_article'> Python3 循环语句 </a>  >
+              
+            <h1>Python3 逻辑判断</h1>
+<p>Python 条件语句是通过一条或多条语句的执行结果（True 或者 False）来决定执行的代码块。</p>
+<p>可以通过下图来简单了解条件语句的执行过程:</p>
+<p>代码执行过程：</p>
+<p><img alt="img" src="./images/python-if.webp" /></p>
+<h2>if 语句</h2>
+<p>Python中if语句的一般形式如下所示：</p>
+<pre><code>if condition_1:
+    statement_block_1
+elif condition_2:
+    statement_block_2
+else:
+    statement_block_3
+</code></pre>
+
+<ul>
+<li>如果 "condition_1" 为 True 将执行 "statement_block_1" 块语句</li>
+<li>如果 "condition_1" 为False，将判断 "condition_2"</li>
+<li>如果"condition_2" 为 True 将执行 "statement_block_2" 块语句</li>
+<li>如果 "condition_2" 为False，将执行"statement_block_3"块语句</li>
+</ul>
+<p>Python 中用<code>elif</code>代替了<code>else if</code>，所以if语句的关键字为：<code>if – elif – else</code>。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>1、每个条件后面要使用冒号 <strong>:</strong>，表示接下来是满足条件后要执行的语句块。</li>
+<li>2、使用缩进来划分语句块，相同缩进数的语句在一起组成一个语句块。</li>
+<li>3、在Python中没有<code>switch – case</code>语句。</li>
+</ul>
+<p><img alt="img" src="./images/python-ifelse.gif" /></p>
+<h4>练习:简单的 if 实例</h4>
+<pre><code class="Python">var1 = 100
+if var1:
+    print(&quot;1 - if 表达式条件为 true&quot;)
+    print(var1)
+
+var2 = 0
+if var2:
+    print(&quot;2 - if 表达式条件为 true&quot;)
+    print(var2)
+print(&quot;Good bye!&quot;)
+</code></pre>
+
+<p>从结果可以看到由于变量 <code>var2</code> 为 0，所以对应的<code>if</code> 内的语句没有执行。</p>
+<h4>练习：根据输入变化的条件控制</h4>
+<pre><code class="Python">age = int(input(&quot;请输入你家狗狗的年龄: &quot;))
+print(&quot;&quot;)
+if age &lt;= 0:
+    print(&quot;你是在逗我吧!&quot;)
+elif age == 1:
+    print(&quot;相当于 14 岁的人。&quot;)
+elif age == 2:
+    print(&quot;相当于 22 岁的人。&quot;)
+elif age &gt; 2:
+    human = 22 + (age -2)*5
+    print(&quot;对应人类年龄: &quot;, human)
+
+### 退出提示
+input(&quot;点击 enter 键退出&quot;)
+</code></pre>
+
+<p>以下为<code>if</code>中常用的操作运算符:</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>&lt;</code></td>
+<td align="left">小于</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;=</code></td>
+<td align="left">小于或等于</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;</code></td>
+<td align="left">大于</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;=</code></td>
+<td align="left">大于或等于</td>
+</tr>
+<tr>
+<td align="left"><code>==</code></td>
+<td align="left">等于，比较两个值是否相等</td>
+</tr>
+<tr>
+<td align="left"><code>!=</code></td>
+<td align="left">不等于</td>
+</tr>
+</tbody>
+</table>
+<h4>练习：<code>if</code>运算符</h4>
+<pre><code class="Python"># 使用数字
+print(5 == 6)
+# 使用变量
+x = 5
+y = 8
+print(x == y)
+</code></pre>
+
+<h4>练习：数字猜谜游戏</h4>
+<pre><code class="Python"># 该实例演示了数字猜谜游戏
+number = 7
+guess = -1
+print(&quot;数字猜谜游戏!&quot;)
+while guess != number:
+    guess = int(input(&quot;请输入你猜的数字：&quot;))
+
+    if guess == number:
+        print(&quot;恭喜，你猜对了！&quot;)
+    elif guess &lt; number:
+        print(&quot;猜的数字小了...&quot;)
+    elif guess &gt; number:
+        print(&quot;猜的数字大了...&quot;)
+</code></pre>
+
+<h2>if 嵌套</h2>
+<p>在嵌套 if 语句中，可以把<code>if...elif...else</code>结构放在另外一个<code>if...elif...else</code>结构中。</p>
+<pre><code>if 表达式1:
+    语句
+    if 表达式2:
+        语句
+    elif 表达式3:
+        语句
+    else:
+        语句
+elif 表达式4:
+    语句
+else:
+    语句
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="Python">num=int(input(&quot;输入一个数字：&quot;))
+if num%2==0:
+    if num%3==0:
+        print(&quot;你输入的数字可以整除 2 和 3&quot;)
+    else:
+        print(&quot;你输入的数字可以整除 2，但不能整除 3&quot;)
+else:
+    if num%3==0:
+        print(&quot;你输入的数字可以整除 3，但不能整除 2&quot;)
+    else:
+        print  (&quot;你输入的数字不能整除 2 和 3&quot;)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

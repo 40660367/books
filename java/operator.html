@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Java 基本运算符 - FreeAIHub</title>
+    <meta name="keywords" content="算术运算符,关系运算符,按位运算符,逻辑运算符,赋值运算符,其它运算符">
+    <meta name="description" content="Java提供了一组丰富的操作符来操作变量。 我们可以将所有Java运算符划分为以下几个分类 - 算术运算符在数学表达式中的使用方式与在代数中使用的方式相同。下表列出了算术运算符的使用示例 - 假设整数类型变量的值为：，变量的值为：，则 - Java语言支持以下关系运算符。假设变量的值是，变量的值是，则 - Java定义了几个按位运算符，可以应用于整数类型， 如：，，，和。按位运算符处理位并执行逐位">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/java/index.html">如何学习本课程</a></li>
+<li><a href="/java/intro.html"> java 简介 </a></li>
+<li><a href="/java/setup.html"> Java 环境搭建及运行 </a></li>
+<li><a href="/java/syntax.html"> Java 基本语法 </a></li>
+<li><a href="/java/object-class.html"> Java 对象与类 </a></li>
+<li><a href="/java/datatype.html"> Java 基本数据类型 </a></li>
+<li><a href="/java/variable-types.html"> Java 变量类型 </a></li>
+<li><a href="/java/modifier.html"> Java 修饰符类型 </a></li>
+<li><a class="current"> Java 基本运算符 </a></li>
+<li><a href="/java/number.html"> Java Number类 </a></li>
+<li><a href="/java/character.html"> Java Character类 </a></li>
+<li><a href="/java/string.html"> Java String类 </a></li>
+<li><a href="/java/array.html"> Java 数组 </a></li>
+<li><a href="/java/method.html"> Java 方法 </a></li>
+<li><a href="/java/logic.html"> Java 条件判断 </a></li>
+<li><a href="/java/if.html"> Java 条件判断-if </a></li>
+<li><a href="/java/if-else.html"> Java 条件判断-if-else </a></li>
+<li><a href="/java/if-nested.html"> Java 条件判断-嵌套if语句 </a></li>
+<li><a href="/java/switch.html"> Java 条件判断-switch </a></li>
+<li><a href="/java/loop.html"> Java 循环控制 </a></li>
+<li><a href="/java/loop.html"> Java 循环控制 </a></li>
+<li><a href="/java/while.html"> Java 循环控制-while </a></li>
+<li><a href="/java/for.html"> Java 循环控制-for </a></li>
+<li><a href="/java/do-while.html"> Java 循环控制-do-while </a></li>
+<li><a href="/java/datetime.html"> Java 日期时间 </a></li>
+<li><a href="/java/io.html"> Java 文件和输入和输出 </a></li>
+<li><a href="/java/exceptions.html"> Java 异常处理 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/java/modifier.html class='prev_article'> Java 修饰符类型 </a>       |       下一篇：<a href=/java/number.html class='next_article'> Java Number类 </a>  >
+              
+<h1>Java 基本运算符</h1>
+<p>Java提供了一组丰富的操作符来操作变量。 我们可以将所有Java运算符划分为以下几个分类 - </p>
+<ul>
+<li>算术运算符</li>
+<li>关系运算符</li>
+<li>按位运算符</li>
+<li>逻辑运算符</li>
+<li>赋值运算符</li>
+<li>其他运算符</li>
+</ul>
+<h2>算术运算符</h2>
+<p>算术运算符在数学表达式中的使用方式与在代数中使用的方式相同。下表列出了算术运算符的使用示例 - </p>
+<p>假设整数类型变量<code>A</code>的值为：<code>10</code>，变量<code>B</code>的值为：<code>20</code>，则 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>加法运算符,第一个操作数加上第二个数操作数</td>
+<td><code>A + B</code>结果为：<code>30</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>减法运算符,从第一个操作数减去第二个操作数</td>
+<td><code>A - B</code>结果为：<code>-10</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>两个操作数相乘</td>
+<td><code>A * B</code>结果为：<code>200</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>左操作数除以右操作数返回模值</td>
+<td><code>B / A</code>结果为：<code>2</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>左操作数除以右操作数返回余数</td>
+<td><code>B / A</code>结果为：<code>0</code></td>
+</tr>
+<tr>
+<td><code>++</code></td>
+<td>将操作数的值增加<code>1</code></td>
+<td><code>A++</code>，则<code>A</code>的值为：<code>11</code></td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>将操作数的值减<code>1</code></td>
+<td><code>A--</code>，则<code>A</code>的值为：<code>9</code></td>
+</tr>
+</tbody>
+</table>
+<h2>关系运算符</h2>
+<p>Java语言支持以下关系运算符。假设变量<code>A</code>的值是<code>10</code>，变量<code>B</code>的值是<code>20</code>，则 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>等于运算符，检查两个操作数的值是否相等，如果相等，则条件变为真。</td>
+<td><code>A==B</code>结果为假。</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等于运算符，检查两个操作数的值是否不相等，如果不相等，则条件变为真。</td>
+<td><code>A!=B</code>结果为真。</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>大于运算符，检查左操作数的值是否大于右操作数的值，如果大于，则条件变为真。</td>
+<td><code>A&gt;B</code>结果为假。</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>小于运算符，检查左操作数的值是否小于右操作数的值，如果小于，则条件变为真。</td>
+<td>`A结果为真。</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>大于或等于运算符，检查左操作数的值是否大于等于右操作数的值，如果大于或等于，则条件变为真。</td>
+<td><code>A&gt;=B</code>结果为假。</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>小于或等于运算符，检查左操作数的值是否小于或等于右操作数的值，如果小于或等于，则条件变为真。</td>
+<td><code>A&lt;=B</code>结果为真。</td>
+</tr>
+</tbody>
+</table>
+<h2>按位运算符</h2>
+<p>Java定义了几个按位运算符，可以应用于整数类型， 如：<code>long</code>，<code>int</code>，<code>short</code>，<code>char</code>和<code>byte</code>。按位运算符处理位并执行逐位运算。 假设<code>a = 60</code>且<code>b = 13</code>; 采用二进制格式，它们将如下 - </p>
+<pre><code class="java">a = 0011 1100
+
+b = 0000 1101
+
+-----------------
+
+a&amp;b = 0000 1100
+
+a|b = 0011 1101
+
+a^b = 0011 0001
+
+~a  = 1100 0011
+</code></pre>
+
+<p>下面的表中列出了按位运算符，假设整数变量<code>A=60</code>，变量<code>B=13</code>，那么 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>二进制AND运算符，如果存在于两个操作数中，则它会将结果复制到结果中。</td>
+<td><code>A &amp; B</code>的结果为：<code>12</code>，也就是：<code>0000 1100</code></td>
+</tr>
+<tr>
+<td>Ι</td>
+<td>二进制OR运算符，如果存在于任一操作数中，则复制一位。</td>
+<td>A Ι B 的结果为：<code>61</code>，也就是：<code>0011 1101</code></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>二进制异或运算符，如果在一个操作数中设置但不在两个操作数中设置，则复制该位。</td>
+<td><code>A ^ B</code>的结果为：<code>49</code>，也就是：<code>0011 0001</code></td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>二元一元补充运算符是一元的，具有“翻转”位的效果。</td>
+<td><code>~A</code>的结果为：<code>-61</code>，也就是：<code>1100 0011</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>二进制左移运算符，左操作数值向左移动右操作数指定的位数。</td>
+<td><code>A &lt;&lt; 2</code>的结果为：<code>240</code>，也就是：<code>1111 0000</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>二进制右移运算符，左操作数值向右移动右操作数指定的位数。</td>
+<td><code>A &gt;&gt; 2</code>的结果为：<code>15</code>，也就是：<code>1111</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;&gt;</code></td>
+<td>右移零填充运算符。 左操作数值向右移动右操作数指定的位数，移位值用零填充。</td>
+<td><code>A &gt;&gt;&gt;2</code>的结果为：<code>15</code>，也就是：<code>0000 1111</code></td>
+</tr>
+</tbody>
+</table>
+<h2>逻辑运算符</h2>
+<p>下表列出了逻辑运算符 - </p>
+<p>假设布尔变量<code>A</code>的值为：<code>true</code>，变量<code>B</code> 的值为：<code>false</code>，则 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑AND运算符。 如果两个操作数都不为零，则条件成立。</td>
+<td><code>(A &amp;&amp; B)</code>结果为：<code>false</code></td>
+</tr>
+<tr>
+<td>ΙΙ</td>
+<td>逻辑OR运算符。 如果两个操作数中的任何一个非零，则条件变为真。</td>
+<td>(A ΙΙ B)结果为：<code>true</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>逻辑非运算符。用于反转其操作数的逻辑状态。 如果条件为真，则口逻辑NOT运算符将为<code>false</code>。</td>
+<td><code>!(A &amp;&amp; B)</code>结果为：<code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h2>赋值运算符</h2>
+<p>以下是Java语言支持的赋值运算符 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>简单赋值运算符。 将右侧操作数的值分配给左侧操作数。</td>
+<td><code>C = A + B</code>将<code>A + B</code>的值分配给<code>C</code>。</td>
+</tr>
+<tr>
+<td><code>+=</code></td>
+<td>相加与赋值运算符。 它将右操作数相加到左操作数并将结果分配给左操作数。</td>
+<td><code>C += A</code>等于<code>C = C + A</code>。</td>
+</tr>
+<tr>
+<td><code>-=</code></td>
+<td>减去与赋值运算符。 它从左操作数中减去右操作数，并将结果赋给左操作数。</td>
+<td><code>C -= A</code>等于<code>C = C - A</code>。</td>
+</tr>
+<tr>
+<td><code>*=</code></td>
+<td>乘以与赋值运算符。 它将右操作数与左操作数相乘，并将结果赋给左操作数。</td>
+<td><code>C *= A</code>等于<code>C = C * A</code>。</td>
+</tr>
+<tr>
+<td><code>/=</code></td>
+<td>除以与赋值运算符。 它将左操作数除以右操作数，并将结果赋给左操作数。</td>
+<td><code>C /= A</code>等于<code>C = C / A</code>。</td>
+</tr>
+<tr>
+<td><code>%=</code></td>
+<td>模数与赋值运算符。 它使用两个操作数来计算获取模数，并将结果赋给左操作数。</td>
+<td><code>C %= A</code>等于<code>C = C % A</code>。</td>
+</tr>
+<tr>
+<td><code>&lt;&lt;=</code></td>
+<td>左移与赋值运算符。</td>
+<td><code>C &lt;&lt;= 2</code>与<code>C = C &lt;&lt; 2</code>相同</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;=</code></td>
+<td>右移与赋值运算符。</td>
+<td><code>C &gt;&gt;= 2</code>与<code>C = C &gt;&gt; 2</code>相同</td>
+</tr>
+<tr>
+<td><code>&amp;=</code></td>
+<td>按位与赋值运算符。</td>
+<td><code>C &amp;= 2</code>与<code>C = C &amp; 2</code>相同</td>
+</tr>
+<tr>
+<td><code>^=</code></td>
+<td>按位异或和赋值运算符。</td>
+<td><code>C ^= 2</code>与<code>C = C ^ 2</code>相同</td>
+</tr>
+<tr>
+<td>Ι=</td>
+<td>按位包含或与赋值运算符。</td>
+<td>C Ι= 2与C = C Ι=2相同</td>
+</tr>
+</tbody>
+</table>
+<h2>其它运算符</h2>
+<p>Java语言支持的其他运算符很少。</p>
+<p>条件运算符(?:)**</p>
+<p>条件运算符也称为三元运算符。 此运算符由三个操作数组成，用于计算布尔表达式。 运算符的目标是确定应将哪个值赋给变量。 运算符写成 - </p>
+<pre><code class="java">variable x = (expression) ? value if true : value if false
+</code></pre>
+
+<p>示例代码：</p>
+<p>文件名:ConditionTest.java</p>
+<pre><code class="java">public class ConditionTest {
+
+   public static void main(String args[]) {
+      int a, b;
+      a = 10;
+      b = (a == 1) ? 20: 30;
+      System.out.println( &quot;Value of b is : &quot; +  b );
+
+      b = (a == 10) ? 20: 30;
+      System.out.println( &quot;Value of b is : &quot; + b );
+   }
+}
+</code></pre>
+
+<pre><code class="bash">cd ~/java &amp;&amp; javac ConditionTest.java
+java ConditionTest
+</code></pre>
+
+<p>康康</p>
+<p><strong> instanceof运算符</strong>
+此运算符仅用于对象引用变量。 运算符检查对象是否属于特定类型(类类型或接口类型)。 <code>instanceof</code>运算符写成 </p>
+<pre><code class="java">( Object reference variable ) instanceof  (class/interface type)
+</code></pre>
+
+<p>如果操作符左侧的变量引用的对象是右侧的类/接口类型，则结果为真。 以下是一个例子</p>
+<p>文件名:InstanceofTest.java</p>
+<pre><code class="java">public class InstanceofTest {
+
+   public static void main(String args[]) {
+
+      String name = &quot;Kobe&quot;;
+
+      // 当 name 的类型是 String 时，则返回为：true
+      boolean result = name instanceof String;
+      System.out.println( result );
+   }
+}
+</code></pre>
+
+<pre><code class="bash">cd ~/java &amp;&amp; javac InstanceofTest.java
+java InstanceofTest
+</code></pre>
+
+<p>康康</p>
+<p>如果要比较的对象与右侧类型兼容，则此运算符仍将返回<code>true</code>。 以下是另一个例子</p>
+<p>文件名:Vehicle.java</p>
+<pre><code class="java">class Vehicle {}
+
+public class Car extends Vehicle {
+
+   public static void main(String args[]) {
+
+      Vehicle a = new Car();
+      boolean result =  a instanceof Car;
+      System.out.println( result );
+   }
+}
+</code></pre>
+
+<pre><code class="bash">cd ~/java &amp;&amp; javac Vehicle.java
+java Vehicle
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

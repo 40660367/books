@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>指针 - FreeAIHub</title>
+    <meta name="keywords" content="指针详细信息">
+    <meta name="description" content="指针用于指向存储在计算机内存中任何位置的值的地址。获取存储在该位置的值称为解除引用指针。指针提高了重复过程的性能，例如：文件名:pointer.c康康文件名:pointer2pointer.c康康 Wformat这个配置在Ubuntu系统上默认是打开的。http://manpages.ubuntu.com/manpages/oneiric/en/man1/gcc.1.html">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/ds-in-c/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-c/intro.html"> 数据结构 简介 </a></li>
+<li><a href="/ds-in-c/algorithm.html"> 数据结构算法 </a></li>
+<li><a class="current"> 指针 </a></li>
+<li><a href="/ds-in-c/structure.html"> 结构体(structure)  </a></li>
+<li>数组<li>
+<li><a href="/ds-in-c/array.html"> 数组(array) </a></li>
+<li><a href="/ds-in-c/array-2d.html"> 二维数组 </a></li>
+<li><a href="/ds-in-c/linked-list.html"> 链表  </a></li>
+<li><a href="/ds-in-c/linked-list-single.html"> 单链表 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-at-head.html"> 单链表 开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-at-tail.html"> 单链表 在最后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-insertion-after-specified-node.html"> 单链表 在指定节点之后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-after-specified-node.html"> 单链表 删除指定节点之后的节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-at-head.html"> 单链表 删除第一个节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-deletion-at-tail.html"> 单链表 删除最后一个节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-searching.html"> 单链表 搜索 </a></li>
+<li><a href="/ds-in-c/linked-list-single-traversing.html"> 单链表 遍历 </a></li>
+<li><a href="/ds-in-c/linked-list-double.html"> 双链表 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-at-head.html"> 双向链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-at-tail.html"> 双向链表 在末尾插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-insertion-after-specified-node.html"> 双向链表 在指定节点后插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-after-specified-node.html"> 双向链表 删除指定节点之后的节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-at-head.html"> 双向链表 删除开头节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-deletion-at-tail.html"> 双向链表 删除末尾节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-searching.html"> 双向链表 搜索特定节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular.html"> 循环单向链表 </a><li>
+<li><a href="/ds-in-c/linked-list-single-circular-insertion-at-head.html"> 循环单链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-insertion-at-tail.html"> 循环单链表 在末尾插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-deletion-at-head.html"> 循环单链表 删除开头元素 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-deletion-at-tail.html"> 循环单链表 删除末尾元素 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-searching.html"> 循环单链表 搜索 </a></li>
+<li><a href="/ds-in-c/linked-list-single-circular-traversing.html"> 循环单链表 遍历 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular.html"> 循环双向链表 </a><li>
+<li><a href="/ds-in-c/linked-list-double-circular-insertion-at-head.html"> 循环双向链表 在开头插入节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-insertion-at-tail.html"> 循环双向链表 在末尾插入节点  </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-deletion-at-head.html"> 循环双向链表 删除开头节点 </a></li>
+<li><a href="/ds-in-c/linked-list-double-circular-deletion-at-tail.html"> 循环双向链表 删除末尾节点  </a></li>
+<li><a href="/ds-in-c/queue.html"> 队列(queue) </a></li>
+<li><a href="/ds-in-c/queue-circular.html"> 循环队列 </a></li>
+<li><a href="/ds-in-c/queue-implementation-with-array.html"> 队列 数组实现队列 </a></li>
+<li><a href="/ds-in-c/queue-implementation-with-linkedlist.html"> 队列 链表实现队列  </a></li>
+<li><a href="/ds-in-c/stack.html"> 堆栈(stack)  </a></li>
+<li><a href="/ds-in-c/stack-implementation-with-array.html"> 堆栈 数组实现堆栈 </a></li>
+<li><a href="/ds-in-c/stack-implementation-with-lnikedlist.html"> 堆栈 链表实现堆栈 </a></li>
+<li><a href="/ds-in-c/tree.html"> 树 </a></li>
+<li><a href="/ds-in-c/tree-b.html"> B树 </a></li>
+<li><a href="/ds-in-c/tree-binary.html"> 二叉树  </a></li>
+<li><a href="/ds-in-c/tree-bp.html"> B+树 </a></li>
+<li><a href="/ds-in-c/graph.html"> 图 </a></li>
+<li><a href="/ds-in-c/graph-representation.html"> 图的表示 </a></li>
+<li><a href="/ds-in-c/graph-bfs.html"> 图 广度优先搜索算法(bfs) </a></li>
+<li><a href="/ds-in-c/graph-dfs.html"> 图 深度优先搜索算法(dfs)  </a></li>
+<li>搜索</li>
+<li><a href="/ds-in-c/search-linear.html"> 线性搜索  </a></li>
+<li><a href="/ds-in-c/search-binary.html"> 搜索(二分查找)  </a></li>
+<li>排序</li>
+<li><a href="/ds-in-c/sort-bubble.html"> 冒泡排序(bubble sort) </a></li>
+<li><a href="/ds-in-c/sort-bucket.html"> 桶排序(bucket sort) </a></li>
+<li><a href="/ds-in-c/sort-comb.html"> 梳排序(comb sort) </a></li>
+<li><a href="/ds-in-c/sort-counting.html"> 计数排序(couting sort) </a></li>
+<li><a href="/ds-in-c/sort-heap.html"> 堆排序(heap sort) </a></li>
+<li><a href="/ds-in-c/sort-insertion.html"> 插入排序(insertion sort) </a></li>
+<li><a href="/ds-in-c/sort-merge.html"> 合并排序(sort merge) </a></li>
+<li><a href="/ds-in-c/sort-quick.html"> 快速排序(quick sort) </a></li>
+<li><a href="/ds-in-c/sort-radix.html"> 基数排序(radix sort) </a></li>
+<li><a href="/ds-in-c/sort-selection.html"> 选择排序(selection sort) </a></li>
+<li><a href="/ds-in-c/sort-shell.html"> 希尔排序(shell sort) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/ds-in-c/algorithm.html class='prev_article'> 数据结构算法 </a>       |       下一篇：<a href=/ds-in-c/structure.html class='next_article'> 结构体(structure)  </a>  >
+              
+<h1>指针</h1>
+<p>指针用于指向存储在计算机内存中任何位置的值的地址。获取存储在该位置的值称为解除引用指针。指针提高了重复过程的性能，例如：</p>
+<ul>
+<li>遍历字符串</li>
+<li>查找表</li>
+<li>控制表</li>
+<li>树结构</li>
+</ul>
+<h2>指针详细信息</h2>
+<ul>
+<li><strong>指针算术</strong>：指针中有四个算术运算符：<code>++</code>， <code>--</code> ，<code>+</code>，<code>-</code></li>
+<li><strong>指针数组</strong>：可以定义数组以容纳多个指针。</li>
+<li><strong>指针的指针</strong>：C语言允许指针的指针等等。</li>
+<li><strong>将指针传递给C语言的函数</strong>：通过引用或地址传递参数使得被调用函数可以在调用函数中更改传递的参数。</li>
+<li><strong>从C语言函数返回指针</strong>：允许函数返回指向局部变量，静态变量和动态分配内存的指针。</li>
+</ul>
+<p><img alt="img" src="./images/pointer-sample.png" /></p>
+<p><strong>指针示例程序</strong></p>
+<p>文件名:pointer.c</p>
+<pre><code class="c">#include &lt;stdio.h&gt;  
+
+int main()
+{
+    int a = 5;
+    int *b;
+    b = &amp;a;
+
+    printf(&quot;value of a = %d\n&quot;, a);
+    printf(&quot;value of a = %d\n&quot;, *(&amp;a));
+    printf(&quot;value of a = %d\n&quot;, *b);
+    printf(&quot;address of a = %u\n&quot;, &amp;a);
+    printf(&quot;address of a = %d\n&quot;, b);
+    printf(&quot;address of b = %u\n&quot;, &amp;b);
+    printf(&quot;value of b = address of a = %u&quot;, b);
+    return 0;
+}
+
+</code></pre>
+
+<pre><code class="bash">gcc /share/lesson/data-structure/pointer.c -Wformat=0
+./a.out
+</code></pre>
+
+<p>康康</p>
+<p><strong>指针的指针示例程序</strong></p>
+<p>文件名:pointer2pointer.c</p>
+<pre><code class="c">#include &lt;stdio.h&gt;  
+
+int main()
+{
+    int a = 5;
+    int *b;
+    int **c;
+    b = &amp;a;
+    c = &amp;b;
+    printf(&quot;value of a = %d\n&quot;, a);
+    printf(&quot;value of a = %d\n&quot;, *(&amp;a));
+    printf(&quot;value of a = %d\n&quot;, *b);
+    printf(&quot;value of a = %d\n&quot;, **c);
+    printf(&quot;value of b = address of a = %u\n&quot;, b);
+    printf(&quot;value of c = address of b = %u\n&quot;, c);
+    printf(&quot;address of a = %u\n&quot;, &amp;a);
+    printf(&quot;address of a = %u\n&quot;, b);
+    printf(&quot;address of a = %u\n&quot;, *c);
+    printf(&quot;address of b = %u\n&quot;, &amp;b);
+    printf(&quot;address of b = %u\n&quot;, c);
+    printf(&quot;address of c = %u\n&quot;, &amp;c);
+    return 0;
+}
+</code></pre>
+
+<pre><code class="bash">gcc /share/lesson/data-structure/pointer2pointer.c -Wformat=0
+./a.out
+</code></pre>
+
+<p>康康</p>
+<blockquote>
+<p><strong>编译参数 -Wformat的说明:</strong> </p>
+<p><code>NOTE: In Ubuntu 8.10 and later versions this option is enabled by default for C, C++, ObjC, ObjC++.  To disable, use -Wformat=0.</code></p>
+<p>Wformat这个配置在Ubuntu系统上默认是打开的。</p>
+<p>http://manpages.ubuntu.com/manpages/oneiric/en/man1/gcc.1.html</p>
+</blockquote>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

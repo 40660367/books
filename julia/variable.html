@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 变量 - FreeAIHub</title>
+    <meta name="keywords" content="变量,可用的变量名,命名规范">
+    <meta name="description" content="在 Julia 中的一个变量是一个与一个值关联（或绑定）的名称。它的作用表现在当你想存储一个值（例如，你在进行一些数学运算后得到了一些值，你需要在之后使用到这些值）时。例如：Julia 提供了极其灵活的变量命名系统。变量名区分大小写。也可以使用 Unicode 字符（UTF-8 编码）来命名：在 Julia REPL 和其他几个 Julia 编辑环境中，您可以通过输入反斜杠符号名称后再输入标签来键">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a class="current"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/repl.html class='prev_article'> Julia交互 </a>       |       下一篇：<a href=/julia/int-float.html class='next_article'> Julia整数和浮点数 </a>  >
+              
+            <h1>Julia 变量</h1>
+<h2>变量</h2>
+<p>在 Julia 中的一个变量是一个与一个值关联（或绑定）的名称。它的作用表现在当你想存储一个值（例如，你在进行一些数学运算后得到了一些值，你需要在之后使用到这些值）时。例如：</p>
+<pre><code class="julia"># 给变量 x 赋值为 10
+x = 10
+println(x)
+
+# 用 x 的值做一些数学运算
+println(x + 1)
+
+# 重新给 x 赋值
+x = 1 + 1
+println(x)
+
+# 您可以为变量赋给种类型的值，例如文本字符串等
+x = &quot;Hello World!&quot;
+println(x)
+</code></pre>
+
+<p>Julia 提供了极其灵活的变量命名系统。变量名区分大小写。</p>
+<pre><code class="julia">x = 1.0
+
+y = -3
+
+Z = &quot;My string&quot;
+
+customary_phrase = &quot;Hello world!&quot;
+
+UniversalDeclarationOfHumanRightsStart = &quot;人人生而自由，在尊严和权力上一律平等。&quot;
+
+println(x,y,Z,customary_phrase,UniversalDeclarationOfHumanRightsStart)
+</code></pre>
+
+<p>也可以使用 Unicode 字符（UTF-8 编码）来命名：</p>
+<pre><code class="julia">δ = 0.00001
+
+안녕하세요 = &quot;Hello&quot;
+
+println(δ)
+println(안녕하세요)
+</code></pre>
+
+<p>在 Julia REPL 和其他几个 Julia 编辑环境中，您可以通过输入反斜杠符号名称后再输入标签来键入很多 Unicode 数学符号。例如，变量名 <code>δ</code> 可以通过键入 <code>\delta</code> 键入，甚至可以通过输入 <code>\alpha</code> - <em>tab</em> - <code>\hat</code> - <em>tab</em> - <code>\_2</code> - <em>tab</em> 输入 <code>α̂₂</code> 。</p>
+<p>Julia 甚至允许重新定义内置的常数</p>
+<pre><code class="julia">println(pi)
+pi = 3
+println(sqrt(100))
+println(pi)
+</code></pre>
+
+<p>很显然, 不鼓励这样的做法。</p>
+<h2>可用的变量名</h2>
+<p>变量名必须以字母（a-z 或 A-Z），下划线，或一个 Unicode 编码指针中指向比 00A0 更大的指针子集开始；特别是 <a href="http://www.fileformat.info/info/unicode/category/index.htm">Unicode 字符 </a>Lu/Ll/Lt/Lm/Lo/Nl（字母），Sc/So （货币和其他符号），和其他一些可以看做字符的一些输入（例如 Sm 数学符号的子集）是允许的。首位之后的字符也包括 ！和数字（0-9 和其他字符 Nd/No ），以及其他 Unicode 编码指针：变音符号和其他修改标记（字母 Mn/Mc/Me/Sk），一些标点连接器（字母 PC），素数，和其他的一些字符。</p>
+<p>运算符类似 <code>+</code> 也是有效的标识符，但需要特别解析。在某些情况下，运算符可以像变量一样使用；例如 <code>(+)</code> 是指增加功能，和 <code>(+) = f</code> 将重新定义这个运算。大多数的 Unicode 中缀操作符（在 Sm 中），如 <code>⊕</code> ，会被解析为中缀操作符，同时可以自定义方法（例如，你可以使用 <code>⊗ = kron</code> 定义 <code>⊕</code> 成为一个中缀 Kronecker 积）。</p>
+<p>内置的关键字不能当变量名：</p>
+<pre><code class="julia">else = false #syntax: unexpected &quot;else&quot;
+try = &quot;No&quot; #syntax: unexpected &quot;=&quot;
+</code></pre>
+
+<h2>命名规范</h2>
+<p>尽管 Julia 对命名本身只有很少的限制, 但尽量遵循一定的命名规范吧：</p>
+<ul>
+<li>变量名使用小写字母</li>
+<li>单词间使用下划线 (<code>'_'</code>) 分隔，但不鼓励</li>
+<li>类型名首字母大写, 单词间使用驼峰式分隔.</li>
+<li>函数名和宏名使用小写字母, 不使用下划线分隔单词.</li>
+<li>修改参数的函数结尾使用 <code>!</code> . 这样的函数被称为 mutating functions 或 in-place functions</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

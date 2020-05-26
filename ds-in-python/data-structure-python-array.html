@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python自带数据结构 数组(array) - FreeAIHub</title>
+    <meta name="keywords" content="数组表示,基本操作">
+    <meta name="description" content="数组是一个容器，它可以容纳一定数量的项目，这些项目是相同的类型。 大部分数据结构都使用数组来实现它们的算法。 以下是理解数组(Array)概念的重要术语。数组可以用不同的语言，可以各种方式声明。下面是一个例子。根据上述说明，需要了解清楚以下问题。以下是数组支持的基本操作。通过将数组模块导入到python程序中来创建数组，数组声明如下所示 - 是用于定义数组将保存的值类型的代码。 一些常用的使用如下">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a class="current"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure.html class='prev_article'> 数据结构  </a>       |       下一篇：<a href=/ds-in-python/data-structure-python-dict.html class='next_article'> Python自带数据结构 字典(dict) </a>  >
+              
+            <h1>Python自带数据结构 数组(array)</h1>
+<p>数组是一个容器，它可以容纳一定数量的项目，这些项目是相同的类型。 大部分数据结构都使用数组来实现它们的算法。 以下是理解数组(Array)概念的重要术语。</p>
+<ul>
+<li><strong>元素</strong> - 存储在数组中的每个项目称为元素。</li>
+<li><strong>索引</strong> - 数组中元素的每个位置都有一个数字索引，用于标识元素。</li>
+</ul>
+<h2>数组表示</h2>
+<p>数组可以用不同的语言，可以各种方式声明。下面是一个例子。</p>
+<p><img alt="img" src="http://www.yiibai.com/uploads/images/201803/0103/757150357_16346.jpg" /></p>
+<p>根据上述说明，需要了解清楚以下问题。</p>
+<ul>
+<li>索引从<code>0</code>开始。</li>
+<li>数组长度为<code>10</code>，这意味着它可以存储<code>10</code>个元素。</li>
+<li>每个元素都可以通过索引访问。 例如，可以在索引<code>6</code>处获取一个元素的值为<code>9</code>。</li>
+</ul>
+<h2>基本操作</h2>
+<p>以下是数组支持的基本操作。</p>
+<ul>
+<li><strong>遍历</strong> - 逐个打印所有数组元素。</li>
+<li><strong>插入</strong> - 在给定的索引处添加一个元素。</li>
+<li><strong>删除</strong> - 删除给定索引处的元素。</li>
+<li><strong>搜索</strong> - 使用给定索引或值搜索元素。</li>
+<li><strong>更新</strong> - 更新给定索引处的元素。</li>
+</ul>
+<p>通过将数组模块导入到python程序中来创建数组，数组声明如下所示 - </p>
+<pre><code class="python">from array import *
+
+arrayName = array(typecode, [Initializers])
+</code></pre>
+
+<p><code>typecode</code>是用于定义数组将保存的值类型的代码。 一些常用的<code>typecodes</code>使用如下:</p>
+<table>
+<thead>
+<tr>
+<th><code>Typecode</code></th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>b</code></td>
+<td>表示大小为<code>1</code>字节的有符号整数</td>
+</tr>
+<tr>
+<td><code>B</code></td>
+<td>表示大小为<code>1</code>字节的无符号整数</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>表示大小为<code>1</code>字节的字符</td>
+</tr>
+<tr>
+<td><code>i</code></td>
+<td>表示大小为<code>2</code>个字节的带符号整数</td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td>表示大小为<code>2</code>个字节的无符号整数</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>表示大小为<code>4</code>字节的浮点</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>表示大小为<code>8</code>个字节的浮点</td>
+</tr>
+</tbody>
+</table>
+<p>在查看各种数组操作之前，可以使用<code>python</code>创建和打印数组。
+下面的代码创建一个名称为<code>array1</code>的数组。</p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+for x in array1:
+    print(x)
+</code></pre>
+
+<p><strong>1. 访问数组元素</strong></p>
+<p>可以使用元素的索引来访问数组中的每个元素。 以下代码显示了如何访问数组中的指定元素 - </p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+# 访问第一个元素
+print (array1[0])
+# 访问第三个元素
+print (array1[2])
+</code></pre>
+
+<p><strong>2. 插入操作</strong></p>
+<p>插入操作是将一个或多个数据元素插入到数组中。 根据需要，可以在开始，结束或任何给定的数组索引中添加/插入一个新元素。</p>
+<p>在这里，使用python内置<code>insert()</code>方法在数组中间添加一个数据元素。</p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+array1.insert(1,60)
+
+for x in array1:
+    print(x)
+</code></pre>
+
+<p><strong>3. 删除元素操作</strong></p>
+<p>删除是指从数组中删除现有元素并重新组织数组的所有元素。
+在这里，使用python内置<code>remove()</code>方法来删除数组中的数据元素。参考以下代码实现 - </p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+array1.remove(40)
+
+for x in array1:
+    print(x)
+</code></pre>
+
+<p><strong>4. 查找/搜索操作</strong></p>
+<p>可以根据其值或索引来执行数组元素的搜索(查找)。
+在这里，使用python内置<code>index()</code>方法来搜索数组中的元素。</p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+print (array1.index(40))
+</code></pre>
+
+<blockquote>
+<p>注意:如果该值不在数组中，则返回一个错误。</p>
+</blockquote>
+<p><strong>5. 更新操作</strong></p>
+<p>更新操作是指在给定索引处更新数组中的现有元素。
+在这里，只需重新分配一个新的值给想要更新的所需索引即可。</p>
+<pre><code class="python">from array import *
+
+array1 = array('i', [10,20,30,40,50])
+
+array1[2] = 180
+
+for x in array1:
+    print(x)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

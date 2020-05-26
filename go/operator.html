@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Go语言 运算符 - FreeAIHub</title>
+    <meta name="keywords" content="算术运算符,关系运算符,逻辑运算符,按位运算符,赋值运算符,其它运算符,Go语言中的运算符优先级">
+    <meta name="description" content="运算符是一个符号，通知编译器执行特定的数学或逻辑操作。 Go语言有丰富的内置运算符，并提供以下类型的运算符：
+- 算术运算符
+- 关系运算符
+- 逻辑运算符
+- 按位运算符
+- 赋值运算符
+- 其它(杂项)运算符本教程将逐个解释和演示上面所说的算术，关系，逻辑，按位，赋值和其他运算符。下表显示了Go语言支持的所有算术运算符。假设变量  的值为 ，变量  的值为 ，则：示例:文件名:operator">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/go/index.html">如何学习本课程</a></li>
+<li><a href="/go/intro.html"> Go 简介 </a></li>
+<li><a href="/go/setup.html"> Go 环境搭建及运行 </a></li>
+<li><a href="/go/helloworld.html"> Go HelloWorld! </a></li>
+<li><a href="/go/syntax.html"> Go 基本语法 </a></li>
+<li><a href="/go/datatype.html"> Go 基本数据类型 </a></li>
+<li><a href="/go/variable.html"> Go 变量 </a></li>
+<li><a href="/go/const.html"> Go 常量 </a></li>
+<li><a class="current"> Go 运算符 </a></li>
+<li><a href="/go/logic.html"> Go 逻辑判断 </a></li>
+<li><a href="/go/loop.html"> Go 循环控制 </a></li>
+<li><a href="/go/scope.html"> Go 作用域规则 </a></li>
+<li><a href="/go/function.html"> Go 函数 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-按值调用 </a></li>
+<li><a href="/go/function-refbyreference.html"> Go 函数-按引用调用 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-作用值使用 </a></li>
+<li><a href="/go/function-closure.html"> Go 函数-闭包 </a></li>
+<li><a href="/go/function-method.html"> Go 函数-方法 </a></li>
+<li><a href="/go/string.html"> Go 字符串String </a></li>
+<li><a href="/go/array.html"> Go 数组Array </a></li>
+<li><a href="/go/pointer.html"> Go 指针Pointer </a></li>
+<li><a href="/go/structure.html"> Go 结构体Structure </a></li>
+<li><a href="/go/range.html"> Go 范围Range </a></li>
+<li><a href="/go/slice.html"> Go 切片Slice </a></li>
+<li><a href="/go/map.html"> Go 映射Map </a></li>
+<li><a href="/go/recursion.html"> Go 递归recursion </a></li>
+<li><a href="/go/channel.html"> Go 通道 </a></li>
+<li><a href="/go/signal.html"> Go 信号 </a></li>
+<li><a href="/go/error.html"> Go 错误处理 </a></li></p>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/go/const.html class='prev_article'> Go 常量 </a>       |       下一篇：<a href=/go/logic.html class='next_article'> Go 逻辑判断 </a>  >
+              
+<h1>Go语言 运算符</h1>
+<p>运算符是一个符号，通知编译器执行特定的数学或逻辑操作。 Go语言有丰富的内置运算符，并提供以下类型的运算符：
+- 算术运算符
+- 关系运算符
+- 逻辑运算符
+- 按位运算符
+- 赋值运算符
+- 其它(杂项)运算符</p>
+<p>本教程将逐个解释和演示上面所说的算术，关系，逻辑，按位，赋值和其他运算符。</p>
+<h2>算术运算符</h2>
+<p>下表显示了Go语言支持的所有算术运算符。假设变量 <code>A</code> 的值为 <code>10</code>，变量 <code>B</code> 的值为 <code>20</code>，则：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>添加两个操作数</td>
+<td>A + B = 30</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>从第一个操作数中减去第二个操作数</td>
+<td>A - B = 10</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>将两个操作数相乘</td>
+<td>A * B = 200</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>将分子除以分母</td>
+<td>B / A = 2</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>模数运算符，以及整数除法的余数</td>
+<td>B % A = 0</td>
+</tr>
+<tr>
+<td><code>++</code></td>
+<td>增加(递增)运算符，将整数值加一</td>
+<td>A++ = 11</td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>相减(递减)运算符，将整数值减一</td>
+<td>A— = 9</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<p>文件名:operator-arithmetic.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+
+   var a int = 21
+   var b int = 10
+   var c int
+
+   c = a + b
+   fmt.Printf(&quot;Line 1 - Value of c is %d\n&quot;, c )
+   c = a - b
+   fmt.Printf(&quot;Line 2 - Value of c is %d\n&quot;, c )
+   c = a * b
+   fmt.Printf(&quot;Line 3 - Value of c is %d\n&quot;, c )
+   c = a / b
+   fmt.Printf(&quot;Line 4 - Value of c is %d\n&quot;, c )
+   c = a % b
+   fmt.Printf(&quot;Line 5 - Value of c is %d\n&quot;, c )
+   a++
+   fmt.Printf(&quot;Line 6 - Value of a is %d\n&quot;, a )
+   a--
+   fmt.Printf(&quot;Line 7 - Value of a is %d\n&quot;, a )
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/operator-arithmetic.go
+</code></pre>
+
+<p>康康</p>
+<h2>关系运算符</h2>
+<p>下表显示了Go语言支持的所有关系运算符。假设变量 <code>A</code> 的值为 <code>10</code>，变量 <code>B</code> 的值为 <code>20</code>，则：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>检查两个操作数的值是否相等，如果相等，则条件为真。</td>
+<td>(A == B)结果为假</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>检查两个操作数的值是否相等，如果值不相等，则条件为真。</td>
+<td>(A != B)结果为真</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>检查左操作数的值是否大于右操作数的值，如果是，则条件为真。</td>
+<td>(A &gt; B)结果为假</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>检查左操作数的值是否小于右操作数的值，如果是，则条件为真。</td>
+<td>(A &lt; B)结果为真</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>检查左操作数的值是否大于或等于右操作数的值，如果是，则条件为真。</td>
+<td>(A &gt;= B)结果为假</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>检查左操作数的值是否小于或等于右操作数的值，如果是，则条件为真。</td>
+<td>(A &lt;= B)结果为真</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<p>文件名:operator-relational.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var a int = 21
+   var b int = 10
+
+   if( a == b ) {
+      fmt.Printf(&quot;Line 1 - a is equal to b\n&quot; )
+   } else {
+      fmt.Printf(&quot;Line 1 - a is not equal to b\n&quot; )
+   }
+   if ( a &lt; b ) {
+      fmt.Printf(&quot;Line 2 - a is less than b\n&quot; )
+   } else {
+      fmt.Printf(&quot;Line 2 - a is not less than b\n&quot; )
+   } 
+
+   if ( a &gt; b ) {
+      fmt.Printf(&quot;Line 3 - a is greater than b\n&quot; )
+   } else {
+      fmt.Printf(&quot;Line 3 - a is not greater than b\n&quot; )
+   }
+   /* Lets change value of a and b */
+   a = 5
+   b = 20
+   if ( a &lt;= b ) {
+      fmt.Printf(&quot;Line 4 - a is either less than or equal to  b\n&quot; )
+   }
+   if ( b &gt;= a ) {
+      fmt.Printf(&quot;Line 5 - b is either greater than  or equal to b\n&quot; )
+   }
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/operator-relational.go
+</code></pre>
+
+<p>康康</p>
+<h2>逻辑运算符</h2>
+<p>下表显示了Go语言支持的所有逻辑运算符。假设变量<code>A</code>的值为<code>1</code>，变量<code>B</code>的值为<code>0</code>，则：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑<code>AND</code>运算符。如果两个操作数都不为零，则条件为真。</td>
+<td>(A &amp;&amp; B)结果为真</td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>逻辑<code>OR</code>运算符。如果两个操作数中的任何一个非零，则条件变为真。</td>
+<td>(A <code>||</code> B) 结果为真</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>逻辑非运算符。用于反转其操作数的逻辑状态。如果条件为真，则逻辑非运算符将为假。</td>
+<td>!(A &amp;&amp; B) 结果为真</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<p>文件名:operator-logic.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var a bool = true
+   var b bool = false
+   if ( a &amp;&amp; b ) {
+      fmt.Printf(&quot;Line 1 - Condition is true\n&quot; )
+   }
+   if ( a || b ) {
+      fmt.Printf(&quot;Line 2 - Condition is true\n&quot; )
+   }
+   /* lets change the value of  a and b */
+   a = false
+   b = true
+   if ( a &amp;&amp; b ) {
+      fmt.Printf(&quot;Line 3 - Condition is true\n&quot; )
+   } else {
+      fmt.Printf(&quot;Line 3 - Condition is not true\n&quot; )
+   }
+   if ( !(a &amp;&amp; b) ) {
+      fmt.Printf(&quot;Line 4 - Condition is true\n&quot; )
+   }
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/operator-logic.go
+</code></pre>
+
+<p>康康</p>
+<h2>按位运算符</h2>
+<p>按位操作符对位进行操作，并执行逐位操作。 <code>＆</code>，<code>|</code>和<code>^</code>的真值表如下：</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p &amp; q</th>
+<th>p | q</th>
+<th>p ^ q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>假设<code>A = 60</code>, <code>B = 13</code>; 现在的二进制格式，如下：</p>
+<pre><code class="go">A = 0011 1100
+
+B = 0000 1101
+
+-----------------
+
+A&amp;B = 0000 1100
+
+A|B = 0011 1101
+
+A^B = 0011 0001
+
+~A  = 1100 0011
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>如果两个操作数中都存在二进制<code>AND</code>运算符，则将其复制到结果。</td>
+<td>(<code>A &amp; B</code>) 结果为 <code>12</code>, 也就是 <code>0000 1100</code></td>
+</tr>
+<tr>
+<td>|</td>
+<td>二进制<code>OR</code>运算符复制一个位，如果它存在于任一操作数。</td>
+<td>(A | B) 结果为 61, 也就是 <code>0011 1101</code></td>
+</tr>
+<tr>
+<td>^</td>
+<td>二进制<code>XOR</code>运算符复制位，如果它在一个操作数中设置，但不是在两个操作数中设置。</td>
+<td>(A ^ B) 结果为 <code>49</code>, 也就是 <code>0011 0001</code></td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>二进制左移位运算符。左操作数值向左移动由右操作数指定的位数。</td>
+<td><code>A &lt;&lt; 2</code> 结果为 <code>240</code>, 也就是 <code>1111 0000</code></td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>二进制右移运算符。左操作数值向右移动由右操作数指定位数。</td>
+<td><code>A &gt;&gt; 2</code> 结果为 15 , 也就是 <code>0000 1111</code></td>
+</tr>
+</tbody>
+</table>
+<h2>赋值运算符</h2>
+<p>Go语言支持以下赋值运算符：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>简单赋值操作符，将值从右侧操作数分配给左侧操作数</td>
+<td><code>C = A + B</code>，就是将<code>A + B</code>的值赋给<code>C</code></td>
+</tr>
+<tr>
+<td><code>+=</code></td>
+<td>相加和赋值运算符，向左操作数添加右操作数，并将结果赋给左操作数</td>
+<td><code>C += A</code> 相当于 <code>C = C + A</code></td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减去和赋值运算符，从左操作数中减去右操作数，并将结果赋给左操作数</td>
+<td><code>C -= A</code> 相当于 <code>C = C - A</code></td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘法和赋值运算符，它将右操作数与左操作数相乘，并将结果赋给左操作数</td>
+<td><code>C *= A</code> 相当于 <code>C = C * A</code></td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除法和赋值运算符，它用右操作数划分左操作数，并将结果分配给左操作数</td>
+<td><code>C /= A</code> 相当于 <code>C = C / A</code></td>
+</tr>
+<tr>
+<td>%=</td>
+<td>模数和赋值运算符，它使用两个操作数来取模，并将结果分配给左操作数</td>
+<td><code>C %= A</code> 相当于 <code>C = C % A</code></td>
+</tr>
+<tr>
+<td>&lt;&lt;=</td>
+<td>左移和赋值运算符</td>
+<td><code>C &lt;&lt; = 2</code>相当于<code>C = C &lt;&lt; 2</code></td>
+</tr>
+<tr>
+<td>&gt;&gt;=</td>
+<td>右移和赋值运算符</td>
+<td><code>C &gt;&gt;= 2</code> 相当于 <code>C = C &gt;&gt; 2</code></td>
+</tr>
+<tr>
+<td>&amp;=</td>
+<td>按位和赋值运算符</td>
+<td><code>C &amp;= 2</code> 相当于 <code>C = C &amp; 2</code></td>
+</tr>
+<tr>
+<td>^=</td>
+<td>按位异或和赋值运算符</td>
+<td><code>C ^= 2</code> 相当于 <code>C = C ^ 2</code></td>
+</tr>
+<tr>
+<td><code>|=</code></td>
+<td>按位包含<code>OR</code>和赋值运算符</td>
+<td>C <code>|=</code> 2 相当于 C = C<code>|</code> 2</td>
+</tr>
+</tbody>
+</table>
+<h2>其它运算符</h2>
+<p>还有一些其他重要的运算符包括<code>sizeof</code>和<code>? ：</code>，在Go语言中也是支持的。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>返回变量的地址</td>
+<td><code>＆a</code>将给出变量<code>a</code>的实际地址。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>指向变量的指针</td>
+<td><code>*a</code> 是指向变量<code>a</code>的指针。</td>
+</tr>
+</tbody>
+</table>
+<h2>Go语言中的运算符优先级</h2>
+<p>运算符优先级确定表达式中的分组。这会影响表达式的计算方式。某些运算符比其他运算符具有更高的优先级; 例如，乘法运算符比加法运算符有更高的优先级。</p>
+<p>例如：<code>x = 7 + 3 * 2</code>; 这里，计算结果<code>x</code>被分配<code>13</code>，而不是<code>20</code>，因为运算符 <code>*</code>具有比<code>+</code>有更的优先级，所以它首先乘以<code>3 * 2</code>，然后加上<code>7</code>。</p>
+<p>这里，具有最高优先级的运算符放在表的顶部，具有最低优先级的运算符出现在底部。 在表达式中，将首先计算较高优先级运算符。</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>描述</th>
+<th>关联性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>后缀</td>
+<td>() [] -&gt; . ++ - -</td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>一元</td>
+<td>+ - ! ~ ++ - - (type)* &amp; sizeof</td>
+<td>右到左</td>
+</tr>
+<tr>
+<td>乘除取模</td>
+<td><code>*</code> <code>/</code> <code>%</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>加减法</td>
+<td><code>+</code> <code>-</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>移位</td>
+<td><code>&lt;&lt;</code> <code>&gt;&gt;</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>关系</td>
+<td><code>&lt;`` &lt;=</code> <code>&gt;</code> <code>&gt;=</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>相等</td>
+<td><code>==</code> <code>!=</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>按位AND</td>
+<td><code>&amp;</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>按位XOR</td>
+<td><code>^</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>按位OR</td>
+<td><code>|</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>逻辑AND</td>
+<td><code>&amp;&amp;</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>逻辑OR</td>
+<td><code>| |</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>条件</td>
+<td><code>?:</code></td>
+<td>右到左</td>
+</tr>
+<tr>
+<td>分配</td>
+<td>= += -= *= /= %=&gt;&gt;= &lt;&lt;= &amp;= ^= |=</td>
+<td>右到左</td>
+</tr>
+<tr>
+<td>逗号</td>
+<td>,</td>
+<td>左到右</td>
+</tr>
+</tbody>
+</table>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

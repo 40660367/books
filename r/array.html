@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 数组(array) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="数组是可以在两个以上维度中存储数据的R数据对象。 例如 - 如果我们创建一个维度(2，3，4)的数组，则它创建4个矩形矩阵，每个矩阵具有2行和3列。 数组只能存储数据类型。使用函数创建数组。 它使用向量作为输入，并使用参数中的值创建数组。我们可以使用参数给数组中的行，列和矩阵命名。由于数组由多维构成矩阵，所以对数组元素的操作通过访问矩阵的元素来执行。我们可以使用函数在数组中的元素上进行计算。语法:">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a class="current"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/matrix.html class='prev_article'> R语言数据类型-矩阵</a>       |       下一篇：<a href=/r/factor.html class='next_article'> R语言数据类型-因子</a>  >
+              
+            <h1>R语言 数组(array)</h1>
+<p>数组是可以在两个以上维度中存储数据的R数据对象。 例如 - 如果我们创建一个维度(2，3，4)的数组，则它创建4个矩形矩阵，每个矩阵具有2行和3列。 数组只能存储数据类型。</p>
+<p>使用<code>array()</code>函数创建数组。 它使用向量作为输入，并使用<code>dim()</code>参数中的值创建数组。</p>
+<h4>练习：创建一个由两个3x3矩阵组成的数组，每个矩阵具有3行和3列。</h4>
+<pre><code class="R"># Create two vectors of different lengths.
+vector1 &lt;- c(5,9,3)
+vector2 &lt;- c(10,11,12,13,14,15)
+
+# Take these vectors as input to the array.
+result &lt;- array(c(vector1,vector2),dim = c(3,3,2))
+print(result)
+</code></pre>
+
+<h4>练习：命名列和行</h4>
+<p>我们可以使用<code>dimnames</code>参数给数组中的行，列和矩阵命名。</p>
+<pre><code class="R"># Create two vectors of different lengths.
+vector1 &lt;- c(5,9,3)
+vector2 &lt;- c(10,11,12,13,14,15)
+column.names &lt;- c(&quot;COL1&quot;,&quot;COL2&quot;,&quot;COL3&quot;)
+row.names &lt;- c(&quot;ROW1&quot;,&quot;ROW2&quot;,&quot;ROW3&quot;)
+matrix.names &lt;- c(&quot;Matrix1&quot;,&quot;Matrix2&quot;)
+
+# Take these vectors as input to the array.
+result &lt;- array(c(vector1,vector2),dim = c(3,3,2),dimnames = list(row.names,column.names,
+   matrix.names))
+print(result)
+</code></pre>
+
+<h4>练习：访问数组元素</h4>
+<pre><code class="R"># Create two vectors of different lengths.
+vector1 &lt;- c(5,9,3)
+vector2 &lt;- c(10,11,12,13,14,15)
+column.names &lt;- c(&quot;COL1&quot;,&quot;COL2&quot;,&quot;COL3&quot;)
+row.names &lt;- c(&quot;ROW1&quot;,&quot;ROW2&quot;,&quot;ROW3&quot;)
+matrix.names &lt;- c(&quot;Matrix1&quot;,&quot;Matrix2&quot;)
+
+# Take these vectors as input to the array.
+result &lt;- array(c(vector1,vector2),dim = c(3,3,2),dimnames = list(row.names,
+   column.names, matrix.names))
+
+# Print the third row of the second matrix of the array.
+print(result[3,,2])
+
+# Print the element in the 1st row and 3rd column of the 1st matrix.
+print(result[1,3,1])
+
+# Print the 2nd Matrix.
+print(result[,,2])
+</code></pre>
+
+<h4>练习：操作数组元素</h4>
+<p>由于数组由多维构成矩阵，所以对数组元素的操作通过访问矩阵的元素来执行。</p>
+<pre><code class="R"># Create two vectors of different lengths.
+vector1 &lt;- c(5,9,3)
+vector2 &lt;- c(10,11,12,13,14,15)
+
+# Take these vectors as input to the array.
+array1 &lt;- array(c(vector1,vector2),dim = c(3,3,2))
+
+# Create two vectors of different lengths.
+vector3 &lt;- c(9,1,0)
+vector4 &lt;- c(6,0,11,3,14,1,2,6,9)
+array2 &lt;- array(c(vector1,vector2),dim = c(3,3,2))
+
+# create matrices from these arrays.
+matrix1 &lt;- array1[,,2]
+matrix2 &lt;- array2[,,2]
+
+# Add the matrices.
+result &lt;- matrix1+matrix2
+print(result)
+</code></pre>
+
+<h4>练习：跨数组元素的计算</h4>
+<p>我们可以使用<code>apply()</code>函数在数组中的元素上进行计算。</p>
+<p>语法:<code>apply(x, margin, fun)</code></p>
+<p>以下是所使用的参数的说明 -</p>
+<ul>
+<li><strong>x</strong>是一个数组。</li>
+<li><strong>margin</strong>是所使用的数据集的名称。</li>
+<li><strong>fun</strong>是要应用于数组元素的函数。</li>
+</ul>
+<p>我们使用下面的<code>apply()</code>函数计算所有矩阵中数组行中元素的总和。</p>
+<pre><code class="R"># Create two vectors of different lengths.
+vector1 &lt;- c(5,9,3)
+vector2 &lt;- c(10,11,12,13,14,15)
+
+# Take these vectors as input to the array.
+new.array &lt;- array(c(vector1,vector2),dim = c(3,3,2))
+print(new.array)
+
+# Use apply to calculate the sum of the rows across all the matrices.
+result &lt;- apply(new.array, c(1), sum)
+print(result)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

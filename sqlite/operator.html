@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SQLite 运算符(operator) - FreeAIHub</title>
+    <meta name="keywords" content="SQLite算术运算符,SQLite比较运算符,SQLite逻辑运算符,SQLite位运算符">
+    <meta name="description" content="当使用子句执行比较和算术运算时需要使用到运算符，SQLite运算符是SQLite语句中使用的保留字或字符。可以使用运算符来指定条件和SQLite语句中多个条件的连接。SQLite中主要有种类型的运算符：下表指定了SQLite中的算术运算符。 在这个表中，有两个变量“”和“”，它们的值分别是和。下表中列出了SQLite中的比较运算符。 在这个表中，有两个变量“”和“”，它们的值分别是和。以下是SQL">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/sqlite/index.html"> 如何学习本课程</a></li>
+<li><a href="/sqlite/intro.html"> SQLite 简介 </a></li>
+<li><a href="/sqlite/setup.html"> SQLite 安装及导入示例数据库 </a></li>
+<li><a href="/sqlite/basic.html"> SQLite 基本概念和命令 </a></li>
+<li><a href="/sqlite/syntax.html"> SQLite 语法 </a></li>
+<li><a href="/sqlite/database-operation.html"> SQLite 数据库操作 </a>    </li>
+<li><a href="/sqlite/table-operation.html"> SQLite 表格操作 </a></li>
+<li><a href="/sqlite/datatype.html"> SQLite 数据类型 </a></li>
+<li><a class="current"> SQLite 运算符 </a></li>
+<li><a href="/sqlite/expression.html"> SQLite 表达式 </a></li>
+<li><a href="/sqlite/query-insert.html"> SQLite 查询-INSERT </a>  </li>
+<li><a href="/sqlite/query-select.html"> SQLite 查询-SELECT </a></li>
+<li><a href="/sqlite/query-delete.html"> SQLite 查询-DELETE </a></li>
+<li><a href="/sqlite/query-update.html"> SQLite 查询-UPDATE </a> </li>
+<li><a href="/sqlite/clause-where.html"> SQLite 子句-WHERE </a></li>
+<li><a href="/sqlite/operator-like.html"> SQLite 运算符-LIKE </a></li>
+<li><a href="/sqlite/clause-limit.html"> SQLite 子句-LIMIT </a></li>
+<li><a href="/sqlite/clause-order-by.html"> SQLite 子句-ORDERBY </a></li>
+<li><a href="/sqlite/clause-group-by.html"> SQLite 子句-GROUPBY </a></li>
+<li><a href="/sqlite/clause-join.html"> SQLite 子句-JOIN </a></li>
+<li><a href="/sqlite/operator-union.html"> SQLite 运算符-UNION </a></li>
+<li><a href="/sqlite/operator-and-or.html"> SQLite 子句-AND-OR </a></li>
+<li><a href="/sqlite/operator-glob.html"> SQLite 运算符-GLOB </a></li>
+<li><a href="/sqlite/keyword-distinct.html"> SQLite 关键字-DISTINCT </a></li>
+<li><a href="/sqlite/function-aggregate.html"> SQLite 聚合函数aggregate </a></li>
+<li><a href="/sqlite/primary-key.html"> SQLite 主键PrimaryKey </a></li>
+<li><a href="/sqlite/view.html"> SQLite 视图View </a> </li>
+<li><a href="/sqlite/indexing.html"> SQLite 索引Index </a></li>
+<li><a href="/sqlite/transaction.html"> SQLite 事务Transactions </a></li>
+<li><a href="/sqlite/keyword-explain.html"> SQLite 分析执行计划explain </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/sqlite/datatype.html class='prev_article'> SQLite 数据类型 </a>       |       下一篇：<a href=/sqlite/expression.html class='next_article'> SQLite 表达式 </a>  >
+              
+<h1>SQLite 运算符(operator)</h1>
+<p>当使用<code>WHERE</code>子句执行比较和算术运算时需要使用到运算符，SQLite运算符是SQLite语句中使用的保留字或字符。</p>
+<p>可以使用运算符来指定条件和SQLite语句中多个条件的连接。</p>
+<p>SQLite中主要有<code>4</code>种类型的运算符：</p>
+<ul>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>逻辑运算符</li>
+<li>按位运算符</li>
+</ul>
+<h2>SQLite算术运算符</h2>
+<p>下表指定了SQLite中的算术运算符。 在这个表中，有两个变量“<code>a</code>”和“<code>b</code>”，它们的值分别是<code>50</code>和<code>100</code>。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>加法运算符：用于将运算符两侧的值相加</td>
+<td><code>a+b = 150</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>减法运算符：用于从左操作数减去右操作数。</td>
+<td><code>a-b = -50</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乘法运算符：用于将运算符两边的操作数相乘。</td>
+<td><code>a*b = 5000</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>除法运算符：它是将左操作数除以右操作数。</td>
+<td><code>a/b = 0.5</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>模数运算符：用于通过左操作数除以右操作数并返回余数。</td>
+<td><code>b/a = 0</code></td>
+</tr>
+</tbody>
+</table>
+<h2>SQLite比较运算符</h2>
+<p>下表中列出了SQLite中的比较运算符。 在这个表中，有两个变量“<code>a</code>”和“<code>b</code>”，它们的值分别是<code>50</code>和<code>100</code>。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>它用于检查两个操作数的值是否相等，如果是，则条件求值结果为<code>true</code>，否则返回<code>false</code>。</td>
+<td><code>(a == b)</code>的结果为<code>false</code>。</td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td>它用于检查两个操作数的值是否相等，如果是，则条件求值结果为<code>true</code>，否则返回<code>false</code>。</td>
+<td><code>(a = b)</code>的结果为<code>false</code>。</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>它用于检查两个操作数的值是否相等，如果两个值不相等则条件求值结果为<code>true</code>。</td>
+<td><code>(a != b)</code>的结果为<code>true</code>。</td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code></td>
+<td>它用于检查两个操作数的值是否相等，如果两个值不相等则条件求值结果为<code>true</code>。</td>
+<td><code>(a &lt;&gt; b)</code>的结果为<code>true</code>。</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>它用于检查左操作数的值是否大于右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a &gt; b)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>它用于检查左操作数的值是否小于右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a &lt; b)</code>结果为<code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>用于检查左操作数的值是否大于或等于右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a &gt;= b)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>它用于检查左操作数的值是否小于或等于右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a &lt;= b)</code>结果为<code>true</code></td>
+</tr>
+<tr>
+<td><code>!&lt;</code></td>
+<td>它用于检查左操作数的值是否<strong>不小于</strong>右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a !&lt; b)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>!&gt;</code></td>
+<td>它用于检查左操作数的值是否<strong>不大于</strong>右操作数的值，如果是，则条件求值结果为<code>true</code>。</td>
+<td><code>(a !&gt; b)</code>结果为<code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h2>SQLite逻辑运算符</h2>
+<p>以下是SQLite中的逻辑运算符列表：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AND</td>
+<td>AND运算符允许在SQL语句WHERE子句中存在(或使用)多个条件。</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>BETWEEN运算符用于搜索位于给定最小值和最大值的范围内的值。</td>
+</tr>
+<tr>
+<td>EXISTS</td>
+<td>EXISTS运算符用于搜索符合特定条件的指定表中的行的存在。</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>IN运算符用于将值与已指定的文字值列表中的值进行比较。</td>
+</tr>
+<tr>
+<td>NOT IN</td>
+<td>IN运算符用于将值与指定的文字值列表中的值进行比较的否定。</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>LIKE运算符用于使用通配符运算符将值与类似值进行比较。</td>
+</tr>
+<tr>
+<td>GLOB</td>
+<td>GLOB运算符用于使用通配符运算符将值与类似值进行比较。 此外，<code>glob</code>是区分大小写的，这点不同于<code>like</code>操作符。</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>NOT运算符反转使用它的逻辑运算符的含义。 例如：<code>NOT EXISTS</code>，<code>NOT BETWEEN</code>，<code>NOT IN</code>等。这些被称为否定运算符。</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>OR运算符用于组合SQL语句where子句中的多个条件。</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td><code>NULL</code>运算符用于将值与空(<code>null</code>)值进行比较。</td>
+</tr>
+<tr>
+<td>IS</td>
+<td><code>IS</code>运算符工作类似于<code>=</code>运算符</td>
+</tr>
+<tr>
+<td>IS NOT</td>
+<td><code>IS NOT</code>操作符类似于<code>!=</code>运算符</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>该运算符用于将运算符两侧的两个不同的字符串连接创建为一个新的字符串。</td>
+</tr>
+<tr>
+<td>UNIQUE</td>
+<td>UNIQUE运算符搜索指定表的每一行记录的唯一性(值不重复)。</td>
+</tr>
+</tbody>
+</table>
+<h2>SQLite位运算符</h2>
+<p>SQLite位运算符工作在位上并执行逐位操作。</p>
+<p>下面是二进制<code>AND</code>(<code>＆</code>)和二进制<code>OR</code>(<code>|</code>)的真值表：</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th><code>p&amp;q</code></th>
+<th><code>p|q</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>假设有两个变量“<code>a</code>”和“<code>b</code>”，两个变量的值分别是：<code>60</code>和<code>13</code>。那么<code>a</code>和<code>b</code>的二进制值是：</p>
+<pre><code>a= 0011 1100
+
+b= 0000 1101
+
+a&amp;b = 0000 1100
+
+a|b = 0011 1101
+
+~a = 1100 0011
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>如果二进制AND运算符应用在两个操作数上，则二进制AND运算符将对该结果复制一位。</td>
+<td>(<code>a &amp; b</code>) 将会得到 <code>12</code>也就是 <code>0000 1100</code></td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td></td>
+<td>二进制OR运算符如果存在于任一操作数中，则复制一位。</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>二进制补码运算符是一元的，具有“翻转”位的作用。</td>
+<td>(<code>~a</code>) 将会得到<code>-61</code> 也就是 <code>1100 0011</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>二进制左移操作符，左操作数值按右操作数指定的位数向左移动。</td>
+<td><code>a &lt;&lt; 2</code> 将会得到 <code>240</code> 也就是 <code>1111 0000</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>二进制右移操作符，左操作数值按右操作数指定的位数向右移动。</td>
+<td><code>a &gt;&gt; 2</code> 将会得到 <code>15</code> 也就是 <code>0000 1111</code></td>
+</tr>
+</tbody>
+</table>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

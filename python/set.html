@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 数据类型-集合(set) - FreeAIHub</title>
+    <meta name="keywords" content="创建Python集合,集合的基本操作">
+    <meta name="description" content="集合(set)是一个无序的不重复元素序列。可以使用大括号  或者  函数创建集合创建一个空集合必须用而不是 ，因为  是用来创建一个空字典。创建格式：语法格式如下：将元素 x 添加到集合中，如果元素已存在，则不进行任何操作。还有一个方法，也可以添加元素，且参数可以是列表，元组，字典等，语法格式如下：可以有多个，用逗号分开。语法格式：将元素 x 从集合 s 中移除，如果元素不存在，则会发生错误。此外">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a class="current"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/dict.html class='prev_article'> Python3 基本数据类型-字典 </a>       |       下一篇：<a href=/python/datastructure.html class='next_article'> Python3 数据结构 </a>  >
+              
+            <h1>Python3 数据类型-集合(set)</h1>
+<p>集合(set)是一个无序的不重复元素序列。</p>
+<h2>创建Python集合</h2>
+<p>可以使用大括号 <code>{ }</code> 或者 <code>set()</code> 函数创建集合</p>
+<p><strong>注意：</strong></p>
+<p>创建一个空集合必须用<code>set()</code>而不是 <code>{}</code>，因为 <code>{}</code> 是用来创建一个空字典。</p>
+<p>创建格式：<code>parame = {value01,value02,...};set(value)</code></p>
+<h4>练习:创建Python集合</h4>
+<pre><code class="Python">basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+print(basket)                      # 这里演示的是去重功能
+
+print('orange' in basket)                 # 快速判断元素是否在集合内
+
+print('crabgrass' in basket)
+</code></pre>
+
+<h4>练习:两个集合间的运算.</h4>
+<pre><code class="Python">a = set('abracadabra')
+b = set('alacazam')
+print(a)                          
+print(a - b)                               # 集合a中包含而集合b中不包含的元素
+print(a | b)                               # 集合a或b中包含的所有元素
+print(a &amp; b)                               # 集合a和b中都包含了的元素
+print(a ^ b)                               # 不同时包含于a和b的元素
+</code></pre>
+
+<h4>练习:集合推导式(Set comprehension)</h4>
+<pre><code class="Python">a = {x for x in 'abracadabra' if x not in 'abc'}
+a
+</code></pre>
+
+<h2>集合的基本操作</h2>
+<h3>1、添加元素</h3>
+<p>语法格式如下：<code>s.add( x )</code></p>
+<p>将元素 x 添加到集合<code>s</code>中，如果元素已存在，则不进行任何操作。</p>
+<h4>练习:Python集合添加元素</h4>
+<pre><code class="Python">aset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+aset.add(&quot;Facebook&quot;)
+print(aset)
+</code></pre>
+
+<p>还有一个方法，也可以添加元素，且参数可以是列表，元组，字典等，语法格式如下：</p>
+<pre><code class="Python">aset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+bset=set((&quot;Bilibili&quot;,))
+bset.update( aset )
+bset
+</code></pre>
+
+<p><code>bset</code>可以有多个，用逗号分开。</p>
+<pre><code class="Python">thisset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+thisset.update({1,3})
+print(thisset)
+thisset.update([1,4],[5,6])  
+print(thisset)
+</code></pre>
+
+<h3>2、移除元素</h3>
+<p>语法格式：<code>s.remove( x )</code></p>
+<p>将元素 x 从集合 s 中移除，如果元素不存在，则会发生错误。</p>
+<h4>练习:Python集合移除元素</h4>
+<pre><code class="Python">cset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+cset.remove(&quot;Taobao&quot;)
+
+print(cset)
+
+cset.remove(&quot;Facebook&quot;)   # 不存在会发生错误
+</code></pre>
+
+<p>此外还有一个方法也是移除集合中的元素，且如果元素不存在，不会发生错误。格式如下所示：<code>s.discard( x )</code></p>
+<pre><code class="Python">cset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;)) 
+cset.discard(&quot;Facebook&quot;)  # 不存在不会发生错误 
+print(cset)
+</code></pre>
+
+<p>我们也可以设置随机删除集合中的一个元素，语法格式如下：<code>s.pop()</code></p>
+<h4>练习:脚本模式实现</h4>
+<pre><code class="Python">%%writefile dset.py
+thisset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;, &quot;Facebook&quot;))
+x = thisset.pop() 
+print(x)
+</code></pre>
+
+<p>执行并查看</p>
+<pre><code class="Python">!python3 dset.py
+</code></pre>
+
+<p>多次执行测试结果都不一样。</p>
+<p>set 集合的<code>pop()</code>方法会对集合进行无序的排列，然后将这个无序排列集合的左面第一个元素进行删除。</p>
+<h3>3、计算集合元素个数</h3>
+<p>语法格式：<code>len(s)</code></p>
+<h4>练习:Python计算集合元素个数</h4>
+<pre><code class="Python">dset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+len(dset)
+</code></pre>
+
+<h3>4、清空集合</h3>
+<p>语法格式：<code>s.clear()</code></p>
+<h4>练习:清空Python集合</h4>
+<pre><code class="Python">eset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+eset.clear()
+print(eset)
+</code></pre>
+
+<h3>5、判断元素是否在集合中存在</h3>
+<p>语法格式：<code>x in s</code></p>
+<p>判断元素<code>x</code>是否在集合<code>s</code>中，存在返回 True，不存在返回 False。</p>
+<h4>练习:Python集合 判断</h4>
+<pre><code class="Python">thisset = set((&quot;Google&quot;, &quot;Python&quot;, &quot;Taobao&quot;))
+print(&quot;Python&quot; in thisset)
+print(&quot;Facebook&quot; in thisset)
+</code></pre>
+
+<h3>集合内置方法完整列表</h3>
+<pre><code class="Python">dir(set())
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>add()</code></td>
+<td align="left">为集合添加元素</td>
+</tr>
+<tr>
+<td align="left"><code>clear()</code></td>
+<td align="left">移除集合中的所有元素</td>
+</tr>
+<tr>
+<td align="left"><code>copy()</code></td>
+<td align="left">拷贝一个集合</td>
+</tr>
+<tr>
+<td align="left"><code>difference()</code></td>
+<td align="left">返回多个集合的差集</td>
+</tr>
+<tr>
+<td align="left"><code>difference_update()</code></td>
+<td align="left">移除集合中的元素，该元素在指定的集合也存在。</td>
+</tr>
+<tr>
+<td align="left"><code>discard()</code></td>
+<td align="left">删除集合中指定的元素</td>
+</tr>
+<tr>
+<td align="left"><code>intersection()</code></td>
+<td align="left">返回集合的交集</td>
+</tr>
+<tr>
+<td align="left"><code>intersection_update()</code></td>
+<td align="left">返回集合的交集。</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

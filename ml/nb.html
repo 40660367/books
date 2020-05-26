@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>朴素贝叶斯 - FreeAIHub</title>
+    <meta name="keywords" content="朴素贝叶斯 概述,概率基础,项目案例1: 屏蔽社区留言板的侮辱性言论,总结,作业：">
+    <meta name="description" content="贝叶斯分类是一类分类算法的总称，这类算法均以贝叶斯定理为基础，故统称为贝叶斯分类。本章首先介绍贝叶斯分类算法的基础——贝叶斯定理。最后，我们通过实例来讨论贝叶斯分类的中最简单的一种: 。那么其中有些问题我们计算的结果不正确，或者不知道计算，我们有固定的公式去计算注意：此条件概率的成立，(记忆)这样我们计算结果为：
+$$p(程序员, 匀称) =  P(程序员)P(匀称) =3/7*(4/7) = 1">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a class="current"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/knn.html class='prev_article'> 机器学习算法 K近邻(KNN) </a>       |       下一篇：<a href=/ml/dt.html class='next_article'> 机器学习算法 决策树 </a>  >
+              
+            <h1>朴素贝叶斯</h1>
+<h2>朴素贝叶斯 概述</h2>
+<p>贝叶斯分类是一类分类算法的总称，这类算法均以贝叶斯定理为基础，故统称为贝叶斯分类。本章首先介绍贝叶斯分类算法的基础——贝叶斯定理。最后，我们通过实例来讨论贝叶斯分类的中最简单的一种: <strong>朴素贝叶斯分类</strong>。</p>
+<h2>概率基础</h2>
+<h3>概率(Probability)定义</h3>
+<ul>
+<li>概率定义为一件事情发生的可能性</li>
+<li>扔出一个硬币，结果头像朝上</li>
+<li>某天是晴天</li>
+<li>$$P(X)$$ : 取值在[0, 1]</li>
+</ul>
+<p>那么其中有些问题我们计算的结果不正确，或者不知道计算，我们有固定的公式去计算</p>
+<h3>条件概率与联合概率</h3>
+<ul>
+<li>联合概率：包含多个条件，且所有条件同时成立的概率</li>
+<li>记作：$$P(A,B)$$</li>
+<li>特性：$$P(A, B) = P(A)P(B)$$</li>
+<li>条件概率：就是事件A在另外一个事件B已经发生条件下的发生概率</li>
+<li>记作：$$P(A|B)$$</li>
+<li>特性：$$P(A1,A2|B) = P(A1|B)P(A2|B)$$</li>
+</ul>
+<blockquote>
+<p>注意：此条件概率的成立，<strong>是由于A1,A2相互独立的结果</strong>(记忆)</p>
+</blockquote>
+<p>这样我们计算结果为：
+$$p(程序员, 匀称) =  P(程序员)P(匀称) =3/7*(4/7) = 12/49 $$
+$$P(产品, 超重|喜欢) = P(产品|喜欢)P(超重|喜欢)=1/2 *  1/4 = 1/8$$</p>
+<p><strong>那么，我们知道了这些知识之后，继续回到我们的主题中。朴素贝叶斯如何分类，这个算法经常会用在文本分类，那就来看文章分类是一个什么样的问题？</strong></p>
+<p><img alt="文章分类引入" src="./images/文章分类引入.png" /></p>
+<p>这个了类似一个条件概率，那么仔细一想，给定文章其实相当于给定什么？结合前面我们将文本特征抽取的时候讲的？所以我们可以理解为</p>
+<p><img alt="文章分类引入2" src="./images/文章分类引入2.png" /></p>
+<p><strong>但是这个公式怎么求？前面并没有参考例子，其实是相似的，我们可以使用贝叶斯公式去计算</strong></p>
+<h3>朴素贝叶斯场景</h3>
+<p>机器学习的一个重要应用就是文档的自动分类。</p>
+<p>在文档分类中，整个文档（如一封电子邮件）是实例，而电子邮件中的某些元素则构成特征。我们可以观察文档中出现的词，并把每个词作为一个特征，而每个词的出现或者不出现作为该特征的值，这样得到的特征数目就会跟词汇表中的词的数目一样多。</p>
+<p>朴素贝叶斯是上面介绍的贝叶斯分类器的一个扩展，是用于文档分类的常用算法。下面我们会进行一些朴素贝叶斯分类的实践项目。</p>
+<h2>项目案例1: 屏蔽社区留言板的侮辱性言论</h2>
+<h4>项目概述</h4>
+<p>构建一个快速过滤器来屏蔽在线社区留言板上的侮辱性言论。如果某条留言使用了负面或者侮辱性的语言，那么就将该留言标识为内容不当。对此问题建立两个类别: 侮辱类和非侮辱类，使用 1 和 0 分别表示。</p>
+<h4>开发流程</h4>
+<ul>
+<li>收集数据: 可以使用任何方法</li>
+<li>准备数据: 从文本中构建词向量</li>
+<li>分析数据: 检查词条确保解析的正确性</li>
+<li>训练算法: 从词向量计算概率</li>
+<li>测试算法: 根据现实情况修改分类器</li>
+<li>使用算法: 对社区留言板言论进行分类</li>
+</ul>
+<h4>收集数据: 可以使用任何方法</h4>
+<pre><code class="python">#本例是我们自己构造的词表
+
+#从numpy中导入所需的函数
+from numpy import array,ones,log
+#词表到向量的转换函数
+def loadDataSet():
+    postingList = [['my','dog','has','flea','problems','help','please'],
+                   ['maybe','not','take','him','to','dog','park','stupid'],
+                   ['my','dalmation','is','so','cute','I','love','him'],
+                   ['stop','posting','stupid','worthless','garbage'],
+                   ['mr','licks','ate','my','steak','how','to','stop','him'],
+                   ['quit','buying','worthless','dog','food','stupid']]
+    classVec = [0,1,0,1,0,1]      #1,侮辱  0,正常
+    return postingList,classVec
+loadDataSet()
+</code></pre>
+
+<h4>准备数据: 从文本中构建词向量</h4>
+<pre><code class="python">def createVocabList(dataSet):
+    vocabSet = set([])  #调用set方法,创建一个空集
+    for document in dataSet:
+        vocabSet = vocabSet | set(document)     #创建两个集合的并集
+    return list(vocabSet)
+
+def setOfWords2Vec(vocabList,inputSet):
+    returnVec = [0]*len(vocabList)   #创建一个所含元素都为0的向量
+    for word in inputSet:
+        if word in vocabList:
+            returnVec[vocabList.index(word)] = 1
+        else:
+            print(&quot;the word:%s is not in my Vocabulary&quot; % word)
+    return returnVec
+
+
+def bagOfWords2VecMN(vocabList,inputSet):
+    returnVec = [0]*len(vocabList)   #创建一个所含元素都为0的向量
+    for word in inputSet:
+        if word in vocabList:
+            returnVec[vocabList.index(word)] += 1
+    return returnVec
+createVocabList,setOfWords2Vec,bagOfWords2VecMN
+</code></pre>
+
+<h4>分析数据: 检查词条确保解析的正确性</h4>
+<p>检查函数执行情况，检查词表，不出现重复单词，需要的话，可以对其进行排序。</p>
+<pre><code class="python">%pprint on
+listOPosts, listClasses = loadDataSet()
+myVocabList = createVocabList(listOPosts)
+myVocabList
+</code></pre>
+
+<pre><code class="python">print(setOfWords2Vec(myVocabList, listOPosts[0]))
+</code></pre>
+
+<h4>训练算法: 从词向量计算概率</h4>
+<p>现在已经知道了一个词是否出现在一篇文档中，也知道该文档所属的类别。接下来我们重写贝叶斯准则，将之前的 x, y 替换为 w. 粗体的 w 表示这是一个向量，即它由多个值组成。在这个例子中，数值个数与词汇表中的词个数相同。</p>
+<p>重写贝叶斯准则</p>
+<p>我们使用上述公式，对每个类计算该值，然后比较这两个概率值的大小。</p>
+<p>问: 上述代码实现中，为什么没有计算P(w)？</p>
+<p>答：根据上述公式可知，我们右边的式子等同于左边的式子，由于对于每个ci，P(w)是固定的。并且我们只需要比较左边式子值的大小来决策分类，那么我们就可以简化为通过比较右边分子值得大小来做决策分类。</p>
+<p>首先可以通过类别 i (侮辱性留言或者非侮辱性留言)中的文档数除以总的文档数来计算概率 p(ci) 。接下来计算 p(w | ci) ，这里就要用到朴素贝叶斯假设。如果将 w 展开为一个个独立特征，那么就可以将上述概率写作 p(w0, w1, w2...wn | ci) 。这里假设所有词都互相独立，该假设也称作条件独立性假设（例如 A 和 B 两个人抛骰子，概率是互不影响的，也就是相互独立的，A 抛 2点的同时 B 抛 3 点的概率就是 1/6 * 1/6），它意味着可以使用 p(w0 | ci)p(w1 | ci)p(w2 | ci)...p(wn | ci) 来计算上述概率，这样就极大地简化了计算的过程。</p>
+<p>朴素贝叶斯分类器训练函数</p>
+<pre><code class="python">#朴素贝叶斯分类器训练集
+def trainNB0(trainMatrix,trainCategory):  #传入参数为文档矩阵，每篇文档类别标签所构成的向量
+    numTrainDocs = len(trainMatrix)      #文档矩阵的长度
+    numWords = len(trainMatrix[0])       #第一个文档的单词个数
+    pAbusive = sum(trainCategory)/float(numTrainDocs)  #任意文档属于侮辱性文档概率
+    #p0Num = zeros(numWords);p1Num = zeros(numWords)        #初始化两个矩阵，长度为numWords，内容值为0
+    p0Num = ones(numWords);p1Num = ones(numWords)        #初始化两个矩阵，长度为numWords，内容值为1
+    #p0Denom = 0.0;p1Denom = 0.0                         #初始化概率
+    p0Denom = 2.0;p1Denom = 2.0 
+    for i in range(numTrainDocs):
+        if trainCategory[i]==1:
+            p1Num +=trainMatrix[i]
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num +=trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    #p1Vect = p1Num/p1Denom #对每个元素做除法
+    #p0Vect = p0Num/p0Denom
+    p1Vect = log(p1Num/p1Denom)
+    p0Vect = log(p0Num/p0Denom)
+    return p0Vect,p1Vect,pAbusive
+trainNB0
+</code></pre>
+
+<h4>测试算法: 根据现实情况修改分类器</h4>
+<p>在利用贝叶斯分类器对文档进行分类时，要计算多个概率的乘积以获得文档属于某个类别的概率，即计算 p(w0|1) * p(w1|1) * p(w2|1)。如果其中一个概率值为 0，那么最后的乘积也为 0。为降低这种影响，可以将所有词的出现数初始化为 1，并将分母初始化为 2 （取1 或 2 的目的主要是为了保证分子和分母不为0，大家可以根据业务需求进行更改）。</p>
+<p>另一个遇到的问题是下溢出，这是由于太多很小的数相乘造成的。当计算乘积 p(w0|ci) * p(w1|ci) * p(w2|ci)... p(wn|ci) 时，由于大部分因子都非常小，所以程序会下溢出或者得到不正确的答案。（用 Python 尝试相乘许多很小的数，最后四舍五入后会得到 0）。一种解决办法是对乘积取自然对数。在代数中有 ln(a * b) = ln(a) + ln(b), 于是通过求对数可以避免下溢出或者浮点数舍入导致的错误。同时，采用自然对数进行处理不会有任何损失。</p>
+<p>下图给出了函数 f(x) 与 ln(f(x)) 的曲线。可以看出，它们在相同区域内同时增加或者减少，并且在相同点上取到极值。它们的取值虽然不同，但不影响最终结果。</p>
+<pre><code class="python">#朴素贝叶斯分类函数
+def classifyNB(vec2Classify,p0Vec,p1Vec,pClass1):
+    p1 = sum(vec2Classify * p1Vec) + log(pClass1)   #元素相乘
+    p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
+    if p1&gt;p0:
+        return 1
+    else:
+        return 0
+
+def testingNB(testinput):
+    listOPosts,listClasses = loadDataSet()   #产生文档矩阵和对应的标签
+    myVocabList = createVocabList(listOPosts) #创建并集
+    trainMat = []   #创建一个空的列表
+    for postinDoc in listOPosts:
+        trainMat.append(setOfWords2Vec(myVocabList,postinDoc))  #使用词向量来填充trainMat列表
+    p0V,p1V,pAb = trainNB0(array(trainMat),array(listClasses))  #训练函数
+    thisDoc = array(setOfWords2Vec(myVocabList,testinput)) #声明矩阵
+    print(testinput,'classified as:',classifyNB(thisDoc,p0V,p1V,pAb))
+classifyNB,testingNB
+</code></pre>
+
+<h4>使用算法: 对社区留言板言论进行分类</h4>
+<pre><code class="python">testingNB(['love','my','dalmation'])
+</code></pre>
+
+<h2>总结</h2>
+<ul>
+<li>优点：</li>
+<li>朴素贝叶斯模型发源于古典数学理论，有稳定的分类效率。</li>
+<li>对缺失数据不太敏感，算法也比较简单，常用于文本分类。</li>
+<li>分类准确度高，速度快</li>
+<li>缺点：</li>
+<li>由于使用了样本属性独立性的假设，所以如果特征属性有关联时其效果不好</li>
+</ul>
+<h2>作业：</h2>
+<ul>
+<li>说明条件概率与联合概率</li>
+<li>说明贝叶斯公式、以及特征独立的关系</li>
+<li>记忆贝叶斯公式</li>
+<li>知道拉普拉斯平滑系数</li>
+<li>应用贝叶斯公式实现概率的计算</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

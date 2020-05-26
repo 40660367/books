@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 空间(spatial) - FreeAIHub</title>
+    <meta name="keywords" content="Delaunay三角,共面点,凸壳">
+    <meta name="description" content="包可以通过利用Qhull库来计算一组点的三角剖分，Voronoi图和凸壳。 此外，它包含用于最近邻点查询的KDTree实现以及用于各种度量中的距离计算的实用程序。下面来了解Delaunay Triangulations是什么以及如何在SciPy中使用。在数学和计算几何中，对于平面中离散点的给定集合P的Delaunay三角剖分是三角形DT(P)，使得P中的任何点都不在DT(P)中的任何三角形的外接圆">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a class="current"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/stats.html class='prev_article'> SciPy 统计函数 </a>       |       下一篇：<a href=/scipy/odr.html class='next_article'> SciPy 正交距离回归 </a>  >
+              
+            <h1>Scipy 空间(spatial)</h1>
+<p><code>scipy.spatial</code>包可以通过利用Qhull库来计算一组点的三角剖分，Voronoi图和凸壳。 此外，它包含用于最近邻点查询的KDTree实现以及用于各种度量中的距离计算的实用程序。</p>
+<h2>Delaunay三角</h2>
+<p>下面来了解Delaunay Triangulations是什么以及如何在SciPy中使用。</p>
+<p><strong>什么是Delaunay三角？</strong></p>
+<p>在数学和计算几何中，对于平面中离散点的给定集合P的Delaunay三角剖分是三角形DT(P)，使得P中的任何点都不在DT(P)中的任何三角形的外接圆内。</p>
+<p>可以通过SciPy进行相同的计算。 参考下面的一个例子。</p>
+<pre><code class="python">%matplotlib inline
+import numpy as np
+from scipy.spatial import Delaunay
+points = np.array([[0, 4], [2, 1.1], [1, 3], [1, 2]])
+tri = Delaunay(points)
+import matplotlib.pyplot as plt
+plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
+plt.plot(points[:,0], points[:,1], 'o')
+plt.show()
+</code></pre>
+
+<h2>共面点</h2>
+<p>下面了解共面点是什么以及它们如何在SciPy中使用。</p>
+<p><strong>什么是共面点？</strong></p>
+<p>共平面点是三个或更多点位于同一平面上。 回想一下，一个平面是平坦的表面，其在所有方向端延伸没有终点。 它通常在数学教科书中显示为<strong>四面体</strong>。</p>
+<p>下面来看看如何在SciPy中使用它，参考下面的例子。</p>
+<pre><code class="python">from scipy.spatial import Delaunay
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1], [1, 1]])
+tri = Delaunay(points)
+print(tri.coplanar)
+</code></pre>
+
+<p>这意味着顶点<code>4</code>位于三角形顶点<code>0</code>和顶点<code>3</code>附近，但不包含在三角中。</p>
+<h2>凸壳</h2>
+<p>下面来了解什么是凸壳，以及它们如何在SciPy中使用。</p>
+<p><strong>什么是凸壳？</strong></p>
+<p>在数学中，欧几里德平面或欧几里德空间(或更一般地说，在实数上的仿射空间中)中的一组点<code>X</code>的凸包或凸包是包含<code>X</code>的最小凸集。</p>
+<p>参考下面的例子来详细了解它 - </p>
+<pre><code class="python">%matplotlib inline
+from scipy.spatial import ConvexHull
+points = np.random.rand(10, 2) # 30 random points in 2-D
+hull = ConvexHull(points)
+import matplotlib.pyplot as plt
+plt.plot(points[:,0], points[:,1], 'o')
+for simplex in hull.simplices:
+   plt.plot(points[simplex,0], points[simplex,1], 'k-')
+plt.show()
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

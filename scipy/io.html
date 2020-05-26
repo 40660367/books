@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 输入和输出(io) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="Scipy.io包提供了多种功能来解决不同格式的文件(输入和输出)。 其中一些格式这里讨论最常用的文件格式 -以下是用于加载和保存文件的函数。让我们来看看下面的例子。可以看到数组以及元信息。 如果想在不读取数据到内存的情况下检查MATLAB文件的内容，请使用如下所示的命令。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a class="current"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/interpolate.html class='prev_article'> SciPy 插值 </a>       |       下一篇：<a href=/scipy/linalg.html class='next_article'> SciPy 线性代数 </a>  >
+              
+            <h1>Scipy 输入和输出(io)</h1>
+<p>Scipy.io包提供了多种功能来解决不同格式的文件(输入和输出)。 其中一些格式</p>
+<ul>
+<li>Matlab</li>
+<li>IDL</li>
+<li>Matrix Market</li>
+<li>Wave</li>
+<li>Arff</li>
+<li>Netcdf等</li>
+</ul>
+<p>这里讨论最常用的文件格式 -</p>
+<p><strong>MATLAB</strong></p>
+<p>以下是用于加载和保存<code>.mat</code>文件的函数。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>loadmat</code></td>
+<td>加载一个MATLAB文件</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>savemat</code></td>
+<td>保存为一个MATLAB文件</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>whosmat</code></td>
+<td>列出MATLAB文件中的变量</td>
+</tr>
+</tbody>
+</table>
+<p>让我们来看看下面的例子。</p>
+<pre><code class="python">import scipy.io as sio
+import numpy as np
+
+#Save a mat file
+vect = np.arange(10)
+sio.savemat('array.mat', {'vect':vect})
+
+#Now Load the File
+mat_file_content = sio.loadmat('array.mat')
+print(mat_file_content)
+</code></pre>
+
+<p>可以看到数组以及元信息。 如果想在不读取数据到内存的情况下检查MATLAB文件的内容，请使用如下所示的<code>whosmat</code>命令。</p>
+<pre><code class="python">import scipy.io as sio
+mat_file_content = sio.whosmat(‘array.mat’)
+print(mat_file_content)
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

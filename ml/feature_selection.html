@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>特征降维 - FreeAIHub</title>
+    <meta name="keywords" content="降维,降维的两种方式,什么是特征选择,什么是主成分分析(PCA),作业">
+    <meta name="description" content="是指在某些限定条件下，，得到的过程正是因为在进行训练的时候，我们都是使用特征进行学习。如果特征本身存在问题或者特征之间相关性较强，对于算法学习预测会影响较大。数据中包含，旨在从。对于Embedded方式，只能在讲解算法的时候在进行介绍，更好的去理解删除低方差的一些特征，前面讲过方差的意义。再结合方差的大小来考虑这个方式的角度。 我们对，除去'index,'date','return'列不考虑一共这">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a class="current"> 机器学习 特征选择 </a></li>
+<li><a class="current"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/feature-preprocessing.html class='prev_article'> 机器学习 特征预处理 </a>       |       下一篇：<a href=/ml/feature_selection.html class='next_article'> 机器学习 特征选择 </a>  >
+              
+            <h1>特征降维</h1>
+<h2>降维</h2>
+<p><strong>降维</strong>是指在某些限定条件下，<strong>降低随机变量(特征)个数</strong>，得到<strong>一组“不相关”主变量</strong>的过程</p>
+<ul>
+<li>降低随机变量的个数</li>
+</ul>
+<p><img alt="降维" src="./images/降维.png" /></p>
+<ul>
+<li>相关特征(correlated feature)</li>
+<li>相对湿度与降雨量之间的相关</li>
+<li>等等</li>
+</ul>
+<p>正是因为在进行训练的时候，我们都是使用特征进行学习。如果特征本身存在问题或者特征之间相关性较强，对于算法学习预测会影响较大。</p>
+<h2>降维的两种方式</h2>
+<ul>
+<li><strong>特征选择</strong></li>
+<li><strong>主成分分析（可以理解一种特征提取的方式）</strong></li>
+</ul>
+<h2>什么是特征选择</h2>
+<h3>定义</h3>
+<p>数据中包含<strong>冗余或无关变量（或称特征、属性、指标等）</strong>，旨在从<strong>原有特征中找出主要特征</strong>。</p>
+<p><img alt="鸟类特征选择" src="./images/鸟类特征选择.png" /></p>
+<h3>方法</h3>
+<ul>
+<li>Filter(过滤式)：主要探究特征本身特点、特征与特征和目标值之间关联</li>
+<li><strong>方差选择法：低方差特征过滤</strong></li>
+<li><strong>相关系数</strong></li>
+<li>Embedded (嵌入式)：算法自动选择特征（特征与目标值之间的关联）</li>
+<li><strong>决策树:信息熵、信息增益</strong></li>
+<li><strong>正则化：L1、L2</strong></li>
+<li><strong>深度学习：卷积等</strong></li>
+</ul>
+<blockquote>
+<p>对于Embedded方式，只能在讲解算法的时候在进行介绍，更好的去理解</p>
+</blockquote>
+<h3>模块</h3>
+<p><code>sklearn.feature_selection</code></p>
+<h3>过滤式：低方差特征过滤</h3>
+<p>删除低方差的一些特征，前面讲过方差的意义。再结合方差的大小来考虑这个方式的角度。</p>
+<ul>
+<li>特征方差小：某个特征大多样本的值比较相近</li>
+<li>特征方差大：某个特征很多样本的值都有差别</li>
+</ul>
+<p><strong>API</strong> </p>
+<ul>
+<li><code>sklearn.feature_selection.VarianceThreshold(threshold = 0.0)</code></li>
+<li>删除所有低方差特征</li>
+<li><code>Variance.fit_transform(X)</code><ul>
+<li>X: numpy array格式的数据[n_samples,n_features]</li>
+<li>返回值：训练集差异低于threshold的特征将被删除。默认值是保留所有非零方差特征，即删除所有样本中具有相同值的特征。</li>
+</ul>
+</li>
+</ul>
+<h4>练习：股票指标特征之间筛选</h4>
+<p>我们对<strong>某些股票的指标特征之间进行一个筛选</strong>，除去'index,'date','return'列不考虑<strong>（这些类型不匹配，也不是所需要指标）</strong></p>
+<p>一共这些特征</p>
+<pre><code class="Python">!cat /share/datasets/factor_returns.csv
+</code></pre>
+
+<ul>
+<li>分析</li>
+</ul>
+<p>1、初始化<code>VarianceThreshold</code>,指定阀值方差</p>
+<p>2、调用<code>fit_transform</code></p>
+<pre><code class="python">def variance_demo():
+    &quot;&quot;&quot;
+    删除低方差特征——特征选择
+    :return: None
+    &quot;&quot;&quot;
+    data = pd.read_csv(&quot;/share/datasets/factor_returns.csv&quot;)
+    print(data)
+    # 1、实例化一个转换器类
+    transfer = VarianceThreshold(threshold=1)
+    # 2、调用fit_transform
+    data = transfer.fit_transform(data.iloc[:, 1:10])
+    print(&quot;删除低方差特征的结果：\n&quot;, data)
+    print(&quot;形状：\n&quot;, data.shape)
+
+    return None
+
+#调用
+variance_demo()
+</code></pre>
+
+<h4>相关系数</h4>
+<ul>
+<li>皮尔逊相关系数(Pearson Correlation Coefficient)</li>
+<li>反映变量之间相关关系密切程度的统计指标</li>
+</ul>
+<h5>公式计算案例(了解，不用记忆)</h5>
+<ul>
+<li>公式</li>
+</ul>
+<p><img alt="相关系数公式" src="./images/相关系数公式.png" /></p>
+<ul>
+<li>比如说我们计算年广告费投入与月均销售额</li>
+</ul>
+<p><img alt="广告费表" src="./images/广告费表.png" /></p>
+<p>那么之间的相关系数怎么计算</p>
+<p><img alt="广告费统计系数结果" src="./images/广告费统计系数结果.png" /></p>
+<p>最终计算：</p>
+<p><img alt="相关系数计算数字结果" src="./images/相关系数计算数字结果.png" /></p>
+<p>= 0.9942</p>
+<p><strong>所以我们最终得出结论是广告投入费与月平均销售额之间有高度的正相关关系。</strong> 　</p>
+<p><strong>特点：相关系数的值介于–1与+1之间，即–1≤ r ≤+1</strong>。其性质如下：</p>
+<ul>
+<li><strong>当r&gt;0时，表示两变量正相关，r&lt;0时，两变量为负相关</strong></li>
+<li>当|r|=1时，表示两变量为完全相关，当r=0时，表示两变量间无相关关系</li>
+<li><strong>当0&lt;|r|&lt;1时，表示两变量存在一定程度的相关。且|r|越接近1，两变量间线性关系越密切；|r|越接近于0，表示两变量的线性相关越弱</strong></li>
+<li><strong>一般可按三级划分：|r|&lt;0.4为低度相关；0.4≤|r|&lt;0.7为显著性相关；0.7≤|r|&lt;1为高度线性相关</strong></li>
+</ul>
+<blockquote>
+<p>这个符号：|r|为r的绝对值， |-5| = 5</p>
+</blockquote>
+<p><strong> API </strong></p>
+<ul>
+<li>from scipy.stats import pearsonr</li>
+<li>x : (N,) array_like</li>
+<li>y : (N,) array_like Returns: (Pearson’s correlation coefficient, p-value)</li>
+</ul>
+<h4>练习：股票的财务指标相关性计算</h4>
+<p>我们刚才的股票的这些指标进行相关性计算， 假设我们以</p>
+<p><code>factor = ['pe_ratio','pb_ratio','market_cap','return_on_asset_net_profit','du_return_on_equity','ev','earnings_per_share','revenue','total_expense']</code></p>
+<p>这些特征当中的两两进行计算，得出相关性高的一些特征</p>
+<p><img alt="指标相关性结果" src="./images/指标相关性结果.png" /></p>
+<ul>
+<li>分析</li>
+<li>两两特征之间进行相关性计算</li>
+</ul>
+<pre><code class="python">import pandas as pd
+from scipy.stats import pearsonr
+
+def pearsonr_demo(data):
+    &quot;&quot;&quot;
+    相关系数计算
+    :return: None
+    &quot;&quot;&quot;
+
+
+    factor = ['pe_ratio', 'pb_ratio', 'market_cap', 'return_on_asset_net_profit', 'du_return_on_equity', 'ev',
+              'earnings_per_share', 'revenue', 'total_expense']
+
+    for i in range(len(factor)):
+        for j in range(i, len(factor) - 1):
+            print(
+                &quot;指标%s与指标%s之间的相关性大小为%f&quot; % (factor[i], factor[j + 1], pearsonr(data[factor[i]], data[factor[j + 1]])[0]))
+
+    return None
+
+
+data = pd.read_csv(&quot;/share/datasets/factor_returns.csv&quot;)
+
+#验证函数对象
+pearsonr_demo()
+</code></pre>
+
+<p>从中我们得出</p>
+<ul>
+<li>指标revenue与指标total_expense之间的相关性大小为0.995845</li>
+<li>指标return_on_asset_net_profit与指标du_return_on_equity之间的相关性大小为0.818697</li>
+</ul>
+<p>我们也可以通过画图来观察结果</p>
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+plt.figure(figsize=(20, 8), dpi=100)
+
+data = pd.read_csv(&quot;/share/datasets/factor_returns.csv&quot;)
+plt.scatter(data['revenue'], data['total_expense'])
+plt.show()
+</code></pre>
+
+<p><strong>这两对指标之间的相关性较大，可以做之后的处理，比如合成这两个指标。</strong></p>
+<h2>什么是主成分分析(PCA)</h2>
+<ul>
+<li>定义：<strong>高维数据转化为低维数据的过程</strong>，在此过程中<strong>可能会舍弃原有数据、创造新的变量</strong></li>
+<li>作用：<strong>是数据维数压缩，尽可能降低原数据的维数（复杂度），损失少量信息。</strong></li>
+<li>应用：回归分析或者聚类分析当中</li>
+</ul>
+<blockquote>
+<p>对于信息一词，在决策树中会进行介绍</p>
+</blockquote>
+<p>那么更好的理解这个过程呢？我们来看一张图</p>
+<p><img alt="PCA解释图" src="./images/PCA解释图.png" /></p>
+<h4>练习：计算案例理解(了解，无需记忆)</h4>
+<p>假设对于给定5个点，数据如下</p>
+<pre><code>(-1,-2)
+(-1, 0)
+( 0, 0)
+( 2, 1)
+( 0, 1)
+</code></pre>
+
+<p><img alt="PCA计算图" src="./images/PCA计算图.png" /></p>
+<p>要求：将这个二维的数据简化成一维？ 并且损失少量的信息</p>
+<p><img alt="PCA坐标轴结果" src="./images/PCA坐标轴结果.png" /></p>
+<p>这个过程如何计算的呢？<strong>找到一个合适的直线，通过一个矩阵运算得出主成分分析的结果（不需要理解）</strong></p>
+<p><img alt="PCA运算过程" src="./images/PCA运算过程.png" /></p>
+<p><strong>API</strong></p>
+<ul>
+<li><code>sklearn.decomposition.PCA(n_components=None)</code></li>
+<li>将数据分解为较低维数空间</li>
+<li>n_components:<ul>
+<li><strong>小数：表示保留百分之多少的信息</strong></li>
+<li><strong>整数：减少到多少特征</strong></li>
+</ul>
+</li>
+<li><code>PCA.fit_transform(X)</code> X:numpy array格式的数据[n_samples,n_features]</li>
+<li>返回值：转换后指定维度的array</li>
+</ul>
+<pre><code class="python">from sklearn.decomposition import PCA
+
+def pca_demo():
+    &quot;&quot;&quot;
+    对数据进行PCA降维
+    :return: None
+    &quot;&quot;&quot;
+    data = [[2,8,4,5], [6,3,0,8], [5,4,9,1]]
+
+    # 1、实例化PCA, 小数——保留多少信息
+    transfer = PCA(n_components=0.9)
+    # 2、调用fit_transform
+    data1 = transfer.fit_transform(data)
+
+    print(&quot;保留90%的信息，降维结果为：\n&quot;, data1)
+
+    # 1、实例化PCA, 整数——指定降维到的维数
+    transfer2 = PCA(n_components=3)
+    # 2、调用fit_transform
+    data2 = transfer2.fit_transform(data)
+    print(&quot;降维到3维的结果：\n&quot;, data2)
+
+    return None
+pca_demo()
+</code></pre>
+
+<h4>练习：探究用户对物品类别的喜好细分降维</h4>
+<p><img alt="instacart" src="./images/instacart.png" /></p>
+<p>数据如下：</p>
+<ul>
+<li>order_products__prior.csv：订单与商品信息</li>
+<li>字段：<strong>order_id</strong>, <strong>product_id</strong>, add_to_cart_order, reordered</li>
+<li>products.csv：商品信息</li>
+<li>字段：<strong>product_id</strong>, product_name, <strong>aisle_id</strong>, department_id</li>
+<li>orders.csv：用户的订单信息</li>
+<li>字段：<strong>order_id</strong>,<strong>user_id</strong>,eval_set,order_number,….</li>
+<li>aisles.csv：商品所属具体物品类别</li>
+<li>字段： <strong>aisle_id</strong>, <strong>aisle</strong></li>
+</ul>
+<p><strong>需求</strong></p>
+<p><img alt="instacart效果" src="./images/instacart效果.png" /></p>
+<p><img alt="instacartPCA结果" src="./images/instacartPCA结果.png" /></p>
+<p><strong> 分析</strong></p>
+<ul>
+<li>合并表，使得<strong>user_id</strong>与<strong>aisle</strong>在一张表当中</li>
+<li>进行交叉表变换</li>
+<li>进行降维</li>
+</ul>
+<p><strong>完整代码</strong></p>
+<pre><code class="python">import pandas as pd
+from sklearn.decomposition import PCA
+
+# 1、获取数据集
+# ·商品信息- products.csv：
+# Fields：product_id, product_name, aisle_id, department_id
+# ·订单与商品信息- order_products__prior.csv：
+# Fields：order_id, product_id, add_to_cart_order, reordered 
+# ·用户的订单信息- orders.csv：
+# Fields：order_id, user_id,eval_set, order_number,order_dow, order_hour_of_day, days_since_prior_order 
+# ·商品所属具体物品类别- aisles.csv：
+# Fields：aisle_id, aisle     
+products = pd.read_csv(&quot;./instacart/products.csv&quot;)
+order_products = pd.read_csv(&quot;./instacart/order_products__prior.csv&quot;)
+orders = pd.read_csv(&quot;./instacart/orders.csv&quot;)
+aisles = pd.read_csv(&quot;./instacart/aisles.csv&quot;)
+
+# 2、合并表，将user_id和aisle放在一张表上
+# 1）合并orders和order_products on=order_id tab1:order_id, product_id, user_id
+tab1 = pd.merge(orders, order_products, on=[&quot;order_id&quot;, &quot;order_id&quot;])
+# 2）合并tab1和products on=product_id tab2:aisle_id
+tab2 = pd.merge(tab1, products, on=[&quot;product_id&quot;, &quot;product_id&quot;])
+# 3）合并tab2和aisles on=aisle_id tab3:user_id, aisle
+tab3 = pd.merge(tab2, aisles, on=[&quot;aisle_id&quot;, &quot;aisle_id&quot;])
+
+# 3、交叉表处理，把user_id和aisle进行分组
+table = pd.crosstab(tab3[&quot;user_id&quot;], tab3[&quot;aisle&quot;])
+
+# 4、主成分分析的方法进行降维
+# 1）实例化一个转换器类PCA
+transfer = PCA(n_components=0.95)
+# 2）fit_transform
+data = transfer.fit_transform(table)
+
+data.shape
+</code></pre>
+
+<h2>作业</h2>
+<ul>
+<li>
+<p>特征选择的嵌入式、过滤式以及包裹氏三种方式？</p>
+</li>
+<li>
+<p>应用<code>VarianceThreshold()</code>实现删除低方差特征</p>
+</li>
+</ul>
+<pre><code class="Python">#
+</code></pre>
+
+<ul>
+<li>
+<p>相关系数的特点和计算？</p>
+</li>
+<li>
+<p>应用相关性系数实现特征选择？</p>
+</li>
+<li>
+<p>应用PCA实现特征的降维？</p>
+</li>
+</ul>
+<pre><code class="Python">#
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

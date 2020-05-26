@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>turtle 高级篇 - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="到目前为止我们通过库了解了的基本语法，包括顺序与循环、函数的调用与方法的定义、列表与简单的数学运算等；也学习了用库绘图的基本用法，包括坐标与角度、落笔抬笔、颜色与填充等。但是我们所绘的所有内容仅限于直线，对于曲线的绘制，一直没有涉及。从现在开始，我们就来了角一下用库怎么画曲线，首先我们来画一个圆，看代码：文件名:circle1.py康康我们可以看到，从坐标原点开始，按逆时针方向画出了一个圆。非常简">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/turtle/index.html"> 如何学习本课程</a></li>
+<li><a href="/turtle/intro.html"> turtle 简介 </a></li>
+<li><a href="/turtle/setup.html"> turtle 环境安装与配置 </a></li>
+<li><a href="/turtle/basic.html"> turtle 入门篇 </a></li>
+<li><a class="current"> turtle 高级篇 </a></li>
+<li><a href="/turtle/case-clock.html"> turtle 示例:时钟 </a></li>
+<li><a href="/turtle/case-littlepython.html"> turtle 示例:太阳花 </a></li>
+<li><a href="/turtle/case-star.html"> turtle 示例:五角星 </a></li>
+<li><a href="/turtle/case-sunflower.html"> turtle 示例:太阳花 </a></li>
+<li><a href="/turtle/case-trees.html"> turtle 示例:各类不同的树 </a></li>
+<li><a href="/turtle/case-triangle.html"> turtle 示例:谢尔宾斯基三角形 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/turtle/basic.html class='prev_article'> turtle 入门篇 </a>       |       下一篇：<a href=/turtle/case-clock.html class='next_article'> turtle 示例:时钟 </a>  >
+              
+<h1>turtle 高级篇</h1>
+<p>到目前为止我们通过<strong>turtle</strong>库了解了<strong>Python</strong>的基本语法，包括顺序与循环、函数的调用与方法的定义、列表与简单的数学运算等；也学习了用<strong>turtle</strong>库绘图的基本用法，包括坐标与角度、落笔抬笔、颜色与填充等。</p>
+<p>但是我们所绘的所有内容仅限于直线，对于曲线的绘制，一直没有涉及。从现在开始，我们就来了角一下用<strong>turtle</strong>库怎么画曲线，首先我们来画一个圆，看代码：</p>
+<p>文件名:circle1.py</p>
+<pre><code class="python">import turtle as t 
+t.circle(100)        # 画一个半径为100的圆
+t.mainloop()         # 等效于t.done()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/circle1.py
+</code></pre>
+
+<p>康康</p>
+<p>我们可以看到，<strong>turtle</strong>从坐标原点开始，按逆时针方向画出了一个圆。非常简单，一条语句就实现了。</p>
+<p>第一个问题是，如果有希望<strong>turtle</strong>按顺时针方向画，应该怎样实现？嗯，将t.circle(100)中的参数100改为-100即可，也就是t.circle(-100)。也就是说明这个参数除了表示圆的半径面，其正负性还定义了画圆的方向。修改一下上面的代码：</p>
+<p>文件名:circle2.py</p>
+<pre><code class="python">import turtle as t 
+t.circle(100)        # 从原点开始按逆时针方向画圆，直径为100
+t.circle(-100)       # 从鼠标所在点开始按顺时针方向画圆，直径为100
+t.mainloop() 
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/circle2.py
+</code></pre>
+
+<p>康康</p>
+<p>运行这段代码，可以看到<strong>turtle</strong>在界面上画出一个8字形，先逆时针方向画圆，再顺时针方向画圆。可以看到<strong>turtle</strong>画这两个圆中的第一个时，相当于从圆的下底开始画（也即圆的-90度位置）；画第二个圆相当于从上顶位置开始画（也即90度的位置）。</p>
+<p>那么，第二个问题来了，如果我希望从圆的0度位置开始画，或者180度位置开始画，应该怎么操作？修改一下上面的实例代码：</p>
+<p>文件名:circle3.py</p>
+<pre><code class="python">import turtle as t
+t.setheading(90)    # 设置turtle的方向为正北（向上）方向
+t.circle(100)       # 逆时针画
+t.circle(-100)      # 顺时针画
+t.mainloop()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/circle3.py
+</code></pre>
+
+<p>康康</p>
+<p>可以看到，第一个圆是从0度位置开始画的，而第二个圆是从180度位置开始画的。通过这个小改动，我们可以看到，<strong>turtle</strong>画圆时，没有明确的“圆心”概念，而是以“<strong>初始方向+半径</strong>”来决定一个圆的位置和大小。其核心原理等同于割圆术。</p>
+<p>接下来，我们来看一下怎样画一段弧线，而不是完整的圆。t.circle()的第一个参数是半径，第二个参数就是圆弧的角度，默认是360度。修改一下上面的例子：</p>
+<p>文件名:circle4.py</p>
+<pre><code class="python">import turtle as t
+t.setheading(90)
+t.circle(100, 120)   # 画一段120度的弧线
+t.penup()            # 抬起笔来
+t.goto(0, 0)         # 回到圆点位置
+t.setheading(90)     # 向上画
+t.pendown()          # 落笔，开始画
+t.circle(-100, 120)  # 画一段120度的弧线
+t.mainloop()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/circle4.py
+</code></pre>
+
+<p>康康</p>
+<p>可以看到<strong>turtle</strong>在界面上向左和向右各画了两段弧，即120度长度的弧线。中间增加的抬笔、回圆点、设置初始方向、落笔，主要是为了重新初始化绘图的前提条件，以便于跟前面的例子做对比。</p>
+<p>由此可见，<strong>turtle</strong>画曲线的方法还是比较简陋的，需要配合其它的方向、坐标、位移等来一起实现。接下来，我们来画一个稍微复杂一点，但是非常有趣的小蛇，看代码：</p>
+<p>文件</p>
+<pre><code class="python">import turtle as t
+t.penup()
+t.goto(-150, 0)        # 到起始点
+t.pensize(25)          # 设置画笔粗细
+t.pencolor('green')    # 设置画笔颜色
+t.setheading(45)       # 向45度方向画
+t.pendown()
+t.circle(-50, 90)      # 顺时针方向画90度的弧线
+t.circle(50, 90)       # 继续按逆时针方向画弧
+t.circle(-50, 90)
+t.circle(50, 45)
+t.setheading(0)        # 继续向0度方向画
+t.forward(50)
+t.circle(10, 160)      # 继续画一个160度的小弧
+t.setheading(160)      # 面向小弧的最后角度
+t.forward(8)           # 再向前伸一点
+t.mainloop()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/snake.py
+</code></pre>
+
+<p>康康</p>
+<p>可以看到，<strong>turtle</strong>在界面上画出了一条弯弯曲曲的小绿蛇。通过编程，可以清晰的展现出用<strong>turtle</strong>库画弧线，就是<strong>要配合方向、坐标、位移</strong>等来一起实现。</p>
+<p>接下来，我们再配合上初级篇中的函数定义，来画一只小狮子</p>
+<p>文件名:l</p>
+<pre><code class="python">import turtle as t
+
+def hair():    # 画头发
+    t.penup()
+    t.goto(-50, 150)
+    t.pendown()
+    t.fillcolor('#a2774d')
+    t.begin_fill()
+    for j in range(10):                   # 重复执行10次
+        t.setheading(60 - (j * 36))       # 每次调整初始角度
+        t.circle(-50, 120)                # 画120度的弧
+    t.end_fill()
+
+def face():    # 画脸
+    t.penup()
+    t.goto(0, 100)
+    t.pendown()
+    t.fillcolor('#f2ae20')
+    t.begin_fill()
+    t.setheading(180)
+    t.circle(85)
+    t.end_fill()
+    #下巴
+    t.circle(85, 120)
+    t.fillcolor('white')
+    t.begin_fill()
+    t.circle(85, 120)
+    t.setheading(135)
+    t.circle(100, 95)
+    t.end_fill()
+
+def ears(dir):    # 画眼睛，dir用来设置方向，左右眼对称
+    t.penup()
+    t.goto((0-dir)*30, 90)
+    t.setheading(90)
+    t.pendown()
+    t.fillcolor('#f2ae20')
+    t.begin_fill()
+    t.circle(dir*30)
+    t.end_fill()
+
+    t.penup()
+    t.goto((0-dir)*40, 85)
+    t.setheading(90)
+    t.pendown()
+    t.fillcolor('white')
+    t.begin_fill()
+    t.circle(dir*17)
+    t.end_fill()
+
+def nose():    # 画鼻子
+    t.penup()
+    t.goto(20, 0)
+    t.setheading(90)
+    t.pendown()
+    t.fillcolor('#a2774d')
+    t.begin_fill()
+    t.circle(20)
+    t.end_fill()
+
+def eye(dir):    # 画耳朵，dir用来设置方向，左右耳对称
+    t.penup()
+    t.goto((0-dir)*30, 20)
+    t.setheading(0)
+    t.pendown()
+    t.fillcolor('black')
+    t.begin_fill()
+    t.circle(10)
+    t.end_fill()
+
+def mouth():    # 画嘴巴
+    t.penup()
+    t.goto(0, 0)
+    t.setheading(-90)
+    t.pendown()
+    t.forward(50)
+    t.setheading(0)
+    t.circle(80, 30)
+    t.penup()
+    t.goto(0, -50)
+    t.setheading(180)
+    t.pendown()
+    t.circle(-80, 30)   
+
+hair()
+ears(1)
+ears(-1)
+face()
+eye(1)
+eye(-1)
+mouth()
+nose()
+t.done()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/lion.py
+</code></pre>
+
+<p>康康</p>
+<p>可以看到<strong>turtle</strong>在界面上画出一个小狮子的头像。综合运用方向、坐标、位移，加上一点耐心和对坐标位置的调试，用<strong>turtle</strong>的确可以画出任何你想像的图形。</p>
+<p>入门篇中有个小彩蛋，也就是可以修改<strong>Python</strong>的<strong>turtle</strong>指针外形。默认的指针就是一个小箭头，我们可以通过t.shape('<strong>turtle</strong>')，将这个小箭头改成一只真正的小乌龟，增加编程的趣味性。</p>
+<p>但是，我们还可以进一步，来设定自己的指针外形，将指针改成我们希望的任何样式，这一过程主要通过以下几个方法的组合来实现：</p>
+<pre><code class="python">t.begin_poly()                    # 开始绘制
+# 绘制指针过程省略
+t.end_poly()                      # 结束绘制      
+poly = t.get_poly()               # 获取绘制
+t.register_shape('name', ploy)    # 注册一个名为'name'的shape
+newPoint = t.Pen()                # 初始化一只新turtle
+newPoint.shape('name')            # 让这只turtle使用名为'name'的shape
+</code></pre>
+
+<p>可见，重点是<strong>turtle</strong>库中提供了一个t.register_shape()方法，以供我们注册自己的shape，有了这个方法，在特定的条件下，就可以极大的方便我们的程序设计。通过初始化出多只新<strong>turtle</strong>，可以同时在一个界面上以不同的shape绘图。下面给出一段绘制实时时钟的代码，重点部分我已给出注释。</p>
+<p>文件名:clocks.py</p>
+<pre><code class="python">#-*- coding:utf-8 –*-
+#以自定义shape的方式实现
+#当然，使用多只turtle来完全重绘的方法实现，也没有问题。
+#如果需要重绘方法的代码，请加公众号：see_goal 留言“turtle时钟”
+import turtle as t
+import datetime as d
+
+def skip(step):            # 抬笔，跳到一个地方
+    t.penup()
+    t.forward(step)
+    t.pendown()
+
+
+def drawClock(radius):     # 画表盘
+    t.speed(0)
+    t.mode(&quot;logo&quot;)         # 以Logo坐标、角度方式
+    t.hideturtle()
+    t.pensize(7)
+    t.home()               # 回到圆点
+    for j in range(60):
+        skip(radius)
+        if (j % 5 == 0):
+            t.forward(20)
+            skip(-radius-20)
+        else:
+            t.dot(5)
+            skip(-radius)
+        t.right(6)
+
+def makePoint(pointName, len):            # 钟的指针，时针、分针、秒针
+    t.penup()
+    t.home()
+    t.begin_poly()
+    t.back(0.1*len)
+    t.forward(len*1.1)
+    t.end_poly()
+    poly = t.get_poly()
+    t.register_shape(pointName, poly)    # 注册为一个shape
+
+def drawPoint():                         # 画指针
+    global hourPoint, minPoint, secPoint, fontWriter
+    makePoint(&quot;hourPoint&quot;, 100)
+    makePoint(&quot;minPoint&quot;, 120)
+    makePoint(&quot;secPoint&quot;, 140)
+
+    hourPoint = t.Pen()                  # 每个指针是一只新turtle
+    hourPoint.shape(&quot;hourPoint&quot;)
+    hourPoint.shapesize(1, 1, 6)
+
+    minPoint = t.Pen()
+    minPoint.shape(&quot;minPoint&quot;)
+    minPoint.shapesize(1, 1, 4)
+
+    secPoint = t.Pen()
+    secPoint.shape(&quot;secPoint&quot;)
+    secPoint.pencolor('red')
+
+    fontWriter = t.Pen()
+    fontWriter.pencolor('gray')
+    fontWriter.hideturtle()
+
+def getWeekName(weekday):
+    weekName = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+    return weekName[weekday]
+
+def getDate(year, month, day):
+    return &quot;%s-%s-%s&quot; % (year, month, day)
+
+def realTime():
+    curr = d.datetime.now()
+    curr_year = curr.year
+    curr_month = curr.month
+    curr_day = curr.day
+    curr_hour = curr.hour
+    curr_minute = curr.minute
+    curr_second = curr.second
+    curr_weekday = curr.weekday()
+
+    t.tracer(False)
+    secPoint.setheading(360/60*curr_second)
+    minPoint.setheading(360/60*curr_minute)
+    hourPoint.setheading(360/12*curr_hour + 30/60*curr_minute)
+
+    fontWriter.clear()
+    fontWriter.home()
+    fontWriter.penup()
+    fontWriter.forward(80)
+    # 用turtle写文字
+    fontWriter.write(getWeekName(curr_weekday), align=&quot;center&quot;, font=(&quot;Courier&quot;, 14, &quot;bold&quot;))
+    fontWriter.forward(-160)
+    fontWriter.write(getDate(curr_year, curr_month, curr_day), align=&quot;center&quot;, font=(&quot;Courier&quot;, 14, &quot;bold&quot;))
+
+    t.tracer(True)
+    print(curr_second)
+    t.ontimer(realTime, 100)    # 每隔100毫秒调用一次realTime()
+
+def main():  
+    t.tracer(False)
+    drawClock(160)
+    drawPoint()
+    realTime()
+    t.tracer(True)
+    t.mainloop()
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+
+<pre><code class="bash">python3 /share/lesson/turtle/clocks.py
+</code></pre>
+
+<p>康康</p>
+<p>运行这个例子，可以看到<strong>turtle</strong>在界面上实时展示出一个时钟。我们重新编写过的这段代码还是比较简洁，之前没有介绍到的就是用<strong>turtle</strong>怎么输出文字，详细可以看例子中的write()方法。</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

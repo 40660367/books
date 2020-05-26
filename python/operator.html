@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 运算符(operator) - FreeAIHub</title>
+    <meta name="keywords" content="什么是运算符？,Python算术运算符,Python比较运算符,Python赋值运算符,Python位运算符,Python逻辑运算符,Python成员运算符,Python身份运算符,Python运算符优先级">
+    <meta name="description" content="本章节主要说明Python的运算符。举个简单的例子  。 例子中， 和  被称为， 称为运算符。Python语言支持以下类型的运算符:以下假设变量为10，变量为21：以下假设变量为10，变量为20：以下假设变量为10，变量为20：按位运算符是把数字看作二进制来进行计算的。Python中的按位运算法则如下：表中变量 为 60， 为 13二进制格式如下：Python语言支持逻辑运算符，以下假设变量  ">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a class="current"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/syntax.html class='prev_article'> Python 基础语法 </a>       |       下一篇：<a href=/python/datatype.html class='next_article'> Python3 基本数据类型 </a>  >
+              
+            <h1>Python3 运算符(operator)</h1>
+<h2>什么是运算符？</h2>
+<p>本章节主要说明Python的运算符。举个简单的例子 <strong>4 +5 = 9</strong> 。 例子中，<strong>4</strong> 和 <strong>5</strong> 被称为<strong>操作数</strong>，<code>+</code> 称为运算符。</p>
+<p>Python语言支持以下类型的运算符:</p>
+<ul>
+<li>算术运算符</li>
+<li>比较（关系）运算符</li>
+<li>赋值运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符</li>
+<li>成员运算符</li>
+<li>身份运算符</li>
+<li>运算符优先级</li>
+</ul>
+<h2>Python算术运算符</h2>
+<p>以下假设变量<code>a</code>为10，变量<code>b</code>为21：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>+</code></td>
+<td align="left">加 - 两个对象相加</td>
+<td align="left"><code>a + b</code> 输出结果 31</td>
+</tr>
+<tr>
+<td align="left"><code>-</code></td>
+<td align="left">减 - 得到负数或是一个数减去另一个数</td>
+<td align="left"><code>a - b</code> 输出结果 -11</td>
+</tr>
+<tr>
+<td align="left"><code>*</code></td>
+<td align="left">乘 - 两个数相乘或是返回一个被重复若干次的字符串</td>
+<td align="left"><code>a * b</code> 输出结果 210</td>
+</tr>
+<tr>
+<td align="left"><code>/</code></td>
+<td align="left">除 - x 除以 y</td>
+<td align="left"><code>b / a</code> 输出结果 2.1</td>
+</tr>
+<tr>
+<td align="left"><code>%</code></td>
+<td align="left">取模 - 返回除法的余数</td>
+<td align="left"><code>b % a</code> 输出结果 1</td>
+</tr>
+<tr>
+<td align="left"><code>**</code></td>
+<td align="left">幂 - 返回x的y次幂</td>
+<td align="left"><code>a**b</code> 为10的21次方</td>
+</tr>
+<tr>
+<td align="left"><code>//</code></td>
+<td align="left">取整除 - 向下取接近除数的整数</td>
+<td align="left"><code>9//2</code> <code>-9//2</code></td>
+</tr>
+</tbody>
+</table>
+<h4>练习:所有算术运算符的操作：</h4>
+<pre><code class="Python">a = 21; b = 10 ;c = 0;
+c = a + b
+print(&quot;1 - c 的值为：&quot;, c) 
+
+c = a - b ;print(&quot;2 - c 的值为：&quot;, c)   
+c = a * b ;print(&quot;3 - c 的值为：&quot;, c)   
+c = a / b ;print(&quot;4 - c 的值为：&quot;, c)   
+c = a % b ;print(&quot;5 - c 的值为：&quot;, c)  
+
+# 修改变量 a 、b 、c 
+a = 2; b = 3; c = a**b  
+print(&quot;6 - c 的值为：&quot;, c)  
+a = 10; b = 5; c = a//b  
+print(&quot;7 - c 的值为：&quot;, c)
+</code></pre>
+
+<h2>Python比较运算符</h2>
+<p>以下假设变量<code>a</code>为10，变量<code>b</code>为20：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>==</code></td>
+<td align="left">等于 - 比较对象是否相等</td>
+<td align="left"><code>(a == b)</code>返回 False。</td>
+</tr>
+<tr>
+<td align="left"><code>!=</code></td>
+<td align="left">不等于 - 比较两个对象是否不相等</td>
+<td align="left"><code>(a != b)</code> 返回 True。</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;</code></td>
+<td align="left">大于 - 返回x是否大于y</td>
+<td align="left"><code>(a &gt; b)</code> 返回 False。</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;</code></td>
+<td align="left">小于 - 返回x是否小于y。所有比较运算符返回1表示真，返回0表示假。这分别与特殊的变量True和False等价。注意，这些变量名的大写。</td>
+<td align="left"><code>(a &lt; b)</code>返回 True。</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;=</code></td>
+<td align="left">大于等于 - 返回x是否大于等于y。</td>
+<td align="left"><code>(a &gt;= b)</code>返回 False。</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;=</code></td>
+<td align="left">小于等于 - 返回x是否小于等于y。</td>
+<td align="left"><code>(a &lt;= b)</code>返回 True。</td>
+</tr>
+</tbody>
+</table>
+<h4>练习:所有比较运算符的操作</h4>
+<pre><code class="Python">a = 21 ;b = 10; c = 0;
+if ( a == b ):
+    print(&quot;1 - a 等于 b&quot;)
+else:
+    print(&quot;1 - a 不等于 b&quot;) 
+
+if ( a != b ):
+    print(&quot;2 - a 不等于 b&quot;)
+else:
+    print(&quot;2 - a 等于 b&quot;)
+
+if ( a &lt; b ):
+    print(&quot;3 - a 小于 b&quot;) 
+else: 
+    print(&quot;3 - a 大于等于 b&quot;)
+
+if ( a &gt; b ):
+    print(&quot;4 - a 大于 b&quot;)
+else:
+    print(&quot;4 - a 小于等于 b&quot;)
+
+# 修改变量 a 和 b 的值 
+a = 5; b = 20; 
+if ( a &lt;= b ):
+    print(&quot;5 - a 小于等于 b&quot;) 
+else:
+    print(&quot;5 - a 大于  b&quot;)
+
+if ( b &gt;= a ):
+    print(&quot;6 - b 大于等于 a&quot;) 
+else: 
+    print(&quot;6 - b 小于 a&quot;)
+</code></pre>
+
+<h2>Python赋值运算符</h2>
+<p>以下假设变量<code>a</code>为10，变量<code>b</code>为20：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>=</code></td>
+<td align="left">简单的赋值运算符</td>
+<td align="left"><code>c = a + b</code> 将 <code>a + b</code> 的运算结果赋值为 <code>c</code></td>
+</tr>
+<tr>
+<td align="left"><code>+=</code></td>
+<td align="left">加法赋值运算符</td>
+<td align="left"><code>c += a</code> 等效于 <code>c = c + a</code></td>
+</tr>
+<tr>
+<td align="left"><code>-=</code></td>
+<td align="left">减法赋值运算符</td>
+<td align="left"><code>c -= a</code> 等效于 <code>c = c - a</code></td>
+</tr>
+<tr>
+<td align="left"><code>*=</code></td>
+<td align="left">乘法赋值运算符</td>
+<td align="left"><code>c *= a</code> 等效于 <code>c = c * a</code></td>
+</tr>
+<tr>
+<td align="left"><code>/=</code></td>
+<td align="left">除法赋值运算符</td>
+<td align="left"><code>c /= a</code> 等效于 c = c / a</td>
+</tr>
+<tr>
+<td align="left"><code>%=</code></td>
+<td align="left">取模赋值运算符</td>
+<td align="left"><code>c %= a</code> 等效于 <code>c = c % a</code></td>
+</tr>
+<tr>
+<td align="left"><code>**=</code></td>
+<td align="left">幂赋值运算符</td>
+<td align="left"><code>c **= a</code> 等效于 <code>c = c ** a</code></td>
+</tr>
+<tr>
+<td align="left"><code>//=</code></td>
+<td align="left">取整除赋值运算符</td>
+<td align="left"><code>c //= a</code> 等效于 <code>c = c // a</code></td>
+</tr>
+</tbody>
+</table>
+<h4>练习:所有赋值运算符的操作</h4>
+<pre><code class="Python">a = 21; b = 10; c = 0
+
+c = a + b
+print(&quot;1 - c 的值为：&quot;, c)
+
+c += a 
+print(&quot;2 - c 的值为：&quot;, c)
+
+c *= a 
+print(&quot;3 - c 的值为：&quot;, c) 
+
+c /= a  
+print(&quot;4 - c 的值为：&quot;, c)  
+
+c = 2;c %= a
+print(&quot;5 - c 的值为：&quot;, c) 
+
+c **= a 
+print(&quot;6 - c 的值为：&quot;, c)   
+
+c //= a 
+print(&quot;7 - c 的值为：&quot;, c)
+</code></pre>
+
+<h2>Python位运算符</h2>
+<p>按位运算符是把数字看作二进制来进行计算的。</p>
+<h4>练习：按位运算法则</h4>
+<pre><code class="Python">a = 0b00111100
+
+b = 0b00001101
+
+print(bin(a&amp;b)) #结果为 0000 1100
+
+print(bin(a|b)) #结果为 0011 1101
+
+print(bin(a^b)) #结果为 0011 0001
+
+print(bin(~a))  #结果为 1100 0011
+</code></pre>
+
+<p>Python中的按位运算法则如下：表中变量 <code>a</code>为 60，<code>b</code> 为 13二进制格式如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>&amp;</code></td>
+<td align="left">按位与运算符：参与运算的两个值,如果两个相应位都为1,则该位的结果为1,否则为0</td>
+<td align="left"><code>(a &amp; b)</code>输出结果 12 ，二进制解释： 0000 1100</td>
+</tr>
+<tr>
+<td align="left"><code>|</code></td>
+<td align="left">按位或运算符：只要对应的二个二进位有一个为1时，结果位就为1。</td>
+<td align="left"><code>(a \| b)</code>输出结果 61 ，二进制解释： 0011 1101</td>
+</tr>
+<tr>
+<td align="left"><code>^</code></td>
+<td align="left">按位异或运算符：当两对应的二进位相异时，结果为1</td>
+<td align="left"><code>(a ^ b)</code> 输出结果 49 ，二进制解释： 0011 0001</td>
+</tr>
+<tr>
+<td align="left"><code>~</code></td>
+<td align="left">按位取反运算符：对数据的每个二进制位取反,即把1变为0,把0变为1。<strong>~x</strong> 类似于 <strong>-x-1</strong></td>
+<td align="left"><code>(~a )</code> 输出结果 -61 ，二进制解释： 1100 0011， 在一个有符号二进制数的补码形式。</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;&lt;</code></td>
+<td align="left">左移动运算符：运算数的各二进位全部左移若干位，由"&lt;&lt;"右边的数指定移动的位数，高位丢弃，低位补0。</td>
+<td align="left"><code>a &lt;&lt; 2</code> 输出结果 240 ，二进制解释： 1111 0000</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;&gt;</code></td>
+<td align="left">右移动运算符：把"&gt;&gt;"左边的运算数的各二进位全部右移若干位，"&gt;&gt;"右边的数指定移动的位数</td>
+<td align="left"><code>a &gt;&gt; 2</code> 输出结果 15 ，二进制解释： 0000 1111</td>
+</tr>
+</tbody>
+</table>
+<h4>练习:Python位运算符的操作</h4>
+<pre><code class="Python">a = 60            # 60 = 0011 1100 
+b = 13            # 13 = 0000 1101 
+c = 0
+
+c = a &amp; b;        # 12 = 0000 1100
+print(&quot;1 - c 的值为：&quot;, c)
+
+c = a | b;        # 61 = 0011 1101 
+print(&quot;2 - c 的值为：&quot;, c)
+
+c = a ^ b;        # 49 = 0011 0001
+print(&quot;3 - c 的值为：&quot;, c)
+
+c = ~a;           # -61 = 1100 0011
+print(&quot;4 - c 的值为：&quot;, c)
+
+c = a &lt;&lt; 2;       # 240 = 1111 0000
+print(&quot;5 - c 的值为：&quot;, c)
+
+c = a &gt;&gt; 2;       # 15 = 0000 1111
+print(&quot;6 - c 的值为：&quot;, c)
+</code></pre>
+
+<h2>Python逻辑运算符</h2>
+<p>Python语言支持逻辑运算符，以下假设变量 <code>a</code> 为 10, <code>b</code>为 20:</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">逻辑表达式</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>and</code></td>
+<td align="left">x and y</td>
+<td align="left">布尔"与"  如果<code>x</code>为 False，<code>x and y</code> 返回 False，否则它返回 y 的计算值。</td>
+<td align="left"><code>(a and b)</code> 返回 20。</td>
+</tr>
+<tr>
+<td align="left"><code>or</code></td>
+<td align="left">x or y</td>
+<td align="left">布尔"或"  如果 <code>x</code> 是 True，它返回<code>x</code>的值，否则它返回<code>y</code>的计算值。</td>
+<td align="left"><code>(a or b)</code>返回 10。</td>
+</tr>
+<tr>
+<td align="left"><code>not</code></td>
+<td align="left">not x</td>
+<td align="left">布尔"非" 如果 <code>x</code> 为 True，返回 False 。如果<code>x</code> 为 False，它返回 True。</td>
+<td align="left"><code>not(a and b)</code> 返回 False</td>
+</tr>
+</tbody>
+</table>
+<h4>练习:Python逻辑运算符</h4>
+<pre><code class="Python">a = 10
+b = 20
+
+if ( a and b ):
+   print(&quot;1 - 变量 a 和 b 都为 true&quot;)
+else:
+   print(&quot;1 - 变量 a 和 b 有一个不为 true&quot;)
+
+if ( a or b ):
+   print(&quot;2 - 变量 a 和 b 都为 true，或其中一个变量为 true&quot;)
+else:
+   print(&quot;2 - 变量 a 和 b 都不为 true&quot;)
+
+# 修改变量 a 的值
+a = 0
+if ( a and b ):
+   print(&quot;3 - 变量 a 和 b 都为 true&quot;)
+else:
+   print(&quot;3 - 变量 a 和 b 有一个不为 true&quot;)
+
+if ( a or b ):
+   print(&quot;4 - 变量 a 和 b 都为 true，或其中一个变量为 true&quot;)
+else:
+   print(&quot;4 - 变量 a 和 b 都不为 true&quot;)
+
+if not( a and b ):
+   print(&quot;5 - 变量 a 和 b 都为 false，或其中一个变量为 false&quot;)
+else:
+   print(&quot;5 - 变量 a 和 b 都为 true&quot;)
+</code></pre>
+
+<h2>Python成员运算符</h2>
+<p>Python还支持成员运算符，测试实例中包含了一系列的成员，包括字符串，列表或元组。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th>描述</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>in</code></td>
+<td>如果在指定的序列中找到值返回 True，否则返回 False。</td>
+<td>x 在 y 序列中 , 如果 x 在 y 序列中返回 True。</td>
+</tr>
+<tr>
+<td align="left"><code>not in</code></td>
+<td>如果在指定的序列中没有找到值返回 True，否则返回 False。</td>
+<td>x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。</td>
+</tr>
+</tbody>
+</table>
+<h4>练习:Python成员运算符</h4>
+<pre><code class="Python">a = 10
+b = 20
+list = [1, 2, 3, 4, 5 ];
+
+if ( a in list ):
+   print(&quot;1 - 变量 a 在给定的列表中 list 中&quot;)
+else:
+   print(&quot;1 - 变量 a 不在给定的列表中 list 中&quot;)
+
+if ( b not in list ):
+   print(&quot;2 - 变量 b 不在给定的列表中 list 中&quot;)
+else:
+   print(&quot;2 - 变量 b 在给定的列表中 list 中&quot;)
+
+# 修改变量 a 的值
+a = 2
+if ( a in list ):
+   print(&quot;3 - 变量 a 在给定的列表中 list 中&quot;)
+else:
+   print(&quot;3 - 变量 a 不在给定的列表中 list 中&quot;)
+</code></pre>
+
+<h2>Python身份运算符</h2>
+<p>身份运算符用于比较两个对象的存储单元</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th>描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>is</code></td>
+<td>is 是判断两个标识符是不是引用自一个对象</td>
+<td align="left"><code>x is y</code>, 类似<code>id(x) == id(y)</code>, 如果引用的是同一个对象则返回 True，否则返回 False</td>
+</tr>
+<tr>
+<td align="left"><code>is not</code></td>
+<td>is not 是判断两个标识符是不是引用自不同对象</td>
+<td align="left"><code>x is not y</code> ， 类似 <code>id(a) != id(b)</code>。如果引用的不是同一个对象则返回结果 True，否则返回 False。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注：</strong> <code>id()</code> 函数用于获取对象内存地址。</p>
+<h4>练习:Python身份运算符</h4>
+<pre><code class="Python">a = 20
+b = 20
+
+if ( a is b ):
+   print(&quot;1 - a 和 b 有相同的标识&quot;)
+else:
+   print(&quot;1 - a 和 b 没有相同的标识&quot;)
+
+if ( id(a) == id(b) ):
+   print(&quot;2 - a 和 b 有相同的标识&quot;)
+else:
+   print(&quot;2 - a 和 b 没有相同的标识&quot;)
+
+# 修改变量 b 的值
+b = 30
+if ( a is b ):
+   print(&quot;3 - a 和 b 有相同的标识&quot;)
+else:
+   print(&quot;3 - a 和 b 没有相同的标识&quot;)
+
+if ( a is not b ):
+   print(&quot;4 - a 和 b 没有相同的标识&quot;)
+else:
+   print(&quot;4 - a 和 b 有相同的标识&quot;)
+</code></pre>
+
+<h4>练习：<code>is</code> 与 <code>==</code> 区别：</h4>
+<p><code>is</code> 用于判断两个变量引用对象是否为同一个，<code>==</code>用于判断引用变量的值是否相等。</p>
+<pre><code class="Python">a = [1, 2, 3]
+b = a[:]
+
+print(b is a)
+print(b == a)
+
+print(b is a)
+print(b == a)
+</code></pre>
+
+<h2>Python运算符优先级</h2>
+<p>以下表格列出了从最高到最低优先级的所有运算符：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>**</code></td>
+<td align="left">指数 (最高优先级)</td>
+</tr>
+<tr>
+<td align="left"><code>~</code> <code>+</code> <code>-</code></td>
+<td align="left">按位翻转, 一元加号和减号 (最后两个的方法名为 +@ 和 -@)</td>
+</tr>
+<tr>
+<td align="left"><code>*</code> <code>/</code> <code>%</code> <code>//</code></td>
+<td align="left">乘，除，求余数和取整除</td>
+</tr>
+<tr>
+<td align="left"><code>+</code> <code>-</code></td>
+<td align="left">加法减法</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;&gt;</code> <code>&lt;&lt;</code></td>
+<td align="left">右移，左移运算符</td>
+</tr>
+<tr>
+<td align="left"><code>&amp;</code></td>
+<td align="left">位 'AND'</td>
+</tr>
+<tr>
+<td align="left"><code>^</code> <code>\|</code></td>
+<td align="left">位运算符</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;=</code> <code>&lt;</code> <code>&gt;</code> <code>&gt;=</code></td>
+<td align="left">比较运算符</td>
+</tr>
+<tr>
+<td align="left"><code>==</code> <code>!=</code></td>
+<td align="left">等于运算符</td>
+</tr>
+<tr>
+<td align="left"><code>=</code> <code>%=</code> <code>/=</code> <code>//=</code> <code>-=</code> <code>+=</code> <code>*=</code> <code>**=</code></td>
+<td align="left">赋值运算符</td>
+</tr>
+<tr>
+<td align="left"><code>is</code> <code>is not</code></td>
+<td align="left">身份运算符</td>
+</tr>
+<tr>
+<td align="left"><code>in</code> <code>not in</code></td>
+<td align="left">成员运算符</td>
+</tr>
+<tr>
+<td align="left"><code>not</code> <code>and or</code></td>
+<td align="left">逻辑运算符</td>
+</tr>
+</tbody>
+</table>
+<h4>练习:Python运算符优先级</h4>
+<pre><code class="Python">a = 20
+b = 10
+c = 15
+d = 5
+e = 0
+
+e = (a + b) * c / d       #( 30 * 15 ) / 5
+print(&quot;(a + b) * c / d 运算结果为：&quot;,  e)
+
+e = ((a + b) * c) / d     # (30 * 15 ) / 5
+print(&quot;((a + b) * c) / d 运算结果为：&quot;,  e)
+
+e = (a + b) * (c / d);    # (30) * (15/5)
+print(&quot;(a + b) * (c / d) 运算结果为：&quot;,  e)
+
+e = a + (b * c) / d;      #  20 + (150/5)
+print(&quot;a + (b * c) / d 运算结果为：&quot;,  e)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

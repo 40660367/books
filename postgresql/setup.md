@@ -1,0 +1,61 @@
+# PostgreSQL 环境安装配置
+
+## 本课程在线环境的安装
+
+### 安装postgresql环境
+
+```bash
+#更新源及安装postgresql
+apt update && apt install postgresql postgresql-contrib -y
+
+#启动postgresql服务
+service postgresql start
+
+#进入postgresql
+#postgresql默认不允许使用root用户登陆，因此需要使用su命令进行切换用户
+su - postgres && psql
+```
+### 准备课程示例数据
+
+```sql
+DROP TABLE COMPANY;
+
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL,
+   JOIN_DATE      DATE
+);
+
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (1, 'Paul', 32, 'California', 20000.00,'2018-07-13');
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,JOIN_DATE) VALUES (2, 'Allen', 25, 'Texas', '2018-12-13');
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (3, 'Teddy', 23, 'Norway', 20000.00, DEFAULT );
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (4, 'Mark', 25, 'RichMond ', 65000.00, '2017-12-13' );
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (5, 'David', 27, 'Texas', 85000.00, '2017-12-13');
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (6, 'James', 23, 'Norway', 50000.00,'2003-07-13');
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (7, 'James', 23, 'Texas', 50000.00,'2012-07-13');
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (8, 'Paul', 23, 'Houston', 20000.00,'2020-1-13');
+
+
+DROP TABLE DEPARTMENT;
+CREATE TABLE DEPARTMENT(
+   ID INT PRIMARY KEY      NOT NULL,
+   DEPT           CHAR(50) NOT NULL,
+   EMP_ID         INT      NOT NULL
+);
+
+INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID) VALUES (1, 'IT Billing', 1 );
+INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID) VALUES (2, 'Engineering', 2 );
+INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID) VALUES (3, 'Finance', 7 );
+INSERT INTO department VALUES(10,'Market', 10);
+
+
+
+SELECT * FROM COMPANY;
+SELECT * FROM DEPARTMENT;
+
+\d
+```
+

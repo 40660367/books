@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 命名空间和作用域(namespace scope) - FreeAIHub</title>
+    <meta name="keywords" content="命名空间,作用域">
+    <meta name="description" content="先看看官方文档的一段话：A namespace is a mapping from names to objects.Most namespaces are currently implemented as Python dictionaries。命名空间(Namespace)是从名称到对象的映射，大部分的命名空间都是通过 Python 字典来实现的。命名空间提供了在项目中避免名字冲突的一种方法。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a class="current"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/class.html class='prev_article'> Python3 面向对象 </a>       |       下一篇：<a href=/python/package.html class='next_article'> Python3 模块 </a>  >
+              
+            <h1>Python3 命名空间和作用域(namespace scope)</h1>
+<h2>命名空间</h2>
+<p>先看看官方文档的一段话：</p>
+<blockquote>
+<p>A namespace is a mapping from names to objects.Most namespaces are currently implemented as Python dictionaries。</p>
+</blockquote>
+<p>命名空间(Namespace)是从名称到对象的映射，大部分的命名空间都是通过 Python 字典来实现的。</p>
+<p>命名空间提供了在项目中避免名字冲突的一种方法。各个命名空间是独立的，没有任何关系的，所以一个命名空间中不能有重名，但不同的命名空间是可以重名而没有任何影响。</p>
+<p>我们举一个计算机系统中的例子，一个文件夹(目录)中可以包含多个文件夹，每个文件夹中不能有相同的文件名，但不同文件夹中的文件可以重名。</p>
+<h3>三种命名空间：</h3>
+<ul>
+<li><strong>内置名称（built-in names</strong>）， Python 语言内置的名称，比如函数名 abs、char 和异常名称 BaseException、Exception 等等。</li>
+<li><strong>全局名称（global names）</strong>，模块中定义的名称，记录了模块的变量，包括函数、类、其它导入的模块、模块级的变量和常量。</li>
+<li><strong>局部名称（local names）</strong>，函数中定义的名称，记录了函数的变量，包括函数的参数和局部定义的变量。（类中定义的也是）</li>
+</ul>
+<p><img alt="img" src="./images/types_namespace-1.png" /></p>
+<h3>命名空间查找顺序:</h3>
+<p>假设我们要使用变量 python，则 Python 的查找顺序为：<strong>局部的命名空间去 -&gt; 全局命名空间 -&gt; 内置命名空间</strong>。</p>
+<p>如果找不到变量 python，它将放弃查找并引发一个 NameError 异常:<code>NameError: name 'python' is not defined。</code></p>
+<h3>命名空间的生命周期：</h3>
+<p>命名空间的生命周期取决于对象的作用域，如果对象执行完成，则该命名空间的生命周期就结束。</p>
+<p>因此，我们无法从外部命名空间访问内部命名空间的对象。</p>
+<h4>练习：命令空间使用</h4>
+<pre><code class="Python"># var1 是全局名称
+var1 = 5
+def some_func():
+    # var2 是局部名称
+    var2 = 6
+    def some_inner_func():
+        # var3 是内嵌的局部名称
+        var3 = 7
+some_func
+</code></pre>
+
+<h4>练习：魔法函数查看当前命名空间下的变量</h4>
+<pre><code class="Python">#查看当前的变量
+%whos
+</code></pre>
+
+<h2>作用域</h2>
+<blockquote>
+<p>A scope is a textual region of a Python program where a namespace is directly accessible. "Directly accessible" here means that an unqualified reference to a name attempts to find the name in the namespace.</p>
+</blockquote>
+<p>作用域就是一个 Python 程序可以直接访问命名空间的正文区域。</p>
+<p>在一个 python 程序中，直接访问一个变量，会从内到外依次访问所有的作用域直到找到，否则会报未定义的错误。</p>
+<p>Python 中，程序的变量并不是在哪个位置都可以访问的，访问权限决定于这个变量是在哪里赋值的。</p>
+<p>变量的作用域决定了在哪一部分程序可以访问哪个特定的变量名称。Python的作用域一共有4种，分别是：</p>
+<h3>四种作用域：</h3>
+<ul>
+<li><strong>L（Local）</strong>：最内层，包含局部变量，比如一个函数/方法内部。</li>
+<li><strong>E（Enclosing）</strong>：包含了非局部(non-local)也非全局(non-global)的变量。比如两个嵌套函数，一个函数（或类） A 里面又包含了一个函数 B ，那么对于 B 中的名称来说 A 中的作用域就为 nonlocal。</li>
+<li><strong>G（Global）</strong>：当前脚本的最外层，比如当前模块的全局变量。</li>
+<li><strong>B（Built-in）</strong>： 包含了内建的变量/关键字等。，最后被搜索</li>
+</ul>
+<p>规则顺序： <strong>L –&gt; E –&gt; G –&gt;gt; B</strong>。</p>
+<p>在局部找不到，便会去局部外的局部找（例如闭包），再找不到就会去全局找，再者去内置中找。</p>
+<h4>练习:LEGB作用域练习</h4>
+<pre><code class="Python">g_count = 0  # 全局作用域
+def outer():
+    o_count = 1  # 闭包函数外的函数中
+    def inner():
+        i_count = 2  # 局部作用域
+outer        
+</code></pre>
+
+<p>内置作用域是通过一个名为<code>builtin</code>的标准模块,也叫内置电池来实现的，但是这个变量名自身并没有放入内置作用域内，所以必须导入这个文件才能够使用它。在Python3.0中，可以使用以下的代码来查看到底预定义了哪些变量:</p>
+<h4>练习:查看Python标准模块<code>builtins</code></h4>
+<pre><code class="Python">import builtins
+dir(builtins)
+</code></pre>
+
+<p>Python 中只有模块<code>module</code>，类<code>class</code>以及函数<code>def</code>、<code>lambda</code>才会引入新的作用域，其它的代码块（如 <code>if/elif/else/</code>、<code>try/except</code>、<code>for/while</code>等）是不会引入新的作用域的，也就是说这些语句内定义的变量，外部也可以访问</p>
+<h4>练习：属于全局作用域的代码块</h4>
+<pre><code class="Python">if True:
+  msg = 'I am from python'
+
+msg
+</code></pre>
+
+<p>实例中<code>msg</code>变量定义在<code>if</code>语句块中，但外部还是可以访问的。</p>
+<h4>练习：不属于全局作用域的代码块</h4>
+<p>如果将<code>msg</code>定义在函数中，则它就是局部变量，外部不能访问：</p>
+<pre><code class="Python">def test():
+     msg_inner = 'I am from python'
+
+msg_inner
+</code></pre>
+
+<p>从报错的信息上看，说明了<code>msg_inner</code>未定义，无法使用，因为它是局部变量，只有在函数内可以使用。</p>
+<h3>全局变量和局部变量</h3>
+<p>定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。</p>
+<p>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例：</p>
+<h4>练习:全局与局部变更</h4>
+<pre><code class="Python">total = 0 # 这是一个全局变量
+# 可写函数说明
+def sum( arg1, arg2 ):
+    #返回2个参数的和.&quot;
+    total = arg1 + arg2 # total在这里是局部变量.
+    print(&quot;函数内是局部变量 : &quot;, total)
+    return total
+
+#调用sum函数
+sum(10, 20)
+print(&quot;函数外是全局变量 : &quot;, total)
+</code></pre>
+
+<h3><code>global</code>和<code>nonlocal</code>关键字</h3>
+<p>当内部作用域想修改外部作用域的变量时，就要用到<code>global</code>和<code>nonlocal</code>关键字了。</p>
+<h4>练习:修改全局变量<code>num</code>：</h4>
+<pre><code class="Python">num = 1
+def fun1():
+    global num  # 需要使用 global 关键字声明
+    print(num) 
+    num = 123
+    print(num)
+fun1()
+print(num)
+</code></pre>
+
+<p>如果要修改嵌套作用域（<code>enclosing</code> 作用域，外层非全局作用域）中的变量则需要<code>nonlocal</code>关键字了</p>
+<h4>练习:使用<code>nonlocal</code>修改嵌套作用域的变量</h4>
+<pre><code class="Python">def outer():
+    num = 10
+    def inner():
+        nonlocal num   # nonlocal关键字声明
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+
+<p>另外有一种特殊情况，假设下面这段代码被运行：</p>
+<pre><code class="Python">a = 10
+def test():
+    a = a + 1
+    print(a)
+test()
+</code></pre>
+
+<p>错误信息为局部作用域引用错误，因为<code>test</code>函数中的 <code>a</code> 使用的是局部，未定义，无法修改。</p>
+<p>修改<code>a</code>为全局变量，通过函数参数传递，可以正常执行。</p>
+<pre><code class="Python">a = 10
+def test(a):
+    a = a + 1
+    print(a)
+test(a)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

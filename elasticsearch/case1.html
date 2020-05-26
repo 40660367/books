@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>elasticsearch 示例1 - FreeAIHub</title>
+    <meta name="keywords" content="导入示例数据,查询,执行搜索,过滤查询,聚合">
+    <meta name="description" content="https://cloud.tencent.com/developer/article/1612516参数可以控制返回的结果：上面的命令返回了所有文档数据中的第一条文档。如果size不指定，那么默认返回10条。下面的命令请求了第10-20的文档。下面的命令指定了文档返回的排序方式：之前的返回数据都是返回文档的所有内容，这种对于网络的开销肯定是有影响的，下面的例子就指定了返回特定的字段：再回到que">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/elasticsearch/index.html">如何学习本课程</a></li>
+<li><a href="/elasticsearch/setup.html"> elasticsearch 环境安装配置  </a></li>
+<li><a href="/elasticsearch/intro.html"> elasticsearch 简介 </a></li>
+<li><a href="/elasticsearch/concept.html"> elasticsearch 概念 </a></li>
+<li><a href="/elasticsearch/curl.html"> elasticsearch curl命令用法 </a></li>
+<li><a href="/elasticsearch/dsl.html"> elasticsearch 查询语言DSL </a></li>
+<li><a href="/elasticsearch/indexing.html"> elasticsearch 索引 </a></li>
+<li><a href="/elasticsearch/curd.html"> elasticsearch 数据操作 </a></li>
+<li><a href="/elasticsearch/query.html"> elasticsearch 数据查询 </a></li>
+<li><a class="current"> elasticsearch 示例1 </a></li>
+<li><a href="/elasticsearch/case2.html"> elasticsearch 示例2 </a></li>
+<li><a href="/elasticsearch/fc.html"> elasticsearch 中文分词 </a></li>
+<li><a href="/elasticsearch/python.html"> elasticsearch 使用Python </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/elasticsearch/query.html class='prev_article'> elasticsearch 数据查询 </a>       |       下一篇：<a href=/elasticsearch/case2.html class='next_article'> elasticsearch 示例2 </a>  >
+              
+<h1>elasticsearch 示例1</h1>
+<h2>导入示例数据</h2>
+<pre><code class="bash">cp /share/lesson/elasticsearch/accounts.json .
+curl -XPOST 127.0.0.1:9200/bank/account/_bulk?pretty --data-binary @accounts.json
+</code></pre>
+
+<p>https://cloud.tencent.com/developer/article/1612516</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>需要在accounts.json所在的目录运行curl命令。</li>
+<li>127.0.0.1:9200是ES得访问地址和端口</li>
+<li>bank是索引的名称</li>
+<li>account是类型的名称</li>
+<li>索引和类型的名称在文件中如果有定义，可以省略；如果没有则必须要指定</li>
+<li>_bulk是rest得命令，可以批量执行多个操作（操作是在json文件中定义的，原理可以参考之前的翻译）</li>
+<li>pretty是将返回的信息以可读的JSON形式返回。</li>
+</ol>
+<pre><code class="bash">#验证
+curl 'localhost:9200/_cat/indices?v'
+</code></pre>
+
+<h2>查询</h2>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_all&quot;: {} }
+}'
+</code></pre>
+
+<p>参数可以控制返回的结果：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_all&quot;: {} },
+  &quot;size&quot;: 1
+}'
+</code></pre>
+
+<p>上面的命令返回了所有文档数据中的第一条文档。如果size不指定，那么默认返回10条。</p>
+<p>下面的命令请求了第10-20的文档。</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_all&quot;: {} },
+  &quot;from&quot;: 10,
+  &quot;size&quot;: 10
+}'
+</code></pre>
+
+<p>下面的命令指定了文档返回的排序方式：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_all&quot;: {} },
+  &quot;sort&quot;: { &quot;balance&quot;: { &quot;order&quot;: &quot;desc&quot; } }
+}'
+</code></pre>
+
+<h2>执行搜索</h2>
+<p>之前的返回数据都是返回文档的所有内容，这种对于网络的开销肯定是有影响的，下面的例子就指定了返回特定的字段：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_all&quot;: {} },
+  &quot;_source&quot;: [&quot;account_number&quot;, &quot;balance&quot;]
+}'
+</code></pre>
+
+<p>再回到query，之前的查询都是查询所有的文档，并不能称之为搜索引擎。下面就通过match方式查询特定字段的特定内容，比如查询余额为20的账户信息：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match&quot;: { &quot;account_number&quot;: 20 } }
+}'
+</code></pre>
+
+<p>查询地址为mill的信息：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match&quot;: { &quot;address&quot;: &quot;mill&quot; } }
+}'
+</code></pre>
+
+<p>查询地址为mill或者lane的信息：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
+}'
+</code></pre>
+
+<p>如果我们想要返回同时包含mill和lane的，可以通过match_phrase查询：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: { &quot;match_phrase&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
+}'
+</code></pre>
+
+<p>ES提供了bool查询，可以把很多小的查询组成一个更为复杂的查询，比如查询同时包含mill和lane的文档：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        { &quot;match&quot;: { &quot;address&quot;: &quot;mill&quot; } },
+        { &quot;match&quot;: { &quot;address&quot;: &quot;lane&quot; } }
+      ]
+    }
+  }
+}'
+</code></pre>
+
+<p>修改bool参数，可以改为查询包含mill或者lane的文档：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        { &quot;match&quot;: { &quot;address&quot;: &quot;mill&quot; } },
+        { &quot;match&quot;: { &quot;address&quot;: &quot;lane&quot; } }
+      ]
+    }
+  }
+}'
+</code></pre>
+
+<p>也可以改写为must_not，排除包含mill和lane的文档：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must_not&quot;: [
+        { &quot;match&quot;: { &quot;address&quot;: &quot;mill&quot; } },
+        { &quot;match&quot;: { &quot;address&quot;: &quot;lane&quot; } }
+      ]
+    }
+  }
+}'
+</code></pre>
+
+<p>bool查询可以同时使用must, should, must_not组成一个复杂的查询：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        { &quot;match&quot;: { &quot;age&quot;: &quot;40&quot; } }
+      ],
+      &quot;must_not&quot;: [
+        { &quot;match&quot;: { &quot;state&quot;: &quot;ID&quot; } }
+      ]
+    }
+  }
+}'
+</code></pre>
+
+<h2>过滤查询</h2>
+<p>之前说过score字段指定了文档的分数，使用查询会计算文档的分数，最后通过分数确定哪些文档更相关，返回哪些文档。</p>
+<p><strong>有的时候我们可能对分数不感兴趣，就可以使用filter进行过滤，它不会去计算分值，因此效率也就更高一些。</strong></p>
+<p>filter过滤可以嵌套在bool查询内部使用，比如想要查询在2000-3000范围内的所有文档，可以执行下面的命令：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: { &quot;match_all&quot;: {} },
+      &quot;filter&quot;: {
+        &quot;range&quot;: {
+          &quot;balance&quot;: {
+            &quot;gte&quot;: 20000,
+            &quot;lte&quot;: 30000
+          }
+        }
+      }
+    }
+  }
+}'
+</code></pre>
+
+<p>ES除了上面介绍过的范围查询range、match_all、match、bool、filter还有很多其他的查询方式，这里就先不一一说明了。</p>
+<h2>聚合</h2>
+<p>聚合提供了用户进行分组和数理统计的能力，可以把聚合理解成SQL中的GROUP BY和分组函数。在ES中，你可以在一次搜索查询的时间内，即完成搜索操作也完成聚合操作，这样就降低了多次使用REST API造成的网络开销。</p>
+<p>下面就是通过terms聚合的简单样例：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;group_by_state&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;state&quot;
+      }
+    }
+  }
+}'
+</code></pre>
+
+<p>它类似于SQL中的下面的语句：</p>
+<pre><code class="sql">SELECT state, COUNT(*) FROM bank GROUP BY state ORDER BY COUNT(*) DESC
+</code></pre>
+
+<p>由于size设置为0，它并没有返回文档的信息，只是返回了聚合的结果。</p>
+<p>比如统计不同账户状态下的平均余额：</p>
+<pre><code class="bash">curl -XPOST 'localhost:9200/bank/_search?pretty' -H 'content-Type:application/json' -d '
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;group_by_state&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;state&quot;
+      },
+      &quot;aggs&quot;: {
+        &quot;average_balance&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;balance&quot;
+          }
+        }
+      }
+    }
+  }
+}'
+</code></pre>
+
+<p>聚合支持嵌套，举个例子，先按范围分组，在统计不同性别的账户余额：</p>
+<pre><code class="bash">curl -X GET &quot;localhost:9200/bank/_search?pretty&quot; -H 'Content-Type: application/json' -d'
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;group_by_state&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;state.keyword&quot;,
+        &quot;order&quot;: {
+          &quot;average_balance&quot;: &quot;desc&quot;
+        }
+      },
+      &quot;aggs&quot;: {
+        &quot;average_balance&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;balance&quot;
+          }
+        }
+      }
+    }
+  }
+}
+'
+</code></pre>
+
+<pre><code class="bash">curl -X GET &quot;localhost:9200/bank/_search?pretty&quot; -H 'Content-Type: application/json' -d'
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;group_by_age&quot;: {
+      &quot;range&quot;: {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;ranges&quot;: [
+          {
+            &quot;from&quot;: 20,
+            &quot;to&quot;: 30
+          },
+          {
+            &quot;from&quot;: 30,
+            &quot;to&quot;: 40
+          },
+          {
+            &quot;from&quot;: 40,
+            &quot;to&quot;: 50
+          }
+        ]
+      },
+      &quot;aggs&quot;: {
+        &quot;group_by_gender&quot;: {
+          &quot;terms&quot;: {
+            &quot;field&quot;: &quot;gender.keyword&quot;
+          },
+          &quot;aggs&quot;: {
+            &quot;average_balance&quot;: {
+              &quot;avg&quot;: {
+                &quot;field&quot;: &quot;balance&quot;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+'
+</code></pre>
+
+<p>聚合可以实现很多复杂的功能，而且ES也提供了很多复杂的聚合</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

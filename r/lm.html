@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 线性回归模型(liner model) - FreeAIHub</title>
+    <meta name="keywords" content="建立回归的步骤,函数,函数,多重回归,函数,语法,语法">
+    <meta name="description" content="回归分析是一种非常广泛使用的统计工具，用于建立两个变量之间的关系模型。 这些变量之一称为预测变量，其值通过实验收集。 另一个变量称为响应变量，其值从预测变量派生。在线性回归中，这两个变量通过方程相关，其中这两个变量的指数（幂）为1.数学上，线性关系表示当绘制为曲线图时的直线。 任何变量的指数不等于1的非线性关系将创建一条曲线。线性回归的一般数学方程为：
+$$
+y = ax + b
+$$以下是所使用">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a class="current"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/dt.html class='prev_article'> R语言决策树</a>       |       下一篇：<a href=/r/rf.html class='next_article'> R语言随机森林算法</a>  >
+              
+            <h1>R语言 线性回归模型(liner model)</h1>
+<p>回归分析是一种非常广泛使用的统计工具，用于建立两个变量之间的关系模型。 这些变量之一称为预测变量，其值通过实验收集。 另一个变量称为响应变量，其值从预测变量派生。</p>
+<p>在线性回归中，这两个变量通过方程相关，其中这两个变量的指数（幂）为1.数学上，线性关系表示当绘制为曲线图时的直线。 任何变量的指数不等于1的非线性关系将创建一条曲线。</p>
+<p>线性回归的一般数学方程为：
+$$
+y = ax + b
+$$</p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li>$y$是响应变量。</li>
+<li>$x$是预测变量。</li>
+<li>$a$和 $b$ 称为系数常数。</li>
+</ul>
+<h2>建立回归的步骤</h2>
+<p>回归的简单例子是当人的身高已知时预测人的体重。 为了做到这一点，我们需要有一个人的身高和体重之间的关系。</p>
+<p>创建关系的步骤是:</p>
+<ul>
+<li>进行收集高度和相应重量的观测值的样本的实验。</li>
+<li>使用R语言中的<code>lm()</code>函数创建关系模型。</li>
+<li>从创建的模型中找到系数，并使用这些创建数学方程</li>
+<li>获得关系模型的摘要以了解预测中的平均误差。 也称为残差。</li>
+<li>为了预测新人的体重，使用R中的<code>predict()</code>函数。</li>
+</ul>
+<h3>数据说明</h3>
+<pre><code># Values of height
+151, 174, 138, 186, 128, 136, 179, 163, 152, 131
+
+# Values of weight.
+63, 81, 56, 91, 47, 57, 76, 72, 62, 48
+</code></pre>
+
+<h2><code>lm()</code>函数</h2>
+<p>此函数创建预测变量和响应变量之间的关系模型。</p>
+<h3>语法</h3>
+<p>线性回归中<code>lm()</code>函数的基本语法是:<code>lm(formula,data)</code></p>
+<p>以下是所使用的参数的说明 -</p>
+<ul>
+<li>公式是表示$x$和$y$之间的关系的符号。</li>
+<li>数据是应用公式的向量。</li>
+</ul>
+<h4>练习:线性回归</h4>
+<p>创建关系模型并获取系数</p>
+<pre><code class="R">x &lt;- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)
+y &lt;- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+
+# Apply the lm() function.
+relation &lt;- lm(y~x)
+
+print(relation)
+</code></pre>
+
+<p>获取相关的摘要</p>
+<pre><code class="R">x &lt;- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)
+y &lt;- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+
+# Apply the lm() function.
+relation &lt;- lm(y~x)
+
+print(summary(relation))
+</code></pre>
+
+<h2><code>predict()</code>函数</h2>
+<h3>语法</h3>
+<p>线性回归中的predict（）的基本语法: <code>predict(object, newdata)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>object</strong>是已使用<strong>lm()</strong>函数创建的公式。</li>
+<li><strong>newdata</strong>是包含预测变量的新值的向量。</li>
+</ul>
+<h3>预测新人的体重</h3>
+<pre><code class="R"># The predictor vector.
+x &lt;- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)
+
+# The resposne vector.
+y &lt;- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+
+# Apply the lm() function.
+relation &lt;- lm(y~x)
+
+# Find weight of a person with height 170.
+a &lt;- data.frame(x = 170)
+result &lt;-  predict(relation,a)
+print(result)
+</code></pre>
+
+<h3>以图形方式可视化回归</h3>
+<pre><code class="R"># Create the predictor and response variable.
+x &lt;- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)
+y &lt;- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+relation &lt;- lm(y~x)
+
+
+# Plot the chart.
+plot(y,x,col = &quot;blue&quot;,main = &quot;Height &amp; Weight Regression&quot;,
+abline(lm(x~y)),cex = 1.3,pch = 16,xlab = &quot;Weight in Kg&quot;,ylab = &quot;Height in cm&quot;)
+</code></pre>
+
+<h2>多重回归</h2>
+<p>多元回归是线性回归到两个以上变量之间的关系的延伸。 在简单线性关系中，我们有一个预测变量和一个响应变量，但在多元回归中，我们有多个预测变量和一个响应变量。</p>
+<p>多元回归的一般数学方程为 -</p>
+<p>$$
+y = a + b1x1 + b2x2 +...bnxn
+$$</p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li>$y$是响应变量。</li>
+<li>$a，b1，b2 ... bn$是系数。</li>
+<li>$x1，x2，... xn$是预测变量。</li>
+</ul>
+<p>我们使用R语言中的<code>lm()</code>函数创建回归模型。模型使用输入数据确定系数的值。 接下来，我们可以使用这些系数来预测给定的一组预测变量的响应变量的值。</p>
+<h2><code>lm()</code>函数</h2>
+<p>此函数创建预测变量和响应变量之间的关系模型。</p>
+<h3>语法</h3>
+<p><code>lm()</code>函数在多元回归中的基本语法是:<code>lm(y ~ x1+x2+x3...,data)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li>公式是表示响应变量和预测变量之间的关系的符号。</li>
+<li>数据是应用公式的向量。</li>
+</ul>
+<h4>练习：</h4>
+<p>输入数据</p>
+<p>考虑在R语言环境中可用的数据集<code>mtcars</code>。 它给出了每加仑里程<code>mpg</code>，气缸排量<code>disp</code>，马力<code>hp</code>，汽车重量<code>wt</code>和一些其他参数的不同汽车模型之间的比较。</p>
+<p>模型的目标是建立<code>mpg</code>作为响应变量与<code>disp</code>，<code>hp</code>和<code>wt</code>作为预测变量之间的关系。 为此，我们从<code>mtcars</code>数据集中创建这些变量的子集。</p>
+<pre><code class="R">input &lt;- mtcars[,c(&quot;mpg&quot;,&quot;disp&quot;,&quot;hp&quot;,&quot;wt&quot;)]
+print(head(input))
+</code></pre>
+
+<p>创建关系模型并获取系数</p>
+<pre><code class="R">input &lt;- mtcars[,c(&quot;mpg&quot;,&quot;disp&quot;,&quot;hp&quot;,&quot;wt&quot;)]
+
+# Create the relationship model.
+model &lt;- lm(mpg~disp+hp+wt, data = input)
+
+# Show the model.
+print(model)
+
+# Get the Intercept and coefficients as vector elements.
+cat(&quot;# # # # The Coefficient Values # # # &quot;,&quot;
+&quot;)
+
+a &lt;- coef(model)[1]
+print(a)
+
+Xdisp &lt;- coef(model)[2]
+Xhp &lt;- coef(model)[3]
+Xwt &lt;- coef(model)[4]
+
+print(Xdisp)
+print(Xhp)
+print(Xwt)
+</code></pre>
+
+<p>创建回归模型的方程:</p>
+<p>基于上述截距和系数值，我们创建了数学方程。</p>
+<p>$$
+Y = a+Xdisp.x1+Xhp.x2+Xwt.x3
+$$</p>
+<p>or</p>
+<p>$$
+Y = 37.15+(-0.000937)\times X1+(-0.0311)\times X2+(-3.8008)\times X3
+$$</p>
+<p>应用方程预测新值:</p>
+<p>当提供一组新的位移，马力和重量值时，我们可以使用上面创建的回归方程来预测里程数。</p>
+<p>对于<code>disp = 221</code>，<code>hp = 102</code>和<code>wt = 2.91</code>的汽车，预测里程为:</p>
+<p>$$
+Y = 37.15+(-0.000937)\times221+(-0.0311)\times102+(-3.8008)\times2.91 = 22.7104
+$$</p>
+<h1>逻辑回归</h1>
+<p>逻辑回归是回归模型，其中响应变量（因变量）具有诸如True / False或0/1的分类值。 它实际上基于将其与预测变量相关的数学方程测量二元响应的概率作为响应变量的值。</p>
+<p>逻辑回归的一般数学方程为 -</p>
+<p>$$
+y = 1/(1+e^-(a+b1x1+b2x2+b3x3+...))
+$$</p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li>$y$是响应变量。</li>
+<li>$x$是预测变量。</li>
+<li>$a$和$b$是作为数字常数的系数。</li>
+</ul>
+<p>用于创建回归模型的函数是<code>glm()</code>函数。</p>
+<h2>语法</h2>
+<p>逻辑回归中glm()函数的基本语法是:<code>glm(formula,data,family)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>formula</strong>是表示变量之间的关系的符号。</li>
+<li><strong>data</strong>是给出这些变量的值的数据集。</li>
+<li><strong>family</strong>是R语言对象来指定模型的细节。 它的值是二项逻辑回归。</li>
+</ul>
+<h4>练习:实现逻辑回归</h4>
+<p>内置数据集<code>mtcars</code>描述具有各种发动机规格的汽车的不同型号。 在<code>mtcars</code>数据集中，传输模式（自动或手动）由<code>am</code>列描述，它是一个二进制值（0或1）。 我们可以在列<code>am</code>和其他3列<code>hp</code>，<code>wt</code>和<code>cyl</code>之间创建逻辑回归模型。</p>
+<pre><code class="R"># Select some columns form mtcars.
+input &lt;- mtcars[,c(&quot;am&quot;,&quot;cyl&quot;,&quot;hp&quot;,&quot;wt&quot;)]
+
+print(head(input))
+</code></pre>
+
+<p>创建回归模型</p>
+<p>我们使用<code>glm()</code>函数创建回归模型，并得到其摘要进行分析。</p>
+<pre><code class="R">input &lt;- mtcars[,c(&quot;am&quot;,&quot;cyl&quot;,&quot;hp&quot;,&quot;wt&quot;)]
+
+am.data = glm(formula = am ~ cyl + hp + wt, data = input, family = binomial)
+
+print(summary(am.data))
+</code></pre>
+
+<p>结论:
+在总结中，对于变量<code>cyl</code>和<code>hp</code>，最后一列中的$p$值大于$0.05$，我们认为它们对变量<code>am</code>的值有贡献是无关紧要的。 只有重量<code>wt</code>影响该回归模型中的<code>am</code>值。</p>
+<h1>泊松回归</h1>
+<p>泊松回归包括回归模型，其中响应变量是计数而不是分数的形式。 例如，足球比赛系列中的出生次数或胜利次数。 此外，响应变量的值遵循泊松分布。</p>
+<p>泊松回归的一般数学方程为 :<code>log(y) = a + b1x1 + b2x2 + bnxn.....</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>y</strong>是响应变量。</li>
+<li><strong>a</strong>和<strong>b</strong>是数字系数。</li>
+<li><strong>x</strong>是预测变量。</li>
+</ul>
+<p>用于创建泊松回归模型的函数是<code>glm()</code>函数。</p>
+<h2>语法</h2>
+<p>在泊松回归中<code>glm()</code>函数的基本语法是 -:<code>glm(formula,data,family)</code></p>
+<p>以下是在上述功能中使用的参数的描述 - </p>
+<ul>
+<li><strong>formula</strong>是表示变量之间的关系的符号。</li>
+<li><strong>data</strong>是给出这些变量的值的数据集。</li>
+<li><strong>family</strong>是R语言对象来指定模型的细节。 它的值是“泊松”的逻辑回归。</li>
+</ul>
+<h4>练习：泊松回归</h4>
+<p>我们有内置的数据集<code>warpbreaks</code>，其描述了羊毛类型（A或B）和张力（低，中或高）对每个织机的经纱断裂数量的影响。 让我们考虑“休息”作为响应变量，它是休息次数的计数。 羊毛“类型”和“张力”作为预测变量。</p>
+<p>输入数据</p>
+<pre><code class="R">input &lt;- warpbreaks
+print(head(input))
+</code></pre>
+
+<p>创建回归模型</p>
+<pre><code class="R">output &lt;-glm(formula = breaks ~ wool+tension, 
+                   data = warpbreaks, 
+                 family = poisson)
+print(summary(output))
+</code></pre>
+
+<p>在摘要中，我们查找最后一列中的$p$值小于$0.05$，以考虑预测变量对响应变量的影响。 如图所示，具有张力类型M和H的羊毛类型B对断裂计数有影响。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

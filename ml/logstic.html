@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>逻辑回归 - FreeAIHub</title>
+    <meta name="keywords" content="逻辑回归的应用场景,逻辑回归的原理,损失以及优化,作业">
+    <meta name="description" content="逻辑回归（Logistic Regression）是机器学习中的一种分类模型，逻辑回归是一种分类算法，虽然名字中带有回归，但是它与回归之间有一定的联系。由于算法的简单和高效，在实际中应用非常广泛。看到上面的例子，我们可以发现其中的特点，那就是都属于两个类别之间的判断。逻辑回归就是解决二分类问题的利器逻辑回归的输入就是一个线性回归的结果。逻辑回归最终的分类是通过属于某个类别的概率值来判断是否属于某个">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a class="current"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/lr.html class='prev_article'> 机器学习算法 线性回归 </a>       |       下一篇：<a href=/ml/ridge.html class='next_article'> 机器学习算法 岭回归 </a>  >
+              
+            <h1>逻辑回归</h1>
+<p>逻辑回归（Logistic Regression）是机器学习中的一种分类模型，逻辑回归是一种分类算法，虽然名字中带有回归，但是它与回归之间有一定的联系。由于算法的简单和高效，在实际中应用非常广泛。</p>
+<h2>逻辑回归的应用场景</h2>
+<ul>
+<li>广告点击率</li>
+<li>是否为垃圾邮件</li>
+<li>是否患病</li>
+<li>金融诈骗</li>
+<li>虚假账号</li>
+</ul>
+<p>看到上面的例子，我们可以发现其中的特点，那就是都属于两个类别之间的判断。逻辑回归就是解决二分类问题的利器</p>
+<h2>逻辑回归的原理</h2>
+<h3>输入</h3>
+<p><img alt="逻辑回归输入" src="./images/逻辑回归输入.png" /></p>
+<p>逻辑回归的输入就是一个线性回归的结果。</p>
+<h3>激活函数</h3>
+<ul>
+<li><code>sigmoid</code>函数</li>
+</ul>
+<p><img alt="sigmoid公式" src="./images/sigmoid公式.png" /></p>
+<ul>
+<li>分析</li>
+<li>回归的结果输入到sigmoid函数当中</li>
+<li>输出结果：[0, 1]区间中的一个概率值，默认为0.5为阈值</li>
+</ul>
+<blockquote>
+<p>逻辑回归最终的分类是通过属于某个类别的概率值来判断是否属于某个类别，并且这个类别默认标记为1(正例),另外的一个类别会标记为0(反例)。（方便损失计算）</p>
+</blockquote>
+<p>输出结果解释(重要)：假设有两个类别A，B，并且假设我们的概率值为属于A(1)这个类别的概率值。现在有一个样本的输入到逻辑回归输出结果0.6，那么这个概率值超过0.5，意味着我们训练或者预测的结果就是A(1)类别。那么反之，如果得出结果为0.3那么，训练或者预测结果就为B(0)类别。</p>
+<p>所以接下来我们回忆之前的线性回归预测结果我们用均方误差衡量，那如果对于逻辑回归，我们预测的结果不对该怎么去衡量这个损失呢？我们来看这样一张图</p>
+<p><img alt="逻辑回归运算过程" src="./images/逻辑回归运算过程.png" /></p>
+<p>那么如何去衡量逻辑回归的预测结果与真实结果的差异呢？</p>
+<h2>损失以及优化</h2>
+<h3>损失</h3>
+<p>逻辑回归的损失，称之为<strong>对数似然损失</strong>，公式如下：</p>
+<ul>
+<li>分开类别：</li>
+</ul>
+<p><img alt="单个对数似然损失" src="./images/单个对数似然损失.png" /></p>
+<p>怎么理解单个的式子呢？这个要根据log的函数图像来理解</p>
+<p><img alt="单个损失解释" src="./images/单个损失解释.png" /></p>
+<ul>
+<li>综合完整损失函数</li>
+</ul>
+<p><img alt="完整对数似然损失" src="./images/完整对数似然损失.png" /></p>
+<blockquote>
+<p>看到这个式子，其实跟我们讲的信息熵类似。</p>
+</blockquote>
+<p>接下来我们呢就带入上面那个例子来计算一遍，就能理解意义了。</p>
+<p><img alt="损失计算过程" src="./images/损失计算过程.png" /></p>
+<blockquote>
+<p>我们已经知道，log(P), P值越大，结果越小，所以我们可以对着这个损失的式子去分析</p>
+</blockquote>
+<h3>优化</h3>
+<p>同样使用梯度下降优化算法，去减少损失函数的值。这样去更新逻辑回归前面对应算法的权重参数，<strong>提升原本属于1类别的概率，降低原本是0类别的概率。</strong></p>
+<p><strong>逻辑回归API</strong></p>
+<ul>
+<li><code>sklearn.linear_model.LogisticRegression(solver='liblinear', penalty=‘l2’, C = 1.0)</code></li>
+<li>solver:优化求解方式（默认开源的liblinear库实现，内部使用了坐标轴下降法来迭代优化损失函数）<ul>
+<li>sag：根据数据集自动选择，随机平均梯度下降</li>
+</ul>
+</li>
+<li>penalty：正则化的种类</li>
+<li>C：正则化力度</li>
+</ul>
+<p><strong>默认将类别数量少的当做正例</strong></p>
+<h4>练习：癌症分类预测-良／恶性乳腺癌肿瘤预测</h4>
+<p>LogisticRegression方法相当于 SGDClassifier(loss="log", penalty=" "),SGDClassifier实现了一个普通的随机梯度下降学习，也支持平均随机梯度下降法（ASGD），可以通过设置average=True。而使用LogisticRegression(实现了SAG)</p>
+<ul>
+<li>数据介绍</li>
+</ul>
+<p>原始数据的下载地址：<a href="https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/">https://archive.ics.uci.edu/ml/machine-learning-databases/</a></p>
+<blockquote>
+<p>数据描述</p>
+<p>（1）699条样本，共11列数据，第一列用语检索的id，后9列分别是与肿瘤</p>
+<p>相关的医学特征，最后一列表示肿瘤类型的数值。</p>
+<p>（2）包含16个缺失值，用”?”标出。</p>
+</blockquote>
+<p><strong>分析</strong></p>
+<ul>
+<li>缺失值处理</li>
+<li>标准化处理</li>
+<li>逻辑回归预测</li>
+</ul>
+<p><strong>代码</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+#逻辑回归进行癌症预测
+# 读取数据，处理缺失值以及标准化
+column_name = ['Sample code number', 'Clump Thickness', 'Uniformity of Cell Size', 'Uniformity of Cell Shape','Marginal Adhesion', 'Single Epithelial Cell Size', 'Bare Nuclei', 'Bland Chromatin','Normal Nucleoli', 'Mitoses', 'Class']
+
+data = pd.read_csv(&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data&quot;, names=column_name)
+
+# 删除缺失值
+data = data.replace(to_replace='?', value=np.nan)
+
+data = data.dropna()
+
+# 取出特征值
+x = data[column_name[1:10]]
+
+y = data[column_name[10]]
+
+# 分割数据集
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
+
+# 进行标准化
+std = StandardScaler()
+
+x_train = std.fit_transform(x_train)
+
+x_test = std.transform(x_test)
+
+# 使用逻辑回归
+lr = LogisticRegression()
+
+lr.fit(x_train, y_train)
+
+print(&quot;得出来的权重：&quot;, lr.coef_)
+
+# 预测类别
+print(&quot;预测的类别：&quot;, lr.predict(x_test))
+
+# 得出准确率
+print(&quot;预测的准确率:&quot;, lr.score(x_test, y_test))
+</code></pre>
+
+<p>在很多分类场景当中我们不一定只关注预测的准确率！！！！！</p>
+<p>比如以这个癌症举例子！！！我们并不关注预测的准确率，而是关注在所有的样本当中，癌症患者有没有被全部预测（检测）出来。</p>
+<h2>作业</h2>
+<ul>
+<li>说明逻辑回归的损失函数</li>
+<li>说明逻辑回归的优化方法</li>
+<li>说明sigmoid函数</li>
+<li>知道逻辑回归的应用场景</li>
+<li>知道精确率、召回率指标的区别</li>
+<li>知道F1-score指标说明召回率的实际意义</li>
+<li>说明如何解决样本不均衡情况下的评估</li>
+<li>了解ROC曲线的意义说明AUC指标大小</li>
+<li>应用classification_report实现精确率、召回率计算</li>
+<li>应用roc_auc_score实现指标计算</li>
+<li>癌症患者预测</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

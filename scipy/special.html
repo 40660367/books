@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 特殊包(special) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="特殊包中可用的功能是通用功能，它遵循广播和自动数组循环。下面来看看一些最常用的特殊函数功能 -下面来简单地了解这些函数。这个立方根函数的语法是 - 。 这将获取的基于元素的立方体根。参考下面的一个例子 - 指数函数的语法是 - 。 这将计算的值。参考下面的一个例子 - 这个函数的语法是 - 。 它生成相对误差指数，。当接近零时，接近，所以的数值计算可能遭受灾难性的精度损失。 然后被实现以避免精度的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a class="current"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/odr.html class='prev_article'> SciPy 正交距离回归 </a>       |       下一篇：无  >
+              
+            <h1>Scipy 特殊包(special)</h1>
+<p>特殊包中可用的功能是通用功能，它遵循广播和自动数组循环。</p>
+<p>下面来看看一些最常用的特殊函数功能 -</p>
+<ul>
+<li>立方根函数</li>
+<li>指数函数</li>
+<li>相对误差指数函数</li>
+<li>对数和指数函数</li>
+<li>兰伯特函数</li>
+<li>排列和组合函数</li>
+<li>伽马函数</li>
+</ul>
+<p>下面来简单地了解这些函数。</p>
+<p><strong>立方根函数</strong></p>
+<p>这个立方根函数的语法是 - <code>scipy.special.cbrt(x)</code>。 这将获取<code>x</code>的基于元素的立方体根。</p>
+<p>参考下面的一个例子 - </p>
+<pre><code class="python">from scipy.special import cbrt
+res = cbrt([10, 9, 0.1254, 234])
+print(res)
+</code></pre>
+
+<p><strong>指数函数</strong></p>
+<p>指数函数的语法是 - <code>scipy.special.exp10(x)</code>。 这将计算<code>10 ** x</code>的值。</p>
+<p>参考下面的一个例子 - </p>
+<pre><code class="python">from scipy.special import exp10
+res = exp10([2, 4])
+print(res)
+</code></pre>
+
+<p><strong>相对误差指数函数</strong></p>
+<p>这个函数的语法是 - <code>scipy.special.exprel(x)</code>。 它生成相对误差指数，<code>(exp(x) - 1/x</code>。</p>
+<p>当<code>x</code>接近零时，<code>exp(x)</code>接近<code>1</code>，所以<code>exp(x)-1</code>的数值计算可能遭受灾难性的精度损失。 然后<code>exprel(x)</code>被实现以避免精度的损失，这在<code>x</code>接近于零时发生。</p>
+<p>参考下面的一个例子。</p>
+<pre><code class="python">from scipy.special import exprel
+res = exprel([-0.25, -0.1, 0, 0.1, 0.25])
+print(res)
+</code></pre>
+
+<p><strong>对数和指数函数</strong></p>
+<p>这个函数的语法是 - <code>scipy.special.logsumexp(x)</code>。 它有助于计算输入元素指数总和的对数。</p>
+<p>参考下面的一个例子 - </p>
+<pre><code class="python">from scipy.special import logsumexp
+import numpy as np
+a = np.arange(10)
+res = logsumexp(a)
+print(res)
+</code></pre>
+
+<p><strong>兰伯特函数</strong></p>
+<p>这个函数的语法是 - <code>scipy.special.lambertw(x)</code>。 它也被称为兰伯特W函数。 兰伯特W函数<code>W(z)</code>定义为<code>w * exp(w)</code>的反函数。 换句话说，对于任何复数<code>z</code>，<code>W(z)</code>的值都是<code>z = W(z)* exp(W(z))</code>。</p>
+<p>兰伯特W函数是一个具有无限多分支的多值函数。 每个分支给出了方程<code>z = w exp(w)</code>的单独解。 这里，分支由整数k索引。</p>
+<p>参考下面的一个例子。 这里，兰伯特W函数是<code>w exp(w)</code>的逆函数。</p>
+<pre><code class="python">from scipy.special import lambertw
+w = lambertw(1)
+print(w)
+print(w * np.exp(w))
+</code></pre>
+
+<p><strong>排列和组合</strong></p>
+<p>下面将分开讨论排列和组合，以便清楚地理解它们。</p>
+<p><strong>组合</strong> - 组合函数的语法是 - <code>scipy.special.comb(N，k)</code>。参考下面的一个例子 -</p>
+<pre><code class="python">from scipy.special import comb
+res = comb(10, 3, exact = False,repetition=True)
+print(res)
+</code></pre>
+
+<blockquote>
+<p>注 - 数组参数仅适用于<code>exact = False</code>大小写。 如果<code>k&gt; N</code>，<code>N &lt;0</code>或<code>k &lt;0</code>，则返回<code>0</code>。</p>
+</blockquote>
+<p><strong>排列</strong> - 组合函数的语法是 - <code>scipy.special.perm(N，k)</code>。 一次取<code>k</code>个<code>N</code>个东西的排列，即<code>N</code>个<code>k</code>个排列。这也被称为“部分排列”。</p>
+<p>参考下面的一个例子。</p>
+<pre><code class="python">from scipy.special import perm
+res = perm(10, 3, exact = True)
+print(res)
+</code></pre>
+
+<p><strong>伽马函数</strong>
+由于<code>z * gamma(z)= gamma(z + 1)</code>和<code>gamma(n + 1)= n！</code>，所以对于自然数<code>'n'</code>，伽马函数通常被称为广义阶乘。</p>
+<p>组合函数的语法是 - <code>scipy.special.gamma(x)</code>。 一次取<code>k</code>个<code>N</code>个东西的排列，即<code>N</code>个<code>k</code>个排列。这也被称为“部分排列”。</p>
+<p>组合函数的语法是 - <code>scipy.special.gamma(x)</code>。 一次取<code>k</code>个<code>N</code>个东西的排列，即<code>N</code>个<code>k</code>个排列。这也被称为“部分排列”。</p>
+<pre><code class="python">from scipy.special import gamma
+res = gamma([0, 0.5, 1, 5])
+print(res)
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

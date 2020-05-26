@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 使用PCA减少维度 - FreeAIHub</title>
+    <meta name="keywords" content="精确的PCA,增量式PCA,内核PCA,使用随机SVD的PCA">
+    <meta name="description" content="降维是一种无监督的机器学习方法，用于减少选择主要特征的每个数据样本的特征变量的数量。主成分分析（PCA）是降维的流行算法之一。（PCA）用于线性降维，使用数据的（SVD）将其投影到较低维度的空间中。在使用PCA进行分解时，在应用SVD之前，输入数据将居中但未按比例缩放。Scikit-learn ML库提供了模块，该模块被实现为可在其fit（）方法中学习n个组件的转换器对象。也可以将其用于新数据，以">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a href="/sklearn/modelling.html"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a class="current"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/cluster.html class='prev_article'> skelarn聚类(cluster)</a>       |       下一篇：无  >
+              
+            <h1>sklearn 使用PCA减少维度</h1>
+<p>降维是一种无监督的机器学习方法，用于减少选择主要特征的每个数据样本的特征变量的数量。主成分分析（PCA）是降维的流行算法之一。</p>
+<h2>精确的PCA</h2>
+<p><strong>主成分分析</strong>（PCA）用于线性降维，使用数据的<strong>奇异值分解</strong>（SVD）将其投影到较低维度的空间中。在使用PCA进行分解时，在应用SVD之前，输入数据将居中但未按比例缩放。</p>
+<p>Scikit-learn ML库提供了<strong>sklearn.decomposition.PCA</strong>模块，该模块被实现为可在其fit（）方法中学习n个组件的转换器对象。也可以将其用于新数据，以将其投影到这些组件上。</p>
+<h3>实例</h3>
+<p>以下示例将使用sklearn.decomposition.PCA模块从Pima Indians Diabetes数据集中找到最佳的5个主要成分。</p>
+<pre><code class="python">from pandas import read_csv
+from sklearn.decomposition import PCA
+path = r'/share/datasets/pima-indians-diabetes.csv'
+#names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', ‘class']
+dataframe = read_csv(path)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+pca = PCA(n_components = 5)
+#print('')
+fit = pca.fit(X)
+print((&quot;Explained Variance: %s&quot;) % (fit.explained_variance_ratio_))
+print(fit.components_)
+</code></pre>
+
+<h2>增量式PCA</h2>
+<p><strong>增量主成分分析</strong>（IPCA）用于解决主成分分析（PCA）的最大局限，即PCA仅支持批处理，这意味着要处理的所有输入数据都应适合内存。</p>
+<p>Scikit-learn ML库提供了<strong>sklearn.decomposition.IPCA</strong>模块，该模块可以通过对依次提取的数据块使用<strong>partial_fit</strong>方法或启用内存映射文件<strong>np.memmap</strong>来实现核外PCA。，而不将整个文件加载到内存中。</p>
+<p>与PCA相同，使用IPCA进行分解时，在应用SVD之前，输入数据居中但未按每个功能缩放。</p>
+<h3>实例</h3>
+<p>以下示例将在Sklearn数字数据集上使用<strong>sklearn.decomposition.IPCA</strong>模块。</p>
+<p>执行以下代码将比较耗时，请耐心等待</p>
+<pre><code class="python">from sklearn.datasets import load_digits
+from sklearn.decomposition import IncrementalPCA
+X, _ = load_digits(return_X_y = True)
+transformer = IncrementalPCA(n_components = 10, batch_size = 100)
+transformer.partial_fit(X[:100, :])
+X_transformed = transformer.fit_transform(X)
+X_transformed.shape
+</code></pre>
+
+<p>在这里，我们可以部分拟合较小的数据批处理（就像我们对每批100个数据所做的那样），也可以让<strong>fit（）</strong>函数将数据分成若干批。</p>
+<h2>内核PCA</h2>
+<p>内核主成分分析（PCA的扩展）使用内核实现了非线性降维。它同时支持<strong>transform和inverse_transform</strong>。</p>
+<p>Scikit学习ML库提供了<strong>sklearn.decomposition.KernelPCA</strong>模块。</p>
+<h3>实例</h3>
+<p>以下示例将在Sklearn数字数据集上使用<strong>sklearn.decomposition.KernelPCA</strong>模块。我们正在使用sigmoid内核。</p>
+<p>执行以下代码将比较耗时，请耐心等待</p>
+<pre><code class="python">from sklearn.datasets import load_digits
+from sklearn.decomposition import KernelPCA
+X, _ = load_digits(return_X_y = True)
+transformer = KernelPCA(n_components = 10, kernel = 'sigmoid')
+X_transformed = transformer.fit_transform(X)
+X_transformed.shape
+</code></pre>
+
+<h2>使用随机SVD的PCA</h2>
+<p>使用随机SVD的主成分分析（PCA）用于通过删除与较低奇异值关联的成分的奇异矢量来将数据投影到较低维空间，从而保留大部分方差。在这里，带有可选参数<strong>svd_solver ='randomized'</strong>的<strong>sklearn.decomposition.PCA</strong>模块将非常有用。</p>
+<h3>实例</h3>
+<p>以下示例将使用带有可选参数svd_solver ='randomized'的<strong>sklearn.decomposition.PCA</strong>模块从Pima Indians Diabetes数据集中找到最佳的7个主要成分。</p>
+<pre><code class="python">from pandas import read_csv
+from sklearn.decomposition import PCA
+path = r'/share/datasets/pima-indians-diabetes.csv'
+#names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(path)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+pca = PCA(n_components = 7,svd_solver = 'randomized')
+fit = pca.fit(X)
+print((&quot;Explained Variance: %s&quot;) % (fit.explained_variance_ratio_))
+print(fit.components_)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

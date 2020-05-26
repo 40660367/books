@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 字符串(string) - FreeAIHub</title>
+    <meta name="keywords" content="在字符串构造中应用的规则,字符串操作连接字符串：,函数,语法,格式化数字和字符串:,函数,语法,计算字符串中的字符数 -">
+    <meta name="description" content="在R语言中的单引号或双引号对中写入的任何值都被视为字符串。 R语言存储的每个字符串都在双引号内，即使是使用单引号创建的依旧如此。以下示例阐明了在R语言中创建字符串的规则。R语言中的许多字符串使用函数组合。 它可以采取任何数量的参数组合在一起。对于粘贴功能的基本语法是:以下是所使用的参数的说明 -可以使用函数将数字和字符串格式化为特定样式。格式化函数的基本语法是:以下是所使用的参数的描述 - 此函数">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a class="current"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/function.html class='prev_article'> R语言函数</a>       |       下一篇：<a href=/r/vector.html class='next_article'> R语言数据类型-向量</a>  >
+              
+            <h1>R语言 字符串(string)</h1>
+<p>在R语言中的单引号或双引号对中写入的任何值都被视为字符串。 R语言存储的每个字符串都在双引号内，即使是使用单引号创建的依旧如此。</p>
+<h2>在字符串构造中应用的规则</h2>
+<ul>
+<li>在字符串的开头和结尾的引号应该是两个双引号或两个单引号。它们不能被混合。</li>
+<li>双引号可以插入到以单引号开头和结尾的字符串中。</li>
+<li>单引号可以插入以双引号开头和结尾的字符串。</li>
+<li>双引号不能插入以双引号开头和结尾的字符串。</li>
+<li>单引号不能插入以单引号开头和结尾的字符串。</li>
+</ul>
+<h4>练习：有效字符串</h4>
+<p>以下示例阐明了在R语言中创建字符串的规则。</p>
+<pre><code class="R">a &lt;- 'Start and end with single quote'
+print(a)
+
+b &lt;- &quot;Start and end with double quotes&quot;
+print(b)
+
+c &lt;- &quot;single quote ' in between double quotes&quot;
+print(c)
+
+d &lt;- 'Double quotes &quot; in between single quote'
+print(d)
+</code></pre>
+
+<h4>练习：无效字符串的示例</h4>
+<pre><code class="R">e &lt;- 'Mixed quotes&quot; 
+print(e)
+
+f &lt;- 'Single quote ' inside single quote'
+print(f)
+
+g &lt;- &quot;Double quotes &quot; inside double quotes&quot;
+print(g)
+</code></pre>
+
+<h2>字符串操作</h2>
+<h3>连接字符串：<code>paste()</code>函数</h3>
+<p>R语言中的许多字符串使用<code>paste()</code>函数组合。 它可以采取任何数量的参数组合在一起。</p>
+<h3>语法</h3>
+<p>对于粘贴功能的基本语法是:<code>paste(..., sep = " ", collapse = NULL)</code></p>
+<p>以下是所使用的参数的说明 -</p>
+<ul>
+<li>...表示要组合的任意数量的自变量。</li>
+<li>sep表示参数之间的任何分隔符。它是可选的。</li>
+<li>collapse用于消除两个字符串之间的空格。 但不是一个字符串的两个字内的空间。</li>
+</ul>
+<h4>练习：字符串拼接</h4>
+<pre><code class="R">a &lt;- &quot;Hello&quot;
+b &lt;- 'How'
+c &lt;- &quot;are you? &quot;
+
+print(paste(a,b,c))
+
+print(paste(a,b,c, sep = &quot;-&quot;))
+
+print(paste(a,b,c, sep = &quot;&quot;, collapse = &quot;&quot;))
+</code></pre>
+
+<h3>格式化数字和字符串:<code>format()</code>函数</h3>
+<p>可以使用<code>format()</code>函数将数字和字符串格式化为特定样式。</p>
+<h3>语法</h3>
+<p>格式化函数的基本语法是:<code>format(x, digits, nsmall, scientific, width, justify = c("left", "right", "centre", "none"))</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是向量输入。</li>
+<li><strong>digits</strong>是显示的总位数。</li>
+<li><strong>nsmall</strong>是小数点右边的最小位数。</li>
+<li>科学设置为<strong>TRUE</strong>以显示科学记数法。</li>
+<li><strong>width</strong>指示通过在开始处填充空白来显示的最小宽度。</li>
+<li><strong>justify</strong>是字符串向左，右或中心的显示。</li>
+</ul>
+<h4>练习：字符串格式化</h4>
+<pre><code class="R"># Total number of digits displayed. Last digit rounded off.
+result &lt;- format(23.123456789, digits = 9)
+print(result)
+
+# Display numbers in scientific notation.
+result &lt;- format(c(6, 13.14521), scientific = TRUE)
+print(result)
+
+# The minimum number of digits to the right of the decimal point.
+result &lt;- format(23.47, nsmall = 5)
+print(result)
+
+# Format treats everything as a string.
+result &lt;- format(6)
+print(result)
+
+# Numbers are padded with blank in the beginning for width.
+result &lt;- format(13.7, width = 6)
+print(result)
+
+# Left justify strings.
+result &lt;- format(&quot;Hello&quot;, width = 8, justify = &quot;l&quot;)
+print(result)
+
+# Justfy string with center.
+result &lt;- format(&quot;Hello&quot;, width = 8, justify = &quot;c&quot;)
+print(result)
+</code></pre>
+
+<h3>计算字符串中的字符数 - <code>nchar()</code>函数</h3>
+<p>此函数计算字符串中包含空格的字符数。</p>
+<h3>语法</h3>
+<p><code>nchar()</code>函数的基本语法是 -</p>
+<p><code>nchar(x)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是向量输入。</li>
+</ul>
+<h4>练习：计算字符串中的字符数</h4>
+<pre><code class="R">result &lt;- nchar(&quot;Count the number of characters&quot;)
+print(result)
+</code></pre>
+
+<h3>更改case - toupper()和tolower()函数</h3>
+<p>这些函数改变字符串的字符的大小写。</p>
+<h3>语法</h3>
+<p><code>toupper()</code>和<code>tolower()</code>函数的基本语法是:<code>toupper(x)</code>,<code>tolower(x)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是向量输入。</li>
+</ul>
+<h4>练习：更改字符串大小写</h4>
+<pre><code class="R"># Changing to Upper case.
+result &lt;- toupper(&quot;Changing To Upper&quot;)
+print(result)
+
+# Changing to lower case.
+result &lt;- tolower(&quot;Changing To Lower&quot;)
+print(result)
+</code></pre>
+
+<h3>提取字符串的一部分 - <code>substring()</code>函数</h3>
+<p>此函数提取字符串的部分。</p>
+<h3>语法</h3>
+<p><code>substring()</code>函数的基本语法是:<code>substring(x,first,last)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是字符向量输入。</li>
+<li>首先是要提取的第一个字符的位置。</li>
+<li><strong>last</strong>是要提取的最后一个字符的位置。</li>
+</ul>
+<h4>练习：提取字符串</h4>
+<pre><code class="R"># Extract characters from 5th to 7th position.
+result &lt;- substring(&quot;Extract&quot;, 5, 7)
+print(result)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

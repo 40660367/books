@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Seaborn 多面板分类图 - FreeAIHub</title>
+    <meta name="keywords" content="因子图,什么是Facet Grid？">
+    <meta name="description" content="我们可以使用两个图来可视化分类数据，您可以使用函数或更高级别的函数。Factorplot在FacetGrid上绘制分类图。使用“种类”参数，我们可以选择箱形图，小提琴图，条形图和带状图等图。FacetGrid默认使用点图。我们可以使用参数使用不同的图来可视化相同的数据。在factorplot中，数据绘制在构面网格上。通过划分变量形成由行和列定义的面板矩阵。由于面板的原因，单个图看起来像多个图。分析">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/seaborn/index.html">如何学习本课程</a></li>
+<li><a href="/seaborn/intro.html"> sklearn简介 </a></li>
+<li><a href="/seaborn/setup.html"> 安装Seaborn库 </a></li>
+<li><a href="/seaborn/visualization.html"> Seaborn数据可视化 </a></li>
+<li><a href="/seaborn/palette.html"> Seaborn调色板 </a></li>
+<li><a class="current"> Seaborn多面板分类图 </a></li>
+<li><a href="/seaborn/histogram.html"> Seaborn直方图 </a></li>
+<li><a href="/seaborn/pairwise-relationship.html"> Seaborn可视化成对关系 </a></li>
+<li><a href="/seaborn/kde.html"> Seaborn内核密度估计 </a></li>
+<li><a href="/seaborn/pair-grid.html"> Seaborn配对网格 </a></li>
+<li><a href="/seaborn/categorical.html"> Seaborn绘制分类数据 </a></li>
+<li><a href="/seaborn/observations-distribution.html"> Seaborn绘制观测值的分布 </a></li>
+<li><a href="/seaborn/statistical-estimation.html"> Seaborn统计估计 </a></li>
+<li><a href="/seaborn/wideform.html"> Seaborn绘制宽格式数据 </a></li>
+<li><a href="/seaborn/linear-relationships.html"> Seaborn绘制线性关系 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/seaborn/palette.html class='prev_article'> Seaborn调色板 </a>       |       下一篇：<a href=/seaborn/histogram.html class='next_article'> Seaborn直方图 </a>  >
+              
+            <h1>Seaborn 多面板分类图</h1>
+<p>我们可以使用两个图来可视化分类数据，您可以使用<strong>pointplot（）</strong>函数或更高级别的<strong>factorplot（）</strong>函数。</p>
+<h2>因子图</h2>
+<p>Factorplot在FacetGrid上绘制分类图。使用“种类”参数，我们可以选择箱形图，小提琴图，条形图和带状图等图。FacetGrid默认使用点图。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+
+df = pd.read_csv('/share/datasets/seaborn-data/exercise.csv')
+sb.factorplot(x = &quot;time&quot;, y = &quot;pulse&quot;, hue = &quot;kind&quot;,data = df);
+plt.show()
+</code></pre>
+
+<p>我们可以使用<strong>kind</strong>参数使用不同的图来可视化相同的数据。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+
+df = pd.read_csv('/share/datasets/seaborn-data/exercise.csv')
+sb.factorplot(x = &quot;time&quot;, y = &quot;pulse&quot;, hue = &quot;kind&quot;, kind = 'violin',data = df);
+plt.show()
+</code></pre>
+
+<p>在factorplot中，数据绘制在构面网格上。</p>
+<h2>什么是Facet Grid？</h2>
+<p><strong>构面网格</strong>通过划分变量形成由行和列定义的面板矩阵。由于面板的原因，单个图看起来像多个图。分析两个离散变量中的所有组合非常有帮助。</p>
+<p>让我们用一个例子形象化上面的定义</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/exercise.csv')
+sb.factorplot(x = &quot;time&quot;, y = &quot;pulse&quot;, hue = &quot;kind&quot;, kind = 'violin', col = &quot;diet&quot;, data = df);
+plt.show()
+</code></pre>
+
+<p>使用Facet的好处是，我们可以在绘图中输入另一个变量。上面的图根据使用“ col”参数的第三个变量“ diet”分为两个图。</p>
+<p>我们可以创建许多列面并将它们与网格的行对齐-</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/titanic.csv')
+sb.factorplot(&quot;alive&quot;, col = &quot;deck&quot;, col_wrap = 3,data = df[df.deck.notnull()],kind = &quot;count&quot;)
+plt.show()
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

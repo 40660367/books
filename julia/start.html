@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 开始 - FreeAIHub</title>
+    <meta name="keywords" content="开始,资源">
+    <meta name="description" content="Julia 的安装，不管是使用编译好的程序，还是自己从源代码编译，都很简单。按照 这儿 的说明下载并安装即可。使用交互式会话（也记为 repl），是学习 Julia 最简单的方法：输入  —  键加  键，或者输入  ，可以退出交互式会话。交互式模式下，  会显示一个横幅，并提示用户来输入。一旦用户输入了完整的表达式，例如  ，然后按回车，交互式会话就对表达式求值并返回这个值。如果输入的表达式末尾">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a class="current"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/setup.html class='prev_article'> Julia环境搭建及运行 </a>       |       下一篇：<a href=/julia/repl.html class='next_article'> Julia交互 </a>  >
+              
+            <h1>Julia 开始</h1>
+<h2>开始</h2>
+<p>Julia 的安装，不管是使用编译好的程序，还是自己从源代码编译，都很简单。按照 这儿 的说明下载并安装即可。</p>
+<p>使用交互式会话（也记为 repl），是学习 Julia 最简单的方法：<code>julia</code></p>
+<pre><code class="julia">1 + 2
+</code></pre>
+
+<p>输入 <code>^D</code> — <code>ctrl</code> 键加 <code>d</code> 键，或者输入 <code>quit()</code> ，可以退出交互式会话。交互式模式下， <code>julia</code> 会显示一个横幅，并提示用户来输入。一旦用户输入了完整的表达式，例如 <code>1 + 2</code> ，然后按回车，交互式会话就对表达式求值并返回这个值。如果输入的表达式末尾有分号，就不会显示它的值了。变量 <code>ans</code> 的值就是上一次计算的表达式的值，无论上一次是否被显示。变量 <code>ans</code> 仅适用于交互式会话，不适用于以其它方式运行的 Julia 代码。</p>
+<p>如果想运行写在源文件 file.jl 中的代码，可以输入命令 <code>include("file.jl")</code> 。</p>
+<p>要在非交互式模式下运行代码，你可以把它当做 Julia 命令行的第一个参数：</p>
+<pre><code class="julia">julia script.jl arg1 arg2...
+</code></pre>
+
+<p>如这个例子所示，julia 后面跟着的命令行参数，被认为是程序 script.jl 的命令行参数。这些参数使用全局变量 ARGS 来传递。使用 -e 选项，也可以在命令行设置 ARGS 参数。可如下操作，来打印传递的参数：</p>
+<pre><code class="julia">julia -e 'for x in ARGS; println(x); end' foo bar
+</code></pre>
+
+<p>也可以把代码放在一个脚本中，然后运行：</p>
+<pre><code class="julia">echo 'for x in ARGS; println(x); end' &gt; script.jl
+julia script.jl foo bar
+</code></pre>
+
+<p>Julia 可以用 <code>-p</code> 或 <code>--machinefile</code> 选项来开启并行模式。 <code>-p n</code> 会发起额外的 n 个工作进程，而 <code>--machinefile file</code> 会为文件 file 的每一行发起一个工作进程。 file 定义的机器，必须要能经由无密码的 ssh 访问，且每个机器上的 Julia 安装的位置应完全相同，每个机器的定义为 <code>[user@]host[:port] [bind_addr]</code> 。 <code>user</code> 默认为当前的用户，<code>port</code> 默认为标准 ssh 端口。可选择的，万一是多网主机，<code>bind_addr</code> 可被用来精确指定接口。</p>
+<p>如果你想让 Julia 在启动时运行一些代码，可以将代码放入 <code>~/.juliarc.jl</code> ：</p>
+<pre><code class="julia">echo 'println(&quot;Greetings! 你好! 안녕하세요?&quot;)' &gt; ~/.juliarc.jl
+julia
+</code></pre>
+
+<p>运行 Julia 有各种可选项：</p>
+<h2>资源</h2>
+<p>除了本手册，还有一些其它的资源：</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SciPy 简介 - FreeAIHub</title>
+    <meta name="keywords" content="SciPy子包,数据结构">
+    <meta name="description" content="SciPy，发音为，是一个科学的python开源代码，在BSD许可下分发的库，用于执行数学，科学和工程计算。SciPy库依赖于NumPy，它提供了便捷且快速的维数组操作。 SciPy库的构建与NumPy数组一起工作，并提供了许多用户友好和高效的数字实践，例如:数值积分和优化的例程。 它们一起运行在所有流行的操作系统上，安装快速且免费。 NumPy和SciPy易于使用，但强大到足以依靠世界上一些顶尖">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a class="current"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/index.html class='prev_article'> 如何学习本课程 </a>       |       下一篇：<a href=/scipy/setup.html class='next_article'> SciPy 安装 </a>  >
+              
+            <h1>SciPy 简介</h1>
+<p>SciPy，发音为<code>Sigh Pi</code>，是一个科学的python开源代码，在BSD许可下分发的库，用于执行数学，科学和工程计算。</p>
+<p><img alt="logo" src="./images/logo.png" /></p>
+<p>SciPy库依赖于NumPy，它提供了便捷且快速的<code>N</code>维数组操作。 SciPy库的构建与NumPy数组一起工作，并提供了许多用户友好和高效的数字实践，例如:数值积分和优化的例程。 它们一起运行在所有流行的操作系统上，安装快速且免费。 NumPy和SciPy易于使用，但强大到足以依靠世界上一些顶尖的科学家和工程师。</p>
+<h2>SciPy子包</h2>
+<p>SciPy被组织成覆盖不同科学计算领域的子包。 这些总结在下表中 -</p>
+<table>
+<thead>
+<tr>
+<th>子包</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/cluster.html#module-scipy.cluster">scipy.cluster</a></td>
+<td>矢量量化/Kmeans</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/constants.html#module-scipy.constants">scipy.constants</a></td>
+<td>物理和数学常数</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/fftpack.html#module-scipy.fftpack">scipy.fftpack</a></td>
+<td>傅里叶变换</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/integrate.html#module-scipy.integrate">scipy.integrate</a></td>
+<td>集成例程</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/interpolate.html#module-scipy.interpolate">scipy.interpolate</a></td>
+<td>插值</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/io.html#module-scipy.io">scipy.io</a></td>
+<td>数据输入和输出</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/linalg.html#module-scipy.linalg">scipy.linalg</a></td>
+<td>线性代数例程</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/ndimage.html#module-scipy.ndimage">scipy.ndimage</a></td>
+<td>n维图像包</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/odr.html#module-scipy.odr">scipy.odr</a></td>
+<td>正交距离回归</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize">scipy.optimize</a></td>
+<td>优化</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/signal.html#module-scipy.signal">scipy.signal</a></td>
+<td>信号处理</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/sparse.html#module-scipy.sparse">scipy.sparse</a></td>
+<td>稀疏矩阵</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/spatial.html#module-scipy.spatial">scipy.spatial</a></td>
+<td>空间数据结构和算法</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/special.html#module-scipy.special">scipy.special</a></td>
+<td>任何特殊的数学函数</td>
+</tr>
+<tr>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats">scipy.stats</a></td>
+<td>统计</td>
+</tr>
+</tbody>
+</table>
+<h2>数据结构</h2>
+<p>SciPy使用的基本数据结构是由NumPy模块提供的多维数组。 NumPy为线性代数，傅立叶变换和随机数生成提供了一些功能，但与SciPy中等效函数的一般性不同。
+<code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

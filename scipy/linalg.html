@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 线性代数(Linalg) - FreeAIHub</title>
+    <meta name="keywords" content="线性方程组,查找一个行列式,特征值和特征向量,奇异值分解">
+    <meta name="description" content="SciPy是使用优化的ATLAS LAPACK和BLAS库构建的。 它具有非常快的线性代数能力。 所有这些线性代数例程都需要一个可以转换为二维数组的对象。 这些例程的输出也是一个二维数组。包含中的所有函数。 另外，还有一些不在中的高级函数。 在上使用的另一个优点是它总是用支持编译，而对于NumPy，这是可选的。 因此，根据NumPy的安装方式，SciPy版本可能会更快。特征为未知的，值求解线性方程">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a class="current"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/io.html class='prev_article'> SciPy 输入和输出 </a>       |       下一篇：<a href=/scipy/ndimage.html class='next_article'> SciPy 图像处理 </a>  >
+              
+            <h1>Scipy 线性代数(Linalg)</h1>
+<p>SciPy是使用优化的ATLAS LAPACK和BLAS库构建的。 它具有非常快的线性代数能力。 所有这些线性代数例程都需要一个可以转换为二维数组的对象。 这些例程的输出也是一个二维数组。</p>
+<p><strong>SciPy.linalg与NumPy.linalg</strong></p>
+<p><code>scipy.linalg</code>包含<code>numpy.linalg</code>中的所有函数。 另外，<code>scipy.linalg</code>还有一些不在<code>numpy.linalg</code>中的高级函数。 在<code>numpy.linalg</code>上使用<code>scipy.linalg</code>的另一个优点是它总是用<code>BLAS/LAPACK</code>支持编译，而对于NumPy，这是可选的。 因此，根据NumPy的安装方式，SciPy版本可能会更快。</p>
+<h2>线性方程组</h2>
+<p><code>scipy.linalg.solve</code>特征为未知的<code>x</code>，<code>y</code>值求解线性方程<code>a * x + b * y = Z</code>。</p>
+<p>作为一个例子，假设需要解下面的联立方程。
+<img alt="img" src="./images/788090306_94523.png" /></p>
+<p>要求解<code>x</code>，<code>y</code>，<code>z</code>值的上述方程式，可以使用矩阵求逆来求解向量，如下所示。
+<img alt="img" src="./images/917090306_49173.png" /></p>
+<p>但是，最好使用<code>linalg.solve</code>命令，该命令可以更快，更稳定。</p>
+<p>求解函数采用两个输入<code>'a'</code>和<code>'b'</code>，其中<code>'a'</code>表示系数，<code>'b'</code>表示相应的右侧值并返回解矩阵。</p>
+<p>现在来看看下面的例子。</p>
+<pre><code class="python">#importing the scipy and numpy packages
+from scipy import linalg
+import numpy as np
+
+#Declaring the numpy arrays
+a = np.array([[3, 2, 0], [1, -1, 0], [0, 5, 1]])
+b = np.array([2, 4, -1])
+
+#Passing the values to the solve function
+x = linalg.solve(a, b)
+
+#printing the result array
+print(x)
+</code></pre>
+
+<h2>查找一个行列式</h2>
+<p>方阵A的行列式通常表示为<code>| A |</code>并且是线性代数中经常使用的量。 在SciPy中，这是使用<code>det()</code>函数计算的。 它将矩阵作为输入并返回一个标量值。</p>
+<p>下面来看看一个例子。</p>
+<pre><code class="python">#importing the scipy and numpy packages
+from scipy import linalg
+import numpy as np
+
+#Declaring the numpy array
+A = np.array([[1,2],[3,4]])
+
+#Passing the values to the det function
+x = linalg.det(A)
+
+#printing the result
+print(x)
+</code></pre>
+
+<h2>特征值和特征向量</h2>
+<p>特征值 - 特征向量问题是最常用的线性代数运算之一。 我们可以通过考虑以下关系式来找到方阵(A)的特征值(λ)和相应的特征向量(v)</p>
+<pre><code>Av = λv
+</code></pre>
+
+<p><code>scipy.linalg.eig</code>从普通或广义特征值问题计算特征值。 该函数返回特征值和特征向量。</p>
+<p>让我们来看看下面的例子。</p>
+<pre><code class="python">#importing the scipy and numpy packages
+from scipy import linalg
+import numpy as np
+
+#Declaring the numpy array
+A = np.array([[1,2],[3,4]])
+
+#Passing the values to the eig function
+l, v = linalg.eig(A)
+
+#printing the result for eigen values
+print(l)
+
+#printing the result for eigen vectors
+print(v)
+</code></pre>
+
+<h2>奇异值分解</h2>
+<p>奇异值分解(SVD)可以被认为是特征值问题扩展到非矩阵的矩阵。</p>
+<p><code>scipy.linalg.svd</code>将矩阵<code>'a'</code>分解为两个酉矩阵<code>'U'</code>和<code>'Vh'</code>，以及一个奇异值(实数，非负)的一维数组<code>'s'</code>，使得<code>a == U * S * Vh</code>，其中<code>'S'</code>是具有主对角线<code>'s'</code>的适当形状的零点矩阵。</p>
+<p>让我们来看看下面的例子。参考以下代码 - </p>
+<pre><code class="python">#importing the scipy and numpy packages
+from scipy import linalg
+import numpy as np
+
+#Declaring the numpy array
+a = np.random.randn(3, 2) + 1.j*np.random.randn(3, 2)
+
+#Passing the values to the eig function
+U, s, Vh = linalg.svd(a)
+
+# printing the result
+print(U, Vh, s)
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

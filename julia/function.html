@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 函数 - FreeAIHub</title>
+    <meta name="keywords" content="函数,参数传递行为,函数运算符,特殊名字的运算符,匿名函数,多返回值,变参函数,可选参数,关键字参数,默认值的求值作用域,函数参数的块语法">
+    <meta name="description" content="Julia 中的函数是将一系列参数组成的元组映设到一个返回值的对象，Julia 的函数不是纯的数学式函数，有些函数可以改变或者影响程序的全局状态。Julia 中定义函数的基本语法为：Julia 中可以精炼地定义函数。上述传统的声明语法，等价于下列紧凑的“赋值形式”：对于赋值形式，函数体通常是单表达式，但也可以为复合表达式（详见）。Julia 中常见这种短小简单的函数定义。短函数语法相对而言更方便输">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a class="current"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/scope.html class='prev_article'> Julia变量的作用域 </a>       |       下一篇：<a href=/julia/method.html class='next_article'> Julia方法 </a>  >
+              
+            <h1>Julia 函数</h1>
+<iframe src="//player.bilibili.com/player.html?aid=47775635&bvid=BV1Cb411W7Sr&cid=83682724&page=11" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<h2>函数</h2>
+<p>Julia 中的函数是将一系列参数组成的元组映设到一个返回值的对象，Julia 的函数不是纯的数学式函数，有些函数可以改变或者影响程序的全局状态。Julia 中定义函数的基本语法为：</p>
+<pre><code class="julia">function f(x,y)
+  x + y
+end
+f
+</code></pre>
+
+<p>Julia 中可以精炼地定义函数。上述传统的声明语法，等价于下列紧凑的“赋值形式”：</p>
+<pre><code class="julia">f(x,y) = x + y
+</code></pre>
+
+<p>对于赋值形式，函数体通常是单表达式，但也可以为复合表达式（详见<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/control-flow/#man-compound-expressions">复合表达式</a>）。Julia 中常见这种短小简单的函数定义。短函数语法相对而言更方便输入和阅读。</p>
+<p>使用圆括号来调用函数：</p>
+<pre><code class="julia">f(2,3)
+</code></pre>
+
+<p>没有圆括号时， <code>f</code> 表达式指向的是函数对象，这个函数对象可以像值一样被传递：</p>
+<pre><code class="julia">g = f;
+
+g(2,3)
+</code></pre>
+
+<p>调用函数有两种方法：使用特定函数名的特殊运算符语法（详见后面<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/functions/#operators-are-functions">函数运算符</a>），或者使用 <code>apply</code> 函数：</p>
+<pre><code class="julia">apply(f,2,3)
+</code></pre>
+
+<p><code>apply</code> 函数把第一个参数当做函数对象，应用在后面的参数上。</p>
+<p>和变量名称一样, 函数名称也可以使用 Unicode 字符:</p>
+<pre><code class="julia">∑(x,y) = x + y
+</code></pre>
+
+<h2>参数传递行为</h2>
+<p>Julia 函数的参数遵循 “pass-by-sharing” 的惯例，即不传递值，而是传递引用。函数参数本身，有点儿像新变量<em>绑定</em>（引用值的新位置），但它们引用的值与传递的值完全相同。对可变值（如数组）的修改，会影响其它函数。</p>
+<h3><code>return</code> 关键字</h3>
+<p>函数返回值通常是函数体中最后一个表达式的值。上一节中 <code>f</code> 是表达式 <code>x + y</code> 的值。在 C 和大部分命令式语言或函数式语言中， <code>return</code> 关键字使得函数在计算完该表达式的值后立即返回：</p>
+<pre><code class="julia">function g(x,y)
+  return x * y
+  x + y
+end
+</code></pre>
+
+<p>对比下列两个函数：</p>
+<pre><code class="julia">f(x,y) = x + y
+
+function g(x,y)
+  return x * y
+  x + y
+end
+
+println(f(2,3))
+
+println(g(2,3))
+</code></pre>
+
+<p>在纯线性函数体，比如 g 中，不需要使用 <code>return</code> ，它不会计算表达式 <code>x + y</code> 。可以把 <code>x * y</code> 作为函数的最后一个表达式，并省略 <code>return</code> 。只有涉及其它控制流时， <code>return</code> 才有用。下例计算直角三角形的斜边长度，其中直角边为 x 和 y，为避免溢出：</p>
+<pre><code class="julia">function hypot(x,y)
+  x = abs(x)
+  y = abs(y)
+  if x &gt; y
+    r = y/x
+    return x*sqrt(1+r*r)
+  end
+  if y == 0
+    return zero(x)
+  end
+  r = x/y
+  return y*sqrt(1+r*r)
+end
+</code></pre>
+
+<p>最后一行的 <code>return</code> 可以省略。</p>
+<h2>函数运算符</h2>
+<p>Julia 中，大多数运算符都是支持特定语法的函数。 <code>&amp;&amp;</code> 、 <code>||</code> 等短路运算是例外，它们不是函数，因为<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/control-flow/#man-short-circuit-evaluation"><em>短路求值</em></a>先算前面的值，再算后面的值。对于函数运算符，可以像其它函数一样，把参数列表用圆括号括起来，作为函数运算符的参数：</p>
+<pre><code class="julia">1 + 2 + 3
+</code></pre>
+
+<pre><code class="julia">+(1,2,3)
+</code></pre>
+
+<p>中缀形式与函数形式完全等价，事实上，前者被内部解析为函数调用的形式。可以像对其它函数一样，对 <code>+</code> 、 <code>*</code> 等运算符进行赋值、传递：</p>
+<pre><code class="julia">fadd = +;
+
+fadd(1,2,3)
+</code></pre>
+
+<p>但是，这时 <code>fadd</code> 函数不支持中缀表达式。</p>
+<h2>特殊名字的运算符</h2>
+<p>有一些表达式调用特殊名字的运算符：</p>
+<table>
+<thead>
+<tr>
+<th align="left">表达式</th>
+<th align="left">调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>[A B C ...]</code></td>
+<td align="left"><code>hcat</code></td>
+</tr>
+<tr>
+<td align="left"><code>[A, B, C, ...]</code></td>
+<td align="left"><code>vcat</code></td>
+</tr>
+<tr>
+<td align="left"><code>[A B; C D; ...]</code></td>
+<td align="left"><code>hvcat</code></td>
+</tr>
+<tr>
+<td align="left"><code>A'</code></td>
+<td align="left"><code>ctranspose</code></td>
+</tr>
+<tr>
+<td align="left"><code>A.'</code></td>
+<td align="left"><code>transpose</code></td>
+</tr>
+<tr>
+<td align="left"><code>1:n</code></td>
+<td align="left"><code>colon</code></td>
+</tr>
+<tr>
+<td align="left"><code>A[i]</code></td>
+<td align="left"><code>getindex</code></td>
+</tr>
+<tr>
+<td align="left"><code>A[i]=x</code></td>
+<td align="left"><code>setindex!</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些函数都存在于 <code>Base.Operators</code> 模块中。</p>
+<h2>匿名函数</h2>
+<p>Julia 中函数是<a href="http://zh.wikipedia.org/zh-cn/第一類物件">第一类对象</a>，可以被赋值给变量，可以通过赋值后的变量来调用函数, 还可以当做参数和返回值，甚至可以被匿名构造：</p>
+<pre><code class="julia">x -&gt; x^2 + 2x - 1
+</code></pre>
+
+<p>上例构造了一个匿名函数，输入一个参数 x ，返回多项式 x^2 + 2x - 1 的值。匿名函数的主要作用是把它传递给接受其它函数作为参数的函数。最经典的例子是 <code>map</code> 函数，它将函数应用在数组的每个值上，返回结果数组：</p>
+<pre><code class="julia">map(round, [1.2,3.5,1.7])
+</code></pre>
+
+<p><code>map</code> 的第一个参数可以是非匿名函数。但是大多数情况，不存在这样的函数时，匿名函数就可以简单地构造单用途的函数对象，而不需要名字：</p>
+<pre><code class="julia">map(x -&gt; x^2 + 2x - 1, [1,3,-1])
+</code></pre>
+
+<p>匿名函数可以通过类似 <code>(x,y,z)-&gt;2x+y-z</code> 的语法接收多个参数。</p>
+<p>无参匿名函数则类似于 <code>()-&gt;3</code> 。无参匿名函数可以“延迟”计算，做这个用处时，代码被封装进无参函数，以后可以通过把它命名为 <code>f()</code> 来引入。</p>
+<h2>多返回值</h2>
+<p>Julia 中可以通过返回多元组来模拟返回多值。但是，多元组并不需要圆括号来构造和析构，因此造成了可以返回多值的假象。下例返回一对儿值：</p>
+<pre><code class="julia">function foo(a,b)
+         a+b, a*b
+       end;
+</code></pre>
+
+<p>调用这个函数，但不将返回值赋值出去，会看到返回的是多元组：</p>
+<pre><code class="julia">foo(2,3)#(5, 6)
+</code></pre>
+
+<p>Julia 支持简单的多元组“析构”来给变量赋值：</p>
+<pre><code class="julia">x, y = foo(2,3);
+
+println(x)
+
+println(y)
+</code></pre>
+
+<p>也可以通过 <code>return</code> 来返回：</p>
+<pre><code class="julia">function foo(a,b)
+  return a+b, a*b
+end
+
+foo(2,3)
+</code></pre>
+
+<p>这与之前定义的 <code>foo</code> 结果相同。</p>
+<h2>变参函数</h2>
+<p>函数的参数列表如果可以为任意个数，有时会非常方便。这种函数被称为“变参”函数，是“参数个数可变”的简称。可以在最后一个参数后紧跟省略号 <code>...</code> 来定义变参函数：</p>
+<pre><code class="julia">function fo1(a,b,x...)
+  println(a)
+  println(b)
+  println(x)
+end
+</code></pre>
+
+<p>变量 <code>a</code> 和 <code>b</code> 是前两个普通的参数，变量 <code>x</code> 是尾随的可迭代的参数集合，其参数个数为 <code>0</code> 或多个：</p>
+<pre><code class="julia">fo1(1,2)
+
+fo1(1,2,3)
+
+fo1(1,2,3,4)
+
+fo1(1,2,3,4,5,6)
+</code></pre>
+
+<p>上述例子中， <code>x</code> 是传递给 <code>fo1</code> 的尾随的值多元组。</p>
+<p>函数调用时，也可以使用 ... ：</p>
+<pre><code class="julia">x = (3,4)
+
+fo1(1,2,x...)
+</code></pre>
+
+<p>上例中，多元组的值完全按照变参函数的定义进行内插，也可以不完全遵守其函数定义来调用：</p>
+<pre><code class="julia">x = (2,3,4)
+
+fo1(1,x...)
+
+x = (1,2,3,4)
+
+fo1(x...)
+</code></pre>
+
+<p>被内插的对象也可以不是多元组：</p>
+<pre><code class="julia">x = [3,4
+
+fo1(1,2,x...)
+
+x = [1,2,3,4]
+
+fo1(x...)
+</code></pre>
+
+<p>原函数也可以不是变参函数（大多数情况下，应该写成变参函数）：</p>
+<pre><code class="julia">fo2(a,b) = a + b
+</code></pre>
+
+<pre><code class="julia">args = [1,2]
+fo2(args...)
+</code></pre>
+
+<p>但如果输入的参数个数不对，函数调用会失败。</p>
+<pre><code class="julia">args = [1,2,3]
+fo2(args...)
+</code></pre>
+
+<h2>可选参数</h2>
+<p>很多时候，函数参数都有默认值。例如，库函数 <code>parseint(num,base)</code> 把字符串解析为某个进制的数。<code>base</code> 参数默认为 <code>10</code>。这种情形可以写为：</p>
+<pre><code class="julia">function parseint(num, base=10)
+    println(base)
+end
+</code></pre>
+
+<p>这时，调用函数时，参数可以是一个或两个。当第二个参数未指明时，自动传递 <code>10</code>：</p>
+<pre><code class="julia">parseint(&quot;12&quot;)
+parseint(&quot;12&quot;,16)
+</code></pre>
+
+<p>可选参数很方便参数个数不同的多方法定义（详见<a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/methods/#man-methods">方法</a>）。</p>
+<h2>关键字参数</h2>
+<p>有些函数的参数个数很多，或者有很多行为。很难记住如何调用这种函数。关键字参数，允许通过参数名来区分参数，便于使用、扩展这些复杂接口。</p>
+<p>例如，函数 <code>plot</code> 用于画出一条线。此函数有许多可选项，控制线的类型、宽度、颜色等。如果它接收关键字参数，当我们要指明线的宽度时，可以调用 <code>plot(x, y, width=2)</code>之类的形式。这样的调用方法给参数添加了标签，便于阅读；也可以按任何顺序传递部分参数。</p>
+<p>使用关键字参数的函数，在函数签名中使用分号来定义：</p>
+<pre><code>function plot(x, y; style=&quot;solid&quot;, width=1, color=&quot;black&quot;)
+    ###
+end
+</code></pre>
+
+<p>额外的关键字参数，可以像变参函数中一样，使用 <code>...</code> 来匹配：</p>
+<pre><code>function f(x; y=0, args...)
+    ###
+end
+</code></pre>
+
+<p>在函数 <code>f</code> 内部，<code>args</code> 可以是 <code>(key,value)</code> 多元组的集合，其中 <code>key</code> 是符号。可以在函数调用时使用分号来传递这个集合, 如 <code>f(x, z=1; args...).</code> 这种情况下也可以使用字典。</p>
+<p>关键字参数的默认值仅在必要的时候从左至右地被求值(当对应的关键字参数没有被传递)，所以默认的(关键字参数的)表达式可以调用在它之前的关键字参数。</p>
+<h2>默认值的求值作用域</h2>
+<p>可选参数和关键字参数的区别在于它们的默认值是怎样被求值的。当可选的参数被求值时，只有在它<em>之前的</em>的参数在作用域之内; 与之相对的, 当关键字参数的默认值被计算时, <em>所有的</em>参数都是在作用域之内。比如，定义函数:</p>
+<pre><code class="julia">function f(x, a=b, b=1)
+    ###
+end
+</code></pre>
+
+<p>在 <code>a=b</code> 中的 <code>b</code> 指的是该函数的作用域之外的 <code>b</code> ，而不是接下来 的参数 <code>b</code>。然而，如果 <code>a</code> 和 <code>b</code> 都是关键字参数，那么它们都将在 生成在同一个作用域上，<code>a=b</code> 中的 <code>b</code> 指向的是接下来的参数 <code>b</code> (遮蔽了任何外层空间的 <code>b</code>), 并且 <code>a=b</code> 会得到未定义变量的错误 (因为默认 参数的表达式是自左而右的求值的，<code>b</code> 并没有被赋值)。</p>
+<h2>函数参数的块语法</h2>
+<p>将函数作为参数传递给其它函数，当行数较多时，有时不太方便。下例在多行函数中调用 <code>map</code> ：</p>
+<pre><code class="julia">map(x-&gt;begin
+           if x &lt; 0 &amp;&amp; iseven(x)
+               return 0
+           elseif x == 0
+               return 1
+           else
+               return x
+           end
+       end,
+    [A, B, C])
+</code></pre>
+
+<p>Julia 提供了保留字 <code>do</code> 来重写这种代码，使之更清晰：</p>
+<pre><code class="julia">map([A, B, C]) do x
+    if x &lt; 0 &amp;&amp; iseven(x)
+        return 0
+    elseif x == 0
+        return 1
+    else
+        return x
+    end
+end
+</code></pre>
+
+<p><code>do x</code> 的语法创建一个含有参数 <code>x</code> 的匿名函数，并将其传给 <code>map</code> 作为第一个参数。类似地，<code>do a,b</code> 将创建一个含有两个参数的匿名函数，和一个朴素的 <code>do</code> 的声明以 <code>() -&gt; ....</code> 方式说明如下是一个匿名函数。</p>
+<p>如何将这些参数初始化取决于“外部”函数；在这里，<code>map</code> 将依次设置 <code>x</code> 到 <code>A</code>, <code>B</code>, <code>C</code>，每个都将调用匿名函数，就像在语法 <code>map(func, [A, B, C])</code> 中做的一样。</p>
+<p>因为语法的调用看起来像正常的代码块，所以这种语法使它更容易使用函数来有效地扩展语言。这里有许多可能完全不同于 <code>map</code> 的用途，如管理系统状态。例如，有一个版本的 <code>open</code>，运行代码来确保打开的文件最终关闭：</p>
+<pre><code class="julia">open(&quot;outfile&quot;, &quot;w&quot;) do io
+    write(io, data)
+end
+</code></pre>
+
+<p>它可以通过以下定义来实现：</p>
+<pre><code class="julia">function open(f::Function, args...)
+    io = open(args...)
+    try
+        f(io)
+    finally
+        close(io)
+    end
+end
+</code></pre>
+
+<p>对比的 <code>map</code> 的例子，这里的 IO 是通过 <code>open("outfile", "w")</code>来实现初始化的。字符流之后会传递给您的执行写入的匿名函数；最后，<code>open</code> 的功能确保流在您的函数结束后是关闭状态的。 <code>try/finally</code> 的构造将在 <a href="https://www.w3cschool.cn/julia/control-learning.html"><em>控制流</em></a> 中被描述。</p>
+<p>do 块语法的使用有助于检查文档或实现了解用户函数的参数是如何被初始化的。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

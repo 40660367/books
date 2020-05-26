@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python自带数据结构 堆(heap) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="堆是一种特殊的树结构，其中每个父节点小于或等于其子节点。 然后它被称为最小堆()。 如果每个父节点大于或等于其子节点，则称它为最大堆()。 实施优先级队列是非常有用的，在该队列中，具有较高权重的队列项目在处理中具有更高的优先级。在本章中，我们将学习使用python实现堆数据结构。堆是通过使用python内建的名称为的库创建的。 该库具有对堆数据结构进行各种操作的相关功能。 以下是这些函数的列表 -">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a class="current"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-dict.html class='prev_article'> Python自带数据结构 字典(dict) </a>       |       下一篇：<a href=/ds-in-python/data-structure-python-list.html class='next_article'> Python自带数据结构 列表(list) </a>  >
+              
+            <h1>Python自带数据结构 堆(heap)</h1>
+<p>堆是一种特殊的树结构，其中每个父节点小于或等于其子节点。 然后它被称为最小堆(<code>Min Heap</code>)。 如果每个父节点大于或等于其子节点，则称它为最大堆(<code>Max Heap</code>)。 实施优先级队列是非常有用的，在该队列中，具有较高权重的队列项目在处理中具有更高的优先级。在本章中，我们将学习使用python实现堆数据结构。</p>
+<p><strong>创建一个堆</strong></p>
+<p>堆是通过使用python内建的名称为<code>heapq</code>的库创建的。 该库具有对堆数据结构进行各种操作的相关功能。 以下是这些函数的列表 - </p>
+<ul>
+<li><code>heapify</code> - 此函数将常规列表转换为堆。 在结果堆中，最小的元素被推到索引位置<code>0</code>。但是其余的数据元素不一定被排序。</li>
+<li><code>heappush</code> - 这个函数在堆中添加一个元素而不改变当前堆。</li>
+<li><code>heappop</code> - 该函数返回堆中最小的数据元素。</li>
+<li><code>heapreplace</code> - 该函数用函数中提供的新值替换最小的数据元素。</li>
+</ul>
+<p>通过简单地使用具有<code>heapify</code>函数的元素列表来创建堆。 在下面的例子中，提供了一个元素列表，<code>heapify</code>函数重新排列了元素到最初位置的元素。</p>
+<pre><code class="python">import heapq
+
+H = [21,1,45,78,3,5]
+# Use heapify to rearrange the elements
+heapq.heapify(H)
+print(H)
+</code></pre>
+
+<p><strong>插入堆</strong></p>
+<p>将数据元素插入堆总是在最后一个索引处添加元素。 但是，只有在值最小的情况下，才可以再次应用<code>heapify</code>函数将新添加的元素添加到第一个索引。 在下面的例子中，插入数字 - <code>8</code> 。</p>
+<pre><code class="python">import heapq
+H = [21,1,45,78,3,5]
+# Covert to a heap
+heapq.heapify(H)
+print(H)
+# Add element
+heapq.heappush(H,8)
+print(H)
+</code></pre>
+
+<p><strong>从堆中移除</strong></p>
+<p>可以使用此功能在第一个索引处移除元素。 在下面的例子中，函数将始终删除索引位置<code>1</code>处的元素。</p>
+<pre><code class="python">import heapq
+
+H = [21,1,45,78,3,5]
+# Create the heap
+
+heapq.heapify(H)
+print(H)
+
+# Remove element from the heap
+heapq.heappop(H)
+
+print(H)
+</code></pre>
+
+<p><strong>替换堆</strong></p>
+<p><code>heapreplace</code>函数总是删除堆中最小的元素，并在未被任何顺序修复的地方插入新的传入元素。参考以下示例 - </p>
+<pre><code class="python">import heapq
+
+H = [21,1,45,78,3,5]
+# Create the heap
+
+heapq.heapify(H)
+print(H)
+
+# Replace an element
+heapq.heapreplace(H,6)
+print(H)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 数据类型(datatype) - FreeAIHub</title>
+    <meta name="keywords" content="标准数据类型,可变与不可变,String（字符串）,List（列表）,Tuple（元组）,Set（集合）,Dictionary（字典）,Python数据类型转换">
+    <meta name="description" content="Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。在 Python 中，变量就是变量，它没有类型，我们所说的类型是变量所指的内存中对象的类型。等号用来给变量赋值。等号运算符左边是一个变量名,等号运算符右边是存储在变量中的值。例如：多个变量赋值，Python允许你同时为多个变量赋值。以上练习，创建一个整型对象，值为 1，从后向前赋值，三个变量被赋予相同的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a class="current"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/operator.html class='prev_article'> Python3 运算符 </a>       |       下一篇：<a href=/python/string.html class='next_article'> Python3 基本数据类型-字符串 </a>  >
+              
+            <h1>Python3 数据类型(datatype)</h1>
+<p>Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。</p>
+<p>在 Python 中，变量就是变量，它没有类型，我们所说的"类型"是变量所指的内存中对象的类型。</p>
+<p>等号<code>=</code>用来给变量赋值。</p>
+<p>等号<code>=</code>运算符左边是一个变量名,等号<code>=</code>运算符右边是存储在变量中的值。例如：</p>
+<h4>练习:Python变量赋值</h4>
+<pre><code class="Python">counter = 100          # 整型变量
+miles   = 1000.0       # 浮点型变量
+name    = &quot;python&quot;     # 字符串
+print(counter) 
+print(miles)
+print(name)
+</code></pre>
+
+<h4>练习：Python多个变量赋值</h4>
+<p>多个变量赋值，Python允许你同时为多个变量赋值。</p>
+<pre><code class="Python">a = b = c = 1
+print(a,b,c)
+</code></pre>
+
+<p>以上练习，创建一个整型对象，值为 1，从后向前赋值，三个变量被赋予相同的数值。</p>
+<p>您也可以为多个对象指定多个变量。例如：</p>
+<pre><code class="Python">a, b, c = 1, 2, &quot;python3&quot;
+print(a,b,c)
+</code></pre>
+
+<p>以上实例，两个整型对象 1 和 2 的分配给变量 <code>a</code>和<code>b</code>，字符串对象python分配给变量<code>c</code>。</p>
+<h2>标准数据类型</h2>
+<p>Python3 中有六个标准的数据类型：</p>
+<ul>
+<li>Number（数字）</li>
+<li>String（字符串）</li>
+<li>List（列表）</li>
+<li>Tuple（元组）</li>
+<li>Set（集合）</li>
+<li>Dictionary（字典）</li>
+</ul>
+<h2>可变与不可变</h2>
+<p>Python3 的6个标准数据类型中：</p>
+<p><strong>不可变数据（3 个）</strong>：Number（数字）、String（字符串）、Tuple（元组）；</p>
+<p><strong>可变数据（3 个）</strong>：List（列表）、Dictionary（字典）、Set（集合）。</p>
+<p>Number（数字）:Python3 支持 int、float、bool、complex（复数）。</p>
+<p>在Python 3里，只有一种整数类型 int，表示为长整型，没有 python2 中的 Long。</p>
+<p>像大多数语言一样，数值类型的赋值和计算都是很直观的。</p>
+<p>内置的<code>type()</code>函数可以用来查询变量所指的对象类型。</p>
+<h4>练习：使用<code>type()</code>查看对象类型</h4>
+<pre><code class="Python">a, b, c, d = 20, 5.5, True, 4+3j
+print(type(a), type(b), type(c), type(d))
+</code></pre>
+
+<h4>练习：使用<code>isinstance()</code>查看对象类型</h4>
+<pre><code class="Python">a = 111
+print(isinstance(a, int))
+print(isinstance(a, str))
+</code></pre>
+
+<p><code>isinstance()</code>和 <code>type()</code> 的区别在于：<code>type()</code>不会认为子类是一种父类类型。<code>isinstance()</code>会认为子类是一种父类类型。</p>
+<h4>练习：<code>type()</code>与<code>isinstance ()</code>的区别</h4>
+<pre><code class="Python">class A:
+     pass
+
+class B(A):
+     pass
+
+
+print(isinstance(A(), A))
+print(type(A()) == A)
+print(isinstance(B(), A))
+print(type(B()) == A)
+</code></pre>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>
+<p>在 Python2 中是没有布尔型的，它用数字 0 表示 False，用 1 表示 True。</p>
+</li>
+<li>
+<p>到 Python3 中，把 True 和 False 定义成关键字了，但它们的值还是 1 和 0，它们可以和数字相加。</p>
+</li>
+</ul>
+<p>当指定一个值时，Number 对象就会被创建。您也可以使用<code>del</code>语句删除一些对象引用。</p>
+<p><code>del</code>语句的语法是：<code>del var1[,var2[,var3[....,varN]]]</code>
+您可以通过使用<code>del</code>语句删除单个或多个对象。例如：</p>
+<h4>练习：<code>del</code>语句删除对象引用</h4>
+<pre><code class="Python">var0,var1,var2 = 0,1,2
+
+del var0
+del var1, var2
+print(var2)#会报错，name 'var2' is not defined
+</code></pre>
+
+<h3>数值运算</h3>
+<h4>练习：数值运算</h4>
+<pre><code class="Python">print(5 + 4)  # 加法
+
+print(4.3 - 2) # 减法
+
+print(3 * 7)  # 乘法
+
+print(2 / 4)  # 除法，得到一个浮点数
+
+print(2 // 4) # 除法，得到一个整数
+
+print(17 % 3) # 取余 
+
+print(2 ** 5) # 乘方
+</code></pre>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>1、Python可以同时为多个变量赋值，如<code>a, b = 1, 2</code>。</li>
+<li>2、一个变量可以通过赋值指向不同类型的对象。</li>
+<li>3、数值的除法包含两个运算符：<code>/</code> 返回一个浮点数，<code>//</code> 返回一个整数。</li>
+<li>4、在混合计算时，Python会把整型转换成为浮点数。</li>
+</ul>
+<h3>数值类型实例</h3>
+<table>
+<thead>
+<tr>
+<th align="left">int</th>
+<th align="left">float</th>
+<th align="left">complex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">10</td>
+<td align="left">0.0</td>
+<td align="left">3.14j</td>
+</tr>
+<tr>
+<td align="left">100</td>
+<td align="left">15.20</td>
+<td align="left">45.j</td>
+</tr>
+<tr>
+<td align="left">-786</td>
+<td align="left">-21.9</td>
+<td align="left">9.322e-36j</td>
+</tr>
+<tr>
+<td align="left">080</td>
+<td align="left">32.3e+18</td>
+<td align="left">.876j</td>
+</tr>
+<tr>
+<td align="left">-0490</td>
+<td align="left">-90.</td>
+<td align="left">-.6545+0J</td>
+</tr>
+<tr>
+<td align="left">-0x260</td>
+<td align="left">-32.54e100</td>
+<td align="left">3e+26J</td>
+</tr>
+<tr>
+<td align="left">0x69</td>
+<td align="left">70.2E-12</td>
+<td align="left">4.53e-7j</td>
+</tr>
+</tbody>
+</table>
+<p>Python还支持复数，复数由实数部分和虚数部分构成，可以用<code>a + bj</code>,或者<code>complex(a,b)</code>表示， 复数的实部<code>a</code>和虚部<code>b</code>都是浮点型</p>
+<h2>String（字符串）</h2>
+<p>Python中的字符串用单引号 <code>'</code> 或双引号<code>"</code>进行包裹起来，如有字符串有特殊字符，可以使用反斜杠<code>\</code>转义。</p>
+<p>字符串的截取的语法格式如下：变量[头下标:尾下标]</p>
+<p>索引值以 0 为开始值，-1 为从末尾的开始位置。</p>
+<p>加号 <code>+</code> 是字符串的连接符， 星号 <code>*</code> 表示复制当前字符串，紧跟的数字为复制的次数。</p>
+<p>#### 练习：字符串读取，连接与复制</p>
+<pre><code class="Python">str = 'Python'
+print(str)          # 输出字符串
+print(str[0:-1])    # 输出第一个到倒数第二个的所有字符
+print(str[0])       # 输出字符串第一个字符
+print(str[2:5])     # 输出从第三个开始到第五个的字符
+print(str[2:])      # 输出从第三个开始的后的所有字符
+print(str * 2)      # 输出字符串两次
+</code></pre>
+
+<h4>练习：字符串转义</h4>
+<p>Python 使用反斜杠<code>\</code>转义特殊字符，如果你不想让反斜杠发生转义，可以在字符串前面添加一个r，表示原始字符串(raw string)：</p>
+<pre><code class="Python">print('I\'m Bob!')
+print('Pytho\nn!')
+</code></pre>
+
+<h4>练习：过长代码使用反斜杠<code>\</code>续行</h4>
+<p>反斜杠<code>\</code>可以作为代码的续行符，表示下一行是上一行的延续。</p>
+<pre><code class="Python">print(&quot;我是一个程序员，\
+我刚开始学python&quot;)
+</code></pre>
+
+<p><strong>注意:</strong>
+Python 没有单独的字符类型，一个字符就是长度为1的字符串。</p>
+<h4>练习:字符串倒取索引</h4>
+<pre><code class="Python">word = 'Python'
+print(word[0], word[5]) 
+print(word[-1], word[-6])
+</code></pre>
+
+<p>Python 字符串不能被改变。向一个索引位置赋值，比如<code>word[0] = 'm'</code>会导致错误。</p>
+<p>字符串属于不可变对象。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><code>\</code>反斜杠可以用来转义，字符串前加<code>r</code>可以让反斜杠不发生转义。</li>
+<li>字符串可以用+运算符连接在一起，用<code>*</code>运算符重复。</li>
+<li>Python中的字符串有两种索引方式，从左往右以0开始，从右往左以-1开始。</li>
+<li>Python中的字符串不能改变。</li>
+</ul>
+<h2>List（列表）</h2>
+<p>List（列表） 是 Python 中使用最频繁的数据类型。</p>
+<p>列表可以完成大多数集合类的数据结构实现。列表中元素的类型可以不相同，它支持数字，字符串甚至可以包含列表（所谓嵌套）。</p>
+<p>列表是写在方括号<code>[]</code>之间、用逗号分隔开的元素列表。</p>
+<p>和字符串一样，列表同样可以被索引和截取，列表被截取后返回一个包含所需元素的新列表。</p>
+<p>列表截取的语法格式如下：<code>变量[头下标:尾下标]</code>,索引值以 0 为开始值，-1 为从末尾的开始位置。</p>
+<p>加号<code>+</code>是列表连接运算符，星号<code>*</code>是重复操作。</p>
+<h4>练习：列表读取</h4>
+<pre><code class="Python">list1 = ['abcd', 786 , 2.23, 'python', 70.2 ]
+tinylist = [123, 'python']
+
+print(list1)            # 输出完整列表
+print(list1[0])         # 输出列表第一个元素
+print(list1[1:3])       # 从第二个开始输出到第三个元素
+print(list1[2:])        # 输出从第三个元素开始的所有元素
+print(tinylist * 2)    # 输出两次列表
+print(list1 + tinylist) # 连接列表
+</code></pre>
+
+<h4>练习： 改变列表对象</h4>
+<p>与Python字符串不一样的是，列表中的对象是可以改变的：</p>
+<pre><code class="Python">a = [1, 2, 3, 4, 5, 6]
+a[0] = 9
+a[2:5] = [13, 14, 15]
+print(a)
+a[2:5] = []   # 将对应的元素值设置为 [] 
+print(a)
+</code></pre>
+
+<p>List 内置了有很多方法，例如 <code>append()</code>、<code>pop()</code> 等等，这在后面会讲到。</p>
+<p><strong>注意：</strong></p>
+<p>1、List写在方括号之间，元素用逗号隔开。
+2、和字符串一样，list可以被索引和切片。
+3、List可以使用<code>+</code>操作符进行拼接。
+4、List中的元素是可以改变的。</p>
+<h3>列表的切片访问</h3>
+<p>Python 列表截取可以接收第三个参数，参数作用是截取的步长</p>
+<p>在索引 1 到索引 4 的位置并设置为步长为 2（间隔一个位置）来截取字符串：</p>
+<h4>练习：切片访问列表</h4>
+<pre><code class="Python">a=list(&quot;I Love Python&quot;)
+print(a)
+
+print(a[0:6])
+print(a[0::2])#第三个参数为正整数表示向右。
+print(a[-1:0:-1])#第三个参数为负整数表示向左。
+</code></pre>
+
+<h4>练习：读取翻转字符串：</h4>
+<pre><code class="Python">def reverseWords(input):
+
+    # 通过空格将字符串分隔符，把各个单词分隔为列表
+    inputWords = input.split(&quot; &quot;)
+
+    # 翻转字符串
+    # 假设列表 list = [1,2,3,4],  
+    # list[0]=1, list[1]=2 ，而 -1 表示最后一个元素 list[-1]=4 ( 与 list[3]=4 一样)
+    # inputWords[-1::-1] 有三个参数
+    # 第一个参数 -1 表示最后一个元素
+    # 第二个参数为空，表示移动到列表末尾
+    # 第三个参数为步长，-1 表示逆向
+    inputWords=inputWords[-1::-1]
+
+    # 重新组合字符串
+    output = ' '.join(inputWords)
+
+    return output
+
+
+input = 'I like Python'
+rw = reverseWords(input)
+print(rw)
+</code></pre>
+
+<h2>Tuple（元组）</h2>
+<p>元组（tuple）与列表类似，不同之处在于元组的元素不能修改。元组写在小括号 <code>()</code> 里，元素之间用逗号隔开。</p>
+<p>元组中的元素类型也可以不相同：</p>
+<h4>练习：元组读取</h4>
+<pre><code class="Python">tuple = ( 'abcd', 786 , 2.23, 'python', 70.2  )
+tinytuple = (123, 'python') 
+print(tuple)             # 输出完整元组
+print(tuple[0])          # 输出元组的第一个元素
+print(tuple[1:3])        # 输出从第二个元素开始到第三个元素
+print(tuple[2:])         # 输出从第三个元素开始的所有元素
+print(tinytuple * 2)     # 输出两次元组
+print(tuple + tinytuple) # 连接元组
+</code></pre>
+
+<p>元组与字符串类似，可以被索引且下标索引从0开始，-1 为从末尾开始的位置。也可以进行截取。</p>
+<p>其实，可以把字符串看作一种特殊的元组。</p>
+<h4>练习：修改元组</h4>
+<pre><code class="Python">tup = (1, 2, 3, 4, 5, 6)
+print(tup[0])
+print(tup[1:5])
+tup[0] = 11  # 修改元组元素的操作是非法的
+</code></pre>
+
+<p>虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表。</p>
+<p>构造包含 0 个或 1 个元素的元组比较特殊，所以有一些额外的语法规则：</p>
+<pre><code class="Python">tup1 = ()    # 空元组
+tup2 = (20,) # 一个元素，需要在元素后添加逗号
+print(tup1)
+tup2
+</code></pre>
+
+<p>string、list 和 tuple 都属于 sequence（序列）。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>1、与字符串一样，元组的元素不能修改。</li>
+<li>2、元组也可以被索引和切片，方法一样。</li>
+<li>3、注意构造包含 0 或 1 个元素的元组的特殊语法规则。</li>
+<li>4、元组也可以使用<code>+</code>操作符进行拼接。</li>
+</ul>
+<h2>Set（集合）</h2>
+<p>集合（set）是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。</p>
+<p>基本功能是进行成员关系测试和删除重复元素。</p>
+<p>可以使用大括号 <code>{ }</code>或者<code>set()</code>函数创建集合，注意：创建一个空集合必须用<code>set()</code>而不是<code>{ }</code>，因为<code>{ }</code>是用来创建一个空字典。</p>
+<p>创建格式：<code>parame = {value01,value02,...}</code>或者<code>set(value)</code></p>
+<h4>练习：集合对象操作</h4>
+<pre><code class="Python">student = {'Tom', 'Jim', 'Mary', 'Tom', 'Jack', 'Rose'}
+print(student)   # 输出集合，重复的元素被自动去掉   
+
+# 成员测试
+if 'Rose' in student :
+    print('Rose 在集合中')
+else :
+    print('Rose 不在集合中') 
+
+# set可以进行集合运算
+a = set('abracadabra')
+b = set('alacazam')
+print(a) 
+print(a - b)     # a 和 b 的差集
+print(a | b)     # a 和 b 的并集
+print(a &amp; b)     # a 和 b 的交集
+print(a ^ b)     # a 和 b 中不同时存在的元素
+</code></pre>
+
+<h2>Dictionary（字典）</h2>
+<p>字典（dictionary）是Python中另一个非常有用的内置数据类型。</p>
+<p>列表是有序的对象集合，字典是无序的对象集合。两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取。</p>
+<p>字典是一种映射类型，字典用·{ }·标识，它是一个<strong>无序</strong>的键(key) : 值(value)的集合。</p>
+<p>键(key)必须使用<strong>不可变类型</strong>。在同一个字典中，键(key)必须是<strong>唯一</strong>的。</p>
+<h4>练习：创建字典对象</h4>
+<pre><code class="Python">dict1 = {}
+dict1['one'] = &quot;1 - 人生苦短&quot; 
+dict1[2]     = &quot;2 - 我用Python&quot; 
+
+tinydict = {'name': 'python','code':1, 'site': 'www.python.org'} 
+
+print(dict1['one'])       # 输出键为 'one' 的值 
+print(dict1[2]) # 输出键为 2 的值 print  
+print(tinydict.keys())   # 输出所有键
+print(tinydict.values()) # 输出所有值
+</code></pre>
+
+<h4>练习：字典推导式</h4>
+<p>构造函数<code>dict()</code>可以直接从键值对序列中构建字典如下：</p>
+<pre><code class="Python">d1=dict([('MeiTuan', 1), ('JD', 2), ('Taobao', 3)]) ,{'Taobao': 3, 'Python': 1, 'Google': 2}
+print(d1)
+
+print({x: x**2 for x in (2, 4, 6)}, {2: 4, 4: 16, 6: 36})
+
+print(dict(Python=1, Google=2, Taobao=3) )
+</code></pre>
+
+<p>另外，字典类型也有一些内置的函数，例如<code>clear()</code>、<code>keys()</code>、<code>values()</code>等。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>1、字典是一种映射类型，它的元素是键值对。</li>
+<li>2、字典的关键字必须为不可变类型，且不能重复。</li>
+<li>3、创建空字典使用<code>{ }</code>。</li>
+</ul>
+<h2>Python数据类型转换</h2>
+<p>有时候，我们需要对数据内置的类型进行转换，数据类型的转换，你只需要将数据类型作为函数名即可。</p>
+<p>以下几个内置的函数可以执行数据类型之间的转换。这些函数返回一个新的对象，表示转换的值。</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>int(x [,base\])</code></td>
+<td align="left">将x转换为一个整数</td>
+</tr>
+<tr>
+<td align="left"><code>float(x)</code></td>
+<td align="left">将x转换到一个浮点数</td>
+</tr>
+<tr>
+<td align="left"><code>complex(real [,imag\])</code></td>
+<td align="left">创建一个复数</td>
+</tr>
+<tr>
+<td align="left"><code>str(x)</code></td>
+<td align="left">将对象 x 转换为字符串</td>
+</tr>
+<tr>
+<td align="left"><code>repr(x)</code></td>
+<td align="left">将对象 x 转换为表达式字符串</td>
+</tr>
+</tbody>
+</table>
+<h4>练习：Python数据类型转换</h4>
+<pre><code class="Python">print(float(1))
+print(int(1.3))
+print(hex(16))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

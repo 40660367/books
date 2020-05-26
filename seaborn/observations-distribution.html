@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Seaborn 绘制观测值的分布 - FreeAIHub</title>
+    <meta name="keywords" content="箱形图,小提琴图">
+    <meta name="description" content="在上一章中处理的分类散点图中，该方法在它可以提供的有关每个类别中值的分布的信息方面受到限制。现在，进一步，让我们看看什么可以帮助我们进行类别比较。是通过四分位数可视化数据分布的便捷方法。箱形图通常具有从框延伸的垂直线，称为晶须。这些晶须表示上下四分位数之外的变异性，因此箱形图也称为图和图。数据中的所有异常值均作为单个点绘制。图上的点表示异常值。小提琴图是箱形图与内核密度估计值的组合。因此，这些图更">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/seaborn/index.html">如何学习本课程</a></li>
+<li><a href="/seaborn/intro.html"> sklearn简介 </a></li>
+<li><a href="/seaborn/setup.html"> 安装Seaborn库 </a></li>
+<li><a href="/seaborn/visualization.html"> Seaborn数据可视化 </a></li>
+<li><a href="/seaborn/palette.html"> Seaborn调色板 </a></li>
+<li><a href="/seaborn/multipanel-categorical.html"> Seaborn多面板分类图 </a></li>
+<li><a href="/seaborn/histogram.html"> Seaborn直方图 </a></li>
+<li><a href="/seaborn/pairwise-relationship.html"> Seaborn可视化成对关系 </a></li>
+<li><a href="/seaborn/kde.html"> Seaborn内核密度估计 </a></li>
+<li><a href="/seaborn/pair-grid.html"> Seaborn配对网格 </a></li>
+<li><a href="/seaborn/categorical.html"> Seaborn绘制分类数据 </a></li>
+<li><a class="current"> Seaborn绘制观测值的分布 </a></li>
+<li><a href="/seaborn/statistical-estimation.html"> Seaborn统计估计 </a></li>
+<li><a href="/seaborn/wideform.html"> Seaborn绘制宽格式数据 </a></li>
+<li><a href="/seaborn/linear-relationships.html"> Seaborn绘制线性关系 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/seaborn/categorical.html class='prev_article'> Seaborn绘制分类数据 </a>       |       下一篇：<a href=/seaborn/statistical-estimation.html class='next_article'> Seaborn统计估计 </a>  >
+              
+            <h1>Seaborn 绘制观测值的分布</h1>
+<p>在上一章中处理的分类散点图中，该方法在它可以提供的有关每个类别中值的分布的信息方面受到限制。现在，进一步，让我们看看什么可以帮助我们进行类别比较。</p>
+<h2>箱形图</h2>
+<p><strong>箱线图</strong>是通过四分位数可视化数据分布的便捷方法。</p>
+<p>箱形图通常具有从框延伸的垂直线，称为晶须。这些晶须表示上下四分位数之外的变异性，因此箱形图也称为<strong>箱须</strong>图和<strong>箱须</strong>图。数据中的所有异常值均作为单个点绘制。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/iris.csv')
+sb.swarmplot(x = &quot;species&quot;, y = &quot;petal_length&quot;, data = df)
+plt.show()
+</code></pre>
+
+<p>图上的点表示异常值。</p>
+<h2>小提琴图</h2>
+<p>小提琴图是箱形图与内核密度估计值的组合。因此，这些图更易于分析和理解数据的分布。</p>
+<p>让我们使用称为的提示数据集来了解更多关于小提琴图的信息。该数据集包含与餐厅顾客提供的小费相关的信息。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/tips.csv')
+sb.violinplot(x = &quot;day&quot;, y = &quot;total_bill&quot;, data=df)
+plt.show()
+</code></pre>
+
+<p>小提琴内显示了箱形图的四分位和晶须值。由于小提琴图使用KDE，所以小提琴的较宽部分表示较高的密度，而狭窄的区域表示相对较低的密度。箱形图的四分位数间距和kde的较高密度部分位于小提琴图的每个类别的相同区域。</p>
+<p>上图显示了一周中四天的total_bill分布。但是，除此之外，如果我们想了解性别分布的行为，请在下面的示例中进行探讨。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/tips.csv')
+sb.violinplot(x = &quot;day&quot;, y = &quot;total_bill&quot;,hue = 'sex', data = df)
+plt.show()
+</code></pre>
+
+<p>现在我们可以清楚地看到男性和女性之间的消费行为。</p>
+<p>我们可以很容易地说，通过观察情节，男人比女人赚更多的钱。</p>
+<p>而且，如果色相变量只有两个类别，我们可以通过在给定的一天将每个小提琴分为两个而不是两个小提琴来美化图表。小提琴的任何部分都引用hue变量中的每个类别。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import seaborn as sb
+from matplotlib import pyplot as plt
+df = pd.read_csv('/share/datasets/seaborn-data/tips.csv')
+sb.violinplot(x = &quot;day&quot;, y=&quot;total_bill&quot;,hue = 'sex', data = df)
+plt.show()
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

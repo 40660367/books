@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 选项和自定义 - FreeAIHub</title>
+    <meta name="keywords" content="get_option(param),set_option(param,value),reset_option(param),describe_option(param),option_context()">
+    <meta name="description" content="Pandas提供API来自定义其行为的某些方面，大多使用来显示。API由五个相关函数组成。它们分别是 -现在来了解函数是如何工作的。需要一个参数，并返回下面输出中给出的值 -需要一个参数，并返回下面输出中给出的值 -显示默认值。解释器读取此值并显示此值作为显示上限的行。显示默认值，解释器读取此值并显示此值作为显示上限的行。这里，和是默认配置参数值。需要两个参数，并将该值设置为指定的参数值，如下所示">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a class="current"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/string-operation.html class='prev_article'> Pandas字符串和文本数据</a>       |       下一篇：<a href=/pandas/loc.html class='next_article'> Pandas索引和选择数据</a>  >
+              
+            <h1>Pandas 选项和自定义</h1>
+<p>Pandas提供API来自定义其行为的某些方面，大多使用来显示。</p>
+<p>API由五个相关函数组成。它们分别是 -</p>
+<ul>
+<li><em>get_option()</em></li>
+<li><em>set_option()</em></li>
+<li><em>reset_option()</em></li>
+<li><em>describe_option()</em></li>
+<li><em>option_context()</em></li>
+</ul>
+<p>现在来了解函数是如何工作的。</p>
+<h2>get_option(param)</h2>
+<p><code>get_option(param)</code>需要一个参数，并返回下面输出中给出的值 -</p>
+<p><code>get_option</code>需要一个参数，并返回下面输出中给出的值 -</p>
+<p><strong>display.max_rows</strong></p>
+<p>显示默认值。解释器读取此值并显示此值作为显示上限的行。</p>
+<pre><code class="python">import pandas as pd
+print(&quot;display.max_rows = &quot;, pd.get_option(&quot;display.max_rows&quot;))
+</code></pre>
+
+<p><strong>display.max_columns</strong></p>
+<p>显示默认值，解释器读取此值并显示此值作为显示上限的行。</p>
+<pre><code class="python">import pandas as pd
+print(&quot;display.max_columns = &quot;, pd.get_option(&quot;display.max_columns&quot;))
+</code></pre>
+
+<p>这里，<code>60</code>和<code>20</code>是默认配置参数值。</p>
+<h2>set_option(param,value)</h2>
+<p><code>set_option</code>需要两个参数，并将该值设置为指定的参数值，如下所示：</p>
+<p><strong>display.max_rows</strong></p>
+<p>使用<code>set_option()</code>，可以更改要显示的默认行数。</p>
+<pre><code class="python">import pandas as pd
+
+print(&quot;before set display.max_rows = &quot;, pd.get_option(&quot;display.max_rows&quot;)) 
+
+pd.set_option(&quot;display.max_rows&quot;,80)
+print(&quot;after set display.max_rows = &quot;, pd.get_option(&quot;display.max_rows&quot;))
+</code></pre>
+
+<p><strong>display.max_columns</strong></p>
+<p>使用<code>set_option()</code>，可以更改要显示的默认行数。</p>
+<pre><code class="python">import pandas as pd
+
+print(&quot;before set display.max_columns = &quot;, pd.get_option(&quot;display.max_columns&quot;)) 
+
+pd.set_option(&quot;display.max_columns&quot;,32)
+print(&quot;after set display.max_columns = &quot;, pd.get_option(&quot;display.max_columns&quot;))
+</code></pre>
+
+<h2>reset_option(param)</h2>
+<p><code>reset_option</code>接受一个参数，并将该值设置为默认值。</p>
+<p><strong>display.max_rows</strong></p>
+<p>使用<code>reset_option()</code>，可以将该值更改回显示的默认行数。</p>
+<pre><code class="python">import pandas as pd
+
+pd.set_option(&quot;display.max_rows&quot;,32)
+print(&quot;after set display.max_rows = &quot;, pd.get_option(&quot;display.max_rows&quot;)) 
+
+pd.reset_option(&quot;display.max_rows&quot;)
+print(&quot;reset display.max_rows = &quot;, pd.get_option(&quot;display.max_rows&quot;))
+</code></pre>
+
+<h2>describe_option(param)</h2>
+<p><code>describe_option</code>打印参数的描述。</p>
+<p><strong>display.max_rows</strong></p>
+<p>使用<code>reset_option()</code>，可以将该值更改回显示的默认行数。</p>
+<pre><code class="python">import pandas as pd
+
+pd.describe_option(&quot;display.max_rows&quot;)
+</code></pre>
+
+<h2>option_context()</h2>
+<p><code>option_context</code>上下文管理器用于临时设置语句中的选项。当退出使用块时，选项值将自动恢复 -</p>
+<p><strong>display.max_rows</strong>
+使用<code>option_context()</code>，可以临时设置该值。</p>
+<pre><code class="python">import pandas as pd
+with pd.option_context(&quot;display.max_rows&quot;,10):
+   print(pd.get_option(&quot;display.max_rows&quot;))
+   print(pd.get_option(&quot;display.max_rows&quot;))
+</code></pre>
+
+<p>请参阅第一和第二个打印语句之间的区别。第一个语句打印由<code>option_context()</code>设置的值，该值在上下文中是临时的。在使用上下文之后，第二个打印语句打印配置的值。</p>
+<p>常用参数，请参考下表 - </p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>display.max_rows</code></td>
+<td>要显示的最大行数</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>display.max_columns</code></td>
+<td>要显示的最大列数</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>display.expand_frame_repr</code></td>
+<td>显示数据帧以拉伸页面</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>display.max_colwidth</code></td>
+<td>显示最大列宽</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>display.precision</code></td>
+<td>显示十进制数的精度</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

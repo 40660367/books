@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kubernetes Pod 健康检查(healthy check) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="docker 在较高的版本中也加入了健康检查的配置，可见它也意识到了其重要性。而 pod 在一开始就有了对健康检查的支持。因为我们一般使用容器来运行长时间运行的服务，比如 http 服务、cache 等。如果没有健康检查，很有可能容器仍在运行，但是服务已经不能正常工作了。因为最终说来，容器并不等于应用/服务。所以我们需要健康检查来统一两者的状态，这样我们就知道当服务异常时，容器也会退出。在基础的健">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/kubernetes/index.html">如何学习本课程</a></li>
+<li><a href="/kubernetes/intro.html">Kubernetes 简介</a></li>
+<li><a href="/kubernetes/setup.html">Kubernetes 环境安装及配置</a></li>
+<li><a href="/kubernetes/kubectl.html">kubectl 命令简单使用</a></li>
+<li><a href="/kubernetes/basic.html">Kubernetes 基础概念</a></li>
+<li><a href="/kubernetes/pod.html">Kubernetes Pod</a></li>
+<li><a href="/kubernetes/pod-phase.html">Kubernetes Pod启动阶段(phase)</a></li>
+<li><a href="/kubernetes/pod-command.html">Kubernetes Pod启动命令</a></li>
+<li><a href="/kubernetes/pod-resource.html">Kubernetes Pod资源申请</a></li>
+<li><a href="/kubernetes/pod-qos.html">Kubernetes Pod QoS(服务等级)</a></li>
+<li><a class="current">Kubernetes Pod健康检查(healthy check)</a></li>
+<li><a href="/kubernetes/pod-multi-container.html">Kubernetes 多容器Pod</a></li>
+<li><a href="/kubernetes/service.html">Kubernetes 服务(Service)</a></li>
+<li><a href="/kubernetes/service-selector.html">Kubernetes 服务选择(selector)</a></li>
+<li><a href="/kubernetes/service-type.html">Kubernetes 服务类别(type)</a></li>
+<li><a href="/kubernetes/dashboard.html">Kubernetes Dashboard</a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/kubernetes/pod-qos.html class='prev_article'>Kubernetes Pod QoS(服务等级)</a>       |       下一篇：<a href=/kubernetes/pod-multi-container.html class='next_article'>Kubernetes 多容器Pod</a>  >
+              
+<h1>Kubernetes Pod 健康检查(healthy check)</h1>
+<p>docker 在较高的版本中也加入了健康检查的配置，可见它也意识到了其重要性。而 pod 在一开始就有了对健康检查的支持。因为我们一般使用容器来运行长时间运行的服务，比如 http 服务、cache 等。如果没有健康检查，很有可能容器仍在运行，但是服务已经不能正常工作了。因为最终说来，容器并不等于应用/服务。所以我们需要健康检查来统一两者的状态，这样我们就知道当服务异常时，容器也会退出。</p>
+<p>在基础的健康检查的概念之上，kubernetes 提供了更加精细的概念。分别是存活性检查和可用性检查，分别介绍如下：</p>
+<ul>
+<li><code>存活性检查</code>（liveness probe): 用于判断容器是否需要重启</li>
+<li><code>可用性检查</code> （readiness probe): 用于判定容器是否可以正常提供服务。因为在一般的应用场景下，都会用负载均衡后面挂上多个实例来达到分担流量以及稳定性保障的目的。可用性检查就是用来保证这个 Pod 是否可以提供服务，并被挂载在负载均衡后面</li>
+</ul>
+<p>一般的应用不会有这么精细的区分，这时候存活性检查和可用性检查用同样的配置即可。</p>
+<p>通常来讲，应用对外提供服务都是通过 tcp 端口或者 http 端口，比如 nginx 提供 http 服务，redis 通过 6379 端口提供服务。对于这样的服务，我们可以通过检查其端口是否开启，http endpoint 是否可以访问来判断其健康状态。有的服务不暴露这样的网络端口，这时候可以通过 exec 进去之后执行相应的命令来检查。比如有的文件会写一个 pid 文件。kuberentes 提供了对这几种方式的支持，方式就是通过 pod 所在机器的 kubelet 来执行这些检查。我们可以逐一看下。</p>
+<h3>EXEC</h3>
+<p>exec 就是指通过 exec 到容器中执行命令来进行健康检查。我们看一个示例。</p>
+<p>文件名:pod-liveness-exec.yaml</p>
+<pre><code class="yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+</code></pre>
+
+<p>注意：</p>
+<ol>
+<li>例子中为了演示，让 command 不断地创建删除文件，健康检查去检查这个文件</li>
+<li>这个例子中只配置了 livenessProbe</li>
+<li>command: 就是健康检查执行的命令。如果执行结果状态码为 0，就认为通过，其它的认为失败</li>
+<li>periodSecounds: command 执行的间隔，健康检查是一个持续性的过程，需要反复执行。</li>
+<li>initialDelaySeconds：因为好多程序启动时有初始化时间。比如 java 程序，初始化一般就比较慢。这时候如果立马做健康检查就不太合适，initialDelaySeconds 就是设置了一个合理的时间，等过了这个时间再做检查。</li>
+</ol>
+<p>上面的例子中。容器启动后，前三十秒，有这个文件。健康检查是 ok 的，之后文件被删，健康检查就有问题了。我们可以看看它的事件：</p>
+<p>在命令行中执行如下命令进行创建：</p>
+<pre><code class="bash">ctr -n k8s.io i import /share/images/busybox.latest.tar
+kubectl create -f /share/lesson/kubernetes/pod-liveness-exec.yaml
+</code></pre>
+
+<p>然后执行：</p>
+<pre><code class="bash">watch kubectl get po pod-liveness-exec
+</code></pre>
+
+<p>可以看到，刚开始的 event 都是 Normal 的，在 36s 之后， 变成 Warning, 因为 Livenss probe 失败了。失败之后，Pod 也会被重启，我们可以看下:</p>
+<pre><code class="bash">kubectl get po | grep pod-liveness-exec
+</code></pre>
+
+<p>这个是过了一段时间之后看到的，已经重启了 3 次了。等的时间越久，重启的次数也就越多。</p>
+<h3>HTTP</h3>
+<p>http 检查即是通过调用 http 服务的某个路径，然后根据错误码来判定。 http status code 的 200-400 代表成功，其它代表失败。</p>
+<p>文件名: pod-liveness-http.yaml</p>
+<pre><code class="yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-liveness-http
+spec:
+  containers:
+  - name: liveness
+    image: kubernetes/liveness
+    imagePullPolicy: IfNotPresent
+    args:
+    - /server
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+        httpHeaders:
+        - name: X-Custom-Header
+          value: Awesome
+      initialDelaySeconds: 3
+      periodSeconds: 3
+</code></pre>
+
+<p>依然是 livenessProbe:</p>
+<ul>
+<li>httpGet: 表示这是一个 http 类型的健康检查</li>
+<li>path: http 的路径</li>
+<li>httpHeaders: 发送请求所带的 headers 字段，不同的场景可能有不能的需求。</li>
+</ul>
+<p>这个镜像里，我们依然动态修改了返回结果，用来演示 healtcheck 的不同效果。其实现代码如下图所示：</p>
+<pre><code class="golang">http.HandleFunc(&quot;/healthz&quot;, func(w http.ResponseWriter, r *http.Request) {
+    duration := time.Now().Sub(started)
+    if duration.Seconds() &gt; 10 {
+        w.WriteHeader(500)
+        w.Write([]byte(fmt.Sprintf(&quot;error: %v&quot;, duration.Seconds())))
+    } else {
+        w.WriteHeader(200)
+        w.Write([]byte(&quot;ok&quot;))
+    }
+})
+</code></pre>
+
+<p>前 10s 返回 200， 之后返回 500。</p>
+<p>在命令行中执行如下命令进行创建：</p>
+<pre><code class="bash">ctr -n k8s.io i import /share/images/kubernetes.liveness.tar
+kubectl create -f /share/lesson/kubernetes/pod-liveness-http.yaml
+watch kubectl get po pod-liveness-http
+</code></pre>
+
+<p>看下 pod 的 event:</p>
+<p>event 中显示，10s 后通过事件就可以看到健康检查已经失败了，kubelet 在重启 pod。</p>
+<h3>TCP</h3>
+<p>对于监听 tcp 端口的服务，我们可以尝试与这个端口建立连接。如果成功，则认为服务正常。</p>
+<p>文件名: pod-liveness-tcp.yaml</p>
+<pre><code class="yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-liveness-tcp
+spec:
+  containers:
+  - name: goproxy
+    image: googlecontainer/goproxy:0.1
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+</code></pre>
+
+<p>这个实例中配置了 livenessProbe 和 readinessProbe,从具体的配置上来看，与 http 的配置是很像的。只是其配置中需要指明的是端口。</p>
+<p>在命令行中执行如下命令进行创建查看:</p>
+<pre><code class="bash">ctr -n k8s.io i import /share/images/googlecontainer.goproxy.0.1.tar
+kubectl create -f /share/lesson/kubernetes/pod-liveness-tcp.yaml
+watch kubectl get po pod-liveness-tcp
+</code></pre>
+
+<p>这个地方因为镜像配置的是一直运行，所以结果 healthcheck 会一直过的。这里着重看下 liveness 和 readiness 的一些其他默认值：</p>
+<ul>
+<li>timeout: 超时时间，如果超时了就认为失败了</li>
+<li>success/failure: 图中的配置是如果成功一次了就认为正常，如果失败了三次才认为失败。这样可以有效地避免因为偶然的偏差导致容器被标记为异常。</li>
+</ul>
+            
+          </div>
+          <backend type='k8sv'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

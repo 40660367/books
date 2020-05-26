@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 构造函数 - FreeAIHub</title>
+    <meta name="keywords" content="构造函数,外部构造方法,内部构造方法,部分初始化,参数化构造方法,案例：分数">
+    <meta name="description" content="构造函数是构造新对象，即新实例的函数。构造类型对象： ，尤其是自引用的数据结构，常需要先构造为非完整状态，再按步骤将其完善。我们有时也可能希望用更少或不同类型的参数更方便的构造对象。Julia 的构造函数可以让包括这些在内的各种需求得到满足。[1] :关于命名：尽管“构造函数”通常被用来描述创建新对象的函数，它也经常被滥用于特定的构造方法。通常情况下，可以很容易地从上下文推断出到底是“构造函数”还">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a class="current"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/type.html class='prev_article'> Julia类型 </a>       |       下一篇：<a href=/julia/type-convert.html class='next_article'> Julia类型转换和类型提升 </a>  >
+              
+            <h1>Julia 构造函数</h1>
+<h2>构造函数</h2>
+<p>构造函数是构造新对象，即新<a href="https://www.w3cschool.cn/julia/type-learning.html">复合类型</a>实例的函数。构造类型对象：</p>
+<pre><code class="julia">type Foo
+  bar
+  baz
+end
+
+foo = Foo(1,2)
+
+foo.bar
+
+foo.baz
+</code></pre>
+
+<p><a href="http://en.wikipedia.org/wiki/Recursion_(computer_science)#Recursive_data_structures_.28structural_recursion.29">递归数据结构</a> ，尤其是自引用的数据结构，常需要先构造为非完整状态，再按步骤将其完善。我们有时也可能希望用更少或不同类型的参数更方便的构造对象。Julia 的构造函数可以让包括这些在内的各种需求得到满足。</p>
+<p>[1] :关于命名：尽管“构造函数”通常被用来描述创建新对象的函数，它也经常被滥用于特定的构造方法。通常情况下，可以很容易地从上下文推断出到底是“构造函数”还是“构造方法”。</p>
+<h2>外部构造方法</h2>
+<p>构造函数与 Julia 中的其它函数一样，它的行为取决于它全部方法的行为的组合。因此，你可以通过定义新方法来给构造函数增加新性能。下例给 <code>Foo</code> 添加了新构造方法，仅输入一个参数，将该参数值赋给 <code>bar</code> 和 <code>baz</code> 域：</p>
+<pre><code class="julia">Foo(x) = Foo(x,x)
+
+Foo(1)
+</code></pre>
+
+<p>添加 <code>Foo</code> 的零参构造方法，给 <code>bar</code> 和 <code>baz</code> 域赋默认值：</p>
+<pre><code class="julia">Foo() = Foo(0)
+
+Foo()
+</code></pre>
+
+<p>这种追加的构造方法被称为 <em>外部</em> 构造方法。它仅能通过提供默认值的方式，调用其它构造方法来构造实例。</p>
+<h2>内部构造方法</h2>
+<p><em>内部</em> 构造方法与外部构造方法类似，但有两个区别：</p>
+<ol>
+<li>它在类型声明块内部被声明，而不是像普通方法一样在外部被声明</li>
+<li>它调用本地已存在的 <code>new</code> 函数，来构造声明块的类型的对象</li>
+</ol>
+<p>例如，要声明一个保存实数对的类型，且第一个数不大于第二个数：</p>
+<pre><code class="julia">type OrderedPair
+  x::Real
+  y::Real
+
+  OrderedPair(x,y) = x &gt; y ? error(&quot;out of order&quot;) : new(x,y)
+end
+</code></pre>
+
+<p>仅当 <code>x &lt;= y</code> 时，才会构造 <code>OrderedPair</code> 对象：</p>
+<pre><code class="julia">OrderedPair(1,2)
+OrderedPair(1,2)
+
+OrderedPair(2,1)
+</code></pre>
+
+<p>所有的外部构造方法，最终都会调用内部构造方法。</p>
+<p>当然，如果类型被声明为 <code>immutable</code> ，它的构造函数的结构就不能变了。这对判断一个类型是否应该是 immutable 时很重要。</p>
+<p>如果定义了内部构造方法，Julia 将不再提供默认的构造方法。默认的构造方法等价于一个自定义内部构造方法，它将对象的所有域作为参数（如果对应域有类型，应为具体类型），传递给 <code>new</code> ，最后返回结果对象：</p>
+<pre><code class="julia">type Foo
+  bar
+  baz
+
+  Foo(bar,baz) = new(bar,baz)
+end
+</code></pre>
+
+<p>这个声明与前面未指明内部构造方法的 <code>Foo</code> 是等价的。下面两者也是等价的，一个使用默认构造方法，一个写明了构造方法：</p>
+<pre><code class="julia">type T1
+  x::Int64
+end
+
+type T2
+  x::Int64
+  T2(x) = new(x)
+end
+
+T1(1)
+
+T2(1)
+
+T1(1.0)
+
+T2(1.0)
+</code></pre>
+
+<p>内部构造方法能不写就不写。提供默认值之类的事儿，应该写成外部构造方法，由它们调用内部构造方法。</p>
+<h2>部分初始化</h2>
+<p>考虑如下递归类型声明：</p>
+<pre><code class="julia">type SelfReferential
+  obj::SelfReferential
+end
+</code></pre>
+
+<p>如果 <code>a</code> 是 <code>SelfReferential</code> 的实例，则可以如下构造第二个实例：</p>
+<pre><code class="julia">b = SelfReferential(a)
+</code></pre>
+
+<p>但是，当没有任何实例来为 <code>obj</code> 域提供有效值时，如何构造第一个实例呢？唯一的解决方法是构造 <code>obj</code> 域未赋值的 <code>SelfReferential</code> 部分初始化实例，使用这个实例作为另一个实例（如它本身）中 <code>obj</code> 域的有效值。</p>
+<p>构造部分初始化对象时，Julia 允许调用 <code>new</code> 函数来处理比该类型域个数少的参数，返回部分域未初始化的对象。这时，内部构造函数可以使用这个不完整的对象，并在返回之前完成它的初始化。下例中，我们定义 <code>SelfReferential</code> 类型时，使用零参内部构造方法，返回一个 <code>obj</code> 域指向它本身的实例：</p>
+<pre><code class="julia">type SelfReferential
+  obj::SelfReferential
+
+  SelfReferential() = (x = new(); x.obj = x)
+end
+</code></pre>
+
+<p>此构造方法可以运行并构造自引对象：</p>
+<pre><code class="julia">x = SelfReferential();
+
+is(x, x)
+
+is(x, x.obj)
+
+is(x, x.obj.obj)
+</code></pre>
+
+<p>内部构造方法最好返回完全初始化的对象，但也可以返回部分初始化对象：</p>
+<pre><code class="julia">type Incomplete
+         xx
+         Incomplete() = new()
+       end
+
+z = Incomplete();
+</code></pre>
+
+<p>尽管可以构造未初始化域的对象，但读取未初始化的引用会报错：</p>
+<pre><code class="julia">z.xx
+</code></pre>
+
+<p>这避免了持续检查 <code>null</code> 值。但是，所有对象的域都是引用。Julia 认为一些类型是“普通数据”，即他们的数据都是独立的，都不引用其他的对象。普通数据类型是由位类型或者其他普通数据类型的不可变数据结构所构成的（例如 <code>Int</code> ）。普通数据类型的初始内容是未定义的： ::</p>
+<pre><code class="julia">type HasPlain
+         n::Int
+         HasPlain() = new()
+       end
+
+HasPlain()
+HasPlain(438103441441)
+</code></pre>
+
+<p>普通数据类型所构成的数组具有相同的行为。</p>
+<p>可以在内部构造方法中，将不完整的对象传递给其它函数，来委托完成全部初始化：</p>
+<pre><code class="julia">type Lazy
+  xx
+
+  Lazy(v) = complete_me(new(), v)
+end
+</code></pre>
+
+<p>如果 <code>complete_me</code> 或其它被调用的函数试图在初始化 <code>Lazy</code> 对象的 <code>xx</code> 域之前读取它，将会立即报错。</p>
+<h2>参数化构造方法</h2>
+<p>参数化构造方法的例子：</p>
+<pre><code class="julia">type Point{T&lt;:Real}
+         x::T
+         y::T
+       end
+
+## implicit T ##
+
+Point(1,2)
+
+Point(1.0,2.5)
+
+Point(1,2.5)
+
+## explicit T ##
+
+Point{Int64}(1,2)
+
+Point{Int64}(1.0,2.5)
+
+Point{Float64}(1.0,2.5)
+
+Point{Float64}(1,2)
+</code></pre>
+
+<p>上面的参数化构造方法等价于下面的声明：</p>
+<pre><code class="julia">type Point{T&lt;:Real}
+  x::T
+  y::T
+
+  Point(x,y) = new(x,y)
+end
+
+Point{T&lt;:Real}(x::T, y::T) = Point{T}(x,y)
+</code></pre>
+
+<p>内部构造方法只定义 <code>Point{T}</code> 的方法，而非 <code>Point</code> 的构造函数的方法。 <code>Point</code> 不是具体类型，不能有内部构造方法。外部构造方法定义了 <code>Point</code> 的构造方法。</p>
+<p>可以将整数值 <code>1</code> “提升”为浮点数 <code>1.0</code> ，来完成构造：</p>
+<pre><code class="julia">Point(x::Int64, y::Float64) = Point(convert(Float64,x),y);
+</code></pre>
+
+<p>这样下例就可以正常运行：</p>
+<pre><code class="julia">Point(1,2.5)
+
+typeof(ans)
+</code></pre>
+
+<p>但下例仍会报错：</p>
+<pre><code class="julia">Point(1.5,2)
+</code></pre>
+
+<p>其实只需定义下列外部构造方法：</p>
+<pre><code class="julia">Point(x::Real, y::Real) = Point(promote(x,y)...);
+</code></pre>
+
+<p><code>promote</code> 函数将它的所有参数转换为相同类型。现在，所有的实数参数都可以正常运行：</p>
+<pre><code class="julia">Point(1.5,2)
+
+Point(1,1//2)
+
+Point(1.0,1//2)
+</code></pre>
+
+<h2>案例：分数</h2>
+<p>下面是 <a href="https://github.com/JuliaLang/julia/blob/master/base/rational.jl">rational.jl</a> 文件的开头部分，它实现了 Julia 的分数：</p>
+<pre><code class="julia">immutable Rational{T&lt;:Integer} &lt;: Real
+    num::T
+    den::T
+
+    function Rational(num::T, den::T)
+        if num == 0 &amp;&amp; den == 0
+            error(&quot;invalid rational: 0//0&quot;)
+        end
+        g = gcd(den, num)
+        num = div(num, g)
+        den = div(den, g)
+        new(num, den)
+    end
+end
+Rational{T&lt;:Integer}(n::T, d::T) = Rational{T}(n,d)
+Rational(n::Integer, d::Integer) = Rational(promote(n,d)...)
+Rational(n::Integer) = Rational(n,one(n))
+
+//(n::Integer, d::Integer) = Rational(n,d)
+//(x::Rational, y::Integer) = x.num // (x.den*y)
+//(x::Integer, y::Rational) = (x*y.den) // y.num
+//(x::Complex, y::Real) = complex(real(x)//y, imag(x)//y)
+//(x::Real, y::Complex) = x*y'//real(y*y')
+
+function //(x::Complex, y::Complex)
+    xy = x*y'
+    yy = real(y*y')
+    complex(real(xy)//yy, imag(xy)//yy)
+end
+</code></pre>
+
+<p>复数分数的例子：</p>
+<pre><code class="julia">(1 + 2im)//(1 - 2im)
+
+typeof(ans)
+
+ans &lt;: Complex{Rational}
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

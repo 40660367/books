@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>特征提取 - FreeAIHub</title>
+    <meta name="keywords" content="什么是特征提取呢？,特征提取,字典特征提取,文本特征提取,中文分词,作业：将任意数据（如文">
+    <meta name="description" content="注：特征值化是为了计算机更好的去理解数据我们对以下数据进行特征提取实例化类调用方法输入数据并转换（注意返回格式）注意观察没有加上sparse=False参数的结果这个结果并不是我们想要看到的，所以加上参数，得到想要的结果：之前在学习pandas中的离散化的时候，也实现了类似的效果。我们把这个处理数据的技巧叫做”one-hot“编码：转化为：返回词频矩阵 X:文本或者包含文本字符串的可迭代对象 返回">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a class="current"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a href="/ml/ridge.html"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/feature-engineering.html class='prev_article'> 机器学习 特征工程 </a>       |       下一篇：<a href=/ml/feature-preprocessing.html class='next_article'> 机器学习 特征预处理 </a>  >
+              
+            <h1>特征提取</h1>
+<h2>什么是特征提取呢？</h2>
+<p><img alt="文本特征提取图" src="./images/文本特征提取图.png" /></p>
+<p><img alt="字典特征提取图" src="./images/字典特征提取图.png" /></p>
+<h2>特征提取</h2>
+<h3>将任意数据（如文本或图像）转换为可用于机器学习的数字特征</h3>
+<blockquote>
+<p>注：特征值化是为了计算机更好的去理解数据</p>
+</blockquote>
+<ul>
+<li>字典特征提取(特征离散化)</li>
+<li>文本特征提取</li>
+<li>图像特征提取（深度学习将介绍）</li>
+</ul>
+<p><strong>API</strong></p>
+<p><code>sklearn.feature_extraction</code></p>
+<h2>字典特征提取</h2>
+<p><strong>作用：对字典数据进行特征值化</strong></p>
+<ul>
+<li><code>sklearn.feature_extraction.DictVectorizer(sparse=True,…)</code></li>
+<li><code>DictVectorizer.fit_transform(X)</code> <code>X</code>:字典或者包含字典的迭代器返回值：返回sparse矩阵</li>
+<li><code>DictVectorizer.inverse_transform(X)</code> <code>X:array</code>数组或者sparse矩阵 返回值:转换之前数据格式</li>
+<li><code>DictVectorizer.get_feature_names()</code> 返回类别名称</li>
+</ul>
+<h4>练习：字典特征提取</h4>
+<p>我们对以下数据进行特征提取</p>
+<pre><code class="python">[{'city': '北京','temperature':100}
+{'city': '上海','temperature':60}
+{'city': '深圳','temperature':30}]
+</code></pre>
+
+<p><img alt="dictvec结果" src="./images/dictvec结果.png" /></p>
+<p><strong>流程分析</strong></p>
+<ul>
+<li>
+<p>实例化类<code>DictVectorizer</code></p>
+</li>
+<li>
+<p>调用<code>fit_transform</code>方法输入数据并转换（注意返回格式）</p>
+</li>
+</ul>
+<pre><code class="python">from sklearn.feature_extraction import DictVectorizer
+
+def dict_demo():
+    &quot;&quot;&quot;
+    对字典类型的数据进行特征抽取
+    :return: None
+    &quot;&quot;&quot;
+    data = [{'city': '北京','temperature':100}, {'city': '上海','temperature':60}, {'city': '深圳','temperature':30}]
+    # 1、实例化一个转换器类
+    transfer = DictVectorizer(sparse=False)
+    # 2、调用fit_transform
+    data = transfer.fit_transform(data)
+    print(&quot;返回的结果:\n&quot;, data)
+    # 打印特征名字
+    print(&quot;特征名字：\n&quot;, transfer.get_feature_names())
+
+    return None
+dict_demo  
+</code></pre>
+
+<p>注意观察没有加上sparse=False参数的结果</p>
+<p>这个结果并不是我们想要看到的，所以加上参数，得到想要的结果：</p>
+<p>之前在学习pandas中的离散化的时候，也实现了类似的效果。</p>
+<p>我们把这个处理数据的技巧叫做”one-hot“编码：</p>
+<p><img alt="onehot" src="./images/onehot.png" /></p>
+<p>转化为：</p>
+<p><img alt="onehot1" src="./images/onehot1.png" /></p>
+<h3>总结</h3>
+<p><strong>对于特征当中存在类别信息的我们都会做one-hot编码处理</strong></p>
+<h2>文本特征提取</h2>
+<p><strong>作用：对文本数据进行特征值化</strong></p>
+<ul>
+<li><code>sklearn.feature_extraction.text.CountVectorizer(stop_words=[])</code></li>
+<li>
+<p>返回词频矩阵</p>
+</li>
+<li>
+<p><code>CountVectorizer.fit_transform(X)</code> X:文本或者包含文本字符串的可迭代对象 返回值：返回sparse矩阵</p>
+</li>
+<li><code>CountVectorizer.inverse_transform(X)</code> X:array数组或者sparse矩阵 返回值:转换之前数据格</li>
+<li>
+<p><code>CountVectorizer.get_feature_names()</code> 返回值:单词列表</p>
+</li>
+<li>
+<p><code>sklearn.feature_extraction.text.TfidfVectorizer</code></p>
+</li>
+</ul>
+<h4>练习：文本特征提取</h4>
+<p>我们对以下数据进行特征提取</p>
+<p><code>["life is short,i like python","life is too long,i dislike python"]</code></p>
+<p><img alt="countvec结果" src="./images/countvec结果.png" /></p>
+<p><strong>流程分析</strong></p>
+<ul>
+<li>
+<p>实例化类<code>CountVectorizer</code></p>
+</li>
+<li>
+<p>调用<code>fit_transform</code>方法输入数据并转换 （注意返回格式，利用<code>toarray()</code>进行sparse矩阵转换array数组）</p>
+</li>
+</ul>
+<pre><code class="python">from sklearn.feature_extraction.text import CountVectorizer
+
+def text_count_demo(input_string):
+    &quot;&quot;&quot;
+    对文本进行特征抽取，countvetorizer
+    :return: None
+    &quot;&quot;&quot;
+    data = [&quot;life is short,i like like python&quot;, &quot;life is too long,i dislike python&quot;]
+    # 1、实例化一个转换器类
+    # transfer = CountVectorizer(sparse=False)
+    transfer = CountVectorizer()
+    # 2、调用fit_transform
+    data = transfer.fit_transform(data)
+    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())
+    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())
+
+    return None
+text_count_demo()
+</code></pre>
+
+<h2>中文分词</h2>
+<h3>如果我们将数据替换成中文？</h3>
+<p><code>"人生苦短，我喜欢Python" "生活太长久，我不喜欢Python"</code></p>
+<p>那么最终得到的结果是</p>
+<p><img alt="不支持单个中文字" src="./images/不支持单个中文字.png" /></p>
+<p>为什么会得到这样的结果呢，<strong>仔细分析之后会发现英文默认是以空格分开的。其实就达到了一个分词的效果</strong>，所以我们要对中文进行分词处理</p>
+<h3>jieba分词处理</h3>
+<ul>
+<li><code>jieba.cut()</code></li>
+<li>返回词语组成的生成器</li>
+</ul>
+<p>需要安装下jieba库</p>
+<pre><code class="python">!pip install jieba --user
+</code></pre>
+
+<h4>练习：jieba分词处理</h4>
+<p>对以下三句话进行特征值化</p>
+<pre><code>今天很残酷，明天更残酷，后天很美好，
+但绝对大部分是死在明天晚上，所以每个人不要放弃今天。
+
+我们看到的从很远星系来的光是在几百万年之前发出的，
+这样当我们看到宇宙时，我们是在看它的过去。
+
+如果只用一种方式了解某样事物，你就不会真正了解它。
+了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。
+</code></pre>
+<ul>
+<li>分析</li>
+<li>准备句子，利用jieba.cut进行分词</li>
+<li>实例化CountVectorizer</li>
+<li>将分词结果变成字符串当作fit_transform的输入值</li>
+</ul>
+<p><img alt="三段中文结果" src="./images/三段中文结果.png" /></p>
+<pre><code class="python">from sklearn.feature_extraction.text import CountVectorizer
+import jieba
+
+def cut_word(text):
+    &quot;&quot;&quot;
+    对中文进行分词
+    &quot;我爱北京天安门&quot;————&gt;&quot;我 爱 北京 天安门&quot;
+    :param text:
+    :return: text
+    &quot;&quot;&quot;
+    # 用结巴对中文字符串进行分词
+    text = &quot; &quot;.join(list(jieba.cut(text)))
+
+    return text
+
+def text_chinese_count_demo2():
+    &quot;&quot;&quot;
+    对中文进行特征抽取
+    :return: None
+    &quot;&quot;&quot;
+    data = [&quot;一种还是一种今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。&quot;,
+            &quot;我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。&quot;,
+            &quot;如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。&quot;]
+    # 将原始数据转换成分好词的形式
+    text_list = []
+    for sent in data:
+        text_list.append(cut_word(sent))
+    print(text_list)
+
+    # 1、实例化一个转换器类
+    # transfer = CountVectorizer(sparse=False)
+    transfer = CountVectorizer()
+    # 2、调用fit_transform
+    data = transfer.fit_transform(text_list)
+    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())
+    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())
+
+    return None
+</code></pre>
+
+<p><strong>但如果把这样的词语特征用于分类，会出现什么问题？</strong></p>
+<p>请看问题：</p>
+<p><img alt="词语占比" src="./images/词语占比.png" /></p>
+<p><strong>该如何处理某个词或短语在多篇文章中出现的次数高这种情况</strong></p>
+<h3>Tf-idf文本特征提取</h3>
+<ul>
+<li>TF-IDF的主要思想是：如果<strong>某个词或短语在一篇文章中出现的概率高，并且在其他文章中很少出现</strong>，则认为此词或者短语具有很好的类别区分能力，适合用来分类。</li>
+<li><strong>TF-IDF作用：用以评估一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。</strong></li>
+</ul>
+<h4>公式</h4>
+<ul>
+<li>词频（term frequency，tf）指的是某一个给定的词语在该文件中出现的频率</li>
+<li>逆向文档频率（inverse document frequency，idf）是一个词语普遍重要性的度量。某一特定词语的idf，可以<strong>由总文件数目除以包含该词语之文件的数目，再将得到的商取以10为底的对数得到</strong></li>
+</ul>
+<p><img alt="tfidf公式" src="./images/tfidf公式.png" /></p>
+<p>最终得出结果可以理解为重要程度。</p>
+<pre><code>注：假如一篇文件的总词语数是100个，而词语"非常"出现了5次，那么"非常"一词在该文件中的词频就是5/100=0.05。而计算文件频率（IDF）的方法是以文件集的文件总数，除以出现"非常"一词的文件数。所以，如果"非常"一词在1,000份文件出现过，而文件总数是10,000,000份的话，其逆向文件频率就是lg（10,000,000 / 1,0000）=3。最后"非常"对于这篇文档的tf-idf的分数为0.05 * 3=0.15
+</code></pre>
+<h4>练习：Tf-idf文本特征提取</h4>
+<pre><code class="python">from sklearn.feature_extraction.text import TfidfVectorizer
+import jieba
+
+def cut_word(text):
+    &quot;&quot;&quot;
+    对中文进行分词
+    &quot;我爱北京天安门&quot;————&gt;&quot;我 爱 北京 天安门&quot;
+    :param text:
+    :return: text
+    &quot;&quot;&quot;
+    # 用结巴对中文字符串进行分词
+    text = &quot; &quot;.join(list(jieba.cut(text)))
+
+    return text
+
+def text_chinese_tfidf_demo():
+    &quot;&quot;&quot;
+    对中文进行特征抽取
+    :return: None
+    &quot;&quot;&quot;
+    data = [&quot;一种还是一种今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。&quot;,
+            &quot;我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。&quot;,
+            &quot;如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。&quot;]
+    # 将原始数据转换成分好词的形式
+    text_list = []
+    for sent in data:
+        text_list.append(cut_word(sent))
+    print(text_list)
+
+    # 1、实例化一个转换器类
+    # transfer = CountVectorizer(sparse=False)
+    transfer = TfidfVectorizer(stop_words=['一种', '不会', '不要'])
+    # 2、调用fit_transform
+    data = transfer.fit_transform(text_list)
+    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())
+    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())
+
+    return None
+</code></pre>
+
+<p>Tf-idf的重要性：<strong>分类机器学习算法进行文章分类中前期数据处理方式</strong></p>
+<h2>作业：</h2>
+<ul>
+<li>应用DictVectorizer实现对类别特征进行数值化、离散化</li>
+<li>应用CountVectorizer实现对文本特征进行数值化</li>
+<li>应用TfidfVectorizer实现对文本特征进行数值化</li>
+<li>说出两种文本特征提取的方式区别</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

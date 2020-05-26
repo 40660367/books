@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scala 字符串(string) - FreeAIHub</title>
+    <meta name="keywords" content="1.创建一个字符串,2. 字符串长度,3. 连接字符串,4. 创建格式化字符串,5. 字符串插值,字符串方法">
+    <meta name="description" content="本章将介绍Scala中的字符串。 在Scala中的字符串和Java中的一样，字符串是一个不可变的对象，也就是一个不能修改的对象。可以修改的对象，如数组，称为可变对象。字符串是非常有用的对象，在本节的最后部分，我们将介绍类的一些重要方法。以下是创建一个字符串的代码 -每当编译器在代码中遇到一个字符串文字时，它会创建一个带有它的值的String对象，在这种情况下是。关键字也可以在如上所示的第二个声明中">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/scala/index.html">如何学习本课程</a></li>
+<li><a href="/scala/intro.html"> Scala 简介 </a></li>
+<li><a href="/scala/setup.html"> Scala 安装与环境配置 </a> </li>
+<li><a href="/scala/helloworld.html"> Scala 运行Scala的第一个程序 </a></li>
+<li><a href="/scala/syntax.html"> Scala 基本语法 </a></li>
+<li><a href="/scala/variable.html"> Scala 变量 </a></li>
+<li><a href="/scala/operator.html"> Scala 运算符 </a></li>
+<li><a href="/scala/datatype.html"> Scala 数据类型 </a></li>
+<li><a href="/scala/array.html"> Scala 数组(array) </a></li>
+<li><a class="current"> Scala 字符串(string) </a></li>
+<li><a href="/scala/collection.html"> Scala collection </a></li>
+<li><a href="/scala/collection-iterator.html"> Scala 迭代器(iterator) </a></li>
+<li><a href="/scala/collection-list.html"> Scala 列表(list) </a></li>
+<li><a href="/scala/collection-map.html"> Scala 映射(map) </a></li>
+<li><a href="/scala/collection-option.html"> Scala options </a></li>
+<li><a href="/scala/collection-set.html"> Scala 集合(set) </a></li>
+<li><a href="/scala/collection-tuple.html"> Scala 元组(tuple) </a></li>
+<li><a href="/scala/access-modifier.html"> Scala 访问修辞符 </a></li>
+
+<li><a href="/scala/function.html"> Scala 函数(function) </a></li>
+<li><a href="/scala/function-anonymous.html"> Scala 匿名函数 </a></li>
+<li><a href="/scala/function-call-by-name.html"> Scala 按名称调用函数 </a></li>
+<li><a href="/scala/function-closure.html"> Scala 函数闭包(closure)  </a></li>
+<li><a href="/scala/function-currying.html"> Scala 柯里化函数 </a></li>
+<li><a href="/scala/function-default-parameter-values.html"> Scala 指定默认参数值的函数 </a></li>
+<li><a href="/scala/function-higher-order.html"> Scala 高阶函数 </a></li>
+<li><a href="/scala/function-named-arguments.html"> Scala 命名参数的函数 </a></li>
+<li><a href="/scala/function-nested.html"> Scala 嵌套函数 </a></li>
+<li><a href="/scala/function-partially.html"> Scala 偏函数 </a></li>
+<li><a href="/scala/function-recursion.html"> Scala 递归函数 </a></li>
+<li><a href="/scala/function-variable-arguments.html"> Scala 可变参数的函数 </a></li>
+
+
+<li><a href="/scala/loop.html"> Scala 循环语句 </a></li>
+<li><a href="/scala/loop-do-while.html"> Scala do...while循环 </a></li>
+<li><a href="/scala/loop-for.html"> Scala for循环 </a></li>
+<li><a href="/scala/loop-while.html"> Scala while循环 </a></li>
+
+<li><a href="/scala/loopcontrol-break.html"> Scala break循环控制 </a></li>
+<li>Scala 异常(Exception) </li>
+<li><a href="/scala/exception-finally.html"> Scala finally块 </a></li>
+<li><a href="/scala/exception-throw.html"> Scala 引发异常throw关键字 </a></li>
+<li><a href="/scala/exception-try-catch.html"> Scala 捕获异常try-catch语句 </a></li>
+
+<li>Scala 面向对象</li>
+<li><a href="/scala/oob-class-object-----.html"> Scala类和对象  </a></li>
+<li><a href="/scala/oob-casel.html"> Scala Case类与对象 </a></li>
+<li><a href="/scala/oob-constructor.html"> Scala 构造函数 </a></li>
+<li><a href="/scala/oob-keyword-final.html"> Scala final关键字 </a></li>
+<li><a href="/scala/oob-inheritance.html"> Scala 继承(inheritance) </a></li>
+<li><a href="/scala/oob-method-overloading.html"> Scala 方法重载(method overloading) </a></li>
+<li><a href="/scala/oob-keyword-this.html"> Scala this关键字  </a></li>
+
+<li>Scala高级</li>
+<li><a href="/scala/trait.html"> Scala 特征 </a></li>
+<li><a href="/scala/io.html"> Scala 文件I/O </a></li>
+<li><a href="/scala/match.html"> Scala 模式匹配 </a></li>
+<li><a href="/scala/multithread.html"> Scala 多线程(multi-thread) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/scala/array.html class='prev_article'> Scala 数组(array) </a>       |       下一篇：<a href=/scala/collection.html class='next_article'> Scala collection </a>  >
+              
+<h1>Scala 字符串(string)</h1>
+<p>本章将介绍Scala中的字符串。 在Scala中的字符串和Java中的一样，字符串是一个不可变的对象，也就是一个不能修改的对象。可以修改的对象，如数组，称为可变对象。字符串是非常有用的对象，在本节的最后部分，我们将介绍<code>java.lang.String</code>类的一些重要方法。</p>
+<h2>1.创建一个字符串</h2>
+<p>以下是创建一个字符串的代码 -</p>
+<pre><code class="scala">var greeting = &quot;Hello world!&quot;;
+
+// 或者
+
+var greeting:String = &quot;Hello world!&quot;;
+</code></pre>
+
+<p>每当编译器在代码中遇到一个字符串文字时，它会创建一个带有它的值的String对象，在这种情况下是<code>“Hello world！”</code>。<code>String</code>关键字也可以在如上所示的第二个声明中给出。</p>
+<p>请尝试以下示例程序。</p>
+<pre><code class="scala">object Demo {
+   val greeting: String = &quot;Hello, world!&quot;
+
+   def main(args: Array[String]) {
+      println( greeting )
+   }
+}
+</code></pre>
+
+<p>将上述程序保存在源文件：<em>Demo.scala</em>中，使用以下命令编译和执行此程序。</p>
+<pre><code class="scala">D:\&gt; scalac Demo.scala
+D:\&gt; scala Demo
+
+Hello, world!
+</code></pre>
+
+<p>如前所述，<code>String</code>类是不可变的。创建后的<code>String</code>对象是无法更改的。如果有必要对字符串进行大量修改，那么可考虑使用Scala中提供的<code>StringBuilder</code>类。</p>
+<h2>2. 字符串长度</h2>
+<p>用于获取有关对象的信息的方法称为访问器方法。一个可以与字符串一起使用的访问器方法是<code>length()</code>方法，它返回字符串对象中包含的字符数。</p>
+<p>使用以下代码段来查找字符串的长度 - </p>
+<p><strong>例子</strong></p>
+<pre><code class="scala">object Demo {
+   def main(args: Array[String]) {
+      var palindrome = &quot;Dot saw I was Tod&quot;;
+      var len = palindrome.length();
+
+      println( &quot;String Length is : &quot; + len );
+   }
+}
+Scala
+</code></pre>
+
+<p>将上述程序保存在源文件：<em>Demo.scala</em>中，使用以下命令编译和执行此程序。</p>
+<pre><code class="scala">$ scalac Demo.scala
+$ scala Demo
+
+String Length is : 17
+Scala
+</code></pre>
+
+<h2>3. 连接字符串</h2>
+<p>String类包括一个连接两个字符串的方法 -</p>
+<pre><code class="scala">string1.concat(string2);
+Scala
+</code></pre>
+
+<p>这将返回一个新的字符串，字符串<code>string1</code>的尾部添加字符串<code>string2</code>。您也可以使用<code>concat()</code>方法在字符串文字上操作，如下 -</p>
+<pre><code class="scala">&quot;My name is &quot;.concat(&quot;Zara&quot;);
+Scala
+</code></pre>
+
+<p>字符串通常还使用<code>+</code>运算符连接，如 -</p>
+<pre><code class="scala">&quot;Hello,&quot; + &quot; world&quot; + &quot;!&quot;
+Scala
+</code></pre>
+
+<p>这将产生以下结果 -</p>
+<pre><code class="scala">&quot;Hello, world!&quot;
+</code></pre>
+
+<p>以下代码行将两个字符串相连接 - </p>
+<pre><code class="scala">object Demo {
+   def main(args: Array[String]) {
+      var str1 = &quot;Dot saw I was &quot;;
+      var str2 =  &quot;Tod&quot;;
+
+      println(&quot;Dot &quot; + str1 + str2);
+   }
+}
+</code></pre>
+
+<p>将上述程序保存在源文件：<em>Demo.scala</em>中，使用以下命令编译和执行此程序。</p>
+<pre><code class="shell">D:\&gt;scalac Demo.scala
+D:\&gt;scala Demo
+
+Dot Dot saw I was Tod
+</code></pre>
+
+<h2>4. 创建格式化字符串</h2>
+<p>您可以使用<code>printf()</code>和<code>format()</code>方法打印具有格式化数字或字符串的输出。 <code>String</code>类具有<code>format()</code>方法，它返回<code>String</code>对象而不是<code>PrintStream</code>对象。</p>
+<p>尝试以下示例程序，它使用<code>printf()</code>方法 - </p>
+<p><strong>示例</strong></p>
+<pre><code class="scala">object Demo {
+   def main(args: Array[String]) {
+      var floatVar = 12.456
+      var intVar = 2000
+      var stringVar = &quot;Hello, Scala!&quot;
+
+      var fs = printf(&quot;The value of the float variable is &quot; + &quot;%f, while the value of the integer &quot; + &quot;variable is %d, and the string&quot; + &quot;is %s&quot;, floatVar, intVar, stringVar);
+
+      println(fs)
+   }
+}
+</code></pre>
+
+<p>将上述程序保存在源文件：<em>Demo.scala</em>中，以下命令用于编译和执行此程序。</p>
+<pre><code class="scala">D:\&gt;scalac Demo.scala
+D:\&gt;scala Demo
+
+The value of the float variable is 12.456000, 
+while the value of the integer variable is 2000, 
+and the string is Hello, Scala!()
+</code></pre>
+
+<h2>5. 字符串插值</h2>
+<p>字符串插值是使用Scala编程语言创建字符串的新方法。此功能支持只在<em>Scala-2.10</em>及更高版本。字符串插值：直接在过程字符串文字中嵌入变量引用的机制。</p>
+<p>字符串插值中有三种类型(插值器)实现。</p>
+<h3>5.1. ‘s’字符串插值器</h3>
+<p>文字<code>'s'</code>允许在处理字符串时直接使用变量。任何在范围中的String变量可以在字符串中使用。以下是<code>'s'</code>字符串插值器的不同用法。</p>
+<p>在<code>println</code>语句中将<code>String</code>变量(<code>$name</code>)附加到普通字符串(<code>Hello</code>)中，以下示例代码片段用于实现<code>'s'</code>插值器。</p>
+<pre><code class="scala">val name = “James”
+println(s “Hello, $name”) //output: Hello, James
+</code></pre>
+
+<p>字符串插入器还可以处理任意表达式。 使用<code>'s'</code>字符串插入器处理具有任意表达式(<code>${1 + 1}</code>)的字符串(<code>1 + 1</code>)的以下代码片段。任何表达式都可以嵌入到<code>${}</code>中。</p>
+<pre><code class="scala">println(s “1 + 1 = ${1 + 1}”) //output: 1 + 1 = 2
+</code></pre>
+
+<p>尝试实现<code>'s'</code>插值器的示例程序如下 - </p>
+<pre><code class="scala">object Demo {
+   def main(args: Array[String]) {
+      val name = &quot;James&quot;
+
+      println(s&quot;Hello, $name&quot;)
+      println(s&quot;1 + 1 = ${1 + 1}&quot;)
+   }
+}
+</code></pre>
+
+<p>将上述程序保存在源文件：<em>Demo.scala</em>中，使用以下命令编译和执行此程序。</p>
+<pre><code class="scala">D:\&gt;scalac Demo.scala
+D:\&gt;scala Demo
+
+Hello, James
+1 + 1 = 2
+</code></pre>
+
+<h3>5.2 ‘f’插值器</h3>
+<p>文字<code>'f'</code>插值器允许创建一个格式化的字符串，类似于C语言中的<code>printf</code>。 在使用<code>'f'</code>插值器时，所有变量引用都应该是<code>printf</code>样式格式说明符，如<code>％d</code>，<code>％i</code>，<code>％f</code>等。</p>
+<p>我们以一般的字符串为例附加浮点值(<code>height = 1.9d</code>)和字符串变量(<code>name =“James”</code>)。下面的代码片段实现<code>'f'</code>插值器。这里<code>$name％s</code>打印String变量<code>James</code>和<code>$height％2.2f</code>打印浮点值<code>1.90</code>。</p>
+<pre><code class="scala">val height = 1.9d
+val name = &quot;James&quot;
+println(f&quot;$name%s is $height%2.2f meters tall&quot;) //James is 1.90 meters tall
+</code></pre>
+
+<p>它是类型安全的变量引用，以下格式说明符要匹配，否则显示错误。<code>'f'</code>插值器使用Java中可用<code>String</code>格式实用程序(格式说明符)。 默认情况下，变量引用后没有<code>％</code>字符。它将假定为<code>％s</code>的字符串。</p>
+<h3>5.3 “原始”插值器</h3>
+<p><code>'raw'</code>内插器类似于<code>'s'</code>插值器，除了它不执行字符串内的文字转义。下表中的代码段将区别<code>'s'</code>和<code>'raw'</code>插值器的用法。 在使用<code>s</code>和<code>\n</code>效果的输出中，新行作为原始值输出，也就是<code>\n</code>将不起作用。它将使用转义字母打印完整的字符串。</p>
+<ul>
+<li><code>'s'</code>的插值器使用，程序代码如下 - </li>
+</ul>
+<p><code>scala
+  object Demo {
+   def main(args: Array[String]) {
+      println(s"Result = \n a \n b")
+   }
+  }</code></p>
+<p>输出结果 -</p>
+<p><code>shell
+  Result =
+  a
+  b</code></p>
+<ul>
+<li><code>'raw'</code>的插值器使用，程序代码如下 - </li>
+</ul>
+<p><code>scala
+  object Demo {
+   def main(args: Array[String]) {
+      println(raw"Result = \n a \n b")
+   }
+  }</code></p>
+<p>输出结果 -</p>
+<p><code>shell
+  Result = \n a \n b</code></p>
+<h2>字符串方法</h2>
+<p>以下是<code>java.lang.String</code>类定义的方法列表，可以直接在<code>Scala</code>程序中使用 -</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>char charAt(int index)</td>
+<td>返回指定索引处的字符。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>int compareTo(Object o)</td>
+<td>将此<code>String</code>与另一个对象进行比较。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>int compareTo(String anotherString)</td>
+<td>按字典顺序比较两个字符串。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>int compareToIgnoreCase(String str)</td>
+<td>按字典顺序比较两个字符串，忽略大小写差异。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>String concat(String str)</td>
+<td>将指定的字符串连接到该字符串的末尾。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>boolean contentEquals(StringBuffer sb)</td>
+<td>当且仅当此<code>String</code>表示与指定的<code>StringBuffer</code>的字符序列相同时，才返回<code>true</code>。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>static String copyValueOf(char[] data)</td>
+<td>返回一个字符串，表示指定的数组中的字符序列。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>static String copyValueOf(char[] data, int offset, int count)</td>
+<td>返回一个字符串，表示指定的数组中的字符序列。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>boolean endsWith(String suffix)</td>
+<td>测试此字符串是否以指定的字符串为后缀/结尾。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>boolean equals(Object anObject)</td>
+<td>将此字符串与指定对象进行比较。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>boolean equalsIgnoreCase(String anotherString)</td>
+<td>将此String与另一个String进行比较，并忽略大小写。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>byte getBytes()</td>
+<td>使用平台的默认字符集将此String编码为一系列字节，将结果存储到新的字节数组中。</td>
+</tr>
+<tr>
+<td>13</td>
+<td>byte[] getBytes(String charsetName)</td>
+<td>使用命名的字符集将此String编码为一系列字节，将结果存储到新的字节数组中。</td>
+</tr>
+<tr>
+<td>14</td>
+<td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)</td>
+<td>将此字符串从<code>srcBegin</code>到<code>srcEnd</code>索引处的字符复制到目标字符数组(<code>dst</code>)中。</td>
+</tr>
+<tr>
+<td>15</td>
+<td>int hashCode()</td>
+<td>返回此字符串的哈希码。</td>
+</tr>
+<tr>
+<td>16</td>
+<td>int indexOf(int ch)</td>
+<td>返回指定字符第一次在字符串中出现的索引。</td>
+</tr>
+<tr>
+<td>17</td>
+<td>int indexOf(int ch, int fromIndex)</td>
+<td>返回指定字符以指定的索引开始搜索第一次在字符串内出现的索引。</td>
+</tr>
+<tr>
+<td>18</td>
+<td>int indexOf(String str)</td>
+<td>返回指定子字符串在字符串内第一次出现的索引。</td>
+</tr>
+<tr>
+<td>19</td>
+<td>int indexOf(String str, int fromIndex)</td>
+<td>返回从指定的索引开始，指定子串的第一次出现在给定字符串中的索引。</td>
+</tr>
+<tr>
+<td>20</td>
+<td>String intern()</td>
+<td>返回字符串对象的规范表示。</td>
+</tr>
+<tr>
+<td>21</td>
+<td>int lastIndexOf(int ch)</td>
+<td>返回指定字符在字符串中最后一次出现的索引。</td>
+</tr>
+<tr>
+<td>22</td>
+<td>int lastIndexOf(int ch, int fromIndex)</td>
+<td>返回指定字符在给定字符串中的最后一次出现的索引，它从指定的索引开始向后搜索。</td>
+</tr>
+<tr>
+<td>23</td>
+<td>int lastIndexOf(String str)</td>
+<td>返回指定子字符串在字符串内的最右边出现的索引。</td>
+</tr>
+<tr>
+<td>24</td>
+<td>int lastIndexOf(String str, int fromIndex)</td>
+<td>返回指定子字符串在给定字符串中最后一次出现的索引，它从指定索引开始向后搜索。</td>
+</tr>
+<tr>
+<td>25</td>
+<td>int length()</td>
+<td>返回此字符串的长度。</td>
+</tr>
+<tr>
+<td>26</td>
+<td>boolean matches(String regex)</td>
+<td>测试这个字符串是否与给定的正则表达式匹配。</td>
+</tr>
+<tr>
+<td>27</td>
+<td>boolean regionMatches(boolean ignoreCase, int toffset, String other, int offset, int len)</td>
+<td>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>28</td>
+<td>boolean regionMatches(int toffset, String other, int offset, int len)</td>
+<td>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>29</td>
+<td>String replace(char oldChar, char newChar)</td>
+<td>返回一个新的字符串，此字符串是使用<code>newChar</code>替换此字符串中所有出现的<code>oldChar</code>的结果。</td>
+</tr>
+<tr>
+<td>30</td>
+<td>String replaceAll(String regex, String replacement</td>
+<td>使用<code>replacement</code>替换与给定正则表达式(<code>regex</code>)匹配的字符串中的每个子字符串。</td>
+</tr>
+<tr>
+<td>31</td>
+<td>String replaceFirst(String regex, String replacement)</td>
+<td>用给定的<code>replacement</code>替换与给定正则表达式(<code>regex</code>)匹配的字符串中的第一个子字符串。</td>
+</tr>
+<tr>
+<td>32</td>
+<td>String[] split(String regex)</td>
+<td>将此字符串拆分为给定正则表达式的匹配项。</td>
+</tr>
+<tr>
+<td>33</td>
+<td>String[] split(String regex, int limit)</td>
+<td>将此字符串拆分为给定正则表达式的匹配项。</td>
+</tr>
+<tr>
+<td>34</td>
+<td>boolean startsWith(String prefix)</td>
+<td>测试此字符串是否以指定的前缀开头。</td>
+</tr>
+<tr>
+<td>35</td>
+<td>boolean startsWith(String prefix, int toffset)</td>
+<td>测试此字符串是否以指定的前缀开头，指定一个指定的索引。</td>
+</tr>
+<tr>
+<td>36</td>
+<td>CharSequence subSequence(int beginIndex, int endIndex)</td>
+<td>返回一个新的字符序列，该序列是该序列的子序列。</td>
+</tr>
+<tr>
+<td>37</td>
+<td>String substring(int beginIndex)</td>
+<td>返回一个新字符串，该字符串是此字符串的子字符串。</td>
+</tr>
+<tr>
+<td>38</td>
+<td>String substring(int beginIndex, int endIndex)</td>
+<td>返回一个新字符串，该字符串是此字符串的子字符串。</td>
+</tr>
+<tr>
+<td>39</td>
+<td>char[] toCharArray()</td>
+<td>将此字符串转换为新的字符数组。</td>
+</tr>
+<tr>
+<td>40</td>
+<td>String toLowerCase()</td>
+<td>使用默认语言环境的规则将此String中的所有字符转换为小写。</td>
+</tr>
+<tr>
+<td>41</td>
+<td>String toLowerCase(Locale locale)</td>
+<td>使用给定的区域设置的规则将此String中的所有字符转换为小写。</td>
+</tr>
+<tr>
+<td>42</td>
+<td>String toString()</td>
+<td>此对象(已经是字符串)本身已被返回。</td>
+</tr>
+<tr>
+<td>43</td>
+<td>String toUpperCase()</td>
+<td>使用默认语言环境的规则将此字符串中的所有字符转换为大写。</td>
+</tr>
+<tr>
+<td>44</td>
+<td>String toUpperCase(Locale locale)</td>
+<td>使用给定的区域设置的规则将此String中的所有字符转换为大写。</td>
+</tr>
+<tr>
+<td>45</td>
+<td>String trim()</td>
+<td>返回字符串的副本，省略前导和尾随空格。</td>
+</tr>
+<tr>
+<td>46</td>
+<td>static String valueOf(primitive data type x)</td>
+<td>返回传递数据类型参数的字符串表示形式。</td>
+</tr>
+</tbody>
+</table>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

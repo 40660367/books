@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python自带数据结构 集合(set) - FreeAIHub</title>
+    <meta name="keywords" content="集合操作">
+    <meta name="description" content="在数学上，集合(Set)是不以任何特定顺序的数据项。 Python集合与此数学定义类似，但有以下附加条件。python中的集合通常用于像联合，相交，异同和补充等数学运算。下面创建一个集合，访问它的元素并执行这些数学运算。参考以下示例代码 - 通过使用函数或将所有元素放置在一对大括号内创建一个集合。我们无法访问集合中的单个值。只能如上所示访问所有元素。 但是也可以通过遍历该集合来获取单个元素的列表。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a class="current"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-list.html class='prev_article'> Python自带数据结构 列表(list) </a>       |       下一篇：<a href=/ds-in-python/data-structure-python-tuple.html class='next_article'> Python自带数据结构 元组(tuple) </a>  >
+              
+            <h1>Python自带数据结构 集合(set)</h1>
+<p>在数学上，集合(Set)是不以任何特定顺序的数据项。 Python集合与此数学定义类似，但有以下附加条件。</p>
+<ul>
+<li>集合中的元素不能重复。</li>
+<li>集合中的元素是不可变的(不能被修改)，但集合作为一个整体是可变的。</li>
+<li>附加到python集合中的任何元素不需要索引。所以集合不支持任何索引或切片操作。</li>
+</ul>
+<h2>集合操作</h2>
+<p>python中的集合通常用于像联合，相交，异同和补充等数学运算。下面创建一个集合，访问它的元素并执行这些数学运算。参考以下示例代码 - </p>
+<p><strong>创建一个集合</strong></p>
+<p>通过使用<code>set()</code>函数或将所有元素放置在一对大括号内创建一个集合。</p>
+<pre><code class="python">Days=set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+Months={&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;}
+Dates={21,22,17}
+print(Days)
+print(Months)
+print(Dates)
+</code></pre>
+
+<p><strong>访问集合中的值</strong></p>
+<p>我们无法访问集合中的单个值。只能如上所示访问所有元素。 但是也可以通过遍历该集合来获取单个元素的列表。</p>
+<pre><code class="python">Days=set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+
+for d in Days:
+    print(d)
+</code></pre>
+
+<p><strong>将项目添加到集合</strong></p>
+<p>可以使用<code>add()</code>方法将元素添加到集合中。附加到新添加的元素不需要指定索引。</p>
+<pre><code class="python">Days=set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;])
+
+Days.add(&quot;Sun&quot;)
+print(Days)
+</code></pre>
+
+<p><strong>从集合中删除项目</strong></p>
+<p>可以使用<code>discard()</code>方法从集合中删除元素。参考以下代码实现 - </p>
+<pre><code class="python">Days=set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;])
+
+Days.discard(&quot;Sun&quot;)
+print(Days)
+</code></pre>
+
+<p><strong>集合的联合操作</strong></p>
+<p>两个集合上的联合操作产生一个包含来自两个集合的所有不同元素的新集合。 在下面的例子中，元素<code>"Wed"</code>出现在两个集合中。</p>
+<pre><code class="python">DaysA = set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;])
+DaysB = set([&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+AllDays = DaysA|DaysB
+print(AllDays)
+</code></pre>
+
+<p><strong>集合的交集</strong></p>
+<p>两个集合上的交集操作产生一个新的集合，其中只包含来自两个集合的共同元素。 在下面的例子中，元素<code>"Wed"</code>出现在两个集合中。</p>
+<pre><code class="python">DaysA = set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;])
+DaysB = set([&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+AllDays = DaysA &amp; DaysB
+print(AllDays)
+</code></pre>
+
+<p><strong>集合的差集</strong></p>
+<p>对两组进行差异化操作会产生一个新的集合，其中只包含来自第一集合的元素，而不包含第二集合中的元素。 在下面的例子中，元素<code>Wed</code>出现在两个集合中，所以它不会在结果集中找到。</p>
+<pre><code class="python">DaysA = set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;])
+DaysB = set([&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+AllDays = DaysA - DaysB
+print(AllDays)
+</code></pre>
+
+<p><strong>比较集合</strong></p>
+<p>可以检查一个给定的集合是否是另一个集合的子集或超集。 结果是<code>True</code>或<code>False</code>，取决于组中存在的元素。</p>
+<pre><code class="python">DaysA = set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;])
+DaysB = set([&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;,&quot;Sun&quot;])
+SubsetRes = DaysA &lt;= DaysB
+SupersetRes = DaysB &gt;= DaysA
+print(SubsetRes)
+print(SupersetRes)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 数据类型-向量(vector) - FreeAIHub</title>
+    <meta name="keywords" content="创建向量,向量操作">
+    <meta name="description" content="向量是最基本的R语言数据对象。向量，有六种类型的原子向量。 它们是逻辑，整数，双精度，复杂，字符和原始。即使在R语言中只写入一个值，它也将成为长度为1的向量，并且属于上述向量类型之一。对数值数据使用冒号运算符如果其中一个元素是字符，则非字符值被强制转换为字符类型。使用索引访问向量的元素。 []括号用于建立索引。 索引从位置1开始。在索引中给出负值会丢弃来自.，或0和1的元素，也可用于索引。可以添加">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a class="current"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/string.html class='prev_article'> R语言数据类型-字符串</a>       |       下一篇：<a href=/r/list.html class='next_article'> R语言数据类型-列表</a>  >
+              
+            <h1>R语言 数据类型-向量(vector)</h1>
+<p>向量是最基本的R语言数据对象。</p>
+<p>向量，有六种类型的原子向量。 它们是逻辑，整数，双精度，复杂，字符和原始。</p>
+<h2>创建向量</h2>
+<h4>练习：单元素向量</h4>
+<p>即使在R语言中只写入一个值，它也将成为长度为1的向量，并且属于上述向量类型之一。</p>
+<pre><code class="R"># Atomic vector of type character.
+print(&quot;abc&quot;);
+
+# Atomic vector of type double.
+print(12.5)
+
+# Atomic vector of type integer.
+print(63L)
+
+# Atomic vector of type logical.
+print(TRUE)
+
+# Atomic vector of type complex.
+print(2+3i)
+
+# Atomic vector of type raw.
+print(charToRaw('hello'))
+</code></pre>
+
+<h4>练习：多元素向量</h4>
+<p>对数值数据使用冒号运算符</p>
+<pre><code class="R"># Creating a sequence from 5 to 13.
+v &lt;- 5:13
+print(v)
+
+# Creating a sequence from 6.6 to 12.6.
+v &lt;- 6.6:12.6
+print(v)
+
+# If the final element specified does not belong to the sequence then it is discarded.
+v &lt;- 3.8:11.4
+print(v)
+</code></pre>
+
+<h4>练习：使用<code>seq()</code>序列运算符</h4>
+<pre><code class="R"># Create vector with elements from 5 to 9 incrementing by 0.4.
+print(seq(5, 9, by = 0.4))
+</code></pre>
+
+<h4>练习：使用<code>C()</code>函数</h4>
+<p>如果其中一个元素是字符，则非字符值被强制转换为字符类型。</p>
+<pre><code class="R"># The logical and numeric values are converted to characters.
+s &lt;- c('apple','red',5,TRUE)
+print(s)
+</code></pre>
+
+<h4>练习：访问向量元素</h4>
+<p>使用索引访问向量的元素。 []括号用于建立索引。 索引从位置1开始。在索引中给出负值会丢弃来自<strong>result</strong>.<strong>TRUE</strong>，<strong>FALSE</strong>或0和1的元素，也可用于索引。</p>
+<pre><code class="R"># Accessing vector elements using position.
+t &lt;- c(&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thurs&quot;,&quot;Fri&quot;,&quot;Sat&quot;)
+u &lt;- t[c(2,3,6)]
+print(u)
+
+# Accessing vector elements using logical indexing.
+v &lt;- t[c(TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE)]
+print(v)
+
+# Accessing vector elements using negative indexing.
+x &lt;- t[c(-2,-5)]
+print(x)
+
+# Accessing vector elements using 0/1 indexing.
+y &lt;- t[c(0,0,0,0,0,0,1)]
+print(y)
+</code></pre>
+
+<h2>向量操作</h2>
+<h3>向量运算</h3>
+<p>可以添加，减去，相乘或相除两个相同长度的向量，将结果作为向量输出。</p>
+<h4>练习：向量运算</h4>
+<pre><code class="R"># Create two vectors.
+v1 &lt;- c(3,8,4,5,0,11)
+v2 &lt;- c(4,11,0,8,1,2)
+
+# Vector addition.
+add.result &lt;- v1+v2
+print(add.result)
+
+# Vector substraction.
+sub.result &lt;- v1-v2
+print(sub.result)
+
+# Vector multiplication.
+multi.result &lt;- v1*v2
+print(multi.result)
+
+# Vector division.
+divi.result &lt;- v1/v2
+print(divi.result)
+</code></pre>
+
+<h3>向量元素回收</h3>
+<p>如果我们对不等长的两个向量应用算术运算，则较短向量的元素被循环以完成操作。</p>
+<h4>练习： 向量元素回收</h4>
+<pre><code class="R">v1 &lt;- c(3,8,4,5,0,11)
+v2 &lt;- c(4,11)
+# V2 becomes c(4,11,4,11,4,11)
+
+add.result &lt;- v1+v2
+print(add.result)
+
+sub.result &lt;- v1-v2
+print(sub.result)
+</code></pre>
+
+<h4>练习： 向量元素排序</h4>
+<p>向量中的元素可以使用<code>sort()</code>函数排序。</p>
+<pre><code class="R">v &lt;- c(3,8,4,5,0,11, -9, 304)
+
+# Sort the elements of the vector.
+sort.result &lt;- sort(v)
+print(sort.result)
+
+# Sort the elements in the reverse order.
+revsort.result &lt;- sort(v, decreasing = TRUE)
+print(revsort.result)
+
+# Sorting character vectors.
+v &lt;- c(&quot;Red&quot;,&quot;Blue&quot;,&quot;yellow&quot;,&quot;violet&quot;)
+sort.result &lt;- sort(v)
+print(sort.result)
+
+# Sorting character vectors in reverse order.
+revsort.result &lt;- sort(v, decreasing = TRUE)
+print(revsort.result)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

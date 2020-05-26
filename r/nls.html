@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 非线性最小二乘(nls) - FreeAIHub</title>
+    <meta name="keywords" content="语法">
+    <meta name="description" content="当模拟真实世界数据用于回归分析时，我们观察到，很少情况下，模型的方程是给出线性图的线性方程。大多数时候，真实世界数据模型的方程涉及更高程度的数学函数，如3的指数或sin函数。在这种情况下，模型的图给出了曲线而不是线。线性和非线性回归的目的是调整模型参数的值，以找到最接近您的数据的线或曲线。在找到这些值时，我们将能够以良好的精确度估计响应变量。在最小二乘回归中，我们建立了一个回归模型，其中来自回归曲">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a class="current"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/rf.html class='prev_article'> R语言随机森林算法</a>       |       下一篇：<a href=/r/ancova.html class='next_article'> R语言协方差分析</a>  >
+              
+            <h1>R语言 非线性最小二乘(nls)</h1>
+<p>当模拟真实世界数据用于回归分析时，我们观察到，很少情况下，模型的方程是给出线性图的线性方程。大多数时候，真实世界数据模型的方程涉及更高程度的数学函数，如3的指数或sin函数。在这种情况下，模型的图给出了曲线而不是线。线性和非线性回归的目的是调整模型参数的值，以找到最接近您的数据的线或曲线。在找到这些值时，我们将能够以良好的精确度估计响应变量。</p>
+<p>在最小二乘回归中，我们建立了一个回归模型，其中来自回归曲线的不同点的垂直距离的平方和被最小化。我们通常从定义的模型开始，并假设系数的一些值。然后我们应用R语言的<code>nls()</code>函数获得更准确的值以及置信区间。</p>
+<h2>语法</h2>
+<p>在R语言中创建非线性最小二乘测试的基本语法是:<code>nls(formula, data, start)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>formula</strong>是包括变量和参数的非线性模型公式。</li>
+<li><strong>data</strong>是用于计算公式中变量的数据框。</li>
+<li><strong>start</strong>是起始估计的命名列表或命名数字向量。</li>
+</ul>
+<h4>练习：非线性最小二乘</h4>
+<p>我们将考虑一个假设其系数的初始值的非线性模型。 接下来，我们将看到这些假设值的置信区间是什么，以便我们可以判断这些值在模型中有多好。</p>
+<p>所以让我们考虑下面的方程为这个目的 -
+$$
+a = b1*x^2+b2
+$$</p>
+<p>让我们假设初始系数为1和3，并将这些值拟合到<code>nls()</code>函数中。</p>
+<pre><code class="R">xvalues &lt;- c(1.6,2.1,2,2.23,3.71,3.25,3.4,3.86,1.19,2.21)
+yvalues &lt;- c(5.19,7.43,6.94,8.11,18.75,14.88,16.06,19.12,3.21,7.58)
+
+
+# Plot these values.
+plot(xvalues,yvalues)
+
+# Take the assumed values and fit into the model.
+model &lt;- nls(yvalues ~ b1*xvalues^2+b2,start = list(b1 = 1,b2 = 3))
+
+# Plot the chart with new data by fitting it to a prediction from 100 data points.
+new.data &lt;- data.frame(xvalues = seq(min(xvalues),max(xvalues),len = 100))
+lines(new.data$xvalues,predict(model,newdata = new.data))
+
+# Get the sum of the squared residuals.
+print(sum(resid(model)^2))
+
+# Get the confidence intervals on the chosen values of the coefficients.
+print(confint(model))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

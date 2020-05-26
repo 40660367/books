@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lua 协同程序(coroutine) - FreeAIHub</title>
+    <meta name="keywords" content="协同程序函数">
+    <meta name="description" content="协同程序本质上是协作的，它允许两种或多种方法以受控方式执行。 使用协同程序，在任何给定时间，只有一个协同程序运行，并且此运行协程仅在显式请求暂停时暂停执行。上述定义可能看起来含糊不清。 假设有两种方法，一种是主程序方法，另一种是协程。 当使用函数调用一个协程时，它会开始执行，当调用函数时，它会暂停执行。 同样的协同程序可以继续执行另一个恢复函数调用，协同程序就会暂停。 该过程可以持续到协程执行结束">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/lua/index.html">如何学习本课程</a></li>
+<li><a href="/lua/setup.html"> Lua 环境安装配置  </a></li>
+<li><a href="/lua/intro.html"> Lua 简介 </a></li>
+<li><a href="/lua/helloworld.html"> Lua 运行Lua的第一个程序 </a></li>
+<li><a href="/lua/syntax.html"> Lua 基本语法 </a></li>
+<li><a href="/lua/operator.html"> Lua 运算符(operator) </a></li>
+<li><a href="/lua/variable.html"> Lua 变量(variable) </a></li>
+<li><a href="/lua/datatype.html"> Lua 数据类型 </a></li>
+<li><a href="/lua/array.html"> Lua 数组(array) </a></li>
+<li><a href="/lua/string.html"> Lua 字符串(string) </a></li>
+<li><a href="/lua/table.html"> Lua 表(table) </a></li>
+<li><a href="/lua/metatable.html"> Lua 元表(metatable) </a></li>
+<li><a href="/lua/function.html"> Lua 函数(function) </a></li>
+<li><a href="/lua/logic.html"> Lua 逻辑判断 </a></li>
+<li><a href="/lua/logic-if.html"> Lua if语句  </a></li>
+<li><a href="/lua/logic-if-else.html"> Lua if...else语句 </a></li>
+<li><a href="/lua/logic-if-nested.html"> Lua 嵌套if语句 </a></li>
+<li><a href="/lua/loop.html"> Lua 循环(loop) </a></li>
+<li><a href="/lua/loop-for.html"> Lua for循环 </a></li>
+<li><a href="/lua/loop-nested.html"> Lua 嵌套循环 </a></li>
+<li><a href="/lua/loop-repeat-until.html"> Lua repeat...until循环 </a></li>
+<li><a href="/lua/loop-while.html"> Lua while循环 </a></li>
+<li><a href="/lua/loopcontrol-break.html"> Lua 循环控制 break </a></li>
+<li><a href="/lua/oob.html"> Lua 面向对象编程 </a></li>
+<li><a class="current"> Lua 协同程序(coroutine) </a></li>
+<li><a href="/lua/io.html"> Lua 文件操作 </a></li>
+<li><a href="/lua/iterator.html"> Lua 迭代器(iterator)  </a></li>
+<li><a href="/lua/module.html"> Lua 模块(module) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/lua/oob.html class='prev_article'> Lua 面向对象编程 </a>       |       下一篇：<a href=/lua/io.html class='next_article'> Lua 文件操作 </a>  >
+              
+<h1>Lua 协同程序(coroutine)</h1>
+<p>协同程序本质上是协作的，它允许两种或多种方法以受控方式执行。 使用协同程序，在任何给定时间，只有一个协同程序运行，并且此运行协程仅在显式请求暂停时暂停执行。</p>
+<p>上述定义可能看起来含糊不清。 假设有两种方法，一种是主程序方法，另一种是协程。 当使用<code>resume</code>函数调用一个协程时，它会开始执行，当调用<code>yield</code>函数时，它会暂停执行。 同样的协同程序可以继续执行另一个恢复函数调用，协同程序就会暂停。 该过程可以持续到协程执行结束。</p>
+<h2>协同程序函数</h2>
+<p>下表列出了Lua中协程的所有可用函数及其相应的用法。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>方法</th>
+<th>作用或目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>coroutine.create (f)</code></td>
+<td>使用函数<code>f</code>创建一个新的协同程序，并返回<code>thread</code>类型的对象。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>coroutine.resume (co [, val1, ...])</code></td>
+<td>恢复协程<code>co</code>并传递参数(如果有的话)。它返回操作状态和可选的其他返回值。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>coroutine.running ()</code></td>
+<td>如果在主线程中调用，则返回正在运行的协同程序或<code>nil</code>。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>coroutine.status (co)</code></td>
+<td>根据协同程序的状态返回<code>running</code>，<code>normal</code>，<code>suspended</code>或<code>dead</code>中的一个值。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>coroutine.wrap (f)</code></td>
+<td>与<code>coroutine.create</code>一样，<code>coroutine.wrap</code>函数也会创建一个协同程序，但它不会返回协同程序本身，而是返回一个函数，当调用它时，它会恢复协同程序。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>coroutine.yield (...)</code></td>
+<td>暂停正在运行的协同程序。 传递给此方法的参数充当<code>resume</code>函数的附加返回值。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>
+下面来看一个例子，通过此示例来理解协同程序的概念。</p>
+<p>文件名:coroutine1.lua</p>
+<pre><code class="lua">co = coroutine.create(function (value1,value2)
+   local tempvar3 = 10
+   print(&quot;coroutine section 1&quot;, value1, value2, tempvar3)
+
+   local tempvar1 = coroutine.yield(value1+1,value2+1)
+   tempvar3 = tempvar3 + value1
+   print(&quot;coroutine section 2&quot;,tempvar1 ,tempvar2, tempvar3)
+
+   local tempvar1, tempvar2= coroutine.yield(value1+value2, value1-value2)
+   tempvar3 = tempvar3 + value1
+   print(&quot;coroutine section 3&quot;,tempvar1,tempvar2, tempvar3)
+   return value2, &quot;end&quot;
+end)
+
+print(&quot;main&quot;, coroutine.resume(co, 3, 2))
+print(&quot;main&quot;, coroutine.resume(co, 12,14))
+print(&quot;main&quot;, coroutine.resume(co, 5, 6))
+print(&quot;main&quot;, coroutine.resume(co, 10, 20))
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/coroutine1.lua
+</code></pre>
+
+<p>康康</p>
+<p><strong>上面的例子是实现什么功能？</strong></p>
+<p>如前所述，使用<code>resume</code>函数来启动操作和<code>yield</code>函数来停止操作。 此外，可以看到<code>coroutine</code>的恢复功能接收到多个返回值。</p>
+<ul>
+<li>首先，创建一个协同程序并分配给变量名称<code>co</code>，协同程序将两个变量作为参数。</li>
+<li>当调用第一个恢复函数时，值<code>3</code>和<code>2</code>保留在临时变量<code>value1</code>和<code>value2</code>中，直到协程结束。</li>
+<li>使用了一个变量<code>tempvar3</code>，它最初值是<code>10</code>，并且通过后续的协程调用更新为<code>13</code>和<code>16</code>，在整个协程的执行过程中<code>value1</code>的值保持为<code>3</code>。</li>
+<li>第一个<code>coroutine.yield</code>将两个值<code>4</code>和<code>3</code>返回到<code>resume</code>函数，通过更新<code>yield</code>语句中的输入参数为<code>3</code>和<code>2</code>。 它还接收协程执行的<code>true/false</code>状态。</li>
+<li>关于协同程序的另一个问题是，在上面的例子中如何处理下一个<code>resume</code>调用的句子; 可以看到变量<code>coroutine.yield</code>接收下一个调用参数，它提供了一种强大的方法，可以通过保留现有的参数值来进行新的操作。</li>
+<li>最后，当协程中的所有语句都执行后，后续调用将返回<code>false</code>并且响应语句为：<em>cannot resume dead coroutine</em>。</li>
+</ul>
+<h4>另一个协同程序示例</h4>
+<p>下面来看一个简单的协同程序示例，它使用<code>yield</code>函数和<code>resume</code>函数返回<code>1</code>到<code>5</code>之间的数字。 如果不可用它会创建协程，或者恢复现有的协程。</p>
+<p>文件名:coroutine2.lua</p>
+<pre><code class="lua">function getNumber()
+   local function getNumberHelper()
+      co = coroutine.create(function ()
+      coroutine.yield(1)
+      coroutine.yield(2)
+      coroutine.yield(3)
+      coroutine.yield(4)
+      coroutine.yield(5)
+      end)
+      return co
+   end
+
+   if(numberHelper) then
+      status, number = coroutine.resume(numberHelper);
+
+      if coroutine.status(numberHelper) == &quot;dead&quot; then
+         numberHelper = getNumberHelper()
+         status, number = coroutine.resume(numberHelper);
+      end
+
+      return number
+   else
+      numberHelper = getNumberHelper()
+      status, number = coroutine.resume(numberHelper);
+      return number
+   end
+
+end
+
+for index = 1, 10 do
+   print(index, getNumber())
+end
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/coroutine2.lua
+</code></pre>
+
+<p>康康</p>
+<p>通常会将协同程序与多路程序设计语言的线程进行比较，但需要了解协同程序具有类似的线程功能，但协同程序一次只执行一个程序，并且永远不会同时执行。</p>
+<p>通过暂时保留某些信息来控制程序执行顺序以满足需求。 使用带有协同程序的全局变量为协同程序提供了更大的灵活性。</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

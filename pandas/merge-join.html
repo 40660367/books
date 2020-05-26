@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 合并/连接 - FreeAIHub</title>
+    <meta name="keywords" content="合并使用“how”的参数">
+    <meta name="description" content="Pandas具有功能全面的高性能内存中连接操作，与SQL等关系数据库非常相似。
+Pandas提供了一个单独的函数，作为DataFrame对象之间所有标准数据库连接操作的入口 -在这里，有以下几个参数可以使用 -现在创建两个不同的DataFrame并对其执行合并操作。如何合并参数指定如何确定哪些键将被包含在结果表中。如果组合键没有出现在左侧或右侧表中，则连接表中的值将为。这里是选项和SQL等效名称的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a class="current"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/groupby.html class='prev_article'> Pandas分组</a>       |       下一篇：<a href=/pandas/visualization.html class='next_article'> Pandas可视化</a>  >
+              
+            <h1>Pandas 合并/连接</h1>
+<p>Pandas具有功能全面的高性能内存中连接操作，与SQL等关系数据库非常相似。
+Pandas提供了一个单独的<code>merge()</code>函数，作为DataFrame对象之间所有标准数据库连接操作的入口 -</p>
+<pre><code>pd.merge(left, right, how='inner', on=None, left_on=None, right_on=None,
+left_index=False, right_index=False, sort=True)
+</code></pre>
+
+<p>在这里，有以下几个参数可以使用 -</p>
+<ul>
+<li><em>left</em> - 一个DataFrame对象。</li>
+<li><em>right</em> - 另一个DataFrame对象。</li>
+<li><em>on</em> - 列(名称)连接，必须在左和右DataFrame对象中存在(找到)。</li>
+<li><em>left_on</em> - 左侧DataFrame中的列用作键，可以是列名或长度等于DataFrame长度的数组。</li>
+<li><em>right_on</em> - 来自右的DataFrame的列作为键，可以是列名或长度等于DataFrame长度的数组。</li>
+<li><em>left_index</em> - 如果为<code>True</code>，则使用左侧DataFrame中的索引(行标签)作为其连接键。 在具有MultiIndex(分层)的DataFrame的情况下，级别的数量必须与来自右DataFrame的连接键的数量相匹配。</li>
+<li><em>right_index</em> - 与右DataFrame的<em>left_index</em>具有相同的用法。</li>
+<li><em>how</em> - 它是<em>left</em>, <em>right</em>, <em>outer</em>以及<em>inner</em>之中的一个，默认为内<em>inner</em>。 下面将介绍每种方法的用法。</li>
+<li><em>sort</em> - 按照字典顺序通过连接键对结果DataFrame进行排序。默认为<code>True</code>，设置为<code>False</code>时，在很多情况下大大提高性能。</li>
+</ul>
+<p>现在创建两个不同的DataFrame并对其执行合并操作。</p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+print(left)
+print(&quot;========================================&quot;)
+print(right)
+</code></pre>
+
+<p><strong>在一个键上合并两个数据帧</strong></p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left,right,on='id')
+print(rs)
+</code></pre>
+
+<p><strong>合并多个键上的两个数据框</strong></p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left,right,on=['id','subject_id'])
+print(rs)
+</code></pre>
+
+<h2>合并使用“how”的参数</h2>
+<p>如何合并参数指定如何确定哪些键将被包含在结果表中。如果组合键没有出现在左侧或右侧表中，则连接表中的值将为<code>NA</code>。</p>
+<p>这里是<code>how</code>选项和SQL等效名称的总结 -</p>
+<table>
+<thead>
+<tr>
+<th>合并方法</th>
+<th>SQL等效</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>left</code></td>
+<td><code>LEFT OUTER JOIN</code></td>
+<td>使用左侧对象的键</td>
+</tr>
+<tr>
+<td><code>right</code></td>
+<td><code>RIGHT OUTER JOIN</code></td>
+<td>使用右侧对象的键</td>
+</tr>
+<tr>
+<td><code>outer</code></td>
+<td><code>FULL OUTER JOIN</code></td>
+<td>使用键的联合</td>
+</tr>
+<tr>
+<td><code>inner</code></td>
+<td><code>INNER JOIN</code></td>
+<td>使用键的交集</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Left Join示例</strong></p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left, right, on='subject_id', how='left')
+print(rs)
+</code></pre>
+
+<p><strong>Right Join示例</strong></p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left, right, on='subject_id', how='right')
+print(rs)
+</code></pre>
+
+<p><strong>Outer Join示例</strong></p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left, right, how='outer', on='subject_id')
+print(rs)
+</code></pre>
+
+<p><strong>Inner Join示例</strong></p>
+<p>连接将在索引上进行。连接(<code>Join</code>)操作将授予它所调用的对象。所以，<code>a.join(b)</code>不等于<code>b.join(a)</code>。</p>
+<pre><code class="python">import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Alex', 'Amy', 'Allen', 'Alice', 'Ayoung'],
+         'subject_id':['sub1','sub2','sub4','sub6','sub5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Billy', 'Brian', 'Bran', 'Bryce', 'Betty'],
+         'subject_id':['sub2','sub4','sub3','sub6','sub5']})
+rs = pd.merge(left, right, on='subject_id', how='inner')
+print(rs)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

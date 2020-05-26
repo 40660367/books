@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 方法 - FreeAIHub</title>
+    <meta name="keywords" content="方法,定义方法,方法歧义,参数化方法,关于可选参数和关键字参数">
+    <meta name="description" content="中说到，函数是从参数多元组映射到返回值的对象，若没有合适返回值则抛出异常。实际中常需要对不同类型的参数做同样的运算，例如对整数做加法、对浮点数做加法、对整数与浮点数做加法，它们都是加法。在 Julia 中，它们都属于同一对象：  函数。对同一概念做一系列实现时，可以逐个定义特定参数类型、个数所对应的特定函数行为。是对函数中某一特定的行为定义。函数中可以定义多个方法。对一个特定的参数多元组调用函数时">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a class="current"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/function.html class='prev_article'> Julia函数 </a>       |       下一篇：<a href=/julia/conditional.html class='next_article'> Julia控制流 </a>  >
+              
+            <h1>Julia 方法</h1>
+<iframe src="//player.bilibili.com/player.html?aid=47775635&bvid=BV1Cb411W7Sr&cid=83682792&page=12" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<h2>方法</h2>
+<p><em>函数</em>中说到，函数是从参数多元组映射到返回值的对象，若没有合适返回值则抛出异常。实际中常需要对不同类型的参数做同样的运算，例如对整数做加法、对浮点数做加法、对整数与浮点数做加法，它们都是加法。在 Julia 中，它们都属于同一对象： <code>+</code> 函数。</p>
+<p>对同一概念做一系列实现时，可以逐个定义特定参数类型、个数所对应的特定函数行为。<em>方法</em>是对函数中某一特定的行为定义。函数中可以定义多个方法。对一个特定的参数多元组调用函数时，最匹配此参数多元组的方法被调用。</p>
+<p>函数调用时，选取调用哪个方法，被称为<a href="http://en.wikipedia.org/wiki/Multiple_dispatch">重载</a>。 Julia 依据参数个数、类型来进行重载。</p>
+<h2>定义方法</h2>
+<p>Julia 的所有标准函数和运算符，如前面提到的 <code>+</code> 函数，都有许多针对各种参数类型组合和不同参数个数而定义的方法。</p>
+<p>定义函数时，可以像[<em>复合类型</em>]中介绍的那样，使用 <code>::</code> 类型断言运算符，选择性地对参数类型进行限制：</p>
+<pre><code class="julia">f(x::Float64, y::Float64) = 2x + y;
+</code></pre>
+
+<p>此函数中参数 <code>x</code> 和 <code>y</code> 只能是 <code>Float64</code> 类型：</p>
+<pre><code class="julia">f(2.0, 3.0)
+</code></pre>
+
+<p>如果参数是其它类型，会引发 “no method” 错误：</p>
+<pre><code class="julia">f(2.0, 3)
+
+f(float32(2.0), 3.0)
+
+f(2.0, &quot;3.0&quot;)
+
+f(&quot;2.0&quot;, &quot;3.0&quot;)
+</code></pre>
+
+<p>有时需要写一些通用方法，这时应声明参数为抽象类型：</p>
+<pre><code class="julia">f(x::Number, y::Number) = 2x - y;
+
+f(2.0, 3)
+</code></pre>
+
+<p>要想给一个函数定义多个方法，只需要多次定义这个函数，每次定义的参数个数和类型需不同。函数调用时，最匹配的方法被重载：</p>
+<pre><code class="julia">f(2.0, 3.0)
+
+f(2, 3.0)
+
+f(2.0, 3)
+
+f(2, 3)
+</code></pre>
+
+<p>对非数值的值，或参数个数少于 2，<code>f</code> 是未定义的，调用它会返回 “no method” 错误：</p>
+<pre><code class="julia">f(&quot;foo&quot;, 3)
+
+f()
+</code></pre>
+
+<p>在交互式会话中输入函数对象本身，可以看到函数所存在的方法：</p>
+<pre><code class="julia">f
+</code></pre>
+
+<p>这个输出告诉我们，<code>f</code> 是一个含有两个方法的函数对象。要找出这些方法的签名，可以通过使用 <code>methods</code> 函数来实现：</p>
+<pre><code class="julia">methods(f)
+</code></pre>
+
+<p>这表明，<code>f</code> 有两个方法，一个以两个 <code>Float64</code> 类型作为参数和另一个则以一个 <code>Number</code> 类型作为参数。它也指示了定义方法的文件和行数：因为这些方法在 REPL 中定义，我们得到明显行数值：<code>none:1</code>。</p>
+<p>定义类型时如果没使用 <code>::</code>，则方法参数的类型默认为 <code>Any</code>。对 <code>f</code> 定义一个总括匹配的方法：</p>
+<pre><code class="julia">f(x,y) = println(&quot;Whoa there, Nelly.&quot;);
+
+f(&quot;foo&quot;, 1)
+</code></pre>
+
+<p>总括匹配的方法，是重载时的最后选择。</p>
+<p>重载是 Julia 最强大最核心的特性。核心运算一般都有好几十种方法：</p>
+<pre><code class="julia">methods(+)
+</code></pre>
+
+<p>重载和灵活的参数化类型系统一起，使得 Julia 可以抽象表达高级算法，不需关注实现的具体细节，生成有效率、运行时专用的代码。</p>
+<h2>方法歧义</h2>
+<p>函数方法的适用范围可能会重叠：</p>
+<pre><code class="julia">g(x::Float64, y) = 2x + y;
+
+g(x, y::Float64) = x + 2y;
+
+g(2.0, 3)
+
+g(2, 3.0)
+
+g(2.0, 3.0)
+</code></pre>
+
+<p>此处 <code>g(2.0, 3.0)</code> 既可以调用 <code>g(Float64, Any)</code>，也可以调用 <code>g(Any, Float64)</code>，两种方法没有优先级。遇到这种情况，Julia 会警告定义含糊，但仍会任选一个方法来继续执行。应避免含糊的方法：</p>
+<pre><code class="julia">g(x::Float64, y::Float64) = 2x + 2y;
+
+g(x::Float64, y) = 2x + y;
+
+g(x, y::Float64) = x + 2y;
+
+g(2.0, 3)
+
+g(2, 3.0)
+
+g(2.0, 3.0)
+</code></pre>
+
+<p>要消除 Julia 的警告，应先定义清晰的方法。</p>
+<h2>参数化方法</h2>
+<p>构造参数化方法，应在方法名与参数多元组之间，添加类型参数：</p>
+<pre><code class="julia">same_type{T}(x::T, y::T) = true;
+
+same_type(x,y) = false;
+</code></pre>
+
+<p>这两个方法定义了一个布尔函数，它检查两个参数是否为同一类型：</p>
+<pre><code class="julia">same_type(1, 2)
+
+same_type(1, 2.0)
+
+same_type(1.0, 2.0)
+
+same_type(&quot;foo&quot;, 2.0)
+
+same_type(&quot;foo&quot;, &quot;bar&quot;)
+
+same_type(int32(1), int64(2))
+</code></pre>
+
+<p>类型参数可用于函数定义或函数体的任何地方：</p>
+<pre><code class="julia">myappend{T}(v::Vector{T}, x::T) = [v..., x]
+
+myappend([1,2,3],4)
+
+myappend([1,2,3],2.5)
+
+myappend([1.0,2.0,3.0],4.0)
+
+myappend([1.0,2.0,3.0],4)
+</code></pre>
+
+<p>下例中，方法类型参数 <code>T</code> 被用作返回值：</p>
+<pre><code class="julia">mytypeof{T}(x::T) = T
+
+mytypeof(1)
+
+mytypeof(1.0)
+</code></pre>
+
+<p>方法的类型参数也可以被限制范围：</p>
+<pre><code class="julia">same_type_numeric{T&lt;:Number}(x::T, y::T) = true
+same_type_numeric(x::Number, y::Number) = false
+
+same_type_numeric(1, 2)
+
+same_type_numeric(1, 2.0)
+
+same_type_numeric(1.0, 2.0)
+
+same_type_numeric(&quot;foo&quot;, 2.0)
+
+same_type_numeric(&quot;foo&quot;, &quot;bar&quot;)
+
+same_type_numeric(int32(1), int64(2))
+</code></pre>
+
+<p><code>same_type_numeric</code> 函数与 <code>same_type</code> 大致相同，但只应用于数对儿。</p>
+<h2>关于可选参数和关键字参数</h2>
+<p><em>函数</em>中曾简略提到，可选参数是可由多方法定义语法的实现。例如：</p>
+<pre><code class="julia">f(a=1,b=2) = a+2b
+</code></pre>
+
+<p>可以翻译为下面三个方法：</p>
+<pre><code class="julia">f(a,b) = a+2b
+f(a) = f(a,2)
+f() = f(1,2)
+</code></pre>
+
+<p>关键字参数则与普通的与位置有关的参数不同。它们不用于方法重载。方法重载仅基于位置参数，选取了匹配的方法后，才处理关键字参数。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

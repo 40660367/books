@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 因子(factor) - FreeAIHub</title>
+    <meta name="keywords" content="生成因子级别">
+    <meta name="description" content="因子是用于对数据进行分类并将其存储为级别的数据对象。 它们可以存储字符串和整数。 它们在具有有限数量的唯一值的列中很有用。 像“男性”，“女性”和True，False等。它们在统计建模的数据分析中很有用。在创建具有文本数据列的任何数据框时，R语言将文本列视为分类数据并在其上创建因子。可以通过使用新的等级次序再次应用因子函数来改变因子中的等级的顺序。我们可以使用函数生成因子级别。 它需要两个整数作为">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a class="current"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/array.html class='prev_article'> R语言数据类型-数组</a>       |       下一篇：<a href=/r/dataframe.html class='next_article'> R语言数据类型-数据帧</a>  >
+              
+            <h1>R语言 因子(factor)</h1>
+<p>因子是用于对数据进行分类并将其存储为级别的数据对象。 它们可以存储字符串和整数。 它们在具有有限数量的唯一值的列中很有用。 像“男性”，“女性”和True，False等。它们在统计建模的数据分析中很有用。</p>
+<h4>练习：使用<code>factor()</code>函数通过将向量作为输入创建因子</h4>
+<pre><code class="R"># Create a vector as input.
+data &lt;- c(&quot;East&quot;,&quot;West&quot;,&quot;East&quot;,&quot;North&quot;,&quot;North&quot;,&quot;East&quot;,&quot;West&quot;,&quot;West&quot;,&quot;West&quot;,&quot;East&quot;,&quot;North&quot;)
+
+print(data)
+print(is.factor(data))
+
+# Apply the factor function.
+factor_data &lt;- factor(data)
+
+print(factor_data)
+print(is.factor(factor_data))
+</code></pre>
+
+<h4>练习： 数据帧上创建因子</h4>
+<p>在创建具有文本数据列的任何数据框时，R语言将文本列视为分类数据并在其上创建因子。</p>
+<pre><code class="R"># Create the vectors for data frame.
+height &lt;- c(132,151,162,139,166,147,122)
+weight &lt;- c(48,49,66,53,67,52,40)
+gender &lt;- c(&quot;male&quot;,&quot;male&quot;,&quot;female&quot;,&quot;female&quot;,&quot;male&quot;,&quot;female&quot;,&quot;male&quot;)
+
+# Create the data frame.
+input_data &lt;- data.frame(height,weight,gender)
+print(input_data)
+
+# Test if the gender column is a factor.
+print(is.factor(input_data$gender))
+
+# Print the gender column so see the levels.
+print(input_data$gender)
+</code></pre>
+
+<h4>练习： 更改级别顺序</h4>
+<p>可以通过使用新的等级次序再次应用因子函数来改变因子中的等级的顺序。</p>
+<pre><code class="R">data &lt;- c(&quot;East&quot;,&quot;West&quot;,&quot;East&quot;,&quot;North&quot;,&quot;North&quot;,&quot;East&quot;,&quot;West&quot;,&quot;West&quot;,&quot;West&quot;,&quot;East&quot;,&quot;North&quot;)
+# Create the factors
+factor_data &lt;- factor(data)
+print(factor_data)
+
+# Apply the factor function with required order of the level.
+new_order_data &lt;- factor(factor_data,levels = c(&quot;East&quot;,&quot;West&quot;,&quot;North&quot;))
+print(new_order_data)
+</code></pre>
+
+<h2>生成因子级别</h2>
+<p>我们可以使用<code>gl()</code>函数生成因子级别。 它需要两个整数作为输入，指示每个级别有多少级别和多少次。</p>
+<h3>语法</h3>
+<p><code>gl(n, k, labels)</code></p>
+<p>以下是所使用的参数的说明 -</p>
+<ul>
+<li><strong>n</strong>是给出级数的整数。</li>
+<li><strong>k</strong>是给出复制数目的整数。</li>
+<li><strong>labels</strong>是所得因子水平的标签向量。</li>
+</ul>
+<h4>练习：生成因子级别</h4>
+<pre><code class="R">v &lt;- gl(3, 4, labels = c(&quot;Tampa&quot;, &quot;Seattle&quot;,&quot;Boston&quot;))
+print(v)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

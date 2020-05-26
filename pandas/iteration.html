@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 迭代 - FreeAIHub</title>
+    <meta name="keywords" content="迭代DataFrame">
+    <meta name="description" content="对象之间的基本迭代的行为取决于类型。当迭代一个系列时，它被视为数组式，基本迭代产生这些值。其他数据结构，如：和，遵循类似惯例迭代对象的键。简而言之，基本迭代(对于在对象中)产生 -迭代提供列名。现在来看看下面的例子来理解这个概念。要遍历数据帧(DataFrame)中的行，可以使用以下函数 -将每个列作为键，将值与值作为键和列值迭代为Series对象。观察一下，单独迭代每个列作为系列中的键值对。返回">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a class="current"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/reindex.html class='prev_article'> Pandas索引重建</a>       |       下一篇：<a href=/pandas/sort.html class='next_article'> Pandas排序</a>  >
+              
+            <h1>Pandas 迭代</h1>
+<p><code>Pandas</code>对象之间的基本迭代的行为取决于类型。当迭代一个系列时，它被视为数组式，基本迭代产生这些值。其他数据结构，如：<code>DataFrame</code>和<code>Panel</code>，遵循类似惯例迭代对象的键。</p>
+<p>简而言之，基本迭代(对于<code>i</code>在对象中)产生 -</p>
+<ul>
+<li><em>Series</em> - 值</li>
+<li><em>DataFrame</em> - 列标签</li>
+<li><em>Pannel</em> - 项目标签</li>
+</ul>
+<h2>迭代DataFrame</h2>
+<p>迭代<code>DataFrame</code>提供列名。现在来看看下面的例子来理解这个概念。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+N=20
+
+df = pd.DataFrame({
+    'A': pd.date_range(start='2016-01-01',periods=N,freq='D'),
+    'x': np.linspace(0,stop=N-1,num=N),
+    'y': np.random.rand(N),
+    'C': np.random.choice(['Low','Medium','High'],N).tolist(),
+    'D': np.random.normal(100, 10, size=(N)).tolist()
+    })
+
+for col in df:
+   print(col)
+</code></pre>
+
+<p>要遍历数据帧(DataFrame)中的行，可以使用以下函数 -</p>
+<ul>
+<li><code>iteritems()</code> - 迭代<code>(key，value)</code>对</li>
+<li><code>iterrows()</code> - 将行迭代为(索引，系列)对</li>
+<li><code>itertuples()</code> - 以<code>namedtuples</code>的形式迭代行</li>
+</ul>
+<p><strong>iteritems()示例</strong></p>
+<p>将每个列作为键，将值与值作为键和列值迭代为Series对象。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(4,3),columns=['col1','col2','col3'])
+for key,value in df.iteritems():
+   print(key,value)
+</code></pre>
+
+<p>观察一下，单独迭代每个列作为系列中的键值对。</p>
+<p><strong>iterrows()示例</strong></p>
+<p><code>iterrows()</code>返回迭代器，产生每个索引值以及包含每行数据的序列。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(4,3),columns = ['col1','col2','col3'])
+for row_index,row in df.iterrows():
+   print(row_index,row)
+</code></pre>
+
+<blockquote>
+<p>注意 - 由于<code>iterrows()</code>遍历行，因此不会跨该行保留数据类型。<code>0</code>,<code>1</code>,<code>2</code>是行索引，<code>col1</code>，<code>col2</code>，<code>col3</code>是列索引。</p>
+</blockquote>
+<p><strong>itertuples()示例</strong></p>
+<p><code>itertuples()</code>方法将为<code>DataFrame</code>中的每一行返回一个产生一个命名元组的迭代器。元组的第一个元素将是行的相应索引值，而剩余的值是行值。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(4,3),columns = ['col1','col2','col3'])
+for row in df.itertuples():
+    print(row)
+</code></pre>
+
+<blockquote>
+<p>注意 - 不要尝试在迭代时修改任何对象。迭代是用于读取，迭代器返回原始对象(视图)的副本，因此更改将不会反映在原始对象上。</p>
+</blockquote>
+<p><strong>示例代码</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(4,3),columns = ['col1','col2','col3'])
+
+for index, row in df.iterrows():
+   row['a'] = 10
+print(df)
+</code></pre>
+
+<p>注意观察结果，修改变化并未反映出来。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

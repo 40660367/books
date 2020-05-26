@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现数据结构 链表(linked list) - FreeAIHub</title>
+    <meta name="keywords" content="创建链表,遍历链表,向链表插入数据,从链表中删除项目">
+    <meta name="description" content="链表是一系列数据元素，通过链接连接在一起。 每个数据元素都以指针的形式包含到另一个数据元素的连接。 Python在其标准库中没有链接列表。 我们使用前一章讨论的节点概念来实现链表的概念。 我们已经知道如何创建节点类以及如何遍历节点的元素。 在本章中，将学习链表的类型:单链表。 在这种类型的数据结构中，任何两个数据元素之间只有一个链接。 创建一个链表并使用一些方法来插入，更新和从列表中移除元素。通过">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a class="current"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-graph.html class='prev_article'> Python实现数据结构 图(graph) </a>       |       下一篇：<a href=/ds-in-python/data-structure-matrix.html class='next_article'> Python实现数据结构 矩阵 </a>  >
+              
+            <h1>Python实现数据结构 链表(linked list)</h1>
+<p>链表是一系列数据元素，通过链接连接在一起。 每个数据元素都以指针的形式包含到另一个数据元素的连接。 Python在其标准库中没有链接列表。 我们使用前一章讨论的节点概念来实现链表的概念。 我们已经知道如何创建节点类以及如何遍历节点的元素。 在本章中，将学习链表的类型:单链表。 在这种类型的数据结构中，任何两个数据元素之间只有一个链接。 创建一个链表并使用一些方法来插入，更新和从列表中移除元素。</p>
+<h2>创建链表</h2>
+<p>通过使用在上一章中学习的节点类来创建链表。创建一个<code>Node</code>对象并创建另一个类来使用这个节点对象。 通过节点对象传递适当的值来指向下一个数据元素。 下面的程序使用三个数据元素创建链接列表。 在下一节中，将学习如何遍历链表。</p>
+<pre><code class="python">class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nextval = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+list1 = SLinkedList()
+list1.headval = Node(&quot;Mon&quot;)
+e2 = Node(&quot;Tue&quot;)
+e3 = Node(&quot;Wed&quot;)
+# Link first Node to second node
+list1.headval.nextval = e2
+
+# Link second Node to third node
+e2.nextval = e3
+</code></pre>
+
+<h2>遍历链表</h2>
+<p>从第一个数据元素开始，单向链表只能在向前遍历。 只需通过将下一个节点的指针指向当前数据元素来打印下一个数据元素的值。</p>
+<pre><code class="python">class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nextval = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print (printval.dataval)
+            printval = printval.nextval
+
+list = SLinkedList()
+list.headval = Node(&quot;Mon&quot;)
+e2 = Node(&quot;Tue&quot;)
+e3 = Node(&quot;Wed&quot;)
+
+# Link first Node to second node
+list.headval.nextval = e2
+
+# Link second Node to third node
+e2.nextval = e3
+
+list.listprint()
+</code></pre>
+
+<h2>向链表插入数据</h2>
+<p>在链表中插入元素涉及将指针从现有节点重新分配给新插入的节点。 取决于新数据元素是在链表的开始位置还是在中间位置或末尾插入，有以下解决方案。</p>
+<p><strong>在链接列表的开头插入</strong></p>
+<p>这涉及到将新数据节点的下一个指针指向链表的当前头部。 因此，链表的当前头成为第二个数据元素，新节点成为链表的头部。</p>
+<pre><code class="python">class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nextval = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+# Print the linked list
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print (printval.dataval)
+            printval = printval.nextval
+    def AtBegining(self,newdata):
+        NewNode = Node(newdata)
+
+# Update the new nodes next val to existing node
+        NewNode.nextval = self.headval
+        self.headval = NewNode
+
+list = SLinkedList()
+list.headval = Node(&quot;Mon&quot;)
+e2 = Node(&quot;Tue&quot;)
+e3 = Node(&quot;Wed&quot;)
+
+list.headval.nextval = e2
+e2.nextval = e3
+
+list.AtBegining(&quot;Sun&quot;)
+
+list.listprint()
+</code></pre>
+
+<p><strong>在链表的末尾插入</strong></p>
+<p>这包括将链表的当前最后一个节点的下一个指针指向新的数据节点。 因此链表的当前最后一个节点成为倒数第二个数据节点，新节点成为链表的最后一个节点。参考以下代码实现 - </p>
+<pre><code class="python">class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nextval = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+# Function to add newnode
+    def AtEnd(self, newdata):
+        NewNode = Node(newdata)
+        if self.headval is None:
+            self.headval = NewNode
+            return
+        laste = self.headval
+        while(laste.nextval):
+            laste = laste.nextval
+        laste.nextval=NewNode
+
+# Print the linked list
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print (printval.dataval)
+            printval = printval.nextval
+
+
+list = SLinkedList()
+list.headval = Node(&quot;Mon&quot;)
+e2 = Node(&quot;Tue&quot;)
+e3 = Node(&quot;Wed&quot;)
+
+list.headval.nextval = e2
+e2.nextval = e3
+
+list.AtEnd(&quot;Thu&quot;)
+
+list.listprint()
+</code></pre>
+
+<p><strong>在两个数据节点之间插入</strong></p>
+<p>这涉及到将指定节点的指针指向新节点。 这可以通过传入新节点和现有节点，然后插入新节点。 所以定义一个额外的类，将新节点的下一个指针改变为中间节点的下一个指针。 然后将新节点分配给中间节点的下一个指针。参考以下代码实现 - </p>
+<pre><code class="python">class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nextval = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+# Function to add node
+    def Inbetween(self,middle_node,newdata):
+        if middle_node is None:
+            print(&quot;The mentioned node is absent&quot;)
+            return
+
+        NewNode = Node(newdata)
+        NewNode.nextval = middle_node.nextval
+        middle_node.nextval = NewNode
+
+# Print the linked list
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print (printval.dataval)
+            printval = printval.nextval
+
+
+list = SLinkedList()
+list.headval = Node(&quot;Mon&quot;)
+e2 = Node(&quot;Tue&quot;)
+e3 = Node(&quot;Thu&quot;)
+
+list.headval.nextval = e2
+e2.nextval = e3
+
+list.Inbetween(list.headval.nextval,&quot;Fri&quot;)
+
+list.listprint()
+</code></pre>
+
+<h2>从链表中删除项目</h2>
+<p>可以使用该节点的键来删除一个节点。 在下面的程序中，找到要删除的节点的前一个节点。 然后将该节点的下一个指针指向要删除的节点的下一个节点。</p>
+<pre><code class="python">class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class SLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def Atbegining(self, data_in):
+        NewNode = Node(data_in)
+        NewNode.next = self.head
+        self.head = NewNode
+
+# Function to remove node
+    def RemoveNode(self, Removekey):
+
+        HeadVal = self.head
+
+        if (HeadVal is not None):
+            if (HeadVal.data == Removekey):
+                self.head = HeadVal.next
+                HeadVal = None
+                return
+
+        while (HeadVal is not None):
+            if HeadVal.data == Removekey:
+                break
+            prev = HeadVal
+            HeadVal = HeadVal.next
+
+        if (HeadVal == None):
+            return
+
+        prev.next = HeadVal.next
+
+        HeadVal = None
+
+    def LListprint(self):
+        printval = self.head
+        while (printval):
+            print(printval.data),
+            printval = printval.next
+
+
+llist = SLinkedList()
+llist.Atbegining(&quot;Mon&quot;)
+llist.Atbegining(&quot;Tue&quot;)
+llist.Atbegining(&quot;Wed&quot;)
+llist.Atbegining(&quot;Thu&quot;)
+llist.RemoveNode(&quot;Tue&quot;)
+llist.LListprint()
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

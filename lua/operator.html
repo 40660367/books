@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lua 运算符(operator) - FreeAIHub</title>
+    <meta name="keywords" content="1. 算术运算符,2. 关系运算符,3. 逻辑运算符,4. 杂项运算符,5. Lua运算符优先级">
+    <meta name="description" content="运算符是告诉解释器执行特定数学或逻辑操作的符号。 Lua语言内置运算符丰富，并提供以下类型的运算符 -本教程将逐一解释算术，关系，逻辑和其他杂项运算符。下表显示了Lua语言支持的所有算术运算符。 假设变量，变量，然后 - 文件名:operator-arithmetic.lua康康下表显示了Lua语言支持的所有关系运算符。 假设变量，变量，然后 - 文件名:operator-relation.lua">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/lua/index.html">如何学习本课程</a></li>
+<li><a href="/lua/setup.html"> Lua 环境安装配置  </a></li>
+<li><a href="/lua/intro.html"> Lua 简介 </a></li>
+<li><a href="/lua/helloworld.html"> Lua 运行Lua的第一个程序 </a></li>
+<li><a href="/lua/syntax.html"> Lua 基本语法 </a></li>
+<li><a class="current"> Lua 运算符(operator) </a></li>
+<li><a href="/lua/variable.html"> Lua 变量(variable) </a></li>
+<li><a href="/lua/datatype.html"> Lua 数据类型 </a></li>
+<li><a href="/lua/array.html"> Lua 数组(array) </a></li>
+<li><a href="/lua/string.html"> Lua 字符串(string) </a></li>
+<li><a href="/lua/table.html"> Lua 表(table) </a></li>
+<li><a href="/lua/metatable.html"> Lua 元表(metatable) </a></li>
+<li><a href="/lua/function.html"> Lua 函数(function) </a></li>
+<li><a href="/lua/logic.html"> Lua 逻辑判断 </a></li>
+<li><a href="/lua/logic-if.html"> Lua if语句  </a></li>
+<li><a href="/lua/logic-if-else.html"> Lua if...else语句 </a></li>
+<li><a href="/lua/logic-if-nested.html"> Lua 嵌套if语句 </a></li>
+<li><a href="/lua/loop.html"> Lua 循环(loop) </a></li>
+<li><a href="/lua/loop-for.html"> Lua for循环 </a></li>
+<li><a href="/lua/loop-nested.html"> Lua 嵌套循环 </a></li>
+<li><a href="/lua/loop-repeat-until.html"> Lua repeat...until循环 </a></li>
+<li><a href="/lua/loop-while.html"> Lua while循环 </a></li>
+<li><a href="/lua/loopcontrol-break.html"> Lua 循环控制 break </a></li>
+<li><a href="/lua/oob.html"> Lua 面向对象编程 </a></li>
+<li><a href="/lua/coroutine.html"> Lua 协同程序(coroutine) </a></li>
+<li><a href="/lua/io.html"> Lua 文件操作 </a></li>
+<li><a href="/lua/iterator.html"> Lua 迭代器(iterator)  </a></li>
+<li><a href="/lua/module.html"> Lua 模块(module) </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/lua/syntax.html class='prev_article'> Lua 基本语法 </a>       |       下一篇：<a href=/lua/variable.html class='next_article'> Lua 变量(variable) </a>  >
+              
+<h1>Lua 运算符(operator)</h1>
+<p>运算符是告诉解释器执行特定数学或逻辑操作的符号。 Lua语言内置运算符丰富，并提供以下类型的运算符 -</p>
+<ul>
+<li>算术运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+<li>其它运算符</li>
+</ul>
+<p>本教程将逐一解释算术，关系，逻辑和其他杂项运算符。</p>
+<h2>1. 算术运算符</h2>
+<p>下表显示了Lua语言支持的所有算术运算符。 假设变量<code>A=10</code>，变量<code>B=20</code>，然后 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>相加两个操作数</td>
+<td><code>A + B = 30</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>从第一个减去第二个操作数</td>
+<td><code>A - B = -10</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>将两个操作数相乘</td>
+<td><code>A * B = 200</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>用除分子除以分子</td>
+<td><code>B / A = 2</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>模数运算符，整数除法后的余数</td>
+<td><code>B % A = 0</code></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>指数运算符取指数幂值</td>
+<td><code>A^2 = 100</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>一元，充当否定</td>
+<td><code>-A = -10</code></td>
+</tr>
+<tr>
+<td><strong>示例：</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>文件名:operator-arithmetic.lua</p>
+<pre><code class="lua">a = 21
+b = 10
+c = a + b
+
+print(&quot;Line 1 - Value of c is &quot;, c )
+c = a - b
+
+print(&quot;Line 2 - Value of c is &quot;, c )
+c = a * b
+
+print(&quot;Line 3 - Value of c is &quot;, c )
+c = a / b
+
+print(&quot;Line 4 - Value of c is &quot;, c )
+c = a % b
+
+print(&quot;Line 5 - Value of c is &quot;, c )
+c = a^2
+
+print(&quot;Line 6 - Value of c is &quot;, c )
+c = -a
+
+print(&quot;Line 7 - Value of c is &quot;, c )
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/operator-arithmetic.lua
+</code></pre>
+
+<p>康康</p>
+<h2>2. 关系运算符</h2>
+<p>下表显示了Lua语言支持的所有关系运算符。 假设变量<code>A=10</code>，变量<code>B=20</code>，然后 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>检查两个操作数的值是否相等，如果相等，则条件变为真。</td>
+<td><code>(A == B)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>~=</code></td>
+<td>检查两个操作数的值是否相等，如果值不相等则条件变为<code>true</code>。</td>
+<td><code>(A ~= B)</code>结果为<code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>检查左操作数的值是否大于右操作数的值，如果是，则条件变为<code>true</code>。</td>
+<td><code>(A &gt; B)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>检查左操作数的值是否小于右操作数的值，如果是，则条件变为<code>true</code>。</td>
+<td><code>(A &lt; B)</code>结果为<code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>检查左操作数的值是否大于或等于右操作数的值，如果是，则条件变为<code>true</code>。</td>
+<td><code>(A &gt;= B)</code>结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>检查左操作数的值是否小于或等于右操作数的值，如果是，则条件变为<code>true</code>。</td>
+<td><code>(A &lt;= B)</code>结果为<code>true</code></td>
+</tr>
+<tr>
+<td><strong>示例：</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>文件名:operator-relation.lua</p>
+<pre><code class="lua">a = 21
+b = 10
+
+if( a == b )
+then
+   print(&quot;Line 1 - a is equal to b&quot; )
+else
+   print(&quot;Line 1 - a is not equal to b&quot; )
+end
+
+if( a ~= b )
+then
+   print(&quot;Line 2 - a is not equal to b&quot; )
+else
+   print(&quot;Line 2 - a is equal to b&quot; )
+end
+
+if ( a &lt; b )
+then
+   print(&quot;Line 3 - a is less than b&quot; )
+else
+   print(&quot;Line 3 - a is not less than b&quot; )
+end
+
+if ( a &gt; b ) 
+then
+   print(&quot;Line 4 - a is greater than b&quot; )
+else
+   print(&quot;Line 5 - a is not greater than b&quot; )
+end
+
+-- Lets change value of a and b
+a = 5
+b = 20
+
+if ( a &lt;= b ) 
+then
+   print(&quot;Line 5 - a is either less than or equal to  b&quot; )
+end
+
+if ( b &gt;= a ) 
+then
+   print(&quot;Line 6 - b is either greater than  or equal to b&quot; )
+end
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/operator-relation.lua
+</code></pre>
+
+<p>康康</p>
+<h2>3. 逻辑运算符</h2>
+<p>下表显示了Lua语言支持的所有逻辑运算符。 假设变量<code>A=true</code>，变量<code>B=false</code>，则 - </p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>and</code></td>
+<td>逻辑与运算符。如果两个操作数都不为零，则条件成立。</td>
+<td><code>(A and B)</code> 结果为<code>false</code></td>
+</tr>
+<tr>
+<td><code>or</code></td>
+<td>逻辑或运算符。 如果两个操作数中的任何一个不为零，则条件变为真。</td>
+<td><code>(A or B)</code> 结果为<code>true</code></td>
+</tr>
+<tr>
+<td><code>not</code></td>
+<td>逻辑非运算符。用于反转其操作数的逻辑状态。 如果条件为真，则逻辑非运算符将为<code>false</code>。</td>
+<td><code>!(A and B)</code>结果为<code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<p>文件名:operator-logic.lua</p>
+<pre><code class="lua">a = 21
+b = 10
+
+if( a == b )
+then
+   print(&quot;Line 1 - a is equal to b&quot; )
+else
+   print(&quot;Line 1 - a is not equal to b&quot; )
+end
+
+if( a ~= b )
+then
+   print(&quot;Line 2 - a is not equal to b&quot; )
+else
+   print(&quot;Line 2 - a is equal to b&quot; )
+end
+
+if ( a &lt; b )
+then
+   print(&quot;Line 3 - a is less than b&quot; )
+else
+   print(&quot;Line 3 - a is not less than b&quot; )
+end
+
+if ( a &gt; b ) 
+then
+   print(&quot;Line 4 - a is greater than b&quot; )
+else
+   print(&quot;Line 5 - a is not greater than b&quot; )
+end
+
+-- Lets change value of a and b
+a = 5
+b = 20
+
+if ( a &lt;= b ) 
+then
+   print(&quot;Line 5 - a is either less than or equal to  b&quot; )
+end
+
+if ( b &gt;= a ) 
+then
+   print(&quot;Line 6 - b is either greater than  or equal to b&quot; )
+end
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/operator-logic.lua
+</code></pre>
+
+<p>康康</p>
+<h2>4. 杂项运算符</h2>
+<p>Lua语言支持的其他运算符包括连接和长度。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>...</code></td>
+<td>连接两个字符串</td>
+<td>如果<code>a</code>为<code>Hello</code>，<code>b</code>为<code>World</code>，<code>a..b</code>将返回<code>Hello World</code>。</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>返回字符串或表长度的一元运算符。</td>
+<td><code>#"Hello"</code> 将返回 <code>5</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：</strong></p>
+<p>文件名:operator-other.lua</p>
+<pre><code class="lua">a = &quot;Hello &quot;
+b = &quot;World&quot;
+
+print(&quot;Concatenation of string a with b is &quot;, a..b )
+
+print(&quot;Length of b is &quot;,#b )
+
+print(&quot;Length of b is &quot;,#&quot;Test&quot; )
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/operator-logic.lua
+</code></pre>
+
+<p>康康</p>
+<h2>5. Lua运算符优先级</h2>
+<p>运算符优先级确定表达式中的术语分组。 这会影响表达式的计算方式。 某些运算符的优先级高于其他运算符; 例如，乘法运算符的优先级高于加法运算符 - </p>
+<p>例如，<code>x = 7 + 3 * 2</code>; 这里<code>x</code>赋值为<code>13</code>，而不是<code>20</code>，因为运算符 <code>*</code> 的优先级高于<code>+</code>，所以它首先乘以<code>3 * 2</code>然后再加上<code>7</code>。</p>
+<p>此处，具有最高优先级的运算符显示在表的顶部，具有最低优先级的运算符显示在底部。 在表达式中，将首先评估更高优先级的运算符。</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>操作符</th>
+<th>关联性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一元</td>
+<td><code>not</code> <code>#</code> <code>-</code></td>
+<td>右到左</td>
+</tr>
+<tr>
+<td>连接</td>
+<td><code>..</code></td>
+<td>右到左</td>
+</tr>
+<tr>
+<td>乘法</td>
+<td><code>*</code> <code>/</code> <code>%</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>加法</td>
+<td><code>+</code> <code>-</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>关系</td>
+<td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>==</code> <code>~=</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>相等</td>
+<td><code>==</code> <code>~=</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>逻辑与</td>
+<td><code>and</code></td>
+<td>左到右</td>
+</tr>
+<tr>
+<td>逻辑或</td>
+<td><code>or</code></td>
+<td>左到右</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：</strong></p>
+<p>文件名:operator-prior.lua</p>
+<pre><code class="lua">a = 20
+b = 10
+c = 15
+d = 5
+
+e = (a + b) * c / d;-- ( 30 * 15 ) / 5
+print(&quot;(a + b) * c / d 运算值为  :&quot;,e )
+
+e = ((a + b) * c) / d; -- (30 * 15 ) / 5
+print(&quot;((a + b) * c) / d 运算值为 :&quot;,e )
+
+e = (a + b) * (c / d);-- (30) * (15/5)
+print(&quot;(a + b) * (c / d) 运算值为 :&quot;,e )
+
+e = a + (b * c) / d;  -- 20 + (150/5)
+print(&quot;a + (b * c) / d 运算值为   :&quot;,e )
+</code></pre>
+
+<pre><code class="bash">lua /share/lesson/lua/operator-prior.lua
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

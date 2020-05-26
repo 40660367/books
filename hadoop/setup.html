@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hadoop 环境安装及配置 - FreeAIHub</title>
+    <meta name="keywords" content="本课程在线环境的安装-模拟分布式安装">
+    <meta name="description" content="首先执行以下命令，生成公钥和私钥对此时会有多处提醒输入在冒号后输入文本，这里主要是要求输入ssh密码以及密码的放置位置。在这里，只需要使用默认值，按四次回车即可。公钥和私钥已经生成后放置在~/.ssh目录下。将存储公钥文件的id_rsa.pub里的内容，追加到authorized_keys中。执行ssh 0.0.0.0测试ssh配置连接本机的配置第一次使用ssh访问，会提醒是否继续连接，输入“ye">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/hadoop/index.html">如何学习本课程</a></li>
+<li><a href="/hadoop/intro.html"> Hadoop 简介 </a></li>
+<li><a class="current"> Hadoop 环境安装及配置 </a></li>
+<li><a href="/hadoop/mapreduce.html"> Hadoop MapReduce </a></li>
+<li><a href="/hadoop/mr-bak1.html"> Hadoop Mapreduce示例 </a></li>
+<li><a href="/hadoop/mr-bak2.html"> Hadoop MapReduce任务示例2 </a></li>
+<li><a href="/hadoop/mr1.html"> Hadoop MapReduce示例1:求各个部门的总工资 </a></li>
+<li><a href="/hadoop/mr2.html"> Hadoop MapReduce示例2:求各个部门的人数和平均工资 </a></li>
+<li><a href="/hadoop/mr3.html"> Hadoop MapReduce示例3:求每个部门最早入职员工的姓名 </a></li>
+<li><a href="/hadoop/mr4.html"> Hadoop MapReduce示例4:求各个城市的员工的总工资 </a></li>
+<li><a href="/hadoop/mr5.html"> Hadoop MapReduce示例5:求各个城市的员工的总工资 </a></li>
+<li><a href="/hadoop/mr6.html"> Hadoop MapReduce示例6:列出工资比公司平均工资要高的员工姓名及其工资 </a></li>
+<li><a href="/hadoop/mr7.html"> Hadoop MapReduce示例7:列出名字以 J 开头的员工姓名及其所属部门名称 </a></li>
+<li><a href="/hadoop/mr8.html"> Hadoop MapReduce示例8:列出名字以 J 开头的员工姓名及其所属部门名称 </a></li>
+<li><a href="/hadoop/mr9.html"> Hadoop MapReduce示例9:将全体员工按照总收入（工资 + 提成）从高到低排列 </a></li>
+<li><a href="/hadoop/mr10.html"> Hadoop MapReduce示例10:求任何两名员工信息传递所需要经过的中间节点数 </a></li>
+<li><a href="/hadoop/streaming.html"> Hadoop Streaming </a></li>
+<li><a href="/hadoop/yarn-ops.html"> Hadoop YARN配置及提交任务示例 </a></li>
+<li><a href="/hadoop/yarn.html"> Hadoop Yarn </a></p></li>
+<li><a href="/hadoop/hdfs-ops.html"> Hadoop HDFS Shell操作 </a></p></li>
+<li><a href="/hadoop/hdfs.html"> Hadoop HDFS </a></li>
+<li><a href="/hadoop/hdfs1.html"> Hadoop HDFS示例1:读取 HDFS文件内容 </a></li>
+<li><a href="/hadoop/hdfs2.html"> Hadoop HDFS示例2:写入内容至HDFS文件 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/hadoop/intro.html class='prev_article'> Hadoop 简介 </a>       |       下一篇：<a href=/hadoop/mapreduce.html class='next_article'> Hadoop MapReduce </a>  >
+              
+<h1>Hadoop 环境安装及配置</h1>
+<h2>本课程在线环境的安装-模拟分布式安装</h2>
+<h3>配置SSH免密登陆</h3>
+<p>首先执行以下命令，生成公钥和私钥对</p>
+<pre><code class="bash">ssh-keygen -t rsa 
+</code></pre>
+
+<p>此时会有多处提醒输入在冒号后输入文本，这里主要是要求输入ssh密码以及密码的放置位置。在这里，只需要使用默认值，按四次回车即可。公钥和私钥已经生成后放置在~/.ssh目录下。</p>
+<p>将存储公钥文件的id_rsa.pub里的内容，追加到authorized_keys中。</p>
+<pre><code class="bash">cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre>
+
+<p>执行ssh 0.0.0.0测试ssh配置连接本机的配置</p>
+<pre><code class="bash">ssh 0.0.0.0
+</code></pre>
+
+<p>第一次使用ssh访问，会提醒是否继续连接，输入“yes"继续进行，执行完以后<strong>一定要使用</strong><code>exit</code>命令退出。后续再执行<code>ssh 0.0.0.0</code>时，就不用输入密码了。</p>
+<h3>安装JDK和Hadoop</h3>
+<p><strong>安装JDK</strong></p>
+<pre><code class="bash">cp /share/tar/jdk-8u241-linux-x64.tar.gz  /usr/local/
+#tar -xzvf 对文件进行解压缩，-C 指定解压后，将文件放到/usr/local目录下。
+tar -xzvf /usr/local/jdk-8u241-linux-x64.tar.gz -C /usr/local/
+mv /usr/local/jdk1.8.0_241 /usr/local/java
+</code></pre>
+
+<p>下面来修改环境变量：系统环境变量或用户环境变量。</p>
+<pre><code class="bash">echo 'export JAVA_HOME=/usr/local/java' &gt;&gt; ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' &gt;&gt; ~/.bashrc
+source ~/.bashrc  #生效环境变量
+#验证java安装，测试环境变量是否配置正确。如果出现正确的版本信息提示，则安装成功
+java -version
+</code></pre>
+
+<p><strong>安装Hadoop</strong></p>
+<pre><code class="bash">cp /share/tar/hadoop-2.9.2.tar.gz  /usr/local/
+tar -xzvf /usr/local/hadoop-2.9.2.tar.gz -C /usr/local/
+mv /usr/local/hadoop-2.9.2 /usr/local/hadoop
+</code></pre>
+
+<p>修改用户环境变量，将hadoop的路径添加到path中。</p>
+<pre><code class="bash">echo 'export HADOOP_HOME=/usr/local/hadoop' &gt;&gt; ~/.bashrc
+echo 'export PATH=$HADOOP_HOME/bin:$PATH' &gt;&gt; ~/.bashrc
+echo 'export PATH=$HADOOP_HOME/sbin:$PATH' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_MAPRED_HOME=$HADOOP_HOME' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_COMMON_HOME=$HADOOP_HOME' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_HDFS_HOME=$HADOOP_HOME' &gt;&gt; ~/.bashrc
+echo 'export YARN_HOME=$HADOOP_HOME' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native' &gt;&gt; ~/.bashrc
+echo 'export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_INSTALL=$HADOOP_HOME' &gt;&gt; ~/.bashrc
+source ~/.bashrc  #生效环境变量
+
+cd $HADOOP_HOME/etc/hadoop 
+echo 'export JAVA_HOME=/usr/local/java' &gt;&gt; hadoop-env.sh
+
+#验证hadoop环境变量配置是否正常，如果出现正确的版本信息提示，则安装成功。
+hadoop version 
+</code></pre>
+
+<h3>配置Hadoop</h3>
+<p>修改hadoop相关的配置。首先切换到hadoop配置目录<code>$HADOOP_HOME</code>。</p>
+<h4><strong>修改core-site.xml</strong></h4>
+<p>core-site.xml文件中包含如读/写缓冲器用于Hadoop的实例的端口号的信息，分配给文件系统存储，用于存储所述数据存储器的限制和大小。</p>
+<pre><code class="bash">#打开core-site.xml配置文件
+vim $HADOOP_HOME/etc/hadoop/core-site.xml
+</code></pre>
+
+<p>打开core-site.xml文件，在<configuration></configuration>标签之间添加以下属性。</p>
+<pre><code class="xml">&lt;property&gt; 
+&lt;name&gt;hadoop.tmp.dir&lt;/name&gt; 
+&lt;value&gt;/data/tmp/hadoop/tmp&lt;/value&gt; 
+&lt;/property&gt; 
+
+&lt;property&gt; 
+&lt;name&gt;fs.defaultFS&lt;/name&gt; 
+&lt;value&gt;hdfs://localhost:9000&lt;/value&gt; 
+&lt;/property&gt; 
+</code></pre>
+
+<h4><strong>修改hdfs-site.xml</strong></h4>
+<p>hdfs-site.xml 文件中包含如复制数据的值，NameNode路径的信息，，本地文件系统的数据节点的路径。这意味着是存储Hadoop基础工具的地方。</p>
+<pre><code class="bash">vim $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+</code></pre>
+
+<p>打开hdfs-site.xml文件，在<configuration></configuration>标签之间添加以下属性。</p>
+<pre><code class="xml">&lt;property&gt;
+  &lt;name&gt;dfs.replication&lt;/name&gt;
+  &lt;value&gt;1&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+  &lt;name&gt;dfs.name.dir&lt;/name&gt;
+  &lt;value&gt;file:///home/hadoop/hadoopinfra/hdfs/namenode &lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+  &lt;name&gt;dfs.data.dir&lt;/name&gt; 
+  &lt;value&gt;file:///home/hadoop/hadoopinfra/hdfs/datanode &lt;/value&gt; 
+&lt;/property&gt;
+</code></pre>
+
+<p>配置项说明：</p>
+<pre><code>dfs.namenode.name.dir，配置元数据信息存储位置；
+dfs.datanode.data.dir，配置具体数据存储位置；
+dfs.replication，配置每个数据库备份数，由于目前我们使用1台节点，所以设置为1，如果设置为2的话，运行会报错。
+dfs.permissions.enabled，配置hdfs是否启用权限认证
+</code></pre>
+
+<h4><strong>修改mapred-site.xml</strong></h4>
+<p>此文件用于指定正在使用MapReduce框架。缺省情况下，包含Hadoop的模板yarn-site.xml。</p>
+<p>首先，它需要从mapred-site.xml复制。获得mapred-site.xml模板文件，并编辑这个文件。</p>
+<pre><code class="bash">cd $HADOOP_HOME/etc/hadoop
+cp mapred-site.xml.template mapred-site.xml 
+vim mapred-site.xml 
+</code></pre>
+
+<p>打开mapred-site.xml文件，添加下面配置到<configuration>与</configuration>标签之间。</p>
+<pre><code class="xml">&lt;property&gt; 
+  &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+  &lt;value&gt;yarn&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<h4><strong>修改yarn-site.xml</strong></h4>
+<pre><code class="bash">vim $HADOOP_HOME/etc/hadoop/yarn-site.xml
+</code></pre>
+
+<p>打开 yarn-site.xml文件，在<configuration></configuration>标签之间添加以下属性。</p>
+<pre><code class="xml">&lt;property&gt;
+  &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+  &lt;value&gt;mapreduce_shuffle&lt;/value&gt; 
+&lt;/property&gt;
+</code></pre>
+
+<h3>验证Hadoop模拟分布集群</h3>
+<h4>启动HDFSS(耗时两分钟左右)</h4>
+<p>格式化配置HDFS文件系统，打开NameNode(HDFS服务器)，然后执行以下命令。</p>
+<pre><code class="bash">hdfs namenode -format 
+</code></pre>
+
+<p>格式化HDFS后，启动分布式文件系统。以下命令将启动名称节点和数据节点的集群。</p>
+<pre><code class="bash">start-dfs.sh
+</code></pre>
+
+<p>将实验区窗口切换为VNC模式，打开FireFox浏览器，</p>
+<p>在地址栏输入<code>localhost:50070</code>进入HDFS的web界面</p>
+<h4>启动Yarn</h4>
+<pre><code class="bash">start-yarn.sh
+</code></pre>
+
+<p>验证所有应用程序的集群:访问{url},集群中的所有应用程序的默认端口号为8088</p>
+<p>将实验窗口切换为VNC模式，打开FireFox浏览器，</p>
+<p>在地址栏输入<code>localhost：8088</code>进入yarn集群任务管理界面</p>
+<h4>命令jps命令进行验证</h4>
+<p><code>bash
+jps</code></p>
+<p>当有后台运行的相关进程提示时，即证明您已经在您当前的云环境中安装成功，您就可以开始进行本课程下一步的学习了。</p>
+<p><strong>注：当云环境的生命周期失效后，需要重新进行安装。</strong></p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 描述性统计 - FreeAIHub</title>
+    <meta name="keywords" content="函数和说明,汇总数据">
+    <meta name="description" content="有很多方法用来集体计算的描述性统计信息和其他相关操作。 其中大多数是，等聚合函数，但其中一些，如，产生一个相同大小的对象。 一般来说，这些方法采用轴参数，就像，但轴可以通过名称或整数来指定：下面创建一个数据帧(DataFrame)，并使用此对象进行演示本章中所有操作。返回所请求轴的值的总和。 默认情况下，轴为索引()。每个单独的列单独添加(附加字符串)。此语法将给出如下所示的输出，参考以下示例代码">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a class="current"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/basic.html class='prev_article'> Pandas基本功能</a>       |       下一篇：<a href=/pandas/apply.html class='next_article'> Pandas函数应用</a>  >
+              
+            <h1>Pandas 描述性统计</h1>
+<p>有很多方法用来集体计算<code>DataFrame</code>的描述性统计信息和其他相关操作。 其中大多数是<code>sum()</code>，<code>mean()</code>等聚合函数，但其中一些，如<code>sumsum()</code>，产生一个相同大小的对象。 一般来说，这些方法采用轴参数，就像<code>ndarray.{sum，std，...}</code>，但轴可以通过名称或整数来指定：</p>
+<ul>
+<li><em>数据帧(DataFrame)</em> - “index”(axis=0，默认)，columns(axis=1)</li>
+</ul>
+<p>下面创建一个数据帧(DataFrame)，并使用此对象进行演示本章中所有操作。</p>
+<p><strong>示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print(df)
+</code></pre>
+
+<p><strong>sum()方法</strong></p>
+<p>返回所请求轴的值的总和。 默认情况下，轴为索引(<code>axis=0</code>)。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.sum()
+</code></pre>
+
+<p>每个单独的列单独添加(附加字符串)。</p>
+<p><strong>axis=1示例</strong></p>
+<p>此语法将给出如下所示的输出，参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.sum(1)
+</code></pre>
+
+<p><strong>mean()示例</strong>
+返回平均值，参考以下示例代码 - </p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.mean()
+</code></pre>
+
+<p><strong>std()示例</strong></p>
+<p>返回数字列的Bressel标准偏差。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.std()
+</code></pre>
+
+<h2>函数和说明</h2>
+<p>下面来了解Python Pandas中描述性统计信息的函数，下表列出了重要函数 -</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>count()</code></td>
+<td>非空观测数量</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>sum()</code></td>
+<td>所有值之和</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>mean()</code></td>
+<td>所有值的平均值</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>median()</code></td>
+<td>所有值的中位数</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>mode()</code></td>
+<td>值的模值</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>std()</code></td>
+<td>值的标准偏差</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>min()</code></td>
+<td>所有值中的最小值</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>max()</code></td>
+<td>所有值中的最大值</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>abs()</code></td>
+<td>绝对值</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>prod()</code></td>
+<td>数组元素的乘积</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>cumsum()</code></td>
+<td>累计总和</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>cumprod()</code></td>
+<td>累计乘积</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注 - 由于DataFrame是异构数据结构。通用操作不适用于所有函数。</p>
+</blockquote>
+<ul>
+<li>类似于：<code>sum()</code>，<code>cumsum()</code>函数能与数字和字符(或)字符串数据元素一起工作，不会产生任何错误。字符聚合从来都比较少被使用，虽然这些函数不会引发任何异常。</li>
+<li>由于这样的操作无法执行，因此，当DataFrame包含字符或字符串数据时，像<code>abs()</code>，<code>cumprod()</code>这样的函数会抛出异常。</li>
+</ul>
+<h2>汇总数据</h2>
+<p><code>describe()</code>函数是用来计算有关DataFrame列的统计信息的摘要。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.describe()
+</code></pre>
+
+<p>该函数给出了平均值，标准差和IQR值。 而且，函数排除字符列，并给出关于数字列的摘要。 <code>include</code>是用于传递关于什么列需要考虑用于总结的必要信息的参数。获取值列表; 默认情况下是”数字值”。</p>
+<ul>
+<li><code>object</code> - 汇总字符串列</li>
+<li><code>number</code> - 汇总数字列</li>
+<li><code>all</code> - 将所有列汇总在一起(不应将其作为列表值传递)</li>
+</ul>
+<p>现在，在程序中使用以下语句并检查输出 -</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.describe(include=['object'])
+</code></pre>
+
+<p>现在，使用以下语句并查看输出 -</p>
+<pre><code class="shell">import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Minsu','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+df.describe(include='all')
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

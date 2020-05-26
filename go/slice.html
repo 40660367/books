@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Go语言 切片(slice) - FreeAIHub</title>
+    <meta name="keywords" content="定义切片">
+    <meta name="description" content="Go切片(Slice)是Go数组的一个抽象。 由于Go数组允许定义类型的变量，可以容纳相同数据类型的几个数据项，但它不提供任何内置的方法来动态增加其大小或获取自己的子数组。切片就没有这样的限制。 它提供了数组所需的许多实用功能，并广泛用于Go编程。要定义切片，可以将其声明为数组，而不指定大小或使用函数创建一个。因为切片(Slice)是数组上的抽象。 它实际上使用数组作为底层结构体函数返回切片中存在">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/go/index.html">如何学习本课程</a></li>
+<li><a href="/go/intro.html"> Go 简介 </a></li>
+<li><a href="/go/setup.html"> Go 环境搭建及运行 </a></li>
+<li><a href="/go/helloworld.html"> Go HelloWorld! </a></li>
+<li><a href="/go/syntax.html"> Go 基本语法 </a></li>
+<li><a href="/go/datatype.html"> Go 基本数据类型 </a></li>
+<li><a href="/go/variable.html"> Go 变量 </a></li>
+<li><a href="/go/const.html"> Go 常量 </a></li>
+<li><a href="/go/operator.html"> Go 运算符 </a></li>
+<li><a href="/go/logic.html"> Go 逻辑判断 </a></li>
+<li><a href="/go/loop.html"> Go 循环控制 </a></li>
+<li><a href="/go/scope.html"> Go 作用域规则 </a></li>
+<li><a href="/go/function.html"> Go 函数 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-按值调用 </a></li>
+<li><a href="/go/function-refbyreference.html"> Go 函数-按引用调用 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-作用值使用 </a></li>
+<li><a href="/go/function-closure.html"> Go 函数-闭包 </a></li>
+<li><a href="/go/function-method.html"> Go 函数-方法 </a></li>
+<li><a href="/go/string.html"> Go 字符串String </a></li>
+<li><a href="/go/array.html"> Go 数组Array </a></li>
+<li><a href="/go/pointer.html"> Go 指针Pointer </a></li>
+<li><a href="/go/structure.html"> Go 结构体Structure </a></li>
+<li><a href="/go/range.html"> Go 范围Range </a></li>
+<li><a class="current"> Go 切片Slice </a></li>
+<li><a href="/go/map.html"> Go 映射Map </a></li>
+<li><a href="/go/recursion.html"> Go 递归recursion </a></li>
+<li><a href="/go/channel.html"> Go 通道 </a></li>
+<li><a href="/go/signal.html"> Go 信号 </a></li>
+<li><a href="/go/error.html"> Go 错误处理 </a></li></p>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/go/range.html class='prev_article'> Go 范围Range </a>       |       下一篇：<a href=/go/map.html class='next_article'> Go 映射Map </a>  >
+              
+<h1>Go语言 切片(slice)</h1>
+<p>Go切片(Slice)是Go数组的一个抽象。 由于Go数组允许定义类型的变量，可以容纳相同数据类型的几个数据项，但它不提供任何内置的方法来动态增加其大小或获取自己的子数组。切片就没有这样的限制。 它提供了数组所需的许多实用功能，并广泛用于Go编程。</p>
+<h2>定义切片</h2>
+<p>要定义切片，可以将其声明为数组，而不指定大小或使用<code>make</code>函数创建一个。</p>
+<pre><code class="go">var numbers []int /* a slice of unspecified size */
+/* numbers == []int{0,0,0,0,0}*/
+numbers = make([]int,5,5) /* a slice of length 5 and capacity 5*/
+</code></pre>
+
+<h3>len() 和 cap()函数</h3>
+<p>因为切片(Slice)是数组上的抽象。 它实际上使用数组作为底层结构体<code>.len()</code>函数返回切片中存在的元素数量，其中<code>cap()</code>函数返回切片(Slice)的容量(大小)，即可容纳多少个元素。 以下是解释切片(Slice)的用法的示例：</p>
+<p>文件名:slice-len-cap.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var numbers = make([]int,3,5)
+
+   printSlice(numbers)
+}
+
+func printSlice(x []int){
+   fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;,len(x),cap(x),x)
+}
+</code></pre>
+
+<pre><code class="shell">go run /share/lesson/go/slice-len-cap.go
+</code></pre>
+
+<p>康康</p>
+<h3>Nil切片</h3>
+<p>如果缺省情况下声明没有输入切片，则将其初始化为<code>nil</code>。 其长度和容量为零。 以下是一个示例：</p>
+<p>文件名:slice-nil.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var numbers []int
+
+   printSlice(numbers)
+
+   if(numbers == nil){
+      fmt.Printf(&quot;slice is nil&quot;)
+   }
+}
+
+func printSlice(x []int){
+   fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;,len(x),cap(x),x)
+}
+</code></pre>
+
+<pre><code class="shell">go run /share/lesson/go/slice-nil.go
+</code></pre>
+
+<p>康康</p>
+<h3>子切片</h3>
+<p>切片(Slice)允许指定下界和上界，以使用<code>[lower-bound：upper-bound]</code>获取它的子切片。 以下是示例：</p>
+<p>文件名：slice-bound.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   /* create a slice */
+   numbers := []int{0,1,2,3,4,5,6,7,8}   
+   printSlice(numbers)
+
+   /* print the original slice */
+   fmt.Println(&quot;numbers ==&quot;, numbers)
+
+   /* print the sub slice starting from index 1(included) to index 4(excluded)*/
+   fmt.Println(&quot;numbers[1:4] ==&quot;, numbers[1:4])
+
+   /* missing lower bound implies 0*/
+   fmt.Println(&quot;numbers[:3] ==&quot;, numbers[:3])
+
+   /* missing upper bound implies len(s)*/
+   fmt.Println(&quot;numbers[4:] ==&quot;, numbers[4:])
+
+   numbers1 := make([]int,0,5)
+   printSlice(numbers1)
+
+   /* print the sub slice starting from index 0(included) to index 2(excluded) */
+   number2 := numbers[:2]
+   printSlice(number2)
+
+   /* print the sub slice starting from index 2(included) to index 5(excluded) */
+   number3 := numbers[2:5]
+   printSlice(number3)
+
+}
+
+func printSlice(x []int){
+   fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;,len(x),cap(x),x)
+}
+</code></pre>
+
+<p>当上述代码编译和执行时，它产生以下结果：</p>
+<pre><code class="shell">go run /share/lesson/go/slice-bound.go
+</code></pre>
+
+<p>康康</p>
+<h3>append()和copy()函数</h3>
+<p>切片(Slice)允许使用<code>append()</code>函数增加切片的容量(大小)。使用<code>copy()</code>函数，将源切片的内容复制到目标切片。以下是示例：</p>
+<p>文件名：slice-append.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var numbers []int
+   printSlice(numbers)
+
+   /* append allows nil slice */
+   numbers = append(numbers, 0)
+   printSlice(numbers)
+
+   /* add one element to slice*/
+   numbers = append(numbers, 1)
+   printSlice(numbers)
+
+   /* add more than one element at a time*/
+   numbers = append(numbers, 2,3,4)
+   printSlice(numbers)
+
+   /* create a slice numbers1 with double the capacity of earlier slice*/
+   numbers1 := make([]int, len(numbers), (cap(numbers))*2)
+
+   /* copy content of numbers to numbers1 */
+   copy(numbers1,numbers)
+   printSlice(numbers1)   
+}
+
+func printSlice(x []int){
+   fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;,len(x),cap(x),x)
+}
+</code></pre>
+
+<pre><code class="shell">go run /share/lesson/go/slice-append.go
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

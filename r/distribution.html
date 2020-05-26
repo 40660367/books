@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 分布函数(distribution function) - FreeAIHub</title>
+    <meta name="keywords" content="正态分布,二项分布">
+    <meta name="description" content="在来自独立源的数据的随机集合中，通常观察到数据的分布是正常的。 这意味着，在绘制水平轴上的变量值和垂直轴上的值的计数的图形时，我们得到钟形曲线。 曲线的中心表示数据集的平均值。 在图中，50％的值位于平均值的左侧，另外50％位于图表的右侧。 这在统计学中被称为正态分布。R语言有四个内置函数来产生正态分布。 它们描述如下。,,,以下是在上述功能中使用的参数的描述 - 该函数给出给定平均值和标准偏差在">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a class="current"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/plot.html class='prev_article'> R语言绘图</a>       |       下一篇：<a href=/r/data-operation.html class='next_article'> R语言数据操作</a>  >
+              
+            <h1>R语言 分布函数(distribution function)</h1>
+<h2>正态分布</h2>
+<p>在来自独立源的数据的随机集合中，通常观察到数据的分布是正常的。 这意味着，在绘制水平轴上的变量值和垂直轴上的值的计数的图形时，我们得到钟形曲线。 曲线的中心表示数据集的平均值。 </p>
+<p>在图中，50％的值位于平均值的左侧，另外50％位于图表的右侧。 这在统计学中被称为正态分布。</p>
+<p>R语言有四个内置函数来产生正态分布。 它们描述如下。</p>
+<p><code>dnorm(x, mean, sd)</code>,<code>pnorm(x, mean, sd)</code>,<code>qnorm(p, mean, sd)</code>,<code>rnorm(n, mean, sd)</code></p>
+<p>以下是在上述功能中使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是数字的向量。</li>
+<li><strong>p</strong>是概率的向量。</li>
+<li><strong>n</strong>是观察的数量（样本大小）。</li>
+<li><strong>mean</strong>是样本数据的平均值。 它的默认值为零。</li>
+<li><strong>sd</strong>是标准偏差。 它的默认值为1。</li>
+</ul>
+<h3><code>dnorm()</code></h3>
+<p>该函数给出给定平均值和标准偏差在每个点的概率分布的高度。</p>
+<pre><code class="R"># Create a sequence of numbers between -10 and 10 incrementing by 0.1.
+x &lt;- seq(-10, 10, by = .1)
+
+# Choose the mean as 2.5 and standard deviation as 0.5.
+y &lt;- dnorm(x, mean = 2.5, sd = 0.5)
+
+# Plot the graph.
+plot(x,y)
+</code></pre>
+
+<h3><code>pnorm()</code></h3>
+<p>该函数给出正态分布随机数的概率小于给定数的值。 它也被称为“累积分布函数”。</p>
+<pre><code class="R"># Create a sequence of numbers between -10 and 10 incrementing by 0.2.
+x &lt;- seq(-10,10,by = .2)
+
+# Choose the mean as 2.5 and standard deviation as 2. 
+y &lt;- pnorm(x, mean = 2.5, sd = 2)
+
+# Plot the graph.
+plot(x,y)
+</code></pre>
+
+<h3><code>qnorm()</code></h3>
+<p>该函数采用概率值，并给出累积值与概率值匹配的数字。</p>
+<pre><code class="R"># Create a sequence of probability values incrementing by 0.02.
+x &lt;- seq(0, 1, by = 0.02)
+
+# Choose the mean as 2 and standard deviation as 3.
+y &lt;- qnorm(x, mean = 2, sd = 1)
+
+# Plot the graph.
+plot(x,y)
+</code></pre>
+
+<h3><code>rnorm（）</code></h3>
+<p>此函数用于生成分布正常的随机数。 它将样本大小作为输入，并生成许多随机数。 我们绘制一个直方图来显示生成的数字的分布。</p>
+<pre><code class="R"># Create a sample of 50 numbers which are normally distributed.
+y &lt;- rnorm(50)
+
+# Plot the histogram for this sample.
+hist(y, main = &quot;Normal DIstribution&quot;)
+</code></pre>
+
+<h2>二项分布</h2>
+<p>二项分布模型处理在一系列实验中仅发现两个可能结果的事件的成功概率。 例如，掷硬币总是给出头或尾。 在二项分布期间估计在10次重复抛掷硬币中精确找到3个头的概率。</p>
+<p>R语言有四个内置函数来生成二项分布。 它们描述如下。</p>
+<p><code>dbinom(x, size, prob),pbinom(x, size, prob),qbinom(p, size, prob),rbinom(n, size, prob)</code></p>
+<p>以下是所使用的参数的描述 - </p>
+<ul>
+<li><strong>x</strong>是数字的向量。</li>
+<li><strong>p</strong>是概率向量。</li>
+<li><strong>n</strong>是观察的数量。</li>
+<li><strong>size</strong>是试验的数量。</li>
+<li><strong>prob</strong>是每个试验成功的概率。</li>
+</ul>
+<h3><code>dbinom()</code></h3>
+<p>该函数给出每个点的概率密度分布。</p>
+<pre><code class="R"># Create a sample of 50 numbers which are incremented by 1.
+x &lt;- seq(0,50,by = 1)
+
+# Create the binomial distribution.
+y &lt;- dbinom(x,50,0.5)
+
+# Plot the graph for this sample.
+plot(x,y)
+</code></pre>
+
+<h3><code>pbinom()</code></h3>
+<p>此函数给出事件的累积概率。 它是表示概率的单个值。</p>
+<pre><code class="R"># Probability of getting 26 or less heads from a 51 tosses of a coin.
+x &lt;- pbinom(26,51,0.5)
+
+print(x)
+</code></pre>
+
+<h3><code>qbinom()</code></h3>
+<p>该函数采用概率值，并给出累积值与概率值匹配的数字。</p>
+<pre><code class="R"># How many heads will have a probability of 0.25 will come out when a coin is tossed 51 times.
+x &lt;- qbinom(0.25,51,1/2)
+
+print(x)
+</code></pre>
+
+<h3><code>rbinom()</code></h3>
+<p>该函数从给定样本产生给定概率的所需数量的随机值。</p>
+<pre><code class="R"># Find 8 random values from a sample of 150 with probability of 0.4.
+x &lt;- rbinom(8,150,.4)
+
+print(x)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 变量的作用域 - FreeAIHub</title>
+    <meta name="keywords" content="变量的作用域,常量">
+    <meta name="description" content="变量的作用域是变量可见的区域。变量作用域能帮助避免变量命名冲突。作用域块是作为变量作用域的代码区域。变量的作用域被限制在这些块内部。作用域块有：注意 []引入新作用域块。当变量被引入到一个作用域中时，所有的内部作用域都继承了这个变量，除非某个内部作用域显式复写了它。将新变量引入当前作用域的方法：下面例子中，循环内部和外部，仅有一个  被赋值：下例中，循环体有一个独立的  ，函数始终返回 0 ：下例">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a class="current"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a href="/julia/module.html"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/string.html class='prev_article'> Julia数据类型 字符串 </a>       |       下一篇：<a href=/julia/function.html class='next_article'> Julia函数 </a>  >
+              
+            <h1>Julia 变量的作用域</h1>
+<h2>变量的作用域</h2>
+<p>变量的作用域是变量可见的区域。变量作用域能帮助避免变量命名冲突。</p>
+<p>作用域块是作为变量作用域的代码区域。变量的作用域被限制在这些块内部。作用域块有：</p>
+<ul>
+<li><code>function</code> 函数体</li>
+<li><code>while</code> 循环体</li>
+<li><code>for</code> 循环体</li>
+<li><code>try</code> 块</li>
+<li><code>catch</code> 块</li>
+<li><code>let</code> 块</li>
+<li><code>type</code> 块</li>
+</ul>
+<p>注意 [<em>begin 块</em>]<em>不能</em>引入新作用域块。</p>
+<p>当变量被引入到一个作用域中时，所有的内部作用域都继承了这个变量，除非某个内部作用域显式复写了它。将新变量引入当前作用域的方法：</p>
+<ul>
+<li>声明 <code>local x</code> 或 <code>const x</code> ，可以引入新本地变量</li>
+<li>声明 <code>global x</code> 使得 <code>x</code> 引入当前作用域和更内层的作用域</li>
+<li>函数的参数，作为新变量被引入函数体的作用域</li>
+<li>无论是在当前代码之前或 之后 ， <code>x = y</code> 赋值都将引入新变量 <code>x</code> ，除非 <code>x</code> 已经在任何外层作用域内被声明为全局变量或被引入为本地变量</li>
+</ul>
+<p>下面例子中，循环内部和外部，仅有一个 <code>x</code> 被赋值：</p>
+<pre><code class="julia">function foo(n)
+  x = 0
+  for i = 1:n
+    x = x + 1
+  end
+  x
+end
+
+foo(10)
+</code></pre>
+
+<p>下例中，循环体有一个独立的 <code>x</code> ，函数始终返回 0 ：</p>
+<pre><code class="julia">function foo(n)
+  x = 0
+  for i = 1:n
+    local x
+    x = i
+  end
+  x
+end
+
+foo(10)
+</code></pre>
+
+<p>下例中，<code>x</code> 仅存在于循环体内部，因此函数在最后一行会遇到变量未定义的错误（除非 <code>x</code> 已经声明为全局变量）：</p>
+<pre><code class="julia">function foo(n)
+  for i = 1:n
+    x = i
+  end
+  x
+end
+
+foo(10)
+</code></pre>
+
+<p>在非顶层作用域给全局变量赋值的唯一方法，是在某个作用域中显式声明变量是全局的。否则，赋值会引入新的局部变量，而不是给全局变量赋值。</p>
+<p>不必在内部使用前，就在外部赋值引入 <code>x</code> ：</p>
+<pre><code class="julia">function foo(n)
+  f = y -&gt; n + x + y
+  x = 1
+  f(2)
+end
+
+foo(10)
+</code></pre>
+
+<p>上例看起来有点儿奇怪，但是并没有问题。因为在这儿是将一个函数绑定给变量。这使得我们可以按照任意顺序定义函数，不需要像 C 一样自底向上或者提前声明。这儿有个低效率的例子，互递归地验证一个正数的奇偶：</p>
+<pre><code class="julia">even(n) = n == 0 ? true  :  odd(n-1)
+odd(n)  = n == 0 ? false : even(n-1)
+
+even(3)
+
+odd(3)
+</code></pre>
+
+<p>Julia 内置了高效的函数 <code>iseven</code> 和 <code>isodd</code> 来验证奇偶性。</p>
+<p>由于函数可以先被调用再定义，因此不需要提前声明，定义的顺序也可以是任意的。</p>
+<p>在交互式模式下，可以假想有一层作用域块包在任何输入之外，类似于全局作用域：</p>
+<pre><code class="julia">for i = 1:1; y = 10; end
+
+y
+
+y = 0
+
+for i = 1:1; y = 10; end
+
+y
+</code></pre>
+
+<p>前一个例子中，<code>y</code> 仅存在于 <code>for</code> 循环中。后一个例子中，外部声明的 <code>y</code> 被引入到循环中。由于会话的作用域与全局作用域差不多，因此在循环中不必声明 <code>global y</code>。但是，不在交互式模式下运行的代码，必须声明全局变量。</p>
+<p>多变量可以使用以下语法声明为全局：</p>
+<pre><code class="julia">function foo()
+    global x=1, y=&quot;bar&quot;, z=3
+end
+
+foo()
+
+x
+
+y
+
+z
+</code></pre>
+
+<p><code>let</code> 语句提供了另一种引入变量的方法。<code>let</code> 语句每次运行都会声明新变量。<code>let</code> 语法接受由逗号隔开的赋值语句或者变量名：</p>
+<pre><code class="julia">let var1 = value1, var2, var3 = value3
+    code
+end
+</code></pre>
+
+<p><code>let x = x</code> 是合乎语法的，因为这两个 <code>x</code> 变量不同。它先对右边的求值，然后再引入左边的新变量并赋值。下面是个需要使用 <code>let</code> 的例子：</p>
+<pre><code class="julia">Fs = cell(2)
+i = 1
+while i &lt;= 2
+  Fs[i] = ()-&gt;i
+  i += 1
+end
+
+Fs[1]()
+
+Fs[2]()
+</code></pre>
+
+<p>两个闭包的返回值相同。如果用 <code>let</code> 来绑定变量 <code>i</code> ：</p>
+<pre><code class="julia">Fs = cell(2)
+i = 1
+while i &lt;= 2
+  let i = i
+    Fs[i] = ()-&gt;i
+  end
+  i += 1
+end
+
+Fs[1]()
+
+Fs[2]()
+</code></pre>
+
+<p>由于 <code>begin</code> 块并不引入新作用域块，使用 let 来引入新作用域块是很有用的：</p>
+<pre><code class="julia">begin
+         local x = 1
+         begin
+           local x = 2
+         end
+         x
+       end
+
+begin
+         local x = 1
+         let
+           local x = 2
+         end
+         x
+       end
+</code></pre>
+
+<p>第一个例子，不能在同一个作用域中声明同名本地变量。第二个例子，<code>let</code> 引入了新作用域块，内层的本地变量 <code>x</code> 与外层的本地变量 <code>x</code> 不同。</p>
+<h3>For 循环及 Comprehensions</h3>
+<p>For 循环及 <a href="http://julia-cn.readthedocs.org/zh_CN/latest/manual/arrays/#comprehensions"><em>Comprehensions</em></a> 有特殊的行为：在其中声明的新变量，都会在每次循环中重新声明。因此，它有点儿类似于带有内部 <code>let</code> 块的 <code>while</code> 循环：</p>
+<pre><code class="julia">Fs = cell(2)
+for i = 1:2
+    Fs[i] = ()-&gt;i
+end
+
+Fs[1]()
+
+Fs[2]()
+</code></pre>
+
+<p><code>for</code> 循环会复用已存在的变量来迭代：</p>
+<pre><code class="julia">i = 0
+for i = 1:3
+end
+i  # here equal to 3
+</code></pre>
+
+<p>但是, comprehensions 与之不同，它总是声明新变量：</p>
+<pre><code class="julia">x = 0
+[ x for x=1:3 ]
+x  # here still equal to 0
+</code></pre>
+
+<h2>常量</h2>
+<p><code>const</code> 关键字告诉编译器要声明常量：</p>
+<pre><code class="julia">const e  = 2.71828182845904523536
+const pi = 3.14159265358979323846
+</code></pre>
+
+<p><code>const</code> 可以声明全局常量和局部常量，最好用它来声明全局常量。全局变量的值（甚至类型）可能随时会改变，编译器很难对其进行优化。如果全局变量不改变的话，可以添加一个 <code>const</code> 声明来解决性能问题。</p>
+<p>本地变量则不同。编译器能自动推断本地变量是否为常量，所以本地常量的声明不是必要的。</p>
+<p>特殊的顶层赋值默认为常量，如使用 <code>function</code> 和 <code>type</code> 关键字的赋值。</p>
+<p>注意 <code>const</code> 仅对变量的绑定有影响；变量有可能被绑定到可变对象（如数组），这个对象仍能被修改。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

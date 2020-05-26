@@ -1,0 +1,522 @@
+{
+    "Course": {
+        "id": "B",
+        "name": "基础课程",
+        "des": "学习IT技术的基础铺垫课程",
+        "disable": 0,
+        "CourseList":{
+		"systemCourses": {
+            "id": "B0",
+            "name": "系统课程",
+            "disable": 0,
+            "des": "基础中的基础",
+            "img": "python-logo.jpg",
+            "link": "/system-basic/",
+			"lessons": [
+				{
+                    "name": "Linux",
+                    "id": "B00",
+                    "disable": 0,
+					"des": "自由，免费的操作系统",
+                    "img": "python-logo.jpg",
+                    "link": "/linux/"
+				},
+				{
+                    "name": "Git",
+                    "id": "B01",
+                    "disable": 0,
+					"des": "卓越的版本控制工具",
+                    "img": "python-logo.jpg",
+                    "link": "/git/"
+				},
+				{
+                    "name": "Jupyter",
+                    "id": "B02",
+                    "disable": 1,
+					"des": "面向未来的的交互式编程",
+                    "img": "python-logo.jpg",
+                    "link": "/jupyter/"
+                },
+                {
+                    "name": "Vim",
+                    "id": "B03",
+                    "disable": 1,
+					"des": "最方便的终端编辑器",
+                    "img": "python-logo.jpg",
+                    "link": "/vim/"
+				},
+                {
+                    "name": "Shell",
+                    "id": "B04",
+                    "disable": 1,
+					"des": "自动化脚本",
+                    "img": "python-logo.jpg",
+                    "link": "/shell/"
+				}
+			]
+        },
+		"programminLanguage": {
+            "id": "B1",
+            "name": "编程语言",
+            "disable": 0,
+			"des": "编程语言",
+            "img": "python-logo.jpg",
+            "link": "/program-language/",
+			"lessons": [
+			    {
+                    "id": "B10",
+                    "name": "C语言",
+                    "disable": 0,
+					"des": "计算机语言的入门的语言",
+                    "img": "python-logo.jpg",
+                    "link": "/c/"
+                },
+			    {
+                    "id": "B11",
+                    "name": "C++",
+                    "disable": 0,
+					"des": "极性性能的编程语言",
+                    "img": "python-logo.jpg",
+                    "link": "/cpp/"
+                },
+				{
+                    "id": "B12",
+                    "name": "Java",
+                    "disable": 1,
+					"des": "应用最为广泛的语言",
+                    "img": "python-logo.jpg",
+                    "link": "/java/"
+				},
+				{
+                    "id": "B13",
+                    "name": "Python",
+                    "disable": 0,
+					"des": "风头正劲的胶水语言",
+                    "img": "python-logo.jpg",
+                    "link": "/python/"
+				},
+				{
+                    "id": "B14",
+                    "name": "Julia",
+                    "disable": 0,
+					"des": "数据分析语言新贵",
+                    "img": "python-logo.jpg",
+                    "link": "/julia/"
+                },
+			    {
+                    "id": "B16",
+                    "name": "Go",
+                    "disable": 0,
+					"des": "云计算时代的编程语言",
+                    "img": "python-logo.jpg",
+                    "link": "/go/"
+                },
+			    {
+                    "id": "B15",
+                    "name": "lua",
+                    "disable": 0,
+					"des": "lua",
+                    "img": "python-logo.jpg",
+                    "link": "/lua/"
+                }
+            ]
+        },
+        "database": {
+                "id": "B2",
+                "name": "数据库",
+                "disable": 0,
+                "des": "DataBase",
+                "img": "python-logo.jpg",
+                "link": "/data-base/",
+                "lessons":[
+                    {
+                        "id": "B20",
+                        "name": "MySQL",
+                        "disable": 0,
+                        "des": "开源，高效，稳定的数据库",
+                        "img": "python-logo.jpg",
+                        "link": "/mysql/"
+                    },
+                    {
+                        "id": "B21",
+                        "name": "Redis",
+                        "disable": 0,
+                        "des": "最快的内存数据库",
+                        "img": "python-logo.jpg",
+                        "link": "/redis/"
+                    },
+                    {
+                        "id": "B22",
+                        "name": "MongoDB",
+                        "disable": 1,
+                        "des": "文档型数据库的佼佼者",
+                        "img": "python-logo.jpg",
+                        "link": "/mongodb/"
+                    },
+                    {
+                        "id": "B23",
+                        "name": "PostgreSQL",
+                        "disable": 1,
+                        "des": "高性能关系数据库PostgreSQL",
+                        "img": "python-logo.jpg",
+                        "link": "/postgresql/"
+                    },
+                    {
+                        "id": "B24",
+                        "name": "MongoDB",
+                        "disable": 1,
+                        "des": "文档型数据库的佼佼者",
+                        "img": "python-logo.jpg",
+                        "link": "/mongodb/"
+                    },     
+                    {
+                        "id": "B24",
+                        "name": "Sqlite",
+                        "disable": 1,
+                        "des": "轻量级SQL",
+                        "img": "python-logo.jpg",
+                        "link": "/sqlite/"
+                    }                
+                ]
+        },
+        "webDevelopmentBasics": {
+            "id": "B3",
+            "name": "Web开发基础",
+            "disable": 1,
+            "des": "Web开发技术",
+            "img": "python-logo.jpg",
+            "link": "/web-basic/",
+            "lessons": [
+                {
+                    "id": "B30",
+                    "name": "HTML",
+                    "disable": 1,
+                    "des": "学习Web技术就从HTML标签学起",
+                    "img": "python-logo.jpg",
+                    "link": "/html/"
+                },
+                {
+                    "id": "B31",
+                    "name": "HTML5",
+                    "disable": 1,
+                    "des": "最新一代的HTML标准",
+                    "img": "python-logo.jpg",
+                    "link": "/html5/"
+                },
+                {
+                    "id": "B32",
+                    "name": "CSS",
+                    "disable": 1,
+                    "des": "网页样式控制者",
+                    "img": "python-logo.jpg",
+                    "link": "/css/"
+                },
+                {
+                    "id": "B33",
+                    "name": "JavaScript",
+                    "disable": 1,
+                    "des": "让网页'活'起来",
+                    "img": "python-logo.jpg",
+                    "link": "/javascript/"
+                },
+                {
+                    "id": "B34",
+                    "name": "JQuery",
+                    "disable": 1,
+                    "des": "JQuery,一把锋利的刀",
+                    "img": "python-logo.jpg",
+                    "link": "/jquery/"
+                }
+            ]
+        },
+        "webBackend": {
+            "id": "B4",
+            "name": "Web后端",
+            "disable": 0,
+            "des": "Web后端",
+            "link": "/web-backend/",
+            "img": "python-logo.jpg",
+            "lessons":[
+                {
+                    "id": "B40",
+                    "name": "nginx",
+                    "disable": 1,
+                    "des": "高性能的HTTP和反向代理web服务器",
+                    "img": "python-logo.jpg",
+                    "link": "/nginx/"
+                },
+                {
+                    "id": "B41",
+                    "name": "PHP",
+                    "disable": 0,
+                    "des": "世界上最好的语言",
+                    "img": "python-logo.jpg",
+                    "link": "/php/"
+                },
+                {
+                    "id": "B43",
+                    "name": "Django",
+                    "disable": 1,
+                    "des": "Python Web全能开发选手",
+                    "img": "python-logo.jpg",
+                    "link": "/django/"
+                },
+                {
+                    "id": "B44",
+                    "name": "Flask",
+                    "disable": 1,
+                    "des": "轻量级的Python Web开发工具",
+                    "img": "python-logo.jpg",
+                    "link": "/flask/"
+                },
+                {
+                    "id": "B45",
+                    "name": "Tornado",
+                    "disable": 1,
+                    "des": "轻量级的Python Web开发工具",
+                    "img": "python-logo.jpg",
+                    "link": "/tornado/"
+                },
+                {
+                    "id": "B46",
+                    "name": "node.js",
+                    "disable": 1,
+                    "des": "轻量级的Web开发工具",
+                    "img": "python-logo.jpg",
+                    "link": "/node.js/"
+                }
+            ]
+        },
+        "bigData": {
+            "id": "B5",
+            "name": "大数据",
+            "disable": 1,
+            "des": "大数据",
+            "img": "python-logo.jpg",
+            "link": "/big-data/",
+            "lessons": [
+                {
+                    "id": "B50",
+                    "name": "Hadoop",
+                    "disable": 1,
+                    "des": "大数据技术分布式系统基础架构",
+                    "img": "python-logo.jpg",
+                    "link": "/hadoop/"
+                },
+                {
+                    "id": "B51",
+                    "name": "Hive",
+                    "disable": 1,
+                    "des": "把SQL变为MapReduce！",
+                    "img": "python-logo.jpg",
+                    "link": "/hive/"
+                },
+                {
+                    "id": "B52",
+                    "name": "Spark",
+                    "disable": 1,
+                    "des": "快如闪电的分布式大数据计算引擎",
+                    "img": "python-logo.jpg",
+                    "link": "/spark/"
+                },
+                {
+                    "id": "B53",
+                    "name": "HBase",
+                    "disable": 1,
+                    "des": "基于HDFS的分布式数据库系统",
+                    "img": "python-logo.jpg",
+                    "link": "/hbase/"
+                }
+            ]
+        },      
+        "dataAnalysis": {
+            "id": "B6",
+            "name": "数据分析",
+            "disable": 0,
+            "des": "数据分析",
+            "img": "python-logo.jpg",
+            "link": "/data-analysis/",
+            "lessons": [
+                {
+                    "id": "B60",
+                    "name": "Numpy",
+                    "disable": 0,
+                    "des": "高性能Python矩阵计算库",
+                    "img": "python-logo.jpg",
+                    "link": "/numpy/"
+                },
+                {
+                    "id": "B61",
+                    "name": "Pandas",
+                    "disable": 0,
+                    "des": "不是熊猫的Python二维表格型数据处理利器",
+                    "img": "python-logo.jpg",
+                    "link": "/pandas/"
+                },
+			    {
+                    "id": "B62",
+                    "name": "R语言",
+                    "disable": 0,
+					"des": "数据分析经典语言",
+                    "img": "python-logo.jpg",
+                    "link": "/r/"
+                },
+                {
+                    "id": "B63",
+                    "name": "Scipy",
+                    "disable": 0,
+                    "des": "Python的科学计算库",
+                    "img": "python-logo.jpg",
+                    "link": "/scipy/"
+                },
+                {
+                    "id": "B64",
+                    "name": "Seaborn",
+                    "disable": 0,
+                    "des": "Python的科学计算库",
+                    "img": "python-logo.jpg",
+                    "link": "/Seaborn/"
+                }
+            ]
+        },
+        "machineLearning": {
+            "id": "B7",
+            "name": "机器学习",
+            "disable": 0,
+            "des": "Machine Learning",
+            "img": "python-logo.jpg",
+            "link": "/machine-learning/",
+            "lessons": [
+                {
+                    "id": "B70",
+                    "name": "机器学习",
+                    "disable": 1,
+                    "des": "",
+                    "img": "python-logo.jpg",
+                    "link": "/ml/"
+                },
+                {
+                    "id": "B71",
+                    "name": "Scikit-learn",
+                    "disable": 0,
+                    "des": "sklearn-最易上手的机器学习中Python库",
+                    "img": "python-logo.jpg",
+                    "link": "/sklearn/"
+                }
+            ]
+        },
+        "DeepLearning": {
+            "id": "B8",
+            "name": "深度学习",
+            "disable": 0,
+            "des": "Machine Learning",
+            "img": "python-logo.jpg",
+            "link": "/deep-learning/",
+            "lessons": [
+                {
+                    "id": "B80",
+                    "name": "动手学深度学习-mxnet",
+                    "disable": 0,
+                    "des": "用Mxnet框架,来一步步边实践边学习深度学习!",
+                    "img": "python-logo.jpg",
+                    "link": "/d2l/"
+                },
+                {
+                    "id": "B81",
+                    "name": "动手学深度学习-pytorch",
+                    "disable": 1,
+                    "des": "用Pytorch框架,来一步步边实践边学习深度学习!",
+                    "img": "python-logo.jpg",
+                    "link": "/d2l-pytorch/"
+                },
+                {
+                    "id": "B82",
+                    "name": "动手学Keras",
+                    "disable": 1,
+                    "des": "Keras,深度学习利器",
+                    "img": "python-logo.jpg",
+                    "link": "/keras/"
+                }
+            ]
+        }
+        }
+    },
+    "Applications": {
+        "id":"A",
+        "name": "应用案例",
+        "des": "学习IT技术的基础铺垫课程",
+        "disable":0,
+        "caseList": [
+            {
+                "id": "football",
+                "AppTypeID": "A6",
+                "AppTypeName": "数据分析",
+                "title": "足球运动员的数据分析实战",
+                "disable": 0,
+                "image": "python-logo.jpg",
+                "des": "足球运动是最受欢迎的运动之一。在此针对足球运动员个人的信息，技能水平等各项指标进行相关的分析与统计。",
+                "link": "/data-analysis/football"
+            },
+            {
+                "id":"sanky",
+                "AppTypeID": "A6",
+                "AppTypeName": "数据分析",
+                "disable": 0,
+                "title": "利用Python绘制诱人的桑基图",
+                "image": "python-logo.jpg",
+                "des": "桑基能量平衡图。它是一种特定类型的流程图，图中延伸的分支的宽度对应数据流量的大小，通常应用于能源、材料成分、金融等数据的可视化分析。",
+                "link": "/data-analysis/sanky"
+            },
+            {
+                "id":"python-sqllite",
+                "AppTypeID": "A6",
+                "AppTypeName": "数据分析",
+                "disable": 0,
+                "title": "Python内置的轻量级数据库实现移动端数据共享",
+                "image": "python-logo.jpg",
+                "des": "移动端Ap的数据库都是轻量级的，比如Android端使用的就是sqlite3，实际上Python是内置sqlite3数据库的，不需要独立的服务器进程。",
+                "link": "/machine-learning/python-sqllite"
+            },
+            {
+                "id":"python-titanic",
+                "AppTypeID": "A7",
+                "AppTypeName": "机器学习",
+                "disable": 0,
+                "title": "Python实现机器学习Titanic生存预测",
+                "image": "python-logo.jpg",
+                "des": "使用用Python实现机器学习的经典案例《Titanic生存预测》",
+                "link": "/machine-learning/python-titanic"
+            }
+        ]
+    },
+    "CareerProject": {
+        "id":"C",
+        "name": "职业项目",
+        "des": "可用于职场的实战项目",
+        "disable":0,
+        "itemList": [
+            {
+                "id":"nlp-servicecenter",
+                "CareerID": "C7",
+                "CarrerType": "机器学习",
+                "title": "NLP客服应答系统",
+                "disable": 0,
+                "image": "python-logo.jpg",
+                "des": "利用深度学习，自然语言处理和搜索引擎技术，实现企业聊天机器人，包括客服、智能问答和自动流程服务。让机器更加理解人。",
+                "link": "/machine-learning/nlp-servicecenter"
+                },
+            {
+                "id": "django-eshop",
+                "CareerID": "C5",
+                "CarrerType": "Web开发",
+                "title": "Python Django电子商务网站",
+                "disable": 0,
+                "image": "python-logo.jpg",
+                "des": "Python Django Web框架，Django是一个开放源代码的Web应用框架，由Python写成。采用了MTV的框架模式，即模型M，模板T和视图V组成。",
+                "link": "/web-backend/django-eshop"
+            }
+        ]
+    }
+}
+
+

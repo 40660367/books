@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>C语言 基本语法 - FreeAIHub</title>
+    <meta name="keywords" content="C语言的令牌（Tokens）,分号 ;,注释,标识符,关键字,C 中的空格">
+    <meta name="description" content="我们已经看过 C 程序的基本结构，这将有助于我们理解 C 语言的其他基本的构建块。C 程序由各种令牌组成，令牌可以是关键字、标识符、常量、字符串值，或者是一个符号。例如，下面的 C 语句包括五个令牌：这五个令牌分别是：在 C 程序中，分号是语句结束符。也就是说，每个语句必须以分号结束。它表明一个逻辑实体的结束。例如，下面是两个不同的语句：以  开始的单行注释，这种注释可以单独占一行。 这种格式的注">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href=/c/index.html>如何学习本课程</a></li>
+<li><a href="/c/intro.html">C语言 简介</a></li>
+<li><a href="/c/setup.html">C语言 环境安装及配置</a></li>
+<li><a class="current">C语言 基本语法</a></li>
+<li><a href="/c/datatype.html">C语言 数据类型</a></li>
+<li><a href="/c/variable.html">C语言 变量</a> </li>
+<li><a href="/c/const.html">C语言 常量</a>    </li>
+<li><a href="/c/storage-class.html">C语言 存储类</a>   </li>
+<li><a href="/c/logic.html">C语言 逻辑判断</a>  </li>
+<li><a href="/c/loop.html">C语言 循环</a></li>
+<li><a href="/c/loopcontrol.html">C语言 循环控制</a></li>
+<li><a href="/c/scope.html">C语言 作用域</a>   </li>
+<li><a href="/c/array.html">C语言 数组</a>    </li>
+<li><a href="/c/enum.html">C语言 枚举</a></li>
+<li><a href="/c/string.html">C语言 字符串</a></li>
+<li><a href="/c/pointer.html">C语言 指针</a>  </li>
+<li><a href="/c/function.html">C语言 函数</a> </li>
+<li><a href="/c/function-pointer.html">C语言 函数指针</a>   </li>
+<li><a href="/c/function-callback.html">C语言 回调函数</a></li>
+<li><a href="/c/struct.html">C语言 结构体</a>  </li>
+<li><a href="/c/union.html">C语言 共用体</a>   </li>
+<li><a href="/c/bitfield.html">C语言 位域</a> </li>
+<li><a href="/c/io.html">C语言 输入输出</a></li>
+<li><a href="/c/fileio.html">C语言 文件读写</a></li>
+<li><a href="/c/memory.html">C语言 内存管理</a></li>
+<li><a href="/c/typedef.html">C语言 typedef</a> </li>
+<li><a href="/c/header.html">C语言 头文件</a></li>
+<li><a href="/c/preprocessor.html">C语言 预处理器</a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/c/setup.html class='prev_article'>C语言 环境安装及配置</a>       |       下一篇：<a href=/c/datatype.html class='next_article'>C语言 数据类型</a>  >
+              
+<h1>C语言 基本语法</h1>
+<p>我们已经看过 C 程序的基本结构，这将有助于我们理解 C 语言的其他基本的构建块。</p>
+<h2>C语言的令牌（Tokens）</h2>
+<p>C 程序由各种令牌组成，令牌可以是关键字、标识符、常量、字符串值，或者是一个符号。例如，下面的 C 语句包括五个令牌：</p>
+<pre><code class="c">printf(&quot;Hello, World! \n&quot;);
+</code></pre>
+
+<p>这五个令牌分别是：</p>
+<pre><code class="c">printf
+(
+&quot;Hello, World! \n&quot;
+)
+;
+</code></pre>
+
+<h2>分号 ;</h2>
+<p>在 C 程序中，分号是语句结束符。也就是说，每个语句必须以分号结束。它表明一个逻辑实体的结束。</p>
+<p>例如，下面是两个不同的语句：</p>
+<pre><code class="c">printf(&quot;Hello, World! \n&quot;);
+return 0;
+</code></pre>
+
+<h2>注释</h2>
+<p><strong>C 语言有两种注释方式：</strong></p>
+<pre><code class="c">// 单行注释
+</code></pre>
+
+<p>以 <strong>//</strong> 开始的单行注释，这种注释可以单独占一行。</p>
+<pre><code class="c">/* 单行注释 */
+/* 
+ 多行注释
+ 多行注释
+ 多行注释
+ */
+</code></pre>
+
+<p><strong>/* */</strong> 这种格式的注释可以单行或多行。</p>
+<p>您不能在注释内嵌套注释，注释也不能出现在字符串或字符值中。</p>
+<h2>标识符</h2>
+<p>C 标识符是用来标识变量、函数，或任何其他用户自定义项目的名称。一个标识符以字母 A-Z 或 a-z 或下划线 _ 开始，后跟零个或多个字母、下划线和数字（0-9）。</p>
+<p>C 标识符内不允许出现标点字符，比如 @、$ 和 %。C 是<strong>区分大小写</strong>的编程语言。因此，在 C 中，<em>Manpower</em> 和 <em>manpower</em> 是两个不同的标识符。下面列出几个有效的标识符：</p>
+<pre><code class="c">mohd       zara    abc   move_name  a_123
+myname50   _temp   j     a23b9      retVal
+</code></pre>
+
+<h2>关键字</h2>
+<p>下表列出了 C 中的保留字。这些保留字不能作为常量名、变量名或其他标识符名称。</p>
+<table>
+<thead>
+<tr>
+<th align="left">关键字</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">auto</td>
+<td align="left">声明自动变量</td>
+</tr>
+<tr>
+<td align="left">break</td>
+<td align="left">跳出当前循环</td>
+</tr>
+<tr>
+<td align="left">case</td>
+<td align="left">开关语句分支</td>
+</tr>
+<tr>
+<td align="left">char</td>
+<td align="left">声明字符型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td align="left">const</td>
+<td align="left">定义常量，如果一个变量被 const 修饰，那么它的值就不能再被改变</td>
+</tr>
+<tr>
+<td align="left">continue</td>
+<td align="left">结束当前循环，开始下一轮循环</td>
+</tr>
+<tr>
+<td align="left">default</td>
+<td align="left">开关语句中的"其它"分支</td>
+</tr>
+<tr>
+<td align="left">do</td>
+<td align="left">循环语句的循环体</td>
+</tr>
+<tr>
+<td align="left">double</td>
+<td align="left">声明双精度浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td align="left">else</td>
+<td align="left">条件语句否定分支（与 if 连用）</td>
+</tr>
+<tr>
+<td align="left">enum</td>
+<td align="left">声明枚举类型</td>
+</tr>
+<tr>
+<td align="left">extern</td>
+<td align="left">声明变量或函数是在其它文件或本文件的其他位置定义</td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="left">声明浮点型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td align="left">for</td>
+<td align="left">一种循环语句</td>
+</tr>
+<tr>
+<td align="left">goto</td>
+<td align="left">无条件跳转语句</td>
+</tr>
+<tr>
+<td align="left">if</td>
+<td align="left">条件语句</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="left">声明整型变量或函数</td>
+</tr>
+<tr>
+<td align="left">long</td>
+<td align="left">声明长整型变量或函数返回值类型</td>
+</tr>
+<tr>
+<td align="left">register</td>
+<td align="left">声明寄存器变量</td>
+</tr>
+<tr>
+<td align="left">return</td>
+<td align="left">子程序返回语句（可以带参数，也可不带参数）</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">声明短整型变量或函数</td>
+</tr>
+<tr>
+<td align="left">signed</td>
+<td align="left">声明有符号类型变量或函数</td>
+</tr>
+<tr>
+<td align="left">sizeof</td>
+<td align="left">计算数据类型或变量长度（即所占字节数）</td>
+</tr>
+<tr>
+<td align="left">static</td>
+<td align="left">声明静态变量</td>
+</tr>
+<tr>
+<td align="left">struct</td>
+<td align="left">声明结构体类型</td>
+</tr>
+<tr>
+<td align="left">switch</td>
+<td align="left">用于开关语句</td>
+</tr>
+<tr>
+<td align="left">typedef</td>
+<td align="left">用以给数据类型取别名</td>
+</tr>
+<tr>
+<td align="left">unsigned</td>
+<td align="left">声明无符号类型变量或函数</td>
+</tr>
+<tr>
+<td align="left">union</td>
+<td align="left">声明共用体类型</td>
+</tr>
+<tr>
+<td align="left">void</td>
+<td align="left">声明函数无返回值或无参数，声明无类型指针</td>
+</tr>
+<tr>
+<td align="left">volatile</td>
+<td align="left">说明变量在程序执行中可被隐含地改变</td>
+</tr>
+<tr>
+<td align="left">while</td>
+<td align="left">循环语句的循环条件</td>
+</tr>
+</tbody>
+</table>
+<h3>C99 新增关键字</h3>
+<table>
+<thead>
+<tr>
+<th><code>_Bool</code></th>
+<th><code>_Complex</code></th>
+<th><code>_Imaginary</code></th>
+<th><code>inline</code></th>
+<th><code>restrict</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>C11 新增关键字</h3>
+<table>
+<thead>
+<tr>
+<th><code>_Alignas</code></th>
+<th><code>_Alignof</code></th>
+<th><code>_Atomic</code></th>
+<th><code>_Generic</code></th>
+<th><code>_Noreturn</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_Static_assert</code></td>
+<td><code>_Thread_local</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>C 中的空格</h2>
+<p>只包含空格的行，被称为空白行，可能带有注释，C 编译器会完全忽略它。</p>
+<p>在 C 中，空格用于描述空白符、制表符、换行符和注释。空格分隔语句的各个部分，让编译器能识别语句中的某个元素（比如 int）在哪里结束，下一个元素在哪里开始。因此，在下面的语句中：</p>
+<pre><code class="c">int age;
+</code></pre>
+
+<p>在这里，int 和 age 之间必须至少有一个空格字符（通常是一个空白符），这样编译器才能够区分它们。另一方面，在下面的语句中：</p>
+<pre><code class="c">fruit = apples + oranges;   // 获取水果的总数
+</code></pre>
+
+<p>fruit 和 =，或者 = 和 apples 之间的空格字符不是必需的，但是为了增强可读性您可以根据需要适当增加一些空格</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

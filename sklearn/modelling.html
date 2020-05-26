@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sklearn 建模过程 - FreeAIHub</title>
+    <meta name="keywords" content="数据集加载,分割数据集,训练模型,模型持久性,预处理数据,二值化,均值去除,缩放比例,正常化">
+    <meta name="description" content="本章介绍Sklearn中涉及的建模过程。让我们详细了解一下，并从数据集加载开始。数据的集合称为数据集。它具有以下两个组成部分- -数据的变量称为其特征。它们也称为预测变量，输入或属性。 -基本取决于特征变量的是输出变量。它们也称为目标，标签或输出。Scikit-learn几乎没有示例数据集，例如用于分类的IRIS和Digital以及用于回归的。以下是加载数据集的示例-为了检查模型的准确性，我们可以">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/sklearn/index.html"> 如何学习本课程 </a></li>
+<li><a href="/sklearn/intro.html"> sklearn简介</a></li>
+<li><a href="/sklearn/setup.html"> sklearn安装</a></li>
+<li><a class="current"> sklearn建模过程</a></li>
+<li><a href="/sklearn/data-representation.html"> sklearn数据表示</a></li>
+<li><a href="/sklearn/estimator.html"> sklearn估算器</a></li>
+<li><a href="/sklearn/conventions.html"> sklearn约定</a></li>
+<li><a href="/sklearn/linear.html"> sklearn线性建模之线性回归</a></li>
+<li><a href="/sklearn/logistic.html"> sklearn线性建模之逻辑回归</a></li>
+<li><a href="/sklearn/ridge.html"> sklearn线性建模之岭回归</a></li>
+<li><a href="/sklearn/bayes.html"> sklearn线性建模之贝叶斯岭回归</a></li>
+<li><a href="/sklearn/sgd.html"> sklearn随机梯度下降(SGD)</a></li>
+<li><a href="/sklearn/svm.html"> sklearn支持向量机(SVM)</a></li>
+<li><a href="/sklearn/knn.html"> sklearnK近邻(KNN)</a></li>
+<li><a href="/sklearn/nbc.html"> sklearn朴素贝叶斯分类(NBC)</a></li>
+<li><a href="/sklearn/dt.html"> sklearn决策树(DT)</a></li>
+<li><a href="/sklearn/rf.html"> sklearn随机决策树(RF)</a></li>
+<li><a href="/sklearn/cluster.html"> skelarn聚类(cluster)</a></li>
+<li><a href="/sklearn/pca.html"> sklearn降维(PCA)</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/sklearn/setup.html class='prev_article'> sklearn安装</a>       |       下一篇：<a href=/sklearn/data-representation.html class='next_article'> sklearn数据表示</a>  >
+              
+            <h1>sklearn 建模过程</h1>
+<p>本章介绍Sklearn中涉及的建模过程。让我们详细了解一下，并从数据集加载开始。</p>
+<h2>数据集加载</h2>
+<p>数据的集合称为数据集。它具有以下两个组成部分-</p>
+<p><strong>特征</strong> -数据的变量称为其特征。它们也称为预测变量，输入或属性。</p>
+<ul>
+<li><strong>特征矩阵</strong> -如果有多个特征，它是特征的集合。</li>
+<li><strong>功能名称</strong> -这是所有<strong>功能名称</strong>的列表。</li>
+</ul>
+<p><strong>响应</strong> -基本取决于特征变量的是输出变量。它们也称为目标，标签或输出。</p>
+<ul>
+<li><strong>响应向量</strong> -用于表示响应列。通常，我们只有一个响应列。</li>
+<li><strong>目标名称</strong> -它表示响应向量可能采用的值。</li>
+</ul>
+<p>Scikit-learn几乎没有示例数据集，例如用于分类的IRIS和Digital以及用于回归的<strong>波士顿房价</strong>。</p>
+<h3>例</h3>
+<p>以下是加载<strong>iris</strong>数据集的示例-</p>
+<pre><code class="python">from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data
+y = iris.target
+feature_names = iris.feature_names
+target_names = iris.target_names
+print(&quot;Feature names:&quot;, feature_names)
+print(&quot;Target names:&quot;, target_names)
+print(&quot;\nFirst 10 rows of X:\n&quot;, X[:10])
+</code></pre>
+
+<h2>分割数据集</h2>
+<p>为了检查模型的准确性，我们可以将数据集分为两部分<strong>：训练集</strong>和<strong>测试集</strong>。使用训练集训练模型，并使用测试集测试模型。之后，我们可以评估模型的效果。</p>
+<h3>例</h3>
+<p>以下示例将数据分成70:30的比例，即70％的数据将用作训练数据，而30％的数据将用作测试数据。数据集是IRIS数据集，如上例所示。</p>
+<pre><code class="python">from sklearn.datasets import load_iris
+iris = load_iris()
+
+X = iris.data
+y = iris.target
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+   X, y, test_size = 0.3, random_state = 1
+)
+
+print(X_train.shape)
+print(X_test.shape)
+
+print(y_train.shape)
+print(y_test.shape)
+</code></pre>
+
+<p>如上面的示例所示，它使用scikit-learn的<strong>train_test_split（）</strong>函数来拆分数据集。此函数具有以下参数-</p>
+<ul>
+<li><strong>X，y-</strong>在这里，<strong>X</strong>是<strong>特征矩阵</strong>，y是<strong>响应向量</strong>，需要进行拆分。</li>
+<li><strong>test_size-</strong>这表示测试数据与总给定数据的比率。如上例所示，我们为150行X 设置了<strong>test_data = 0.3</strong>。它将产生150 * 0.3 = 45行的测试数据。</li>
+<li><strong>random_size-</strong>用于确保拆分将始终相同。在需要可重现结果的情况下，这很有用。</li>
+</ul>
+<h2>训练模型</h2>
+<p>接下来，我们可以使用我们的数据集来训练一些预测模型。如所讨论的，scikit-learn具有广泛的<strong>机器学习（ML）算法</strong>，这些<strong>算法</strong>具有一致的接口，可用于拟合，预测准确性，召回率等。</p>
+<h3>例</h3>
+<p>在下面的示例中，我们将使用KNN（K个最近邻居）分类器。无需赘述KNN算法的细节，因为将有单独的章节。本示例仅用于使您理解实现部分。</p>
+<pre><code class="python">from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data
+y = iris.target
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+   X, y, test_size = 0.4, random_state=1
+)
+
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import metrics
+classifier_knn = KNeighborsClassifier(n_neighbors = 3)
+classifier_knn.fit(X_train, y_train)
+y_pred = classifier_knn.predict(X_test)
+# Finding accuracy by comparing actual response values(y_test)with predicted response value(y_pred)
+print(&quot;Accuracy:&quot;, metrics.accuracy_score(y_test, y_pred))
+# Providing sample data and the model will make prediction out of that data
+
+sample = [[5, 5, 3, 2], [2, 4, 3, 5]]
+preds = classifier_knn.predict(sample)
+pred_species = [iris.target_names[p] for p in preds]
+print(&quot;Predictions:&quot;, pred_species)
+</code></pre>
+
+<h2>模型持久性</h2>
+<p>训练完模型后，最好保留模型以备将来使用，这样我们就不必一次又一次地重新训练它。可以借助<strong><em>joblib*</em>*软件包的</strong>转储<strong>和*<em>加载**功能来</em></strong>完成***。</p>
+<p>考虑下面的示例，在该示例中，我们将保存上面训练的模型（classifier_knn）供以后使用-</p>
+<pre><code class="python">from sklearn.externals import joblib
+joblib.dump(classifier_knn, 'iris_classifier_knn.joblib')
+</code></pre>
+
+<p>上面的代码会将模型保存到名为<code>iris_classifier_knn.joblib</code>的文件中。现在，可以在以下代码的帮助下从文件中重新加载对象-</p>
+<pre><code class="python">joblib.load('iris_classifier_knn.joblib')
+</code></pre>
+
+<h2>预处理数据</h2>
+<p>由于我们要处理大量数据并且该数据是原始格式，因此在将该数据输入到机器学习算法之前，我们需要将其转换为有意义的数据。此过程称为预处理数据。为此，Scikit-learn具有名为<strong>预处理的</strong>软件包。该<strong>预处理</strong>封装具有以下技术-</p>
+<h2>二值化</h2>
+<p>当我们需要将数值转换为布尔值时，可以使用这种预处理技术。</p>
+<h3>例</h3>
+<pre><code class="python">import numpy as np
+from sklearn import preprocessing
+input_data = np.array(
+  [
+   [2.1, -1.9, 5.5],
+   [-1.5, 2.4, 3.5],
+   [0.5, -7.9, 5.6],
+   [5.9, 2.3, -5.8]
+  ]
+)
+data_binarized = preprocessing.Binarizer(threshold=0.5).transform(input_data)
+print(&quot;\nBinarized data:\n&quot;, data_binarized)
+</code></pre>
+
+<p>在上面的示例中，我们使用<strong>阈值</strong> = 0.5，这就是为什么将所有大于0.5的值都转换为1，而将所有小于0.5的值都转换为0的原因。</p>
+<h2>均值去除</h2>
+<p>该技术用于消除特征向量的均值，以便每个特征都以零为中心。</p>
+<h3>例</h3>
+<pre><code class="python">import numpy as np
+from sklearn import preprocessing
+input_data = np.array(
+   [
+      [2.1, -1.9, 5.5],
+      [-1.5, 2.4, 3.5],
+      [0.5, -7.9, 5.6],
+      [5.9, 2.3, -5.8]
+   ]
+)
+#displaying the mean and the standard deviation of the input data
+print(&quot;Mean =&quot;, input_data.mean(axis=0))
+print(&quot;Stddeviation = &quot;, input_data.std(axis=0))
+#Removing the mean and the standard deviation of the input data
+
+data_scaled = preprocessing.scale(input_data)
+print(&quot;Mean_removed =&quot;, data_scaled.mean(axis=0))
+print(&quot;Stddeviation_removed =&quot;, data_scaled.std(axis=0))
+</code></pre>
+
+<h2>缩放比例</h2>
+<p>我们使用这种预处理技术来缩放特征向量。特征向量的缩放很重要，因为特征不应该合成的大或小。</p>
+<h3>例</h3>
+<pre><code class="python">import numpy as np
+from sklearn import preprocessing
+input_data = np.array(
+   [
+      [2.1, -1.9, 5.5],
+      [-1.5, 2.4, 3.5],
+      [0.5, -7.9, 5.6],
+      [5.9, 2.3, -5.8]
+   ]
+)
+data_scaler_minmax = preprocessing.MinMaxScaler(feature_range=(0,1))
+data_scaled_minmax = data_scaler_minmax.fit_transform(input_data)
+print(&quot;\nMin max scaled data:\n&quot;, data_scaled_minmax)
+</code></pre>
+
+<h2>正常化</h2>
+<p>我们使用这种预处理技术来修改特征向量。特征向量的归一化是必要的，以便可以在公共尺度上测量特征向量。标准化有以下两种类型-</p>
+<h3>L1归一化</h3>
+<p>也称为最小绝对偏差。它以使绝对值的总和在每一行中始终保持最大为1的方式修改值。以下示例显示了对输入数据进行L1标准化的实现。</p>
+<h3>例</h3>
+<pre><code class="python">import numpy as np
+from sklearn import preprocessing
+input_data = np.array(
+   [
+      [2.1, -1.9, 5.5],
+      [-1.5, 2.4, 3.5],
+      [0.5, -7.9, 5.6],
+      [5.9, 2.3, -5.8]
+   ]
+)
+data_normalized_l1 = preprocessing.normalize(input_data, norm='l1')
+print(&quot;\nL1 normalized data:\n&quot;, data_normalized_l1)
+</code></pre>
+
+<h3>L2归一化</h3>
+<p>也称为最小二乘。它以使平方和在每一行中始终保持最大为1的方式修改值。以下示例显示了对输入数据进行L2标准化的实现。</p>
+<h3>例</h3>
+<pre><code class="python">import numpy as np
+from sklearn import preprocessing
+input_data = np.array(
+   [
+      [2.1, -1.9, 5.5],
+      [-1.5, 2.4, 3.5],
+      [0.5, -7.9, 5.6],
+      [5.9, 2.3, -5.8]
+   ]
+)
+data_normalized_l2 = preprocessing.normalize(input_data, norm='l2')
+print(&quot;\nL1 normalized data:\n&quot;, data_normalized_l2)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

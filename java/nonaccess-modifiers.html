@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Java 非访问修饰符 - FreeAIHub</title>
+    <meta name="keywords" content="final修饰符">
+    <meta name="description" content="Java提供了许多非访问修饰符来实现许多其他功能。下面来逐个了解和学习这些非访问修饰符。静态变量**关键字用于创建独立于类实例的变量。无论类的实例数有多少个，都只存在一个静态变量副本。静态变量也称为类变量。局部变量不能声明为。静态方法**关键字用于创建独立于类实例的方法。
+静态方法不能使用作为类的对象的实例变量，静态方法也叫作类方法。静态方法从参数中获取所有数据并从这些参数计算某些内容，而不引用变">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/java/index.html">如何学习本课程</a></li>
+<li><a href="/java/intro.html"> java 简介 </a></li>
+<li><a href="/java/setup.html"> Java 环境搭建及运行 </a></li>
+<li><a href="/java/syntax.html"> Java 基本语法 </a></li>
+<li><a href="/java/object-class.html"> Java 对象与类 </a></li>
+<li><a href="/java/datatype.html"> Java 基本数据类型 </a></li>
+<li><a href="/java/variable-types.html"> Java 变量类型 </a></li>
+<li><a href="/java/modifier.html"> Java 修饰符类型 </a></li>
+<li><a href="/java/operator.html"> Java 基本运算符 </a></li>
+<li><a href="/java/number.html"> Java Number类 </a></li>
+<li><a href="/java/character.html"> Java Character类 </a></li>
+<li><a href="/java/string.html"> Java String类 </a></li>
+<li><a href="/java/array.html"> Java 数组 </a></li>
+<li><a href="/java/method.html"> Java 方法 </a></li>
+<li><a href="/java/logic.html"> Java 条件判断 </a></li>
+<li><a href="/java/if.html"> Java 条件判断-if </a></li>
+<li><a href="/java/if-else.html"> Java 条件判断-if-else </a></li>
+<li><a href="/java/if-nested.html"> Java 条件判断-嵌套if语句 </a></li>
+<li><a href="/java/switch.html"> Java 条件判断-switch </a></li>
+<li><a href="/java/loop.html"> Java 循环控制 </a></li>
+<li><a href="/java/loop.html"> Java 循环控制 </a></li>
+<li><a href="/java/while.html"> Java 循环控制-while </a></li>
+<li><a href="/java/for.html"> Java 循环控制-for </a></li>
+<li><a href="/java/do-while.html"> Java 循环控制-do-while </a></li>
+<li><a href="/java/datetime.html"> Java 日期时间 </a></li>
+<li><a href="/java/io.html"> Java 文件和输入和输出 </a></li>
+<li><a href="/java/exceptions.html"> Java 异常处理 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+{prev_next_nav}
+              
+<h1>Java 非访问修饰符</h1>
+<p>Java提供了许多非访问修饰符来实现许多其他功能。</p>
+<ul>
+<li><code>static</code>修饰符用于创建类方法和变量。</li>
+<li><code>final</code>修饰符用于完成类，方法和变量的实现。</li>
+<li><code>abstract</code>修饰符用于创建抽象类和方法。</li>
+<li><code>synchronized</code>和<code>volatile</code>修饰符，用于线程。</li>
+</ul>
+<p>下面来逐个了解和学习这些非访问修饰符。</p>
+<h4>static修饰符</h4>
+<p>静态变量**</p>
+<p><code>static</code>关键字用于创建独立于类实例的变量。无论类的实例数有多少个，都只存在一个静态变量副本。静态变量也称为类变量。局部变量不能声明为<code>static</code>。</p>
+<p>静态方法**</p>
+<p><code>static</code>关键字用于创建独立于类实例的方法。
+静态方法不能使用作为类的对象的实例变量，静态方法也叫作类方法。静态方法从参数中获取所有数据并从这些参数计算某些内容，而不引用变量。可以使用类名后跟一个点(<code>.</code>)以及变量或方法的名称来访问类变量或方法。</p>
+<p><strong>示例</strong></p>
+<ul>
+<li><code>static</code>修饰符用于创建类方法和变量，如下例所示</li>
+</ul>
+<p>文件名:InstanceCounter.java</p>
+<pre><code class="java">public class InstanceCounter {
+
+   private static int numInstances = 0;
+
+   protected static int getCount() {
+      return numInstances;
+   }
+
+   private static void addInstance() {
+      numInstances++;
+   }
+
+   InstanceCounter() {
+      InstanceCounter.addInstance();
+   }
+
+   public static void main(String[] arguments) {
+      System.out.println(&quot;Starting with &quot; + InstanceCounter.getCount() + &quot; instances&quot;);
+
+      for (int i = 0; i &lt; 500; ++i) {
+         new InstanceCounter();
+      }
+      System.out.println(&quot;Created &quot; + InstanceCounter.getCount() + &quot; instances&quot;);
+   }
+}
+</code></pre>
+
+<pre><code class="shell">cd ~/java &amp;&amp; javac InstanceCounter.java
+java InstanceCounter
+</code></pre>
+
+<p>康康</p>
+<h2>final修饰符</h2>
+<p><strong>final变量</strong></p>
+<p>final变量只能显式地初始化一次，声明为<code>final</code>的引用变量永远不能重新分配以引用不同的对象。但是，可以更改对象内的数据。 因此，可以更改对象的状态，但不能更改引用。
+对于变量，<code>final</code>修饰符通常与<code>static</code>一起使用，以使常量成为类变量。</p>
+<p><strong>示例</strong></p>
+<p>文件名:TestFinal.java</p>
+<pre><code class="java">public class TestFinal {
+   final int value = 10;
+
+   // 以下是声明常量的示例：
+   public static final int BOXWIDTH = 6;
+   static final String TITLE = &quot;Manager&quot;;
+
+   public void changeValue() {
+      value = 12;   // 会出错，不能重新赋值
+   }
+}
+</code></pre>
+
+<pre><code class="bash">cd ~/java &amp;&amp; javac TestFinal.java
+java TestFinal
+</code></pre>
+
+<p>康康</p>
+<p><strong>final方法</strong></p>
+<p>任何子类都不能覆盖<code>final</code>方法。 如前所述，<code>final</code>修饰符可防止在子类中修改方法。</p>
+<p>声明<code>final</code>方法的主要目的是不让其它人改变方法的内容。</p>
+<p><strong>示例</strong>
+可以在类声明中使用<code>final</code>修饰符声明方法，如下例所示 - </p>
+<pre><code class="java">public class Test {
+   public final void changeName() {
+      // 方法主体
+   }
+}
+</code></pre>
+
+<p><strong>final类</strong></p>
+<p>使用声明为<code>final</code>的类的主要目的是防止类被子类化。 如果一个类被标记为<code>final</code>，那么这个类不能被其它类继承。</p>
+<p><strong>示例</strong></p>
+<pre><code class="java">public final class Test {
+   // body of class
+}
+</code></pre>
+
+<h4>abstract饰符</h4>
+<p><strong>抽象类</strong></p>
+<p>抽象(<code>abstract</code>)类不能实例化。如果一个类声明为抽象(<code>abstract</code>)，那么唯一的目的是扩展该类。</p>
+<p>一个类不能是同时是<code>abstract</code>和<code>final</code>(因为<code>final</code>类不能被扩展)。 如果一个类包含抽象方法，那么该类应该被声明为<code>abstract</code>。 否则，将抛出编译错误。</p>
+<p>抽象类可以包含抽象方法以及普通方法。</p>
+<p><strong>示例</strong></p>
+<pre><code class="java">abstract class Caravan {
+   private double price;
+   private String model;
+   private String year;
+   public void getYear(String y){}；// 这是一个普通方法
+   public abstract void goFast();   // 这是一个抽象方法
+   public abstract void changeColor();// 这是一个抽象方法
+}
+</code></pre>
+
+<p><strong>抽象方法</strong>
+抽象方法是在没有任何实现的情况下声明的方法。 方法体(实现)由子类提供。 抽象方法永远不会是最终的或严格的。</p>
+<p>扩展抽象类的任何类都必须实现超类的所有抽象方法，除非子类也是抽象类。</p>
+<p>如果一个类包含一个或多个抽象方法，那么该类必须声明为abstract。 抽象类不需要包含抽象方法。</p>
+<p>抽象方法以分号结尾。 示例：public abstract sample();</p>
+<p><strong>示例</strong></p>
+<pre><code class="java">public abstract class SuperClass {
+   abstract void m();   // 抽象方法
+}
+
+class SubClass extends SuperClass {
+   // 实现抽象方法
+   void m() {
+      // 实现代码.........
+   }
+}
+</code></pre>
+
+<h3>synchronized修饰符</h3>
+<p><code>synchronized</code>关键字用于指示一次只能访问一个方法的方法。<code>synchronized</code>修饰符可以应用于四个访问级别修饰符中的任何一个。</p>
+<p><strong>示例</strong></p>
+<pre><code class="java">public synchronized void showDetails() {
+   .......
+}
+</code></pre>
+
+<h4>transient修饰符</h4>
+<p>实例变量标记为<code>transient</code>，表示JVM在序列化包含它的对象时跳过特定变量。</p>
+<p>此修饰符包含在创建变量的语句中，位于变量的类或数据类型之前。</p>
+<p><strong>示例</strong></p>
+<pre><code class="java">public transient int limit = 55;   // will not persist
+public int b;   // will persist
+</code></pre>
+
+<h4>volatile修饰符</h4>
+<p><code>volatile</code>修饰符用于让JVM知道访问变量的线程必须始终将其自己的变量私有副本与内存中的主副本合并。</p>
+<p>访问<code>volatile</code>变量会同步主内存中变量的所有缓存复制。 <code>volatile</code>只能应用于实例变量，类型为<code>private</code>。 <code>volatile</code>对象引用可以为<code>null</code>。</p>
+<p><strong>示例</strong></p>
+<p>文件名：MyRunnable.java</p>
+<pre><code class="java">public class MyRunnable implements Runnable {
+   private volatile boolean active;
+
+   public void run() {
+      active = true;
+      while (active) {   // line 1
+         // some code here
+      }
+   }
+
+   public void stop() {
+      active = false;   // line 2
+   }
+}
+</code></pre>
+
+<p>通常，在一个线程(使用<code>Runnable</code>开始的线程)中调用<code>run()</code>，并从另一个线程调用<code>stop()</code>。 如果在第<code>1</code>行中使用了<code>active</code>的缓存值，那么当在第<code>2</code>行中将<code>active</code>设置为<code>false</code>时，循环可能不会停止。</p>
+<pre><code class="bash">cd ~/java &amp;&amp; javac MyRunnable.java
+java MyRunnable
+</code></pre>
+
+<p>康康</p>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

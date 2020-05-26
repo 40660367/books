@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 数据类型-元组(tuple) - FreeAIHub</title>
+    <meta name="keywords" content="元组创建,访问元组,修改元组,删除元组,元组运算符,元组索引，截取,作业：">
+    <meta name="description" content="Python 的元组与列表类似，不同之处在于元组的元素不能修改。元组使用小括号，列表使用方括号。元组创建很简单，只需要在括号中添加元素，并使用逗号隔开即可。创建空元组元组中只包含一个元素时，需要在元素后面添加逗号，否则括号会被当作运算符使用：元组与字符串类似，下标索引从0开始，可以进行截取，组合等。元组可以使用下标索引来访问元组中的值。元组中的元素值是不允许修改的，但我们可以对元组进行连接组合元组">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a class="current"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/list.html class='prev_article'> Python3 基本数据类型-列表 </a>       |       下一篇：<a href=/python/dict.html class='next_article'> Python3 基本数据类型-字典 </a>  >
+              
+            <h1>Python3 数据类型-元组(tuple)</h1>
+<p>Python 的元组与列表类似，不同之处在于元组的元素不能修改。</p>
+<p>元组使用小括号，列表使用方括号。</p>
+<h2>元组创建</h2>
+<p>元组创建很简单，只需要在括号中添加元素，并使用逗号隔开即可。</p>
+<h4>练习:元组创建</h4>
+<pre><code class="Python">tup1 = ('Google', 'Python', 1997, 2000)
+tup2 = (1, 2, 3, 4, 5 )
+tup3 = &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;   #  不需要括号也可以
+type(tup1),type(tup2),type(tup3)
+</code></pre>
+
+<p>创建空元组</p>
+<pre><code class="Python">tup1 = ()
+tup1
+</code></pre>
+
+<p>元组中只包含一个元素时，需要在元素后面添加逗号，否则括号会被当作运算符使用：</p>
+<pre><code class="Python">tup1 = (50)
+type(tup1)     # 不加逗号，类型为整型
+
+tup1 = (50,)
+type(tup1)     # 加上逗号，类型为元组
+</code></pre>
+
+<p>元组与字符串类似，下标索引从0开始，可以进行截取，组合等。</p>
+<h2>访问元组</h2>
+<p>元组可以使用下标索引来访问元组中的值。</p>
+<h4>练习:元组访问</h4>
+<pre><code class="Python">tup1 = ('Google', 'Python', 1997, 1984)
+tup2 = (1, 2, 3, 4, 5, 6, 7 )
+
+print(&quot;tup1[0]: &quot;, tup1[0])
+print(&quot;tup2[1:5]: &quot;, tup2[1:5])
+</code></pre>
+
+<h2>修改元组</h2>
+<p>元组中的元素值是不允许修改的，但我们可以对元组进行连接组合</p>
+<h4>练习:修改元组</h4>
+<pre><code class="Python">tup1 = (12, 34.56)
+tup2 = ('abc', 'xyz')
+
+# 以下修改元组元素操作是非法的。
+# tup1[0] = 100
+
+# 创建一个新的元组
+tup3 = tup1 + tup2
+print(tup3)
+</code></pre>
+
+<h2>删除元组</h2>
+<p>元组中的元素值是不允许删除的，但我们可以使用<code>del</code>语句来删除整个元组。</p>
+<h4>练习:</h4>
+<pre><code class="Python">tup = ('Google', 'Python', 1997, 2000)
+print(tup)
+del tup[0]#'tuple' object doesn't support item deletion
+</code></pre>
+
+<p>以上实例元组被删除后，输出变量会有异常信息</p>
+<h2>元组运算符</h2>
+<p>与字符串一样，元组之间可以使用 + 号和 * 号进行运算。这就意味着他们可以组合和复制，运算后会生成一个新的元组。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Python 表达式</th>
+<th align="left">结果</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>len((1, 2, 3))</code></td>
+<td align="left">3</td>
+<td align="left">计算元素个数</td>
+</tr>
+<tr>
+<td align="left"><code>(1, 2, 3) + (4, 5, 6)</code></td>
+<td align="left">(1, 2, 3, 4, 5, 6)</td>
+<td align="left">连接</td>
+</tr>
+<tr>
+<td align="left"><code>('Hi!',) * 4</code></td>
+<td align="left">('Hi!', 'Hi!', 'Hi!', 'Hi!')</td>
+<td align="left">复制</td>
+</tr>
+<tr>
+<td align="left"><code>3 in (1, 2, 3)</code></td>
+<td align="left">True</td>
+<td align="left">元素是否存在</td>
+</tr>
+<tr>
+<td align="left"><code>for x in (1, 2, 3): print(x,)</code></td>
+<td align="left">1 2 3</td>
+<td align="left">迭代</td>
+</tr>
+</tbody>
+</table>
+<h2>元组索引，截取</h2>
+<p>因为元组也是一个序列，所以我们可以访问元组中的指定位置的元素，也可以截取索引中的一段元素，</p>
+<h4>练习：元组索引读取</h4>
+<pre><code class="Python">L = ('Google', 'Taobao', 'Python')
+print(L[2] )
+print(L[-2])
+print(L[1:])
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">Python 表达式</th>
+<th align="left">结果</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>L[2]</code></td>
+<td align="left">'Python'</td>
+<td align="left">读取第三个元素</td>
+</tr>
+<tr>
+<td align="center"><code>L[-2]</code></td>
+<td align="left">'Taobao'</td>
+<td align="left">反向读取，读取倒数第二个元素</td>
+</tr>
+<tr>
+<td align="center"><code>L[1:]</code></td>
+<td align="left">('Taobao', 'Python')</td>
+<td align="left">截取元素，从第二个开始后的所有元素。</td>
+</tr>
+</tbody>
+</table>
+<h2>作业：</h2>
+<h3>天气温度统计</h3>
+<p>气象局使用元组tuple记录了本市过去七天的最高温度与最低温度。最高温度分别为30,28,29,31,33,35,32，最低温度分别为23,19,19,22,18,24,22。请分别计算出：
+- 过去七天每天的平均温度
+- 本周的最高与最低温度
+- 本周的平均温度</p>
+<pre><code class="Python">#作业在这里完成
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

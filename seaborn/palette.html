@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Seaborn 调色板 - FreeAIHub</title>
+    <meta name="keywords" content="调色板,定性调色板,顺序调色板,分散调色板,设置默认调色板">
+    <meta name="description" content="在可视化中，颜色比任何其他方面都起着重要作用。有效地使用颜色，可以为绘图增加更多价值。调色板是指画家在其上布置和混合涂料的平坦表面。Seaborn提供了一个称为的函数，该函数可用于为绘图赋予颜色并为其添加更多的美学价值。返回是指RGB元组的列表。以下是现成的Seaborn调色板-除了这些，还可以生成新的调色板在不了解数据特征的情况下，很难决定应将哪个调色板用于给定的数据集。意识到这一点，我们将对使">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/seaborn/index.html">如何学习本课程</a></li>
+<li><a href="/seaborn/intro.html"> sklearn简介 </a></li>
+<li><a href="/seaborn/setup.html"> 安装Seaborn库 </a></li>
+<li><a href="/seaborn/visualization.html"> Seaborn数据可视化 </a></li>
+<li><a class="current"> Seaborn调色板 </a></li>
+<li><a href="/seaborn/multipanel-categorical.html"> Seaborn多面板分类图 </a></li>
+<li><a href="/seaborn/histogram.html"> Seaborn直方图 </a></li>
+<li><a href="/seaborn/pairwise-relationship.html"> Seaborn可视化成对关系 </a></li>
+<li><a href="/seaborn/kde.html"> Seaborn内核密度估计 </a></li>
+<li><a href="/seaborn/pair-grid.html"> Seaborn配对网格 </a></li>
+<li><a href="/seaborn/categorical.html"> Seaborn绘制分类数据 </a></li>
+<li><a href="/seaborn/observations-distribution.html"> Seaborn绘制观测值的分布 </a></li>
+<li><a href="/seaborn/statistical-estimation.html"> Seaborn统计估计 </a></li>
+<li><a href="/seaborn/wideform.html"> Seaborn绘制宽格式数据 </a></li>
+<li><a href="/seaborn/linear-relationships.html"> Seaborn绘制线性关系 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/seaborn/visualization.html class='prev_article'> Seaborn数据可视化 </a>       |       下一篇：<a href=/seaborn/multipanel-categorical.html class='next_article'> Seaborn多面板分类图 </a>  >
+              
+            <h1>Seaborn 调色板</h1>
+<p>在可视化中，颜色比任何其他方面都起着重要作用。有效地使用颜色，可以为绘图增加更多价值。调色板是指画家在其上布置和混合涂料的平坦表面。</p>
+<h2>调色板</h2>
+<p>Seaborn提供了一个称为<strong>color_palette（）</strong>的函数，该函数可用于为绘图赋予颜色并为其添加更多的美学价值。</p>
+<h3>用法</h3>
+<pre><code>seaborn.color_palette（palette = None，n_colors = None，desat = None）
+</code></pre>
+
+<h3>返回</h3>
+<p>返回是指RGB元组的列表。以下是现成的Seaborn调色板-</p>
+<ul>
+<li>深</li>
+<li>静音</li>
+<li>亮</li>
+<li>粉彩</li>
+<li>暗</li>
+<li>色盲</li>
+</ul>
+<p>除了这些，还可以生成新的调色板</p>
+<p>在不了解数据特征的情况下，很难决定应将哪个调色板用于给定的数据集。意识到这一点，我们将对使用<strong>color_palette（）</strong>类型的不同方式进行分类-</p>
+<ul>
+<li>定性的</li>
+<li>顺序的</li>
+<li>发散</li>
+</ul>
+<p>我们还有另一个函数<strong>seaborn.palplot（）</strong>处理调色板。此功能将调色板绘制为水平阵列。在接下来的示例中，我们将了解有关<strong>seaborn.palplot（）的</strong>更多信息。</p>
+<h2>定性调色板</h2>
+<p>定性或分类调色板最适合于绘制分类数据。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+from matplotlib import pyplot as plt
+import seaborn as sb
+current_palette = sb.color_palette()
+sb.palplot(current_palette)
+plt.show()
+</code></pre>
+
+<p>我们没有在<strong>color_palette（）中</strong>传递任何参数<strong>；</strong>默认情况下，我们看到6种颜色。您可以通过将值传递给<strong>n_colors</strong>参数来查看所需的颜色数量。在这里，<strong>palplot（）</strong>用于水平绘制颜色阵列。</p>
+<h2>顺序调色板</h2>
+<p>顺序图适用于表示范围内相对较低值到较高值的数据分布。</p>
+<p>在传递给color参数的颜色上附加一个字符's'将绘制顺序图。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+from matplotlib import pyplot as plt
+import seaborn as sb
+current_palette = sb.color_palette()
+sb.palplot(sb.color_palette(&quot;Greens&quot;))
+plt.show()
+</code></pre>
+
+<p><strong>注意-</strong>我们需要在上面的示例中将's'附加到像'Greens'这样的参数上。</p>
+<h2>分散调色板</h2>
+<p>不同的调色板使用两种不同的颜色。每种颜色代表值从任一方向上的公共点开始的变化。</p>
+<p>假定绘制范围为-1到1的数据。值-1到0代表一种颜色，0到+1代表另一种颜色。</p>
+<p>默认情况下，值从零开始居中。您可以通过传递值来使用参数中心来控制它。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+from matplotlib import pyplot as plt
+import seaborn as sb
+current_palette = sb.color_palette()
+sb.palplot(sb.color_palette(&quot;BrBG&quot;, 7))
+plt.show()
+</code></pre>
+
+<h2>设置默认调色板</h2>
+<p>函数<strong>color_palette（）</strong>有一个名为<strong>set_palette（）</strong>的伴侣，它们之间的关系类似于“美学”一章中介绍的对。<strong>set_palette（）</strong>和<strong>color_palette（）</strong>的参数相同<strong>，</strong>但是默认的Matplotlib参数已更改，因此调色板可用于所有绘图。</p>
+<h3>例</h3>
+<pre><code class="python">%matplotlib inline
+import numpy as np
+from matplotlib import pyplot as plt
+def sinplot(flip = 1):
+   x = np.linspace(0, 14, 100)
+   for i in range(1, 5):
+      plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)
+
+import seaborn as sb
+sb.set_style(&quot;white&quot;)
+sb.set_palette(&quot;husl&quot;)
+sinplot()
+plt.show()
+</code></pre>
+
+<pre><code class="python">%matplotlib inline
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+plt.figure(figsize=(20,10))
+
+sns.set()
+#构建数据
+np.random.seed(0)
+x = np.random.randn(100)
+# 制定一些绘图参数
+sns.distplot(x, rug=True, rug_kws={&quot;color&quot;: &quot;g&quot;},
+             kde_kws={&quot;color&quot;: &quot;k&quot;, &quot;lw&quot;: 3, &quot;label&quot;: &quot;KDE&quot;},
+             hist_kws={&quot;histtype&quot;: &quot;step&quot;, &quot;linewidth&quot;: 3,
+                       &quot;alpha&quot;: 1, &quot;color&quot;: &quot;g&quot;})
+plt.show()
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 数据类型-字符串(string) - FreeAIHub</title>
+    <meta name="keywords" content="Python 访问字符串中的值,Python转义字符,Python字符串运算符,Python字符串格式化,f-string,Unicode 字符串,Python 的字符串内建函数">
+    <meta name="description" content="字符串是 Python 中最常用的数据类型。我们可以使用引号 或来创建字符串。创建字符串很简单，只要为变量分配一个值即可。python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。三引号让程序员从引号和特殊字符串的泥潭里面解脱出来，自始至终保持一小块字符串的格式是所谓的WYSIWYG（所见即所得）格式的。一个典型的用例是，当你需要一块HTML或者SQL时，这时用字符串">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a class="current"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a href="/python/dict.html"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/datatype.html class='prev_article'> Python3 基本数据类型 </a>       |       下一篇：<a href=/python/number.html class='next_article'> Python3 基本数据类型-数字 </a>  >
+              
+            <h1>Python3 数据类型-字符串(string)</h1>
+<p>字符串是 Python 中最常用的数据类型。我们可以使用引号<code>'</code> 或<code>"</code>来创建字符串。</p>
+<h4>练习:创建字符串对象</h4>
+<p>创建字符串很简单，只要为变量分配一个值即可。</p>
+<pre><code class="Python">var1 = 'Hello World!'
+var2 = &quot;Python&quot;
+var1,var2
+</code></pre>
+
+<h4>练习：创建具有格式的字符串对象</h4>
+<p>python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。</p>
+<pre><code class="Python">para_str = &quot;&quot;&quot;这是一个多行字符串的实例
+多行字符串可以使用制表符
+TAB ( \t )。
+也可以使用换行符 [ \n ]。
+&quot;&quot;&quot;
+print(para_str)
+</code></pre>
+
+<p>三引号让程序员从引号和特殊字符串的泥潭里面解脱出来，自始至终保持一小块字符串的格式是所谓的WYSIWYG（所见即所得）格式的。</p>
+<p>一个典型的用例是，当你需要一块HTML或者SQL时，这时用字符串组合，特殊字符串转义将会非常的繁琐。</p>
+<pre><code class="Python">errHTML = '''
+&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;
+Friends CGI Demo&lt;/TITLE&gt;&lt;/HEAD&gt;
+&lt;BODY&gt;&lt;H3&gt;ERROR&lt;/H3&gt;
+&lt;B&gt;%s&lt;/B&gt;&lt;P&gt;
+&lt;FORM&gt;&lt;INPUT TYPE=button VALUE=Back
+ONCLICK=&quot;window.history.back()&quot;&gt;&lt;/FORM&gt;
+&lt;/BODY&gt;&lt;/HTML&gt;
+'''
+
+sqlstr='''
+CREATE TABLE users (  
+login VARCHAR(8), 
+uid INTEGER,
+prid INTEGER)
+'''
+print(errHTML)
+print(sqlstr)
+</code></pre>
+
+<h2>Python 访问字符串中的值</h2>
+<p>Python 不支持单字符类型，单字符在 Python 中也是作为一个字符串使用。</p>
+<h4>练习:截取字符串</h4>
+<pre><code class="Python">var1 = 'Hello World!'
+var2 = &quot;Python&quot;
+
+print(&quot;var1[0]: &quot;, var1[0])
+print(&quot;var2[1:5]: &quot;, var2[1:5])
+</code></pre>
+
+<h4>练习:截取字符串的一部分并与其他字段拼接</h4>
+<pre><code class="Python">var1 = 'Hello World!'
+print(&quot;已更新字符串 : &quot;, var1[:6] + 'Python!')
+</code></pre>
+
+<h2>Python转义字符</h2>
+<p>在需要在字符中使用特殊字符时，python用反斜杠<code>\</code>转义字符。如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">转义字符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(在行尾时)</td>
+<td align="left">续行符</td>
+</tr>
+<tr>
+<td align="left">\</td>
+<td align="left">反斜杠符号</td>
+</tr>
+<tr>
+<td align="left">\'</td>
+<td align="left">单引号</td>
+</tr>
+<tr>
+<td align="left">\"</td>
+<td align="left">双引号</td>
+</tr>
+<tr>
+<td align="left">\a</td>
+<td align="left">响铃</td>
+</tr>
+<tr>
+<td align="left">\b</td>
+<td align="left">退格(Backspace)</td>
+</tr>
+<tr>
+<td align="left">\000</td>
+<td align="left">空</td>
+</tr>
+<tr>
+<td align="left">\n</td>
+<td align="left">换行</td>
+</tr>
+<tr>
+<td align="left">\v</td>
+<td align="left">纵向制表符</td>
+</tr>
+<tr>
+<td align="left">\t</td>
+<td align="left">横向制表符</td>
+</tr>
+<tr>
+<td align="left">\r</td>
+<td align="left">回车</td>
+</tr>
+<tr>
+<td align="left">\f</td>
+<td align="left">换页</td>
+</tr>
+<tr>
+<td align="left">\oyy</td>
+<td align="left">八进制数，<strong>yy</strong> 代表的字符，例如：<strong>\o12</strong> 代表换行，其中 o 是字母，不是数字 0。</td>
+</tr>
+<tr>
+<td align="left">\xyy</td>
+<td align="left">十六进制数，yy代表的字符，例如：\x0a代表换行</td>
+</tr>
+<tr>
+<td align="left">\other</td>
+<td align="left">其它的字符以普通格式输出</td>
+</tr>
+</tbody>
+</table>
+<h2>Python字符串运算符</h2>
+<p>下表实例变量<code>a</code>值为字符串<code>Hello</code>，b变量值为<code>Python</code>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">+</td>
+<td align="left">字符串连接</td>
+<td align="left"><code>a + b</code> 输出结果： HelloPython</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">重复输出字符串</td>
+<td align="left"><code>a*2</code> 输出结果：HelloHello</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">通过索引获取字符串中字符</td>
+<td align="left"><code>a[1]</code>输出结果 <strong>e</strong></td>
+</tr>
+<tr>
+<td align="left">[ : ]</td>
+<td align="left">截取字符串中的一部分，遵循<strong>左闭右开</strong>原则，str[0,2] 是不包含第 3 个字符的。</td>
+<td align="left"><code>a[1:4]</code> 输出结果 <strong>ell</strong></td>
+</tr>
+<tr>
+<td align="left">in</td>
+<td align="left">成员运算符 - 如果字符串中包含给定的字符返回 True</td>
+<td align="left"><code>'H' in a</code>输出结果 True</td>
+</tr>
+<tr>
+<td align="left">not in</td>
+<td align="left">成员运算符 - 如果字符串中不包含给定的字符返回 True</td>
+<td align="left"><code>'M' not in a</code> 输出结果 True</td>
+</tr>
+<tr>
+<td align="left">r/R</td>
+<td align="left">原始字符串 - 原始字符串：所有的字符串都是直接按照字面的意思来使用，没有转义特殊或不能打印的字符。 原始字符串除在字符串的第一个引号前加上字母 <strong>r</strong>（可以大小写）以外，与普通字符串有着几乎完全相同的语法。</td>
+<td align="left"><code>print( r'\n' ) print( R'\n' )</code></td>
+</tr>
+<tr>
+<td align="left">#### 练习:字符串操作练习</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="Python">a = &quot;Hello&quot;
+b = &quot;Python&quot;
+
+print(&quot;a + b 输出结果：&quot;, a + b)
+print(&quot;a * 2 输出结果：&quot;, a * 2)
+print(&quot;a[1] 输出结果：&quot;, a[1])
+print(&quot;a[1:4] 输出结果：&quot;, a[1:4])
+
+if( &quot;H&quot; in a) :
+    print(&quot;H 在变量 a 中&quot;)
+else :
+    print(&quot;H 不在变量 a 中&quot;)
+
+if( &quot;M&quot; not in a) :
+    print(&quot;M 不在变量 a 中&quot;)
+else :
+    print(&quot;M 在变量 a 中&quot;)
+
+print(r'\n')
+print(R'\n')
+</code></pre>
+
+<h2>Python字符串格式化</h2>
+<p>Python 支持格式化字符串的输出 。尽管这样可能会用到非常复杂的表达式，但最基本的用法是将一个值插入到一个有字符串格式符 %s 的字符串中。</p>
+<p>在 Python 中，字符串格式化使用与 C 中 sprintf 函数一样的语法。</p>
+<h4>练习:字符串格式化</h4>
+<pre><code class="Python">age = 8
+name = '小胖'
+print(&quot;我叫%s,今年%d岁!&quot; % (name, age))
+</code></pre>
+
+<h3>python字符串格式化符号:</h3>
+<table>
+<thead>
+<tr>
+<th align="center">符   号</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">%c</td>
+<td align="left">格式化字符及其ASCII码</td>
+</tr>
+<tr>
+<td align="center">%s</td>
+<td align="left">格式化字符串</td>
+</tr>
+<tr>
+<td align="center">%d</td>
+<td align="left">格式化整数</td>
+</tr>
+<tr>
+<td align="center">%u</td>
+<td align="left">格式化无符号整型</td>
+</tr>
+<tr>
+<td align="center">%o</td>
+<td align="left">格式化无符号八进制数</td>
+</tr>
+<tr>
+<td align="center">%x</td>
+<td align="left">格式化无符号十六进制数</td>
+</tr>
+<tr>
+<td align="center">%X</td>
+<td align="left">格式化无符号十六进制数（大写）</td>
+</tr>
+<tr>
+<td align="center">%f</td>
+<td align="left">格式化浮点数字，可指定小数点后的精度</td>
+</tr>
+<tr>
+<td align="center">%e</td>
+<td align="left">用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td align="center">%E</td>
+<td align="left">作用同%e，用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td align="center">%g</td>
+<td align="left">%f和%e的简写</td>
+</tr>
+<tr>
+<td align="center">%G</td>
+<td align="left">%f 和 %E 的简写</td>
+</tr>
+<tr>
+<td align="center">%p</td>
+<td align="left">用十六进制数格式化变量的地址</td>
+</tr>
+</tbody>
+</table>
+<h4>格式化操作符辅助指令:</h4>
+<table>
+<thead>
+<tr>
+<th align="left">符号</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">*</td>
+<td align="left">定义宽度或者小数点精度</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">用做左对齐</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">在正数前面显示加号( + )</td>
+</tr>
+<tr>
+<td align="left"><sp></td>
+<td align="left">在正数前面显示空格</td>
+</tr>
+<tr>
+<td align="left">#</td>
+<td align="left">在八进制数前面显示零('0')，在十六进制前面显示'0x'或者'0X'(取决于用的是'x'还是'X')</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">显示的数字前面填充'0'而不是默认的空格</td>
+</tr>
+<tr>
+<td align="left">%</td>
+<td align="left">'%%'输出一个单一的'%'</td>
+</tr>
+<tr>
+<td align="left">(var)</td>
+<td align="left">映射变量(字典参数)</td>
+</tr>
+<tr>
+<td align="left">m.n.</td>
+<td align="left">m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
+</tr>
+</tbody>
+</table>
+<p>Python2.6 开始，新增了一种格式化字符串的函数 <code>str.format()</code>,它增强了字符串格式化的功能。</p>
+<h2>f-string</h2>
+<p><code>f-string</code>是 python3.6 之后版本添加的，称之为字面量格式化字符串，是新的格式化字符串的语法。</p>
+<p>之前我们习惯用百分号<code>%</code>:</p>
+<h4>练习:Python f-string</h4>
+<pre><code class="Python">name1 = &quot;Python&quot;
+&quot;Hello, %s.&quot; % name1
+</code></pre>
+
+<pre><code class="Python">name2 = &quot;java&quot;
+age = 30
+&quot;Hello, %s. You age is %s.&quot; % (name, age)
+</code></pre>
+
+<h2>Unicode 字符串</h2>
+<p>在Python2中，普通字符串是以8位ASCII码进行存储的，而Unicode字符串则存储为16位unicode字符串，这样能够表示更多的字符集。使用的语法是在字符串前面加上前缀 <strong>u</strong>。</p>
+<p>在Python3中，所有的字符串都是Unicode字符串。</p>
+<h2>Python 的字符串内建函数</h2>
+<h3>Python 的字符串常用内建函数如下：</h3>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>capitalize()</code></td>
+<td align="left">将字符串的第一个字符转换为大写</td>
+</tr>
+<tr>
+<td align="left"><code>center(width, fillchar)</code></td>
+<td align="left">返回一个指定的宽度 width 居中的字符串，<code>fillchar()</code> 为填充的字符，默认为空格。</td>
+</tr>
+<tr>
+<td align="left"><code>count(str, beg= 0,end=len(string))</code></td>
+<td align="left">返回 str 在 string 里面出现的次数，如果 beg 或者 end 指定则返回指定范围内 str 出现的次数</td>
+</tr>
+<tr>
+<td align="left"><code>bytes.decode(encoding="utf-8", errors="strict")</code></td>
+<td align="left">Python3 中没有 decode 方法，但我们可以使用 bytes 对象的 decode() 方法来解码给定的 bytes 对象，这个 bytes 对象可以由 str.encode() 来编码返回。</td>
+</tr>
+<tr>
+<td align="left"><code>encode(encoding='UTF-8',errors='strict')</code></td>
+<td align="left">以 encoding 指定的编码格式编码字符串，如果出错默认报一个ValueError 的异常，除非 errors 指定的是'ignore'或者'replace'</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

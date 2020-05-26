@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 卡方检验(chisq test) - FreeAIHub</title>
+    <meta name="keywords" content="语法">
+    <meta name="description" content="是一种确定两个分类变量之间是否存在显着相关性的统计方法。 这两个变量应该来自相同的人口，他们应该是类似 - 是/否，男/女，红/绿等。例如，我们可以建立一个观察人们的冰淇淋购买模式的数据集，并尝试将一个人的性别与他们喜欢的冰淇淋的味道相关联。 如果发现相关性，我们可以通过了解访问的人的性别的数量来计划适当的味道库存。用于执行卡方检验的函数是:在R语言中创建卡方检验的基本语法是 以下是所使用的参数的">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a class="current"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/data-operation.html class='prev_article'> R语言数据操作</a>       |       下一篇：<a href=/r/dt.html class='next_article'> R语言决策树</a>  >
+              
+            <h1>R语言 卡方检验(chisq test)</h1>
+<p><strong>卡方检验</strong>是一种确定两个分类变量之间是否存在显着相关性的统计方法。 这两个变量应该来自相同的人口，他们应该是类似 - 是/否，男/女，红/绿等。</p>
+<p>例如，我们可以建立一个观察人们的冰淇淋购买模式的数据集，并尝试将一个人的性别与他们喜欢的冰淇淋的味道相关联。 如果发现相关性，我们可以通过了解访问的人的性别的数量来计划适当的味道库存。</p>
+<h2>语法</h2>
+<p>用于执行卡方检验的函数是:<code>chisq.test()</code></p>
+<p>在R语言中创建卡方检验的基本语法是 <code>chisq.test(data)</code></p>
+<p>以下是所使用的参数的描述 </p>
+<ul>
+<li><strong>data</strong>是以包含观察中变量的计数值的表的形式的数据。</li>
+</ul>
+<h4>练习：:卡方检验</h4>
+<p>我们将在<code>MASS</code>库中获取<code>Cars93</code>数据，该图书馆代表1993年不同型号汽车的销售额。</p>
+<pre><code class="R">library(&quot;MASS&quot;)
+print(str(Cars93))
+</code></pre>
+
+<p>上述结果表明数据集有很多因素变量，可以被认为是分类变量。 对于我们的模型，我们将考虑变量“AirBags”和“Type”。 在这里，我们的目标是找出所售的汽车类型和安全气囊类型之间的任何显着的相关性。 如果观察到相关性，我们可以估计哪种类型的汽车可以更好地卖什么类型的气囊。</p>
+<pre><code class="R"># Load the library.
+library(&quot;MASS&quot;)
+
+# Create a data frame from the main data set.
+car.data &lt;- data.frame(Cars93$AirBags, Cars93$Type)
+
+# Create a table with the needed variables.
+car.data = table(Cars93$AirBags, Cars93$Type) 
+print(car.data)
+
+# Perform the Chi-Square test.
+print(chisq.test(car.data))
+</code></pre>
+
+<h3>结论</h3>
+<p>结果显示$p$值小于$0.05$，这表明相关。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

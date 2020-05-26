@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现数据结构 图(graph) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="图是一组对象通过链接连接的一组对象的图形表示。 互连对象由称为顶点的点表示，连接顶点的链接称为边。 在这里详细描述了与图相关的各种术语和功能。 在本章中，我们将演示如何使用python程序创建图并向其添加各种数据元素。 以下是在图表上执行的基本操作。可以使用python字典数据类型轻松呈现图。 我们将顶点表示为字典的关键字，顶点之间的连接也称为边界，作为字典中的值。看看下面的图 -在上面的图中 -">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a class="current"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-2darray.html class='prev_article'> Python实现数据结构 二维数组(2d array)  </a>       |       下一篇：<a href=/ds-in-python/data-structure-linked-list.html class='next_article'> Python实现数据结构 链表(linked list) </a>  >
+              
+            <h1>Python实现数据结构 图(graph)</h1>
+<p>图是一组对象通过链接连接的一组对象的图形表示。 互连对象由称为顶点的点表示，连接顶点的链接称为边。 在这里详细描述了与图相关的各种术语和功能。 在本章中，我们将演示如何使用python程序创建图并向其添加各种数据元素。 以下是在图表上执行的基本操作。</p>
+<ul>
+<li>显示图形顶点</li>
+<li>显示图形边缘</li>
+<li>添加一个顶点</li>
+<li>添加边缘</li>
+<li>创建一个图</li>
+</ul>
+<p>可以使用python字典数据类型轻松呈现图。 我们将顶点表示为字典的关键字，顶点之间的连接也称为边界，作为字典中的值。</p>
+<p>看看下面的图 -</p>
+<p><img alt="img" src="./images/graph" /></p>
+<p>在上面的图中 - </p>
+<pre><code>V = {a, b, c, d, e}
+E = {ab, ac, bd, cd, de}
+</code></pre>
+
+<p>可以在下面的python程序中展示这个图 - </p>
+<pre><code class="python"># Create the dictionary with graph elements
+graph = { &quot;a&quot; : [&quot;b&quot;,&quot;c&quot;],
+          &quot;b&quot; : [&quot;a&quot;, &quot;d&quot;],
+          &quot;c&quot; : [&quot;a&quot;, &quot;d&quot;],
+          &quot;d&quot; : [&quot;e&quot;],
+          &quot;e&quot; : [&quot;d&quot;]
+         }
+
+# Print the graph
+print(graph)
+</code></pre>
+
+<p><strong>显示图的顶点</strong></p>
+<p>要显示图顶点，简单地找到图字典的关键字，使用<code>keys()</code>方法。</p>
+<pre><code class="python">class graph:
+    def __init__(self,gdict=None):
+        if gdict is None:
+            gdict = []
+        self.gdict = gdict
+
+# Get the keys of the dictionary
+    def getVertices(self):
+        return list(self.gdict.keys())
+
+# Create the dictionary with graph elements
+graph_elements = { &quot;a&quot; : [&quot;b&quot;,&quot;c&quot;],
+                &quot;b&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;c&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;d&quot; : [&quot;e&quot;],
+                &quot;e&quot; : [&quot;d&quot;]
+                }
+
+g = graph(graph_elements)
+
+print(g.getVertices())
+</code></pre>
+
+<p><strong>显示图的边缘</strong></p>
+<p>寻找图边缘比顶点少一些，因为必须找到每对顶点之间有一个边缘的顶点。 因此，创建一个空边列表，然后迭代与每个顶点关联的边值。 一个列表形成了包含从顶点找到的不同组的边。</p>
+<pre><code>[{'a', 'b'}, {'c', 'a'}, {'d', 'b'}, {'c', 'd'}, {'d', 'e'}]
+</code></pre>
+
+<p><strong>添加一个顶点</strong></p>
+<p>添加一个顶点很简单,直接添加另一个键到图字典。</p>
+<pre><code class="python">class graph:
+
+    def __init__(self,gdict=None):
+        if gdict is None:
+            gdict = {}
+        self.gdict = gdict
+
+    def getVertices(self):
+        return list(self.gdict.keys())
+
+# Add the vertex as a key
+    def addVertex(self, vrtx):
+       if vrtx not in self.gdict:
+            self.gdict[vrtx] = []
+
+# Create the dictionary with graph elements
+graph_elements = { &quot;a&quot; : [&quot;b&quot;,&quot;c&quot;],
+                &quot;b&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;c&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;d&quot; : [&quot;e&quot;],
+                &quot;e&quot; : [&quot;d&quot;]
+                }
+
+g = graph(graph_elements)
+
+g.addVertex(&quot;f&quot;)
+
+print(g.getVertices())
+</code></pre>
+
+<p><strong>添加边</strong></p>
+<p>将边添加到现有图, 涉及将新顶点视为元组并验证边是否已经存在。 如果不存在，则添加边缘。</p>
+<pre><code class="python">class graph:
+
+    def __init__(self,gdict=None):
+        if gdict is None:
+            gdict = {}
+        self.gdict = gdict
+
+    def edges(self):
+        return self.findedges()
+# Add the new edge
+
+    def AddEdge(self, edge):
+        edge = set(edge)
+        (vrtx1, vrtx2) = tuple(edge)
+        if vrtx1 in self.gdict:
+            self.gdict[vrtx1].append(vrtx2)
+        else:
+            self.gdict[vrtx1] = [vrtx2]
+
+# List the edge names
+    def findedges(self):
+        edgename = []
+        for vrtx in self.gdict:
+            for nxtvrtx in self.gdict[vrtx]:
+                if {nxtvrtx, vrtx} not in edgename:
+                    edgename.append({vrtx, nxtvrtx})
+        return edgename
+
+# Create the dictionary with graph elements
+graph_elements = { &quot;a&quot; : [&quot;b&quot;,&quot;c&quot;],
+                &quot;b&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;c&quot; : [&quot;a&quot;, &quot;d&quot;],
+                &quot;d&quot; : [&quot;e&quot;],
+                &quot;e&quot; : [&quot;d&quot;]
+                }
+
+g = graph(graph_elements)
+g.AddEdge({'a','e'})
+g.AddEdge({'a','c'})
+print(g.edges())
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

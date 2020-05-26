@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 协方差分析(ancova) - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="我们使用回归分析创建模型，描述变量在预测变量对响应变量的影响。 有时，如果我们有一个类别变量，如Yes / No或Male/Female等。简单的回归分析为分类变量的每个值提供多个结果。 在这种情况下，我们可以通过将分类变量与预测变量一起使用并比较分类变量的每个级别的回归线来研究分类变量的效果。 这样的分析被称为，也称为。考虑在R语言内置的数据集。 在其中我们观察到字段表示传输的类型（自动或手动）">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a class="current"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/nls.html class='prev_article'> R语言非线性最小二乘</a>       |       下一篇：<a href=/r/survival.html class='next_article'> R语言生存分析</a>  >
+              
+            <h1>R语言 协方差分析(ancova)</h1>
+<p>我们使用回归分析创建模型，描述变量在预测变量对响应变量的影响。 有时，如果我们有一个类别变量，如Yes / No或Male/Female等。简单的回归分析为分类变量的每个值提供多个结果。 在这种情况下，我们可以通过将分类变量与预测变量一起使用并比较分类变量的每个级别的回归线来研究分类变量的效果。 这样的分析被称为<strong>协方差分析</strong>，也称为<strong>ANCOVA</strong>。</p>
+<h4>练习：协方差分析</h4>
+<p>考虑在R语言内置的数据集<code>mtcars</code>。 在其中我们观察到字段<code>am”</code>表示传输的类型（自动或手动）。 它是值为0和1的分类变量。汽车的每加仑英里数<code>mpg</code>也可以取决于马力<code>hp</code>的值。</p>
+<p>我们研究<code>am</code>的值对<code>mpg</code>和<code>hp</code>之间回归的影响。 它是通过使用<code>aov()</code>函数，然后使用<code>anova()</code>函数来比较多个回归来完成的。</p>
+<p>输入数据</p>
+<p>从数据集<code>mtcars</code>创建一个包含字段<code>mpg</code>，<code>hp</code>和<code>am</code>的数据框。 这里我们取<code>mpg</code>作为响应变量，<code>hp</code>作为预测变量，<code>am</code>作为分类变量。</p>
+<pre><code class="R">input &lt;- mtcars[,c(&quot;am&quot;,&quot;mpg&quot;,&quot;hp&quot;)]
+print(head(input))
+</code></pre>
+
+<p>我们创建一个回归模型，以<code>hp</code>作为预测变量，<code>mpg</code>作为响应变量，考虑<code>am</code>和<code>hp</code>之间的相互作用。</p>
+<ul>
+<li>模型与分类变量和预测变量之间的相互作用</li>
+</ul>
+<pre><code class="R"># Get the dataset.
+input &lt;- mtcars
+
+# Create the regression model.
+result &lt;- aov(mpg~hp*am,data = input)
+print(summary(result))
+</code></pre>
+
+<p>这个结果表明，马力和传输类型对每加仑的英里有显着的影响，因为两种情况下的$p$值都小于$0.05$。 但是这两个变量之间的相互作用不显着，因为$p$值大于$0.05$。</p>
+<ul>
+<li>没有分类变量和预测变量之间相互作用的模型</li>
+</ul>
+<pre><code class="R"># Get the dataset.
+input &lt;- mtcars
+
+# Create the regression model.
+result &lt;- aov(mpg~hp+am,data = input)
+print(summary(result))
+</code></pre>
+
+<p>这个结果表明，马力和传输类型对每加仑的英里有显着的影响，因为两种情况下的$p$值都小于$0.05$。</p>
+<ul>
+<li>比较两个模型</li>
+</ul>
+<p>现在我们可以比较两个模型来得出结论，变量的相互作用是否真正重要。 为此，我们使用<strong>anova()</strong>函数。</p>
+<pre><code class="R"># Get the dataset.
+input &lt;- mtcars
+
+# Create the regression models.
+result1 &lt;- aov(mpg~hp*am,data = input)
+result2 &lt;- aov(mpg~hp+am,data = input)
+
+# Compare the two models.
+print(anova(result1,result2))
+</code></pre>
+
+<p>由于$p$值大于$0.05$，我们得出结论，马力和传播类型之间的相互作用不显着。 因此，在汽车和手动变速器模式下，每加仑的里程将以类似的方式取决于汽车的马力。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 字符串和文本数据 - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="在本章中，我们将使用基本系列/索引来讨论字符串操作。在随后的章节中，将学习如何将这些字符串函数应用于数据帧()。提供了一组字符串函数，可以方便地对字符串数据进行操作。 最重要的是，这些函数忽略(或排除)丢失/NaN值。几乎这些方法都使用Python字符串函数(请参阅： http://docs.python.org/3/library/stdtypes.html#string-methods )。 ">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a class="current"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/sort.html class='prev_article'> Pandas排序</a>       |       下一篇：<a href=/pandas/option.html class='next_article'> Pandas选项和自定义</a>  >
+              
+            <h1>Pandas 字符串和文本数据</h1>
+<p>在本章中，我们将使用基本系列/索引来讨论字符串操作。在随后的章节中，将学习如何将这些字符串函数应用于数据帧(<em>DataFrame</em>)。</p>
+<p><em>Pandas</em>提供了一组字符串函数，可以方便地对字符串数据进行操作。 最重要的是，这些函数忽略(或排除)丢失/NaN值。</p>
+<p>几乎这些方法都使用Python字符串函数(请参阅： http://docs.python.org/3/library/stdtypes.html#string-methods )。 因此，将Series对象转换为String对象，然后执行该操作。</p>
+<p>下面来看看每个操作的执行和说明。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>lower()</code></td>
+<td>将<code>Series/Index</code>中的字符串转换为小写。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>upper()</code></td>
+<td>将<code>Series/Index</code>中的字符串转换为大写。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>len()</code></td>
+<td>计算字符串长度。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>strip()</code></td>
+<td>帮助从两侧的系列/索引中的每个字符串中删除空格(包括换行符)。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>split(' ')</code></td>
+<td>用给定的模式拆分每个字符串。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>cat(sep=' ')</code></td>
+<td>使用给定的分隔符连接系列/索引元素。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>get_dummies()</code></td>
+<td>返回具有单热编码值的数据帧(DataFrame)。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>contains(pattern)</code></td>
+<td>如果元素中包含子字符串，则返回每个元素的布尔值<code>True</code>，否则为<code>False</code>。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>replace(a,b)</code></td>
+<td>将值<code>a</code>替换为值<code>b</code>。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>repeat(value)</code></td>
+<td>重复每个元素指定的次数。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>count(pattern)</code></td>
+<td>返回模式中每个元素的出现总数。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>startswith(pattern)</code></td>
+<td>如果系列/索引中的元素以模式开始，则返回<code>true</code>。</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>endswith(pattern)</code></td>
+<td>如果系列/索引中的元素以模式结束，则返回<code>true</code>。</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>find(pattern)</code></td>
+<td>返回模式第一次出现的位置。</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>findall(pattern)</code></td>
+<td>返回模式的所有出现的列表。</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>swapcase</code></td>
+<td>变换字母大小写。</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>islower()</code></td>
+<td>检查系列/索引中每个字符串中的所有字符是否小写，返回布尔值</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>isupper()</code></td>
+<td>检查系列/索引中每个字符串中的所有字符是否大写，返回布尔值</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>isnumeric()</code></td>
+<td>检查系列/索引中每个字符串中的所有字符是否为数字，返回布尔值。</td>
+</tr>
+</tbody>
+</table>
+<p>现在创建一个系列，看看上述所有函数是如何工作的。</p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t', np.nan, '1234','SteveMinsu'])
+
+print(s)
+</code></pre>
+
+<p><strong>1. lower()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t', np.nan, '1234','SteveMinsu'])
+
+print(s.str.lower())
+</code></pre>
+
+<p><strong>2. upper()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t', np.nan, '1234','SteveMinsu'])
+
+print(s.str.upper())
+</code></pre>
+
+<p><strong>3. len()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t', np.nan, '1234','SteveMinsu'])
+print(s.str.len())
+</code></pre>
+
+<p><strong>4. strip()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s)
+print(&quot;=========== After Stripping ================&quot;)
+print(s.str.strip())
+</code></pre>
+
+<p><strong>5. split(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s)
+print(&quot;================= Split Pattern: ==================&quot;)
+print(s.str.split(' '))
+</code></pre>
+
+<p><strong>6. cat(sep=pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+
+print(s.str.cat(sep=' &lt;=&gt; '))
+</code></pre>
+
+<p><strong>7. get_dummies()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+import numpy as np
+
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+
+print(s.str.get_dummies())
+</code></pre>
+
+<p><strong>8. contains()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s.str.contains(' '))
+</code></pre>
+
+<p><strong>9. replace(a,b)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s)
+print(&quot;After replacing @ with $: ============== &quot;)
+print(s.str.replace('@','$'))
+</code></pre>
+
+<p><strong>10. repeat(value)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s.str.repeat(2))
+</code></pre>
+
+<p><strong>11. count(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+
+print(&quot;The number of 'm's in each string:&quot;)
+print(s.str.count('m'))
+</code></pre>
+
+<p><strong>12. startswith(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+
+print(&quot;Strings that start with 'T':&quot;)
+print(s.str. startswith ('T'))
+</code></pre>
+
+<p><strong>13. endswith(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(&quot;Strings that end with 't':&quot;)
+print(s.str.endswith('t'))
+</code></pre>
+
+<p><strong>14. find(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s.str.find('e'))
+</code></pre>
+
+<blockquote>
+<p>注意：<code>-1</code>表示元素中没有这样的模式可用。</p>
+</blockquote>
+<p><strong>15. findall(pattern)函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+print(s.str.findall('e'))
+</code></pre>
+
+<blockquote>
+<p>空列表(<code>[]</code>)表示元素中没有这样的模式可用。</p>
+</blockquote>
+<p><strong>16. swapcase()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t'])
+print(s.str.swapcase())
+</code></pre>
+
+<p><strong>17. islower()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['Tom', 'William Rick', 'John', 'Alber@t'])
+print(s.str.islower())
+</code></pre>
+
+<p><strong>18. isupper()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+
+s = pd.Series(['TOM', 'William Rick', 'John', 'Alber@t'])
+
+print(s.str.isupper())
+</code></pre>
+
+<p>执行上面示例代码，得到以下结果 - </p>
+<p><strong>19. isnumeric()函数示例</strong></p>
+<pre><code class="python">import pandas as pd
+s = pd.Series(['Tom', '1199','William Rick', 'John', 'Alber@t'])
+print(s.str.isnumeric())
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

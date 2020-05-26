@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Julia 模块 - FreeAIHub</title>
+    <meta name="keywords" content="模块,模块使用方法的总结,模块和文件,标准模块,默认顶级声明和裸模块,模块的相对和绝对路径,模块文件路径,小提示">
+    <meta name="description" content="Julia 的模块是一个独立的全局变量工作区。它由句法限制在  之间。在模块内部，你可以控制其他模块的命名是否可见（通过  ），也可以指明本模块的命名是否为 public（通过 ）。下面的例子展示了模块的主要特征。这个例子仅为演示：注意上述例子没有缩进模块体的代码，因为整体缩进没有必要。这个模块定义了类型  和两个函数。 函数和  类型被 export ，因此可以被 import 进其他模块使用。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/julia/index.html">如何学习本课程</a></li>
+<li><a href="/julia/index.html"> 如何学习本课程 </a></li>
+<li><a href="/julia/intro.html"> Julia简介 </a></li>
+<li><a href="/julia/setup.html"> Julia环境搭建及运行 </a></li>
+<li><a href="/julia/start.html"> Julia开始 </a></li>
+<li><a href="/julia/repl.html"> Julia交互 </a></li>
+<li><a href="/julia/variable.html"> Julia变量 </a></li>
+<li><a href="/julia/int-float.html"> Julia整数和浮点数 </a></li>
+<li><a href="/julia/math.html"> Julia数学运算和基本函数 </a></li>
+<li><a href="/julia/complex-fraction.html"> Julia复数和分数 </a></li>
+<li><a href="/julia/string.html"> Julia数据类型 字符串 </a></li>
+<li><a href="/julia/scope.html"> Julia变量的作用域 </a></li>
+<li><a href="/julia/function.html"> Julia函数 </a></li>
+<li><a href="/julia/method.html"> Julia方法 </a></li>
+<li><a href="/julia/conditional.html"> Julia控制流 </a></li>
+<li><a href="/julia/type.html"> Julia类型 </a></li>
+<li><a href="/julia/construction-function.html"> Julia构造函数 </a></li>
+<li><a href="/julia/type-convert.html"> Julia类型转换和类型提升 </a></li>
+<li><a class="current"> Julia模块 </a></li>
+<li><a href="/julia/datetime.html"> Julia日期和时间 </a></li>
+<li><a href="/julia/meta.html"> Julia元编程 </a></li>
+<li><a href="/julia/md-array.html"> Julia多维数组 </a>     </li>
+<li><a href="/julia/la.html"> Julia线性代数 </a></li>
+<li><a href="/julia/net-stream.html"> Julia网络和流 </a></li>
+<li><a href="/julia/parallel-computation.html"> Julia并行计算 </a></li>
+<li><a href="/julia/nullable.html"> Julia可空类型 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/julia/type-convert.html class='prev_article'> Julia类型转换和类型提升 </a>       |       下一篇：<a href=/julia/datetime.html class='next_article'> Julia日期和时间 </a>  >
+              
+            <h1>Julia 模块</h1>
+<h2>模块</h2>
+<p>Julia 的模块是一个独立的全局变量工作区。它由句法限制在 <code>module Name ... end</code> 之间。在模块内部，你可以控制其他模块的命名是否可见（通过 <code>import</code> ），也可以指明本模块的命名是否为 public（通过 <code>export</code>）。</p>
+<p>下面的例子展示了模块的主要特征。这个例子仅为演示：</p>
+<pre><code class="julia">module MyModule
+using Lib
+
+using BigLib: thing1, thing2
+
+import Base.show
+
+importall OtherLib
+
+export MyType, foo
+
+type MyType
+    x
+end
+
+bar(x) = 2x
+foo(a::MyType) = bar(a.x) + 1
+
+show(io, a::MyType) = print(io, &quot;MyType $(a.x)&quot;)
+end
+</code></pre>
+
+<p>注意上述例子没有缩进模块体的代码，因为整体缩进没有必要。</p>
+<p>这个模块定义了类型 <code>MyType</code> 和两个函数。<code>foo</code> 函数和 <code>MyType</code> 类型被 export ，因此可以被 import 进其他模块使用。 <code>bar</code> 是 <code>MyModule</code> 的私有函数。</p>
+<p>语句 <code>using Lib</code> 表明，<code>Lib</code> 模块在需要时可用来解析命名。若一个全局变量在当前模块中没有被定义，系统会在 <code>Lib</code> export 的变量中搜索，并在找到后把它 import 进来。在当前模块中凡是用到这个全局变量时，都会去找 <code>Lib</code> 中变量的定义。</p>
+<p>语句 <code>using BigLib: thing1, thing2</code> 是 <code>using BigLib.thing1, BigLib.thing2</code> 的缩写。</p>
+<p><code>import</code> 关键字支持与 <code>using</code> 所有相同的语法，但只能在一个时间上对一个名称进行操作。它不像 <code>using</code> 那样会添加用于搜索的模块。<code>import</code> 与 <code>using</code> 的不同之处还在于导入这一功能时必须使用新的方法扩展后的 <code>import</code>。</p>
+<p>在上述的 <code>MyModule</code> 中我们想向标准的 <code>show</code> 功能增加一个方法，所以我们必须写下 <code>import Base.show</code>。</p>
+<p>那些函数名只有通过 <code>using</code> 功能才能看到的函数是不能被扩展的。</p>
+<p><code>importall</code> 关键字显式地导入导出指定模块的所有名称，其效果就像 <code>import</code> 单独使用在它们的所有名称一样。</p>
+<p>一旦一个变量是通过 <code>using</code> 或 <code>import</code> 使其可见的，一个模块就可能无法创建它自己的同名的变量了。输入变量必须是只读的；对全局变量赋值总是会影响当前模块所拥有的变量，否则就会引发错误。</p>
+<h2>模块使用方法的总结</h2>
+<p>我们要加载一个模块时，可以使用两个主要关键字：<code>using</code> 和 <code>import</code>。要了解他们的差异，可以考虑下面的例子：</p>
+<pre><code class="julia">module MyModule
+
+export x, y
+
+x() = &quot;x&quot;
+y() = &quot;y&quot;
+p() = &quot;p&quot;
+
+end
+</code></pre>
+
+<p>在这个模块中我们（使用关键字 <code>export</code> ）导出 <code>x</code> 和 <code>y</code> 功能，也包含了非导出函数 <code>p</code> 。我们有几个不同的方法来加载该模块及其内部功能到当前工作区，具体如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">导入命令</th>
+<th align="left">导入变量</th>
+<th align="left">方法扩展可用项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">using MyModule</td>
+<td align="left">All export ed names (x and y), MyModule.x, MyModule.y and MyModule.p MyModule.x, MyModule.y and MyModule.p</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">using MyModule .x, MyModule.p</td>
+<td align="left">x and p</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">using MyModule: x, p</td>
+<td align="left">x and p</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">import MyModule</td>
+<td align="left">MyModule.x, MyModule.y and MyModule.p</td>
+<td align="left">MyModule.x, MyModule.y and MyModule.p</td>
+</tr>
+<tr>
+<td align="left">import MyModule.x, MyModule.p</td>
+<td align="left">x and p</td>
+<td align="left">x and p</td>
+</tr>
+<tr>
+<td align="left">import MyModule: x, p</td>
+<td align="left">x and p</td>
+<td align="left">x and p</td>
+</tr>
+<tr>
+<td align="left">importall MyModule</td>
+<td align="left">All export ed names (x and y)</td>
+<td align="left">x and y</td>
+</tr>
+</tbody>
+</table>
+<h2>模块和文件</h2>
+<p>大多数情况下,文件和文件名与模块无关；模块只与模块表达式有关。一个模块可以有多个文件，一个文件也可以有多个模块：</p>
+<pre><code class="julia">module Foo
+
+include(&quot;file1.jl&quot;)
+include(&quot;file2.jl&quot;)
+
+end
+</code></pre>
+
+<p>在不同的模块中包含同样的代码，会带来类似 mixin 的特征。可以利用这点，在不同的环境定义下运行同样的代码，例如运行一些操作的“安全”版本来进行代码测试：</p>
+<pre><code class="julia">module Normal
+include(&quot;mycode.jl&quot;)
+end
+
+module Testing
+include(&quot;safe_operators.jl&quot;)
+include(&quot;mycode.jl&quot;)
+end
+</code></pre>
+
+<h2>标准模块</h2>
+<p>有三个重要的标准模块：Main, Core, 和 Base。</p>
+<p>Main 是顶级模块，Julia 启动时将 Main 设为当前模块。提示符模式下，变量都是在 Main 模块中定义，<code>whos()</code> 可以列出 Main 中的所有变量。</p>
+<p>Core 包含“内置”的所有标志符，例如部分核心语言，但不包括库。每个模块都隐含地调用了 <code>using Core</code>，因为没有这些声明，什么都做不了。</p>
+<p>Base 是标准库（ 在 base/ 文件夹下）。所有的模块都隐含地调用了 <code>using Base</code>，因为大部分情况下都需要它。</p>
+<h2>默认顶级声明和裸模块</h2>
+<p>除了 <code>using Base</code>，模块显式引入了所有的运算符。模块还自动包含 <code>eval</code> 函数的定义，这个函数对本模块中的表达式求值。</p>
+<p>如果不想要这些定义，可以使用 <code>baremodule</code> 关键字来定义模块。使用 <code>baremodule</code> 时，一个标准的模块有如下格式：</p>
+<pre><code class="julia">baremodule Mod
+
+using Base
+
+importall Base.Operators
+
+eval(x) = Core.eval(Mod, x)
+eval(m,x) = Core.eval(m, x)
+
+...
+
+end
+</code></pre>
+
+<h2>模块的相对和绝对路径</h2>
+<p>输入指令 <code>using foo</code>, Julia 会首先在 <code>Main</code> 名字空间中寻找 <code>Foo</code>。如果模块未找到, Julia 会尝试 <code>require("Foo")</code>。通常情况下, 这会从已安装的包中载入模块。</p>
+<p>然而，有些模块还有子模块，也就是说，有时候不能从 <code>Main</code> 中直接引用一些模块。有两种方法可以解决这个问题：方法一，使用绝对路径，如 <code>using Base.Sort</code>。方法二，使用相对路径，这样可以方便地载入当前模块的子模块或者嵌套的模块：</p>
+<pre><code class="julia">module Parent
+
+module Utils
+...
+end
+
+using .Utils
+
+...
+end
+</code></pre>
+
+<p>模块 <code>Parent</code> 包含子模块 <code>Utils</code>。如果想要 <code>Utils</code> 中的内容对 <code>Parent</code> 可见, 可以使用 <code>using</code> 加上英文句号。更多的句号表示在更下一层的命名空间进行搜索。例如，<code>using ..Utils</code> 将会在 <code>Parent</code> 模块的 子模块内寻找 <code>Utils</code> 。</p>
+<h2>模块文件路径</h2>
+<p>全局变量 <code>LOAD_PATH</code> 包含了调用 <code>require</code> 时 Julia搜索模块的目录。可以用 <code>push!</code> 进行扩展 :</p>
+<pre><code>push!(LOAD_PATH, &quot;/Path/To/My/Module/&quot;)
+</code></pre>
+
+<p>将这一段代码放在 <code>~\.juliarc.jl</code> 里能够在每次 Julia启动时对 <code>LOAD_PATH</code> 扩展。此外，还可以通过定义环境变量 <code>JULIA_LOAD_PATH</code> 来扩展 Julia 的模块路径。</p>
+<h2>小提示</h2>
+<p>如果一个命名是有许可的(qualified)（如 <code>Base.sin</code>），即使它没被 export ，仍能被外部读取。这在调试时非常有用。</p>
+<p>import 或 export 宏时，要在宏名字前添加 <code>@</code> 符号，例如 <code>import Mod.@mac</code> 。在其他模块中的宏可以被调用为 <code>Mod.@mac</code> 或 <code>@Mod.mac</code> 。</p>
+<p>形如 <code>M.x = y</code> 的语法是错的，不能给另一个模块中的全局变量赋值；全局变量的赋值都是在变量所在的模块中进行的。</p>
+<p>直接在顶层声明为 <code>global x</code>，可以将变量声明为“保留”的。这可以用来防止加载时，全局变量初始化遇到命名冲突。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=julia-1.3></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

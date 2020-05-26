@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 簇聚(cluster) - FreeAIHub</title>
+    <meta name="keywords" content="SciPy中实现K-Means,用三个集群计算K均值">
+    <meta name="description" content="K均值聚类是一种在一组未标记数据中查找聚类和聚类中心的方法。 直觉上，我们可以将一个群集(簇聚)看作 - 包含一组数据点，其点间距离与群集外点的距离相比较小。 给定一个K中心的初始集合，K均值算法重复以下两个步骤 -重复这两个步骤，直到中心不再移动或分配不再改变。 然后，可以将新点分配给最接近的原型的群集。 SciPy库通过集群包提供了K-Means算法的良好实现。 下面来了解如何使用它。我们来看">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a class="current"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/basic.html class='prev_article'> SciPy 基本功能 </a>       |       下一篇：<a href=/scipy/constant.html class='next_article'> Scipy 常量 </a>  >
+              
+            <h1>Scipy 簇聚(cluster)</h1>
+<p>K均值聚类是一种在一组未标记数据中查找聚类和聚类中心的方法。 直觉上，我们可以将一个群集(簇聚)看作 - 包含一组数据点，其点间距离与群集外点的距离相比较小。 给定一个K中心的初始集合，K均值算法重复以下两个步骤 -</p>
+<ul>
+<li>对于每个中心，比其他中心更接近它的训练点的子集(其聚类)被识别出来。</li>
+<li>计算每个聚类中数据点的每个要素的平均值，并且此平均向量将成为该聚类的新中心。</li>
+</ul>
+<p>重复这两个步骤，直到中心不再移动或分配不再改变。 然后，可以将新点<code>x</code>分配给最接近的原型的群集。 SciPy库通过集群包提供了K-Means算法的良好实现。 下面来了解如何使用它。</p>
+<h2>SciPy中实现K-Means</h2>
+<p>我们来看看并理解如何在SciPy中实现K-Means。</p>
+<p><strong>导入K-Means</strong></p>
+<p>下面来看看每个导入的函数的实现和用法。</p>
+<pre><code class="python">from scipy.cluster.vq import kmeans,vq,whiten
+</code></pre>
+
+<p><strong>数据生成</strong></p>
+<p>我们需要生成(模拟)一些数据来探索聚类。参考以下代码 - </p>
+<pre><code class="python">from numpy import vstack,array
+from numpy.random import rand
+
+# data generation with three features
+data = vstack((rand(100,3) + array([.5,.5,.5]),rand(100,3)))
+data
+</code></pre>
+
+<p>现在，我们来看看生成的模拟数据，根据每个要素标准化一组观察值。 </p>
+<p>在运行K-Means之前，使用白化重新缩放观察集的每个特征维度是有好处的。 每个特征除以所有观测值的标准偏差以给出其单位差异。</p>
+<p><strong>美化数据</strong></p>
+<p>我们可使用以下代码来美白数据。</p>
+<pre><code class="python"># whitening of data
+data = whiten(data)
+print(data)
+</code></pre>
+
+<h2>用三个集群计算K均值</h2>
+<p>现在使用以下代码计算三个群集的K均值。</p>
+<pre><code class="python"># computing K-Means with K = 3 (2 clusters)
+centroids,_ = kmeans(data,3)
+</code></pre>
+
+<p>上述代码对形成K个簇的一组观测向量执行K均值。 K-Means算法调整质心直到不能获得足够的进展，即失真的变化，因为最后一次迭代小于某个阈值。 在这里，可以通过使用下面给出的代码打印<code>centroids</code>变量来观察簇。</p>
+<pre><code class="python">print(centroids)
+</code></pre>
+
+<p>使用下面给出的代码将每个值分配给一个集群。</p>
+<pre><code class="python"># assign each sample to a cluster
+clx,_ = vq(data,centroids)
+</code></pre>
+
+<p><code>vq</code>函数将<code>'M'</code>中的每个观察向量与<code>'N'</code> <code>obs</code>数组与<code>centroids</code>进行比较，并将观察值分配给最近的聚类。 它返回每个观察和失真的聚类。 我们也可以检查失真。使用下面的代码检查每个观察的聚类。</p>
+<pre><code class="python"># check clusters of observation
+print(clx)
+</code></pre>
+
+<p>上述数组的不同值 - <code>0</code>,<code>1</code>,<code>2</code>表示簇。
+<code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

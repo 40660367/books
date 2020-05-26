@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>岭回归 - FreeAIHub</title>
+    <meta name="keywords" content="带有L2正则化的线性回归-岭回归,作业：">
+    <meta name="description" content="岭回归，其实也是一种线性回归。只不过在算法建立回归方程时候，加上正则化的限制从而达到解决过拟合的效果All last four solvers support both dense and sparse data. However,only 'sag' supports sparse input when  is True.正则化力度越大，权重系数会越小正则化力度越小，权重系数会越大```pyth">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ml/index.html">如何学习本课程</a></li>
+<li><a href="/ml/index.html"> 如何学习本课程 </a></li>
+<li><a href="/ml/intro.html"> 机器学习 简介 </a></li>
+<li><a href="/ml/feature-engineering.html"> 机器学习 特征工程 </a></li>
+<li><a href="/ml/feature-extraction.html"> 机器学习 特征提取 </a></li>
+<li><a href="/ml/feature-preprocessing.html"> 机器学习 特征预处理 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/feature_selection.html"> 机器学习 特征选择 </a></li>
+<li><a href="/ml/metrics.html"> 机器学习 模型评估 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/dataset-split.html"> 机器学习 数据集划分 </a></li>
+<li><a href="/ml/knn.html"> 机器学习算法 K近邻(KNN) </a></li>
+<li><a href="/ml/nb.html"> 机器学习算法 朴素贝叶斯 </a></li>
+<li><a href="/ml/dt.html"> 机器学习算法 决策树 </a></li>
+<li><a href="/ml/rf.html"> 机器学习算法 集成学习-随机森林 </a></li>
+<li><a href="/ml/lr.html"> 机器学习算法 线性回归 </a></li>
+<li><a href="/ml/logstic.html"> 机器学习算法 逻辑回归 </a></li>
+<li><a class="current"> 机器学习算法 岭回归 </a></li>
+<li><a href="/ml/k-means.html"> 机器学习算法 聚类-KMeans </a></li>
+<li><a href="/ml/fitting.html"> 机器学习模型 欠拟合与过拟合 </a></li>
+<li><a href="/ml/save-load.html"> 机器学习模型 保存与加载 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ml/logstic.html class='prev_article'> 机器学习算法 逻辑回归 </a>       |       下一篇：<a href=/ml/k-means.html class='next_article'> 机器学习算法 聚类-KMeans </a>  >
+              
+            <h1>岭回归</h1>
+<h2>带有L2正则化的线性回归-岭回归</h2>
+<p>岭回归，其实也是一种线性回归。只不过在算法建立回归方程时候，加上正则化的限制从而达到解决过拟合的效果</p>
+<p><strong>API</strong></p>
+<ul>
+<li><code>sklearn.linear_model.Ridge(alpha=1.0, fit_intercept=True,solver="auto", normalize=False)</code></li>
+<li>具有l2正则化的线性回归</li>
+<li>alpha:正则化力度，也叫 λ</li>
+<li><strong>λ取值：0~1 1~10</strong></li>
+<li>solver:会根据数据自动选择优化方法</li>
+<li><strong>sag:如果数据集、特征都比较大，选择该随机梯度下降优化</strong></li>
+<li>normalize:数据是否进行标准化</li>
+<li>normalize=False:可以在fit之前调用preprocessing.StandardScaler标准化数据</li>
+<li>Ridge.coef_:回归权重</li>
+<li>Ridge.intercept_:回归偏置</li>
+</ul>
+<blockquote>
+<p>All last four solvers support both dense and sparse data. However,only 'sag' supports sparse input when <code>fit_intercept</code> is True.</p>
+</blockquote>
+<h4>Ridge方法相当于SGDRegressor(penalty='l2', loss="squared_loss"),只不过SGDRegressor实现了一个普通的随机梯度下降学习，推荐使用Ridge(实现了SAG)</h4>
+<ul>
+<li><code>sklearn.linear_model.RidgeCV(_BaseRidgeCV, RegressorMixin)</code></li>
+<li>具有l2正则化的线性回归，可以进行交叉验证</li>
+<li>coef_:回归系数</li>
+</ul>
+<pre><code>class _BaseRidgeCV(LinearModel):
+  def __init__(self, alphas=(0.1, 1.0, 10.0),
+               fit_intercept=True, normalize=False, scoring=None,
+             cv=None, gcv_mode=None,
+               store_cv_values=False):
+</code></pre>
+
+<h4>练习：波士顿房价预测为例 ，观察正则化程度的变化，对结果的影响</h4>
+<p><img alt="正则化力度" src="./images/正则化力度.png" /></p>
+<ul>
+<li>
+<p>正则化力度越大，权重系数会越小</p>
+</li>
+<li>
+<p>正则化力度越小，权重系数会越大</p>
+</li>
+</ul>
+<pre><code class="python">from sklearn import datasets
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+#先用key方法查看数据集
+print(boston.keys())
+
+#查看feature_names
+print(boston['feature_names'])
+
+#这里的data有13个维度，target就是我们要预测的房价，接下来再查看feature_names
+print(boston['feature_names'])
+
+#其中'RM'列就是我们需要的房间数，接下为了方便处理，我们将其转为DataFrame类型，并进行数据划分得到训练集和测试集
+
+data = pd.DataFrame(boston['data'],columns=boston['feature_names'])
+x = pd.DataFrame(data['RM'],columns=['RM'])
+y = pd.DataFrame(boston['target'],columns=['target'])
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.33, random_state=42)
+</code></pre>
+
+<p>```python
+from sklearn.linear_model import Ridge
+rd = Ridge(alpha=1.0)</p>
+<p>rd.fit(x_train, y_train)
+print("岭回归的权重参数为：", rd.coef_)</p>
+<p>y_predict = rd.predict(x_test)</p>
+<p>print("岭回归的预测的结果为：", y_predict)</p>
+<p>print("岭回归的均方误差为：", mean_squared_error(y_test, y_predict))
+  ```</p>
+<h2>作业：</h2>
+<ul>
+<li>说明岭回归的原理即与线性回归的不同之处</li>
+<li>说明正则化对于权重参数的影响</li>
+<li>说明L1和L2正则化的区别</li>
+<li>复现波士顿房价预测</li>
+</ul>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

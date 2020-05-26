@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Go语言 指针(pointer) - FreeAIHub</title>
+    <meta name="keywords" content="什么是指针？,如何使用指针？,在Go语言中的nil指针,有关指针的详细信息">
+    <meta name="description" content="Go中的指针是很容易学习，也是比较有趣的。一些Go编程任务使用指针更容易执行，并且不使用指针不能执行其他任务，例如通过引用调用。 因此，有必要学习指针，成为一个完美的Go程序员。现在我们开始通过简单和容易的步骤来学习Go编程中的指针。如众所知，每个变量都是一个内存位置，每个内存位置都有其定义的地址，可以使用”和”号(&)运算符来访问它，这个运算符表示内存中的地址。参考下面的例子，它将打印定义的变量">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/go/index.html">如何学习本课程</a></li>
+<li><a href="/go/intro.html"> Go 简介 </a></li>
+<li><a href="/go/setup.html"> Go 环境搭建及运行 </a></li>
+<li><a href="/go/helloworld.html"> Go HelloWorld! </a></li>
+<li><a href="/go/syntax.html"> Go 基本语法 </a></li>
+<li><a href="/go/datatype.html"> Go 基本数据类型 </a></li>
+<li><a href="/go/variable.html"> Go 变量 </a></li>
+<li><a href="/go/const.html"> Go 常量 </a></li>
+<li><a href="/go/operator.html"> Go 运算符 </a></li>
+<li><a href="/go/logic.html"> Go 逻辑判断 </a></li>
+<li><a href="/go/loop.html"> Go 循环控制 </a></li>
+<li><a href="/go/scope.html"> Go 作用域规则 </a></li>
+<li><a href="/go/function.html"> Go 函数 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-按值调用 </a></li>
+<li><a href="/go/function-refbyreference.html"> Go 函数-按引用调用 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-作用值使用 </a></li>
+<li><a href="/go/function-closure.html"> Go 函数-闭包 </a></li>
+<li><a href="/go/function-method.html"> Go 函数-方法 </a></li>
+<li><a href="/go/string.html"> Go 字符串String </a></li>
+<li><a href="/go/array.html"> Go 数组Array </a></li>
+<li><a class="current"> Go 指针Pointer </a></li>
+<li><a href="/go/structure.html"> Go 结构体Structure </a></li>
+<li><a href="/go/range.html"> Go 范围Range </a></li>
+<li><a href="/go/slice.html"> Go 切片Slice </a></li>
+<li><a href="/go/map.html"> Go 映射Map </a></li>
+<li><a href="/go/recursion.html"> Go 递归recursion </a></li>
+<li><a href="/go/channel.html"> Go 通道 </a></li>
+<li><a href="/go/signal.html"> Go 信号 </a></li>
+<li><a href="/go/error.html"> Go 错误处理 </a></li></p>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/go/array.html class='prev_article'> Go 数组Array </a>       |       下一篇：<a href=/go/structure.html class='next_article'> Go 结构体Structure </a>  >
+              
+<h1>Go语言 指针(pointer)</h1>
+<p>Go中的指针是很容易学习，也是比较有趣的。</p>
+<p>一些Go编程任务使用指针更容易执行，并且不使用指针不能执行其他任务，例如通过引用调用。 因此，有必要学习指针，成为一个完美的Go程序员。现在我们开始通过简单和容易的步骤来学习Go编程中的指针。</p>
+<p>如众所知，每个变量都是一个内存位置，每个内存位置都有其定义的地址，可以使用”和”号(&amp;)运算符来访问它，这个运算符表示内存中的地址。参考下面的例子，它将打印定义的变量的地址：</p>
+<p>文件名:pointer.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var a int = 10   
+
+   fmt.Printf(&quot;Address of a variable: %x\n&quot;, &amp;a  )
+}
+</code></pre>
+
+<pre><code class="shell">go run /share/lesson/go/pointer.go
+</code></pre>
+
+<p>康康</p>
+<p>所以要明白什么是内存地址，以及如何访问它，基础的概念讲到这里就结束了。现在让我们看看什么是指针。</p>
+<h2>什么是指针？</h2>
+<p>指针是一个变量，其值是另一个变量的地址，即存储器位置的直接地址。类似变量或常量一样，必须要先声明一个指针，然后才能使用它来存储任何变量地址。指针变量声明的一般形式是：</p>
+<pre><code class="go">var var-name *var-type
+</code></pre>
+
+<p>这里，<code>var-type</code>是指针的基类型; 它必须是有效的Go数据类型，<code>var-name</code>是指针变量的名称。用于声明指针的星号(<code>*</code>)与用于乘法的星号相同。但是，在此语句中，星号(<code>*</code>)用于将变量指定为指针。以下是有效的指针声明：</p>
+<pre><code class="go">var ip *int        /* pointer to an integer */
+var fp *float32    /* pointer to a float */
+</code></pre>
+
+<p>所有指针的值的实际数据类型(无论是整数，浮点数还是其他数据类型)都是相同的，它表示内存地址的长十六进制数。不同数据类型的指针的唯一区别是指针所指向的是变量或常量的数据类型。</p>
+<h2>如何使用指针？</h2>
+<p>有几个重要的操作，将非常频繁地使用指针来实现。</p>
+<ul>
+<li>定义一个指针变量</li>
+<li>将一个变量的地址赋值给一个指针 </li>
+<li>最后访问指针变量中可用地址的值</li>
+</ul>
+<p>这是通过使用一元运算符<code>*</code>来返回位于操作数指定的地址的变量的值。下面的例子使用这些操作：</p>
+<p>文件名:pointer-address.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var a int= 20   /* actual variable declaration */
+   var ip *int        /* pointer variable declaration */
+
+   ip = &amp;a  /* store address of a in pointer variable*/
+
+   fmt.Printf(&quot;Address of a variable: %x\n&quot;, &amp;a  )
+
+   /* address stored in pointer variable */
+   fmt.Printf(&quot;Address stored in ip variable: %x\n&quot;, ip )
+
+   /* access the value using the pointer */
+   fmt.Printf(&quot;Value of *ip variable: %d\n&quot;, *ip )
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/pointer-address.go
+</code></pre>
+
+<p>康康</p>
+<h2>在Go语言中的nil指针</h2>
+<p>Go编译器为指针变量分配一个<code>Nil</code>值，以防指针没有确切的地址分配。这是在变量声明的时候完成的。指定为<code>nil</code>值的指针称为<code>nil</code>指针。</p>
+<p><code>nil</code>指针是在几个标准库中定义的值为零的常量。参考下面的程序：</p>
+<p>文件名:pointer-nil.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   var  ptr *int
+   fmt.Printf(&quot;The value of ptr is : %x\n&quot;, ptr  )
+}
+</code></pre>
+
+<p>当上面的代码编译和执行时，它产生结果如下：</p>
+<pre><code class="bash">go run /share/lesson/go/pointer-nil.go
+</code></pre>
+
+<p>在大多数操作系统上，程序不允许访问地址<code>0</code>处的内存，因为该内存是由操作系统保留的。 然而，存储器地址<code>0</code>具有特殊意义; 它表示指针不打算指向可访问的存储器位置。但是按照惯例，如果指针包含<code>nil</code>(零)值，则假设它不指向任何东西。</p>
+<p>要检查是否为<code>nil</code>指针，可以使用<code>if</code>语句，如下所示：</p>
+<pre><code class="go">if(ptr != nil)     /* succeeds if p is not nil */
+if(ptr == nil)    /* succeeds if p is null */
+</code></pre>
+
+<h2>有关指针的详细信息</h2>
+<p>指针有很多但很简单的概念，它们对Go编程非常重要。下面几个重要的指针概念，对于Go程序员应该要清楚：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go指针数组</td>
+<td>可以定义数组来保存一些指针</td>
+</tr>
+<tr>
+<td>Go指针的指针</td>
+<td>Go允许有指针指向指针等等</td>
+</tr>
+<tr>
+<td>传递指针到函数</td>
+<td>通过引用或地址传递参数都允许被调用函数在调用函数中更改传递的参数。</td>
+</tr>
+</tbody>
+</table>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

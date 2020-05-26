@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 基本功能 - FreeAIHub</title>
+    <meta name="keywords" content="内在NumPy数组创建,矩阵">
+    <meta name="description" content="默认情况下，所有的NumPy函数都可以通过SciPy命名空间获得。 当导入SciPy时，不需要显式导入NumPy函数。 NumPy的主要目标是均匀多维数组。 它是一个元素表(通常是数字)，都是相同类型，由正整数的元组索引。 在NumPy中，大小(尺寸)被称为轴。 轴的数量称为等级。现在，让修改NumPy中的Vectors和Matrices的基本功能。 由于SciPy构建在NumPy数组之上，因此需">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a class="current"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/setup.html class='prev_article'> SciPy 安装 </a>       |       下一篇：<a href=/scipy/cluster.html class='next_article'> SciPy 簇聚 </a>  >
+              
+            <h1>Scipy 基本功能</h1>
+<p>默认情况下，所有的NumPy函数都可以通过SciPy命名空间获得。 当导入SciPy时，不需要显式导入NumPy函数。 NumPy的主要目标是均匀多维数组。 它是一个元素表(通常是数字)，都是相同类型，由正整数的元组索引。 在NumPy中，大小(尺寸)被称为轴。 轴的数量称为等级。</p>
+<p>现在，让修改NumPy中的Vectors和Matrices的基本功能。 由于SciPy构建在NumPy数组之上，因此需要了解NumPy基础知识。 由于线性代数的大多数部分只处理矩阵。</p>
+<p><strong>NumPy向量</strong></p>
+<p>向量(Vector)可以通过多种方式创建。 其中一些描述如下。</p>
+<p>将Python数组类对象转换为NumPy中的数组，看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+list = [1,2,3,4]
+arr = np.array(list)
+print(arr)
+</code></pre>
+
+<h2>内在NumPy数组创建</h2>
+<p>NumPy有从头开始创建数组的内置函数。 其中一些函数解释如下。</p>
+<p><strong>使用zeros()</strong></p>
+<p><code>zeros(shape)</code>函数将创建一个用指定形状(shape)填充<code>0</code>值的数组。 默认<code>dtype</code>是<code>float64</code>。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+print(np.zeros((2, 3)))
+</code></pre>
+
+<p><strong>使用ones()</strong></p>
+<p><code>ones(shape)</code>函数将创建一个填充<code>1</code>值的数组。 它在所有其他方面与<code>0</code>相同。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+print(np.ones((2, 3)))
+</code></pre>
+
+<p><strong>使用arange()</strong></p>
+<p><code>arange()</code>函数将创建具有有规律递增值的数组。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+print(np.arange(7))
+</code></pre>
+
+<p><strong>定义值的数据类型</strong></p>
+<p>看看下面一段示例代码 - </p>
+<pre><code class="python">import numpy as np
+arr = np.arange(2, 10, dtype = np.float)
+print(arr)
+print()&quot;Array Data Type :&quot;,arr.dtype)
+</code></pre>
+
+<p><strong>使用linspace()</strong></p>
+<p><code>linspace()</code>函数将创建具有指定数量元素的数组，这些元素将在指定的开始值和结束值之间平均间隔。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+print(np.linspace(1., 4., 6))
+</code></pre>
+
+<h2>矩阵</h2>
+<p>矩阵是一个专门的二维数组，通过操作保留其<code>2-D</code>特性。 它有一些特殊的运算符，如<code>*</code>(矩阵乘法)和<code>**</code>(矩阵幂值)。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+print(np.matrix('1 2; 3 4'))
+</code></pre>
+
+<p><strong>矩阵的共轭转置</strong></p>
+<p>此功能返回自我的(复数)共轭转置。 看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+mat = np.matrix('1 2; 3 4')
+print(mat.H)
+</code></pre>
+
+<p><strong>矩阵的转置</strong></p>
+<p>此功能返回自身的转置。看看下面的例子。</p>
+<pre><code class="python">import numpy as np
+mat = np.matrix('1 2; 3 4')
+print(mat.T)
+</code></pre>
+
+<p>当转置一个矩阵时，我们创建一个新的矩阵，其行是原始的列。 另一方面，共轭转置为每个矩阵元素交换行和列索引。 矩阵的逆矩阵是一个矩阵，如果与原始矩阵相乘，则产生一个单位矩阵。
+<code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

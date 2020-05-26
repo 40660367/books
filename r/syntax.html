@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 语法(syntax) - FreeAIHub</title>
+    <meta name="keywords" content="命令提示符,脚本文件,注释">
+    <meta name="description" content="我们将开始学习R语言编程，首先编写一个“你好，世界！ 的程序。 根据需要，您可以在R语言命令提示符处编程，也可以使用R语言脚本文件编写程序。 让我们逐个体验不同之处。如果你已经配置好R语言环境，那么你只需要按一下的命令便可轻易开启命令提示符，这将启动R语言解释器，在交互环境下，你会得到一个提示。在那里你可以开始输入你的程序，具体如下：在这里，第一个语句先定义一个字符串变量，并将“Hello，Wor">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a class="current"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a href="/r/survival.html"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/setup.html class='prev_article'> R语言环境搭建及运行</a>       |       下一篇：<a href=/r/datatype.html class='next_article'> R语言基本数据类型</a>  >
+              
+            <h1>R语言 语法(syntax)</h1>
+<p>我们将开始学习R语言编程，首先编写一个“你好，世界！ 的程序。 根据需要，您可以在R语言命令提示符处编程，也可以使用R语言脚本文件编写程序。 让我们逐个体验不同之处。</p>
+<h2>命令提示符</h2>
+<p>如果你已经配置好R语言环境，那么你只需要按一下的命令便可轻易开启命令提示符<code>R</code>，这将启动R语言解释器，在交互环境下，你会得到一个提示<code>&gt;</code>。在那里你可以开始输入你的程序，具体如下：</p>
+<pre><code class="R">myString &lt;- &quot;Hello, World!&quot;
+print(myString)
+</code></pre>
+
+<p>在这里，第一个语句先定义一个字符串变量<code>myString</code>，并将“Hello，World！”赋值其中，第二句则使用<code>print()</code>语句将变量<code>myString</code>的内容进行打印。</p>
+<h2>脚本文件</h2>
+<p>通常，您将通过在脚本文件中编写程序来执行编程，然后在命令提示符下使用R解释器（称为Rscript）来执行这些脚本。 所以让我们开始在一个命名为test.R的文本文件中编写下面的代码</p>
+<pre><code># My first program in R Programming
+myString &lt;- &quot;Hello, World!&quot;
+print(myString)
+</code></pre>
+
+<p>将上述代码保存在test.R文件中，并在Linux命令提示符下执行，如下所示。 即使您使用的是Windows或其他系统，语法也将保持不变。</p>
+<pre><code>Rscript test.R
+</code></pre>
+
+<p>当我们运行上面的程序，它产生以下结果。<code>[1] "Hello, World!"</code></p>
+<h2>注释</h2>
+<p>注释能帮助您解释R语言程序中的脚本，它们在实际执行程序时会被解释器忽略。 单个注释使用＃在语句的开头写入，如下所示
+<code># My first program in R Programming</code>
+R语言不支持多行注释，但你可以使用一个小技巧，如下</p>
+<pre><code class="R">if(FALSE) {
+   &quot;This is a demo for multi-line comments and it should be put inside either a single
+      OR double quote&quot;
+}
+
+myString &lt;- &quot;Hello, World!&quot;
+print(myString)
+</code></pre>
+
+<p>虽然上面的注释将由R解释器执行，但它们不会干扰您的实际程序。 但是你必须为内容加上单引号或双引号。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

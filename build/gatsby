@@ -1,0 +1,145 @@
+#$1           $2               $3                      $4              $5
+#课程名称      课程绝对路径      课程文件类型ipynb或md    backendtype     kernelName      
+
+#/tmp/freeaihub/为默认课程转化成功路径
+path=/mnt/d/tmp/freeaihub
+# path=/tmp/freeaihub
+
+mkdir -p $path/$1/
+cd $path/$1
+rm -rf *
+echo "rm * files"
+
+cp -r $2/  $path/
+echo "cp all  files into " $path/$1;
+sleep 1;
+
+if [ $3 == "ipynb" ];then
+  jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace *.ipynb;
+  echo "cleared all .ipynb output";
+  jupyter nbconvert *.ipynb --to markdown;
+  echo "Converted all .ipynb to .md"
+fi
+
+#课程名
+course=$1
+sitename="FreeAIHub"
+
+echo -e >> $course".yaml"
+
+cat $course".yaml" | while read line; 
+do 
+array=(${line//// })  
+
+# echo ${array[0]},${array[1]},${array[2]}
+
+    if [ ${array[1]} == "title:" ] ; then
+    #标题处理
+    title=${array[2]}" "${array[3]}
+    echo $title
+    fi
+
+    if [ ${array[0]} == "link:" ] ; then
+    #链接处理
+    filename=(${array[2]//./ })
+    filename=${filename[0]}
+    mdfile=$filename".md"
+    htmlfile=$filename".html"
+    echo $mdfile
+        sed -i "1i---" $mdfile ;
+        sed -i "2ititle: \"${title} - $sitename\"" $mdfile
+        sed -i "3imeta_title: ''" $mdfile 
+        sed -i "4imeta_description: ''" $mdfile
+        sed -i "5ikeywords: " $mdfile
+        sed -i "6i- $course" $mdfile
+        sed -i "6s/^/    /" $mdfile
+        sed -i "7i- $title" $mdfile
+        sed -i "7s/^/    /" $mdfile
+        sed -i "8i- $filename" $mdfile
+        sed -i "8s/^/    /" $mdfile
+        sed -i "9isidebar: \"$course\"" $mdfile
+        sed -i "10ipermalink: \"/$course/$htmlfile\"" $mdfile
+        sed -i "11i---" $mdfile
+        #添加md文件底部的标签
+        #backend-type标签
+        echo -e >> $mdfile;
+        backend="<code class="backend-type" backend-type=""$4""></code>"
+        echo $backend >> $mdfile;
+        #cell script & kernel标签
+        if [ "$5" != "" ];then
+        kernel="<code class="gatsby-kernelname" data-language=""$5""></code>"
+        script='<script type="text/javascript" src="https://cdn.freeaihub.com/asset/js/cell.js"></script>'
+        echo $kernel >> $mdfile;
+        echo $script >> $mdfile;
+        fi
+    fi
+done
+
+
+
+
+
+# ls *.md | while read line
+# do
+#     sed -i "1i---" $line ;
+#     sed -i "2ititle: \"${line%.*}\"" $line
+#     sed -i "3imeta_title: ''" $line 
+#     sed -i "4imeta_description: ''" $line
+#     sed -i "5ikeywords: " $line
+#     sed -i "6i- $course" $line
+#     sed -i "6s/^/    /" $line
+#     sed -i "7isidebar: \"$course\"" $line
+#     sed -i "8i---" $line
+#     echo '' >> $line;
+#     backend="<code class="backend-type" backend-type=""$4""></code>"
+#     echo $backend >> $line;
+#     #cell script& kernel
+#     if [ "$4" != "" ];then
+#     kernel="<code class="gatsby-kernelname" data-language=""$5""></code>"
+#     script='<script type="text/javascript" src="https://cdn.freeaihub.com/asset/js/cell.js"></script>'
+#     echo $kernel >> $line;
+#     echo $script >> $line;
+#     fi
+
+# done
+# sleep 1;
+# echo "finish add head to md files";
+
+
+# echo "Making YAML ......";
+# courseyaml=$course".yaml"
+# touch $courseyaml
+
+# echo "- groups:" >> $courseyaml ;
+
+# ls *.md | while read line
+# do
+#   # echo ${line:1:2}
+#   # if [ ${#line} = 8 ];
+#   if [ ${line:1:2} = "00" ];
+#   then
+#       menu=(${line//./ })  
+#       # sed -i "\$s/^/  /" $courseyaml ;
+#       # sed -i "\$s/^/    /" $courseyaml ;
+#       echo "  - group: ${menu[1]}" >> $courseyaml ;
+#       echo "    items: "  >> $courseyaml ;
+#   else
+#       item=(${line//./ })  
+#       echo "    - title: ${item[1]}"  >> $courseyaml ;
+#       echo "      link: /$course/${item[0]}.${item[1]}/"  >> $courseyaml ;
+#   fi
+# done
+
+# echo '生成的YAML文件'
+# cat $courseyaml
+
+
+# 转换md中latex的 $$格式，加空行
+echo "Converted ALL \$\$"
+sed -i 's/\$\$/\n\$\$\n/g' *.md
+
+
+if [ $3 == "ipynb" ];then
+  rm -rf *.ipynb
+  echo 'Delete ipynb files'
+fi

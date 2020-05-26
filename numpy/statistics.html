@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 统计函数 - FreeAIHub</title>
+    <meta name="keywords" content="numpy.amin() 和 numpy.amax(),numpy.ptp(),numpy.per">
+    <meta name="description" content="NumPy 提供了很多统计函数，用于从数组中查找最小元素，最大元素，百分位标准差和方差等。 函数说明如下：numpy.amin() 用于计算数组中的元素沿指定轴的最小值。numpy.amax() 用于计算数组中的元素沿指定轴的最大值。numpy.ptp()函数计算数组中元素最大值与最小值的差（最大值 - 最小值）。百分位数是统计中使用的度量，表示小于这个值的观察值的百分比。 函数numpy.per">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a class="current"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a class="current"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a href="/numpy/matrix.html"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/arithmetic.html class='prev_article'> NumPy算术函数</a>       |       下一篇：<a href=/numpy/sort.html class='next_article'> NumPy排序</a>  >
+              
+            <h1>NumPy 统计函数</h1>
+<p>NumPy 提供了很多统计函数，用于从数组中查找最小元素，最大元素，百分位标准差和方差等。 函数说明如下：</p>
+<h3>numpy.amin() 和 numpy.amax()</h3>
+<p>numpy.amin() 用于计算数组中的元素沿指定轴的最小值。</p>
+<p>numpy.amax() 用于计算数组中的元素沿指定轴的最大值。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+a = np.array([[3,7,5],[8,4,3],[2,4,9]])   
+print('我们的数组是：') 
+print(a) 
+print('\n') 
+
+print('调用 amin() 函数：') 
+print(np.amin(a,1))
+print('\n') 
+
+print('再次调用 amin() 函数：')
+print(np.amin(a,0)) 
+print('\n')
+
+print('调用 amax() 函数：') 
+print(np.amax(a)) 
+print('\n') 
+
+print('再次调用 amax() 函数：')
+print(np.amax(a, axis =  0))
+</code></pre>
+
+<h3>numpy.ptp()</h3>
+<p>numpy.ptp()函数计算数组中元素最大值与最小值的差（最大值 - 最小值）。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+a = np.array([[3,7,5],[8,4,3],[2,4,9]])   
+print('我们的数组是：') 
+print(a) 
+print('\n')
+
+print('调用 ptp() 函数：') 
+print(np.ptp(a))
+print('\n') 
+
+print('沿轴 1 调用 ptp() 函数：') 
+print(np.ptp(a, axis =  1)) 
+print('\n') 
+
+print('沿轴 0 调用 ptp() 函数：') 
+print(np.ptp(a, axis =  0))
+</code></pre>
+
+<h3>numpy.percentile()</h3>
+<p>百分位数是统计中使用的度量，表示小于这个值的观察值的百分比。 函数numpy.percentile()接受以下参数。</p>
+<pre><code>numpy.percentile(a, q, axis)
+</code></pre>
+
+<p>参数说明：</p>
+<ul>
+<li>a: 输入数组</li>
+<li>q: 要计算的百分位数，在 0 ~ 100 之间</li>
+<li>axis: 沿着它计算百分位数的轴</li>
+</ul>
+<p><strong>首先明确百分位数：</strong></p>
+<p>第 $$p$$ 个百分位数是这样一个值，它使得至少有 p% 的数据项小于或等于这个值，且至少有 (100-p)% 的数据项大于或等于这个值。</p>
+<p>举个例子：高等院校的入学考试成绩经常以百分位数的形式报告。比如，假设某个考生在入学考试中的语文部分的原始分数为 54 分。相对于参加同一考试的其他学生来说，他的成绩如何并不容易知道。但是如果原始分数54分恰好对应的是第70百分位数，我们就能知道大约70%的学生的考分比他低，而约30%的学生考分比他高。</p>
+<p>这里的 $$p$$ = 70。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np 
+
+a = np.array([[10, 7, 4], [3, 2, 1]])
+print('我们的数组是：')
+print(a)
+
+print('调用 percentile() 函数：')
+# 50% 的分位数，就是 a 里排序之后的中位数
+print(np.percentile(a, 50)) 
+
+# axis 为 0，在纵列上求
+print(np.percentile(a, 50, axis=0)) 
+
+# axis 为 1，在横行上求
+print(np.percentile(a, 50, axis=1)) 
+
+# 保持维度不变
+print(np.percentile(a, 50, axis=1, keepdims=True))
+</code></pre>
+
+<h3>numpy.median()</h3>
+<p>numpy.median() 函数用于计算数组 a 中元素的中位数（中值）</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np 
+
+a = np.array([[30,65,70],[80,95,10],[50,90,60]])  
+print('我们的数组是：')
+print(a)
+print('\n')
+print('调用 median() 函数：')
+print(np.median(a))
+print('\n')
+print('沿轴 0 调用 median() 函数：')
+print(np.median(a, axis =  0))
+print('\n')
+print('沿轴 1 调用 median() 函数：')
+print(np.median(a, axis =  1))
+</code></pre>
+
+<h3>numpy.mean()</h3>
+<p>numpy.mean() 函数返回数组中元素的算术平均值。 如果提供了轴，则沿其计算。</p>
+<p>算术平均值是沿轴的元素的总和除以元素的数量。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np 
+
+a = np.array([[1,2,3],[3,4,5],[4,5,6]])  
+print('我们的数组是：')
+print(a)
+print('\n')
+print('调用 mean() 函数：')
+print(np.mean(a))
+print('\n')
+print('沿轴 0 调用 mean() 函数：')
+print(np.mean(a, axis =  0))
+print('\n')
+print('沿轴 1 调用 mean() 函数：')
+print(np.mean(a, axis =  1))
+</code></pre>
+
+<h3>numpy.average()</h3>
+<p>numpy.average() 函数根据在另一个数组中给出的各自的权重计算数组中元素的加权平均值。</p>
+<p>该函数可以接受一个轴参数。 如果没有指定轴，则数组会被展开。</p>
+<p>加权平均值即将各数值乘以相应的权数，然后加总求和得到总体值，再除以总的单位数。</p>
+<p>考虑数组[1,2,3,4]和相应的权重[4,3,2,1]，通过将相应元素的乘积相加，并将和除以权重的和，来计算加权平均值。</p>
+<pre><code>加权平均值 = (1*4+2*3+3*2+4*1)/(4+3+2+1)
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="python">import numpy as np 
+
+a = np.array([1,2,3,4])  
+print('我们的数组是：')
+print(a)
+print('\n')
+print('调用 average() 函数：')
+print(np.average(a))
+print('\n')
+# 不指定权重时相当于 mean 函数
+wts = np.array([4,3,2,1])  
+print('再次调用 average() 函数：')
+print(np.average(a,weights = wts))
+print('\n')
+# 如果 returned 参数设为 true，则返回权重的和  
+print('权重的和：')
+print(np.average([1,2,3,  4],weights =  [4,3,2,1], returned =  True))
+</code></pre>
+
+<p>在多维数组中，可以指定用于计算的轴。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np 
+
+a = np.arange(6).reshape(3,2)  
+print('我们的数组是：')
+print(a)
+print('\n')
+print('修改后的数组：')
+wt = np.array([3,5])  
+print(np.average(a, axis =  1, weights = wt))
+print('\n')
+print('修改后的数组：')
+print(np.average(a, axis =  1, weights = wt, returned =  True))
+</code></pre>
+
+<h3>标准差</h3>
+<p>标准差是一组数据平均值分散程度的一种度量。</p>
+<p>标准差是方差的算术平方根。</p>
+<p>标准差公式如下：</p>
+<pre><code>std = sqrt(mean((x - x.mean())**2))
+</code></pre>
+
+<p>如果数组是 [1，2，3，4]，则其平均值为 2.5。 因此，差的平方是 [2.25,0.25,0.25,2.25]，并且其平均值的平方根除以 4，即 sqrt(5/4) ，结果为 1.1180339887498949。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np   
+print(np.std([1,2,3,4]))
+</code></pre>
+
+<h3>方差</h3>
+<p>统计中的方差（样本方差）是每个样本值与全体样本值的平均数之差的平方值的平均数，即 mean((x - x.mean())** 2)。</p>
+<p>换句话说，标准差是方差的平方根。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy as np  
+print(np.var([1,2,3,4]))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

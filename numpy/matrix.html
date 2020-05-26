@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NumPy 矩阵库(Matrix) - FreeAIHub</title>
+    <meta name="keywords" content="matlib.empty(),numpy.matlib.zeros(),numpy.matlib.ones(),nu">
+    <meta name="description" content="NumPy 中包含了一个矩阵库 numpy.matlib，该模块中的函数返回的是一个矩阵，而不是 ndarray 对象。一个 $$m x n$$的矩阵是一个由$$m$$行（row）$$n$$列（column）元素排列成的矩形阵列。矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：matlib.empty() 函数返回一个新的矩阵，语法格式为：numpy">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/numpy/index.html"> 如何学习本课程</a></li>
+<li><a href="/numpy/intro.html"> NumPy简介</a></li>
+<li><a href="/numpy/setup.html"> NumPy安装</a></li>
+<li><a href="/numpy/datatype.html"> NumPy数据类型</a></li>
+<li><a href="/numpy/ndarray.html"> NumPyNDArray</a></li>
+<li><a href="/numpy/ndarray-creation.html"> NumPy创建NDArray</a></li>
+<li><a href="/numpy/ndarray-property.html"> NumPyNDArray属性</a></li>
+<li><a href="/numpy/ndarray-operation.html"> NumPy操作NDArray</a></li>
+<li><a href="/numpy/slice-index.html"> NumPy切片和索引</a></li>
+<li><a href="/numpy/advance-index.html"> NumPy高级索引</a></li>
+<li><a href="/numpy/broadcast.html"> NumPy广播</a></li>
+<li><a href="/numpy/bit-operation.html"> NumPy位运算</a></li>
+<li><a href="/numpy/math.html"> NumPy数学函数</a></li>
+<li><a href="/numpy/arithmetic.html"> NumPy算术函数</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/sort.html"> NumPy排序</a></li>
+<li><a href="/numpy/statistics.html"> NumPy统计函数</a></li>
+<li><a href="/numpy/linalg.html"> NumPy线性代数</a></li>
+<li><a class="current"> NumPy矩阵</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/numpy/linalg.html class='prev_article'> NumPy线性代数</a>       |       下一篇：无  >
+              
+            <h1>NumPy 矩阵库(Matrix)</h1>
+<p>NumPy 中包含了一个矩阵库 numpy.matlib，该模块中的函数返回的是一个矩阵，而不是 ndarray 对象。</p>
+<p>一个 $$m x n$$的矩阵是一个由$$m$$行（row）$$n$$列（column）元素排列成的矩形阵列。</p>
+<p>矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：</p>
+<h3>matlib.empty()</h3>
+<p>matlib.empty() 函数返回一个新的矩阵，语法格式为：</p>
+<pre><code>numpy.matlib.empty(shape, dtype, order)
+</code></pre>
+
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><strong>shape</strong>: 定义新矩阵形状的整数或整数元组</li>
+<li><strong>Dtype</strong>: 可选，数据类型</li>
+<li><strong>order</strong>: C（行序优先） 或者 F（列序优先）</li>
+</ul>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np
+
+print(np.matlib.empty((2,2)))
+# 填充为随机数据
+</code></pre>
+
+<h3>numpy.matlib.zeros()</h3>
+<p>numpy.matlib.zeros() 函数创建一个以 0 填充的矩阵。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+print(np.matlib.zeros((2,2)))
+</code></pre>
+
+<h3>numpy.matlib.ones()</h3>
+<p>numpy.matlib.ones()函数创建一个以 1 填充的矩阵。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+print(np.matlib.ones((2,2)))
+</code></pre>
+
+<h3>numpy.matlib.eye()</h3>
+<p>numpy.matlib.eye() 函数返回一个矩阵，对角线元素为 1，其他位置为零。</p>
+<pre><code>numpy.matlib.eye(n, M,k, dtype)
+</code></pre>
+
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><strong>n</strong>: 返回矩阵的行数</li>
+<li><strong>M</strong>: 返回矩阵的列数，默认为 n</li>
+<li><strong>k</strong>: 对角线的索引</li>
+<li><strong>dtype</strong>: 数据类型</li>
+</ul>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+print(np.matlib.eye(n =  3, M =  4, k =  0, dtype =  float))
+</code></pre>
+
+<h3>numpy.matlib.identity()</h3>
+<p>numpy.matlib.identity() 函数返回给定大小的单位矩阵。</p>
+<p>单位矩阵是个方阵，从左上角到右下角的对角线（称为主对角线）上的元素均为 1，除此以外全都为 0。</p>
+<p><img alt="img" src="./images/martrix.png" /></p>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+# 大小为 5，类型位浮点型
+print(np.matlib.identity(5, dtype =  float))
+</code></pre>
+
+<h3>numpy.matlib.rand()</h3>
+<p>numpy.matlib.rand() 函数创建一个给定大小的矩阵，数据是随机填充的。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+print(np.matlib.rand(3,3))
+</code></pre>
+
+<p>矩阵总是二维的，而 ndarray 是一个 n 维数组。 两个对象都是可互换的。</p>
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np 
+
+print(np.matlib.rand(3,3))
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np  
+
+i = np.matrix('1,2;3,4')  
+print(i)
+</code></pre>
+
+<h4>练习</h4>
+<pre><code class="python">import numpy.matlib 
+import numpy as np  
+
+j = np.asarray(i)  
+print(j)
+</code></pre>
+
+<pre><code class="python">import numpy.matlib 
+import numpy as np  
+
+k = np.asmatrix (j)  
+print(k)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

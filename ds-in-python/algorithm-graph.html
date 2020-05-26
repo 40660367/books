@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python实现算法:图遍历 - FreeAIHub</title>
+    <meta name="keywords" content="深度优先遍历:,广度优先遍历">
+    <meta name="description" content="图在解决许多重要的数学难题中是非常有用的数据结构。 例如计算机网络拓扑或分析化学化合物的分子结构。 它们还用于城市交通或路线规划，甚至用于人类语言和语法。 所有这些应用程序都有遍历图的共同挑战，并确保图的所有节点都被访问。 有两种常见的已建立的方法来进行这种遍历，下面将对其进行描述。也称为深度优先搜索(DFS)，该算法使用堆栈记住在任何迭代中发生死角时开始搜索的下一个顶点。 使用设置的数据类型在p">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a href="/ds-in-python/data-structure-python-tuple.html"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a class="current"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/algorithm-design.html class='prev_article'> 算法分析 </a>       |       下一篇：<a href=/ds-in-python/algorithms-backtracking.html class='next_article'> Python实现算法:回溯(backtracking) </a>  >
+              
+            <h1>Python实现算法:图遍历</h1>
+<p>图在解决许多重要的数学难题中是非常有用的数据结构。 例如计算机网络拓扑或分析化学化合物的分子结构。 它们还用于城市交通或路线规划，甚至用于人类语言和语法。 所有这些应用程序都有遍历图的共同挑战，并确保图的所有节点都被访问。 有两种常见的已建立的方法来进行这种遍历，下面将对其进行描述。</p>
+<h2>深度优先遍历:</h2>
+<p>也称为深度优先搜索(DFS)，该算法使用堆栈记住在任何迭代中发生死角时开始搜索的下一个顶点。 使用设置的数据类型在python中实现DFS图，因为它们提供了跟踪访问和未访问节点所需的功能。</p>
+<p>参考以下代码的实现 - </p>
+<pre><code class="python">class graph:
+
+    def __init__(self,gdict=None):
+        if gdict is None:
+            gdict = {}
+        self.gdict = gdict
+# Check for the visisted and unvisited nodes
+def dfs(graph, start, visited = None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(start)
+    for next in graph[start] - visited:
+        dfs(graph, next, visited)
+    return visited
+
+gdict = { &quot;a&quot; : set([&quot;b&quot;,&quot;c&quot;]),
+                &quot;b&quot; : set([&quot;a&quot;, &quot;d&quot;]),
+                &quot;c&quot; : set([&quot;a&quot;, &quot;d&quot;]),
+                &quot;d&quot; : set([&quot;e&quot;]),
+                &quot;e&quot; : set([&quot;a&quot;])
+                }
+
+
+dfs(gdict, 'a')
+</code></pre>
+
+<h2>广度优先遍历</h2>
+<p>也称为广度优先搜索(BFS)，该算法使用队列记住当任何迭代中发生死角时，获取下一个顶点以开始搜索。</p>
+<p>我们使用之前讨论的队列数据结构在python中实现BFS。 当继续访问相邻的未访问节点并继续将其添加到队列中。然后，开始只出现没有未访问节点的节点。 当没有下一个相邻节点被访问时，停止程序。</p>
+<p>参考以下代码的实现 - </p>
+<pre><code class="python">import collections
+class graph:
+    def __init__(self,gdict=None):
+        if gdict is None:
+            gdict = {}
+        self.gdict = gdict
+
+def bfs(graph, startnode):
+# Track the visited and unvisited nodes using queue
+        seen, queue = set([startnode]), collections.deque([startnode])
+        while queue:
+            vertex = queue.popleft()
+            marked(vertex)
+            for node in graph[vertex]:
+                if node not in seen:
+                    seen.add(node)
+                    queue.append(node)
+
+def marked(n):
+    print(n)
+
+# The graph dictionary
+gdict = { &quot;a&quot; : set([&quot;b&quot;,&quot;c&quot;]),
+                &quot;b&quot; : set([&quot;a&quot;, &quot;d&quot;]),
+                &quot;c&quot; : set([&quot;a&quot;, &quot;d&quot;]),
+                &quot;d&quot; : set([&quot;e&quot;]),
+                &quot;e&quot; : set([&quot;a&quot;])
+                }
+
+bfs(gdict, &quot;a&quot;)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

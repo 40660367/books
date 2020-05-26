@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas 可视化(visualization) - FreeAIHub</title>
+    <meta name="keywords" content="条形图,直方图,箱形图,区域块图形,散点图形,饼状图">
+    <meta name="description" content="Series和DataFrame上的这个功能只是使用库的方法的简单包装实现。参考以下示例代码 - 如果索引由日期组成，则调用来格式化轴，如上图所示。我们可以使用和关键字绘制一列与另一列。绘图方法允许除默认线图之外的少数绘图样式。 这些方法可以作为的关键字参数提供。这些包括 -现在通过创建一个条形图来看看条形图是什么。条形图可以通过以下方式来创建 -要生成一个堆积条形图，通过指定： -要获得水平条形">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a class="current"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/pandas/merge-join.html class='prev_article'> Pandas合并与连接 </a>       |       下一篇：<a href=/pandas/categorical.html class='next_article'> Pandas分类数据处理 </a>  >
+              
+            <h1>Pandas 可视化(visualization)</h1>
+<p><strong>基本绘图：绘图</strong></p>
+<p>Series和DataFrame上的这个功能只是使用<code>matplotlib</code>库的<code>plot()</code>方法的简单包装实现。参考以下示例代码 - </p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(10,4),\
+                  index=pd.date_range('2018/12/18',periods=10), \
+                  columns=list('ABCD'))
+df.plot(figsize=(16,6))
+</code></pre>
+
+<p>如果索引由日期组成，则调用<code>gct().autofmt_xdate()</code>来格式化<code>x</code>轴，如上图所示。</p>
+<p>我们可以使用<code>x</code>和<code>y</code>关键字绘制一列与另一列。</p>
+<p>绘图方法允许除默认线图之外的少数绘图样式。 这些方法可以作为<code>plot()</code>的<code>kind</code>关键字参数提供。这些包括 -</p>
+<ul>
+<li><code>bar</code>或<code>barh</code>为条形</li>
+<li><code>hist</code>为直方图</li>
+<li><code>boxplot</code>为盒型图</li>
+<li><code>area</code>为“面积”</li>
+<li><code>scatter</code>为散点图</li>
+</ul>
+<h2>条形图</h2>
+<p>现在通过创建一个条形图来看看条形图是什么。条形图可以通过以下方式来创建 -</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.rand(10,4),columns=['a','b','c','d'])
+df.plot.bar(figsize=(16,6))
+</code></pre>
+
+<p>要生成一个堆积条形图，通过指定：<em>pass stacked=True</em> -</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+df = pd.DataFrame(np.random.rand(10,4),columns=['a','b','c','d'])
+df.plot.bar(figsize=(16,6),stacked=True)
+</code></pre>
+
+<p>要获得水平条形图，使用<code>barh()</code>方法 -</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.rand(10,4),columns=['a','b','c','d'])
+
+df.plot.barh(figsize=(16,6),stacked=True)
+</code></pre>
+
+<h2>直方图</h2>
+<p>可以使用<code>plot.hist()</code>方法绘制直方图。我们可以指定<code>bins</code>的数量值。</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'a':np.random.randn(1000)+1,'b':np.random.randn(1000),'c':
+np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
+
+df.plot.hist(figsize=(16,6),bins=20)
+</code></pre>
+
+<p>要为每列绘制不同的直方图，请使用以下代码 -</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df=pd.DataFrame({'a':np.random.randn(1000)+1,'b':np.random.randn(1000),'c':
+np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
+
+df.hist(figsize=(16,6),bins=20)
+</code></pre>
+
+<h2>箱形图</h2>
+<p>Boxplot可以绘制调用<code>Series.box.plot()</code>和<code>DataFrame.box.plot()</code>或<code>DataFrame.boxplot()</code>来可视化每列中值的分布。</p>
+<p>例如，这里是一个箱形图，表示对<code>[0,1)</code>上的统一随机变量的<code>10</code>次观察的五次试验。</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
+df.plot.box(figsize=(16,6))
+</code></pre>
+
+<h2>区域块图形</h2>
+<p>可以使用<code>Series.plot.area()</code>或<code>DataFrame.plot.area()</code>方法创建区域图形。</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.rand(10, 4), columns=['a', 'b', 'c', 'd'])
+df.plot.area(figsize=(16,6))
+</code></pre>
+
+<h2>散点图形</h2>
+<p>可以使用<code>DataFrame.plot.scatter()</code>方法创建散点图。</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.random.rand(50, 4), columns=['a', 'b', 'c', 'd'])
+df.plot.scatter(x='a', y='b',figsize=(16,6))
+</code></pre>
+
+<h2>饼状图</h2>
+<p>饼状图可以使用<code>DataFrame.plot.pie()</code>方法创建。</p>
+<pre><code class="python">%matplotlib inline
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(3 * np.random.rand(4), index=['a', 'b', 'c', 'd'], columns=['x'])
+df.plot.pie(subplots=True,figsize=(16,6))
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

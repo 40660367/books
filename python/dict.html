@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python3 数据类型-字典(dict) - FreeAIHub</title>
+    <meta name="keywords" content="字典的键值对应,访问字典内对象,修改字典内对象,删除字典内对象,字典内置函数&方法,Python字典包含了以下内置方法：">
+    <meta name="description" content="字典(Dict)是另一种可变容器模型，且可存储任意类型对象。字典的每个键值(key=>value)对用冒号分割，每个对之间用逗号,分割，整个字典包括在花括号中 格式：键必须是唯一的，但值则不必。值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。也可如此创建字典：把相应的键放入到方括号中。如果用字典里没有的键访问数据，会输出错误如下：向字典添加新内容的方法是增加新的键/值对，修改或删除">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/python/index.html>如何学习本课程</a></li>
+<li><a href="/python/index.html"> 如何学习本课程 </a></li>
+<li><a href="/python/intro.html"> Python 简介 </a></li>
+<li><a href="/python/setup.html"> Pyhon3 环境搭建及运行 </a></li>
+<li><a href="/python/syntax.html"> Python 基础语法 </a></li>
+<li><a href="/python/operator.html"> Python3 运算符 </a></li>
+<li><a href="/python/datatype.html"> Python3 基本数据类型 </a></li>
+<li><a href="/python/string.html"> Python3 基本数据类型-字符串 </a></li>
+<li><a href="/python/number.html"> Python3 基本数据类型-数字 </a></li>
+<li><a href="/python/list.html"> Python3 基本数据类型-列表 </a></li>
+<li><a href="/python/tuple.html"> Python3 基本数据类型-元组 </a></li>
+<li><a class="current"> Python3 基本数据类型-字典 </a></li>
+<li><a href="/python/set.html"> Python3 基本数据类型-集合 </a></li>
+<li><a href="/python/datastructure.html"> Python3 数据结构 </a></li>
+<li><a href="/python/logic.html"> Python3 逻辑判断 </a></li>
+<li><a href="/python/loop.html"> Python3 循环语句 </a></li>
+<li><a href="/python/iterator-generator.html"> Python3 迭代器与生成器 </a></li>
+<li><a href="/python/function.html"> Python3 函数 </a></li>
+<li><a href="/python/errors-execptions.html"> Python3 错误和异常 </a></li>
+<li><a href="/python/class.html"> Python3 面向对象 </a></li>
+<li><a href="/python/namespace-scope.html"> Python3 命名空间和作用域 </a></li>
+<li><a href="/python/package.html"> Python3 模块 </a></li>
+<li><a href="/python/stdlib.html"> Python3 标准库 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/python/tuple.html class='prev_article'> Python3 基本数据类型-元组 </a>       |       下一篇：<a href=/python/set.html class='next_article'> Python3 基本数据类型-集合 </a>  >
+              
+            <h1>Python3 数据类型-字典(dict)</h1>
+<p>字典(Dict)是另一种可变容器模型，且可存储任意类型对象。</p>
+<h2>字典的键值对应</h2>
+<p>字典的每个键值(key=&gt;value)对用冒号<code>:</code>分割，每个对之间用逗号,分割，整个字典包括在花括号<code>{}</code>中 </p>
+<p>格式：<code>d = {key1 : value1, key2 : value2 }</code></p>
+<p>键必须是唯一的，但值则不必。</p>
+<p>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。</p>
+<h4>练习：创建字典</h4>
+<pre><code class="Python">dict1 = {'Alice': '2341', 'Beth': '9102', 'Cecil': '3258'}
+dict1
+</code></pre>
+
+<p>也可如此创建字典：</p>
+<pre><code class="Python">dict1 = { 'abc': 456 }
+dict2 = { 'abc': 123, 98.6: 37 }
+print(dict1)
+print(dict2)
+</code></pre>
+
+<h2>访问字典内对象</h2>
+<h4>练习：访问字典内对象</h4>
+<p>把相应的键放入到方括号中。</p>
+<pre><code class="Python">dict = {'Name': 'Python', 'Age': 30, 'Class': 'First'}
+
+print(&quot;dict['Name']: &quot;, dict['Name'])
+print(&quot;dict['Age']: &quot;, dict['Age'])
+</code></pre>
+
+<p>如果用字典里没有的键访问数据，会输出错误如下：</p>
+<pre><code class="Python">print(&quot;dict['Alice']: &quot;, dict['Alice'])#KeyError: 'Alice'
+</code></pre>
+
+<h2>修改字典内对象</h2>
+<p>向字典添加新内容的方法是增加新的键/值对，修改或删除已有键/值对如下实例:</p>
+<h4>练习：修改字典内对象</h4>
+<pre><code class="Python">dict1 = {'Name': 'Python', 'Age': 30, 'Class': 'First'}
+
+del dict1['Name'] # 删除键 'Name'
+
+print(&quot;dict['Age']:&quot;, dict1['Age'])
+print(&quot;dict['Name']:&quot;, dict1['Name'])#KeyError: 'Name'
+
+dict1.clear()     # 清空字典
+del dict1         # 删除字典
+</code></pre>
+
+<h2>删除字典内对象</h2>
+<p>能删单一的元素也能清空字典，清空只需一项操作。显示删除一个字典用<code>del</code>命令。</p>
+<h4>练习：删除字典内对象</h4>
+<pre><code class="Python">dict1 = {'Name': 'Python', 'Age': 7, 'Class': 'First'}
+
+del dict1['Name'] # 删除键 'Name'
+
+print(&quot;dict1['Age']: &quot;, dict1['Age'])#Age键存在
+print(&quot;dict1['Name']: &quot;, dict1['Name'])#Name键已经删除，该行会报错
+</code></pre>
+
+<p>但这会引发一个异常，因为用执行<code>del</code>操作后字典不再存在。</p>
+<h3>字典键的特性</h3>
+<h4>练习:字典键的使用</h4>
+<p>字典值可以是任何的 python 对象，既可以是标准的对象，也可以是用户定义的，但键不行。</p>
+<p>两个重要的点需要记住：</p>
+<p>1）不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住，如下实例：</p>
+<pre><code class="Python">dict2 = {'Name': 'Python1', 'Age': 7, 'Name': 'Python2'}
+
+print(&quot;dict2['Name']: &quot;, dict2['Name'])
+</code></pre>
+
+<p>2) 键必须不可变，所以可以用数字，字符串或元组充当，而用列表就不行，如下实例：</p>
+<pre><code class="Python">dict3 = {['Name']: 'Python', 'Age': 7}
+
+print(&quot;dict3['Name']: &quot;, dict3['Name'])
+</code></pre>
+
+<h2>字典内置函数&amp;方法</h2>
+<p>Python字典包含了以下内置函数：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">函数及描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left"><code>len(dict)</code>计算字典元素个数，即键的总数。</td>
+<td align="left"><code>dict = {'Name': 'Python', 'Age': 22, 'Class': 'First'};len(dict)</code></td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><code>str(dict)</code>输出字典，以可打印的字符串表示。</td>
+<td align="left"><code>dict = {'Name': 'Python', 'Age': 22, 'Class': 'First'} ;str(dict)</code></td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><code>type(variable)</code>返回输入的变量类型，如果变量是字典就返回字典类型。</td>
+<td align="left"><code>type({})</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Python字典包含了以下内置方法：</h2>
+<pre><code class="Python">help({})
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

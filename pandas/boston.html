@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pandas boston房价预测 - FreeAIHub</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="从Scikit-learn的数据集里载入波士顿的房价数据：波士顿数据集是一个具有13个特征的常见线性数据集，也是NG网课里的第一个例子。我们可以打印其描述文档来获取其各项属性：线性回归模型——手动分割训练集和测试集我们先给定一个默认的采样频率，如0.5，用于将训练集和测试集分为两个相等的集合：接着，洗乱整个集合，并取出相应的训练集和测试集数据：接下来，获取回归模型，拟合并得到测试集的预测结果：最后">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/pandas/index.html"> 如何学习本课程</a></li>
+<li><a href="/pandas/intro.html"> Pandas简介</a></li>
+<li><a href="/pandas/setup.html"> Pandas安装</a></li>
+<li><a href="/pandas/data-structure.html"> Pandas数据结构</a></li>
+<li><a href="/pandas/series.html"> Pandas序列</a></li>
+<li><a href="/pandas/dataframe.html"> Pandas数据帧</a></li>
+<li><a href="/pandas/basic.html"> Pandas基本功能</a></li>
+<li><a href="/pandas/description.html"> Pandas描述性统计</a></li>
+<li><a href="/pandas/apply.html"> Pandas函数应用</a></li>
+<li><a href="/pandas/reindex.html"> Pandas索引重建</a></li>
+<li><a href="/pandas/iteration.html"> Pandas迭代</a></li>
+<li><a href="/pandas/sort.html"> Pandas排序</a></li>
+<li><a href="/pandas/string-operation.html"> Pandas字符串和文本数据</a></li>
+<li><a href="/pandas/option.html"> Pandas选项和自定义</a></li>
+<li><a href="/pandas/loc.html"> Pandas索引和选择数据</a></li>
+<li><a href="/pandas/statistics.html"> Pandas统计函数</a></li>
+<li><a href="/pandas/aggreation.html"> Pandas聚合</a></li>
+<li><a href="/pandas/groupby.html"> Pandas分组</a></li>
+<li><a href="/pandas/merge-join.html"> Pandas合并与连接 </a></li>
+<li><a href="/pandas/visualization.html"> Pandas可视化</a></li>
+<li><a href="/pandas/categorical.html"> Pandas分类数据处理 </a></li>
+<li><a href="/pandas/time-series.html"> Pandas时间序列</a></li>
+<li><a href="/pandas/window.html"> Pandas窗口函数</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            {prev_next_nav}
+              
+            <h1>Pandas boston房价预测</h1>
+<p>从Scikit-learn的数据集里载入波士顿的房价数据：</p>
+<pre><code class="python">import numpy as np
+from sklearn import datasets
+import sklearn
+
+boston = datasets.load_boston()
+</code></pre>
+
+<p>波士顿数据集是一个具有13个特征的常见线性数据集，也是NG网课里的第一个例子。我们可以打印其描述文档来获取其各项属性：</p>
+<pre><code class="python">print(boston.DESCR)
+</code></pre>
+
+<blockquote>
+<p>线性回归模型——手动分割训练集和测试集</p>
+</blockquote>
+<p>我们先给定一个默认的采样频率，如0.5，用于将训练集和测试集分为两个相等的集合：</p>
+<pre><code class="python">sampleRatio = 0.5
+n_samples = len(boston.target)
+sampleBoundary = int(n_samples * sampleRatio)
+</code></pre>
+
+<p>接着，洗乱整个集合，并取出相应的训练集和测试集数据：</p>
+<pre><code class="python">shuffleIdx = range(n_samples)
+np.random.shuffle(shuffleIdx) # 需要导入numpy
+# 训练集的特征和回归值
+train_features = boston.data[shuffleIdx[:sampleBoundary]]
+train_targets = boston.target[shuffleIdx[:sampleBoundary]]
+# 测试集的特征和回归值 
+test_features = boston.data[shuffleIdx[sampleBoundary:]]
+test_targets = boston.target[shuffleIdx[sampleBoundary:]]
+</code></pre>
+
+<p>接下来，获取回归模型，拟合并得到测试集的预测结果：</p>
+<pre><code class="python">lr = sklearn.linear_model.LinearRegression() # 需要导入sklearn的linear_model
+lr.fit(train_features, train_targets) # 拟合
+y = lr.predict(test_features) # 预测
+</code></pre>
+
+<p>最后，把预测结果通过matplotlib画出来：</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+plt.plot(y, test_targets, 'rx') # y = ωX
+plt.plot([y.min(), y.max()], [y.min(), y.max()], 'b-.', lw=4) # f(x)=x
+plt.ylabel(&quot;Predieted Price&quot;)
+plt.xlabel(&quot;Real Price&quot;)
+plt.show()
+</code></pre>
+
+<p>在蓝线上的点是准确预测的点，而在蓝线以下及以上的点，分别是过低预测及过高预测的结果。</p>
+<blockquote>
+<p>线性回归模型——KFlod交叉验证</p>
+</blockquote>
+<p>来自官方的样例：</p>
+<pre><code class="python">from sklearn import datasets
+from sklearn.model_selection import cross_val_predict
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+
+lr = linear_model.LinearRegression()
+boston = datasets.load_boston()
+y = boston.target
+
+# cross_val_predict returns an array of the same size as `y` where each entry
+# is a prediction obtained by cross validation:
+predicted = cross_val_predict(lr, boston.data, y, cv=10)
+
+fig, ax = plt.subplots()
+ax.scatter(y, predicted, edgecolors=(0, 0, 0))
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Measured')
+ax.set_ylabel('Predicted')
+plt.show()
+</code></pre>
+
+<p>主要用的是交叉验证模型中的cross_val_predict，同样给定了线性回归模型(linear_model.LinearRegression()，模型需要实现fit()方法)，并划分了cv=10个交叉验证集合。比起手动划分集合，代码更加简短且易读性更好，没什么好过多分析的。默认的是KFlod方式，结果如下：</p>
+<blockquote>
+<p>交叉验证模型的打分</p>
+</blockquote>
+<p>考虑到使用了交叉验证，我们可以对一种估计模型（estimator）进行评分，需要用到sklearn.cross_validation的cross_val_score()：</p>
+<pre><code class="python">from sklearn import cross_validation
+print cross_validation.cross_val_score(lr, boston.data, y, cv=10)
+</code></pre>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

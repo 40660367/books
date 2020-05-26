@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 积分(integrate) - FreeAIHub</title>
+    <meta name="keywords" content="单积分,多重积分,双重积分">
+    <meta name="description" content="当一个函数不能被分析积分，或者很难分析积分时，通常会转向数值积分方法。 SciPy有许多用于执行数值积分的程序。 它们中的大多数都在同一个库中。 下表列出了一些常用函数。Quad函数是SciPy积分函数的主力。 数值积分有时称为正交积分，因此称为名称。 它通常是在到给定的固定范围内执行函数的单个积分的默认选择。
+$$
+\int_a^b{f(x)dx}
+$$的一般形式是，其中是要积分的函数的名称。 ">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a class="current"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a href="/scipy/optimize.html"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/fftpack.html class='prev_article'> Scipy 快速傅立叶变换 </a>       |       下一篇：<a href=/scipy/interpolate.html class='next_article'> SciPy 插值 </a>  >
+              
+            <h1>Scipy 积分(integrate)</h1>
+<p>当一个函数不能被分析积分，或者很难分析积分时，通常会转向数值积分方法。 SciPy有许多用于执行数值积分的程序。 它们中的大多数都在同一个<code>scipy.integrate</code>库中。 下表列出了一些常用函数。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>示例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>quad</code></td>
+<td>单积分</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>dblquad</code></td>
+<td>二重积分</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>tplquad</code></td>
+<td>三重积分</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>nquad</code></td>
+<td>n倍多重积分</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>fixed_quad</code></td>
+<td>高斯积分，阶数<code>n</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>quadrature</code></td>
+<td>高斯正交到容差</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>romberg</code></td>
+<td>Romberg积分</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>trapz</code></td>
+<td>梯形规则</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>cumtrapz</code></td>
+<td>梯形法则累计计算积分</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>simps</code></td>
+<td>辛普森的规则</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>romb</code></td>
+<td>Romberg积分</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>polyint</code></td>
+<td>分析多项式积分(NumPy)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>poly1d</code></td>
+<td>辅助函数polyint(NumPy)</td>
+</tr>
+</tbody>
+</table>
+<h2>单积分</h2>
+<p>Quad函数是SciPy积分函数的主力。 数值积分有时称为正交积分，因此称为名称。 它通常是在<code>a</code>到<code>b</code>给定的固定范围内执行函数<code>f(x)</code>的单个积分的默认选择。
+$$
+\int_a^b{f(x)dx}
+$$</p>
+<p><code>quad</code>的一般形式是<code>scipy.integrate.quad(f，a，b)</code>，其中<code>'f'</code>是要积分的函数的名称。 而<code>'a'</code>和<code>'b'</code>分别是下限和上限。 下面来看看一个高斯函数的例子，它的积分范围是<code>0</code>和<code>1</code>。</p>
+<p>首先需要定义这个函数:
+$$
+f(x)=e^{-x^{2}}
+$$
+这可以使用<code>lambda</code>表达式完成，然后在该函数上调用四方法。</p>
+<pre><code class="python">import scipy.integrate
+from numpy import exp
+f= lambda x:exp(-x**2)
+i = scipy.integrate.quad(f, 0, 1)
+print(i)
+</code></pre>
+
+<p>四元函数返回两个值，其中第一个数字是积分值，第二个数值是积分值绝对误差的估计值。</p>
+<blockquote>
+<p>注 - 由于<code>quad</code>需要函数作为第一个参数，因此不能直接将<code>exp</code>作为参数传递。 Quad函数接受正和负无穷作为限制。 Quad函数可以积分单个变量的标准预定义NumPy函数，如<code>exp</code>，<code>sin</code>和<code>cos</code>。</p>
+</blockquote>
+<h2>多重积分</h2>
+<p>双重和三重积分的机制已被包含到函数<code>dblquad</code>，<code>tplquad</code>和<code>nquad</code>中。 这些函数分别积分了四个或六个参数。 所有内积分的界限都需要定义为函数。</p>
+<h2>双重积分</h2>
+<p><code>dblquad</code>的一般形式是<code>scipy.integrate.dblquad(func，a，b，gfun，hfun)</code>。 其中，<code>func</code>是要积分函数的名称，<code>'a'</code>和<code>'b'</code>分别是<code>x</code>变量的下限和上限，而<code>gfun</code>和<code>hfun</code>是定义变量<code>y</code>的下限和上限的函数名称。</p>
+<p>看看一个执行双重积分方法的示例。
+$$
+\int_0^{1/2}dy\int_0^{\sqrt{1-4y^2}}16xydx
+$$
+使用<code>lambda</code>表达式定义函数<code>f</code>，<code>g</code>和<code>h</code>。 请注意，即使<code>g</code>和<code>h</code>是常数，它们可能在很多情况下必须定义为函数，正如在这里为下限所做的那样。</p>
+<pre><code class="python">import scipy.integrate
+from numpy import exp
+from math import sqrt
+f = lambda x, y : 16*x*y
+g = lambda x : 0
+h = lambda y : sqrt(1-4*y**2)
+i = scipy.integrate.dblquad(f, 0, 0.5, g, h)
+print(i)
+</code></pre>
+
+<p>除上述例程外，<code>scipy.integrate</code>还有许多其他积分的程序，其中包括执行<code>n</code>次多重积分的nquad以及实现各种集成算法的其他例程。 但是，<code>quad</code>和<code>dblquad</code>将满足对数值积分的大部分需求。
+<code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

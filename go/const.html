@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Go语言 常量(const) - FreeAIHub</title>
+    <meta name="keywords" content="整数文字,浮点文字,字符串文字">
+    <meta name="description" content="常量是指程序在执行过程中可能不会改变的固定值。 这些固定值也称为文字。常量可以是任何基本数据类型，如整数常量，浮点常量，字符常量或字符串常量。 还有枚举常量。一般会被编译器视为常规变量，只是它们的值不能在定义之后被修改。整数文字可以是十进制，八进制或十六进制常数。 前缀指定基数：前缀是或为十六进制，前缀是的为八进制，十进制的前缀则无任何内容。整数文字还可以有一个后缀，它是和的组合，分别用于和。后缀">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/go/index.html">如何学习本课程</a></li>
+<li><a href="/go/intro.html"> Go 简介 </a></li>
+<li><a href="/go/setup.html"> Go 环境搭建及运行 </a></li>
+<li><a href="/go/helloworld.html"> Go HelloWorld! </a></li>
+<li><a href="/go/syntax.html"> Go 基本语法 </a></li>
+<li><a href="/go/datatype.html"> Go 基本数据类型 </a></li>
+<li><a href="/go/variable.html"> Go 变量 </a></li>
+<li><a class="current"> Go 常量 </a></li>
+<li><a href="/go/operator.html"> Go 运算符 </a></li>
+<li><a href="/go/logic.html"> Go 逻辑判断 </a></li>
+<li><a href="/go/loop.html"> Go 循环控制 </a></li>
+<li><a href="/go/scope.html"> Go 作用域规则 </a></li>
+<li><a href="/go/function.html"> Go 函数 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-按值调用 </a></li>
+<li><a href="/go/function-refbyreference.html"> Go 函数-按引用调用 </a></li>
+<li><a href="/go/function-refbyvalue.html"> Go 函数-作用值使用 </a></li>
+<li><a href="/go/function-closure.html"> Go 函数-闭包 </a></li>
+<li><a href="/go/function-method.html"> Go 函数-方法 </a></li>
+<li><a href="/go/string.html"> Go 字符串String </a></li>
+<li><a href="/go/array.html"> Go 数组Array </a></li>
+<li><a href="/go/pointer.html"> Go 指针Pointer </a></li>
+<li><a href="/go/structure.html"> Go 结构体Structure </a></li>
+<li><a href="/go/range.html"> Go 范围Range </a></li>
+<li><a href="/go/slice.html"> Go 切片Slice </a></li>
+<li><a href="/go/map.html"> Go 映射Map </a></li>
+<li><a href="/go/recursion.html"> Go 递归recursion </a></li>
+<li><a href="/go/channel.html"> Go 通道 </a></li>
+<li><a href="/go/signal.html"> Go 信号 </a></li>
+<li><a href="/go/error.html"> Go 错误处理 </a></li></p>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/go/variable.html class='prev_article'> Go 变量 </a>       |       下一篇：<a href=/go/operator.html class='next_article'> Go 运算符 </a>  >
+              
+<h1>Go语言 常量(const)</h1>
+<p>常量是指程序在执行过程中可能不会改变的固定值。 这些固定值也称为文字。</p>
+<p>常量可以是任何基本数据类型，如整数常量，浮点常量，字符常量或字符串常量。 还有枚举常量。</p>
+<p><strong>常量</strong>一般会被编译器视为常规变量，只是它们的值不能在定义之后被修改。</p>
+<h2>整数文字</h2>
+<p>整数文字可以是十进制，八进制或十六进制常数。 前缀指定基数：前缀是<code>0x</code>或<code>0X</code>为十六进制，前缀是<code>0</code>的为八进制，十进制的前缀则无任何内容。</p>
+<p>整数文字还可以有一个后缀，它是<code>U</code>和<code>L</code>的组合，分别用于<code>unsigned</code>和<code>long</code>。后缀可以是大写或小写，可以是任意顺序。</p>
+<p>这里是一些有效的整数文字的例子：</p>
+<pre><code class="go">212         /* 合法 */
+215u        /* 合法 */
+0xFeeL      /* 合法 */
+078         /* 非法: 8 is not an octal digit */
+032UU       /* 非法: cannot repeat a suffix */
+</code></pre>
+
+<p>以下是其他各种类型的整数文字的示例：</p>
+<pre><code class="go">85         /* decimal */
+0213       /* octal */
+0x4b       /* hexadecimal */
+30         /* int */
+30u        /* unsigned int */
+30l        /* long */
+30ul       /* unsigned long */
+</code></pre>
+
+<h2>浮点文字</h2>
+<p>浮点文字有整数部分，小数点，小数部分和指数部分。您可以以十进制形式或指数形式来表示浮点文字。
+在使用十进制形式表示时，必须包括小数点，指数或两者，并且在使用指数形式表示时，必须包括整数部分，小数部分或两者。带符号的指数由<code>e</code>或<code>E</code>引入。</p>
+<p>下面是一些浮点文字的示例：</p>
+<pre><code class="go">3.14159       /* 合法 */
+314159E-5L    /* 合法 */
+510E          /* 非法: incomplete exponent */
+210f          /* 非法: no decimal or exponent */
+.e55          /* 非法: missing integer or fraction */
+Go
+</code></pre>
+
+<h3>转义序列</h3>
+<p>Go中有一些字符，当它们前面有一个反斜杠，它们将具有特殊的意义，它们用于表示类似换行符(<code>\n</code>)或制表符(<code>\t</code>)。 这里，有一些这样的转义序列代码的列表：</p>
+<table>
+<thead>
+<tr>
+<th>转义序列</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\\</code></td>
+<td><code>\</code>字符</td>
+</tr>
+<tr>
+<td><code>\'</code></td>
+<td><code>'</code>字符</td>
+</tr>
+<tr>
+<td><code>\"</code></td>
+<td><code>"</code>字符</td>
+</tr>
+<tr>
+<td><code>\?</code></td>
+<td><code>?</code>字符</td>
+</tr>
+<tr>
+<td><code>\a</code></td>
+<td>警报或响铃</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>退格</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>新行</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>水平制表格</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>水直制表格</td>
+</tr>
+<tr>
+<td><code>\ooo</code></td>
+<td>八位数字一到三位数</td>
+</tr>
+<tr>
+<td><code>\xhh...</code></td>
+<td>一位或多位的十六进制数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>以下是显示几个转义序列字符的示例：</strong></p>
+<p>文件名:escape.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   fmt.Printf(&quot;Hello\tWorld!&quot;)
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/escape.go
+</code></pre>
+
+<p>康康</p>
+<h2>字符串文字</h2>
+<p>字符串文字或常量用双引号<code>""</code>括起来。字符串包含与字符文字类似的字符：纯字符，转义序列和通用字符。可以使用字符串文字将长行拆分为多个行，并使用空格分隔它们。</p>
+<p>这里是一些字符串文字的例子。下面这三种形式都是相同的字符串。</p>
+<pre><code class="go">&quot;hello, dear&quot;
+
+&quot;hello, \
+
+dear&quot;
+
+&quot;hello, &quot; &quot;d&quot; &quot;ear&quot;
+</code></pre>
+
+<h3>const关键字</h3>
+<p>可以使用<code>const</code>前缀来声明具有特定类型的常量，如下所示：</p>
+<pre><code class="go">const variable type = value;
+</code></pre>
+
+<p>下面的例子详细解释：</p>
+<p>文件名:const.go</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+   const LENGTH int = 10
+   const WIDTH int = 5   
+   var area int
+
+   area = LENGTH * WIDTH
+   fmt.Printf(&quot;value of area : %d&quot;, area) 
+   fmt.Printf(&quot;\n&quot;)  
+}
+</code></pre>
+
+<pre><code class="bash">go run /share/lesson/go/const.go
+</code></pre>
+
+<p>康康</p>
+<blockquote>
+<p>注：以大写字母来定义常量是一个很好的编程习惯。</p>
+</blockquote>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Python自带数据结构 元组(tuple) - FreeAIHub</title>
+    <meta name="keywords" content="访问元组中的值,更新元组,删除元组元素,基本元组操作">
+    <meta name="description" content="元组是一系列不可变的Python对象。 元组是一种序列，就像列表一样。 元组和列表的区别在于，不同于列表和元组使用中括号 - ，而列表使用方括号 - ，并且元组不能改变。创建一个元组与放置不同的逗号分隔值一样简单。 也可以将这些以逗号分隔的值放在圆括号之间。 例如 -空元组是两个不包含任何内容的圆括号，如下 -要写一个包含单个值的元组，即使只有一个值，也必须包含一个逗号，像字符串索引一样，元组索引">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/ds-in-python/index.html">如何学习本课程</a></li>
+<li><a href="/ds-in-python/data-structure.html"> 数据结构  </a></li>
+<li><a href="/ds-in-python/data-structure-python-array.html"> Python自带数据结构 数组(array)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-dict.html"> Python自带数据结构 字典(dict) </a></li>
+<li><a href="/ds-in-python/data-structure-python-heap.html"> Python自带数据结构 堆(heap) </a></li>
+<li><a href="/ds-in-python/data-structure-python-list.html"> Python自带数据结构 列表(list) </a></li>
+<li><a href="/ds-in-python/data-structure-python-set.html"> Python自带数据结构 集合(set) </a></li>
+<li><a class="current"> Python自带数据结构 元组(tuple) </a></li>
+<li><a href="/ds-in-python/data-structure-queue.html"> Python实现数据结构 队列(queue) </a></li>
+<li><a href="/ds-in-python/data-structure-stack.html"> Python实现数据结构 栈(stack) </a></li>
+<li><a href="/ds-in-python/data-structure-python-deque.html"> Python实现数据结构 双端队列(deque)  </a></li>
+<li><a href="/ds-in-python/data-structure-python-hashtable.html"> Python实现数据结构 哈希表(hash table) </a></li>
+<li><a href="/ds-in-python/data-structure-python-2darray.html"> Python实现数据结构 二维数组(2d array)  </a></li>
+<li><a href="/ds-in-python/data-structure-graph.html"> Python实现数据结构 图(graph) </a></li>
+<li><a href="/ds-in-python/data-structure-linked-list.html"> Python实现数据结构 链表(linked list) </a></li>
+<li><a href="/ds-in-python/data-structure-matrix.html"> Python实现数据结构 矩阵 </a></li>
+<li><a href="/ds-in-python/data-structure-node.html"> Python实现数据结构 节点(node) </a></p>
+
+<li><a href="/ds-in-python/algorithm.html"> 算法  </a></li>
+<li><a href="/ds-in-python/algorithm-design.html"> 算法分析 </a></li>
+<li><a href="/ds-in-python/algorithm-graph.html"> Python实现算法:图遍历 </a></li>
+<li><a href="/ds-in-python/algorithms-backtracking.html"> Python实现算法:回溯(backtracking) </a></li>
+<li><a href="/ds-in-python/algorithms-binary-search-tree.html"> Python实现算法:搜索树(binary search tree) </a></li>
+<li><a href="/ds-in-python/algorithms-recursion.html"> Python实现算法:递归(recursion)  </a></li>
+<li><a href="/ds-in-python/algorithms-searching.html"> Python实现算法:搜索 </a></li>
+<li><a href="/ds-in-python/algorithms-sorting.html"> Python实现算法:排序 </a></li>
+<li><a href="/ds-in-python/algorithms-tree-traversal.html"> Python实现算法:树遍历 </a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/ds-in-python/data-structure-python-set.html class='prev_article'> Python自带数据结构 集合(set) </a>       |       下一篇：<a href=/ds-in-python/data-structure-queue.html class='next_article'> Python实现数据结构 队列(queue) </a>  >
+              
+            <h1>Python自带数据结构 元组(tuple)</h1>
+<p>元组是一系列不可变的Python对象。 元组是一种序列，就像列表一样。 元组和列表的区别在于，不同于列表和元组使用中括号 - <code>()</code>，而列表使用方括号 - <code>[]</code>，并且元组不能改变。</p>
+<p>创建一个元组与放置不同的逗号分隔值一样简单。 也可以将这些以逗号分隔的值放在圆括号之间。 例如 -</p>
+<pre><code class="python">tup1 = ('physics', 'chemistry', 1997, 2000);
+tup2 = (1, 2, 3, 4, 5 );
+tup3 = &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;;
+</code></pre>
+
+<p>空元组是两个不包含任何内容的圆括号，如下 -</p>
+<pre><code class="python">tup1 = ();
+</code></pre>
+
+<p>要写一个包含单个值的元组，即使只有一个值，也必须包含一个逗号，</p>
+<pre><code class="python">tup1 = (50,);
+</code></pre>
+
+<p>像字符串索引一样，元组索引从<code>0</code>开始，并且它们可以被分片，连接等等。</p>
+<h2>访问元组中的值</h2>
+<p>要访问元组中的值，可使用方括号将切片与索引一起使用，以获取该索引处可用的值。 例如 -</p>
+<pre><code class="python">#!/usr/bin/python
+
+tup1 = ('physics', 'chemistry', 1997, 2000);
+tup2 = (1, 2, 3, 4, 5, 6, 7 );
+print(&quot;tup1[0]: &quot;, tup1[0]);
+print(&quot;tup2[1:5]: &quot;, tup2[1:5]);
+</code></pre>
+
+<h2>更新元组</h2>
+<p>元组是不可变的，这意味着不能更新或改变元组元素的值。但是可以将现有的元组的一部分来创建或重组成新的元组，如下例所示 -</p>
+<pre><code class="python">#!/usr/bin/python
+
+tup1 = (12, 34.56);
+tup2 = ('abc', 'xyz');
+
+# Following action is not valid for tuples
+# tup1[0] = 100;
+
+# So let's create a new tuple as follows
+tup3 = tup1 + tup2;
+print(tup3);
+</code></pre>
+
+<h2>删除元组元素</h2>
+<p>删除单个元组元素是不可能的。 当然，将另一个元组与不需要的元素组合在一起成新的元组是没有任何问题的。</p>
+<p>要显式删除整个元组，只需使用<code>del</code>语句。 例如 -</p>
+<pre><code class="python">#!/usr/bin/python
+
+tup = ('physics', 'chemistry', 1997, 2000);
+print(tup);
+del tup;
+print(&quot;After deleting tup : &quot;);
+print(tup);
+</code></pre>
+
+<h2>基本元组操作</h2>
+<p>元组可像字符串一样对<code>+</code>和<code>*</code>运算符作出响应; 它们也意味着连接和重复，但返回结果是一个新的元组，而不是一个字符串。</p>
+<p>事实上，元组响应类似字符串使用的所有常规序列操作 -</p>
+<table>
+<thead>
+<tr>
+<th>Python表达式</th>
+<th>结果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>len((1, 2, 3))</code></td>
+<td><code>3</code></td>
+<td>计算元组的长度</td>
+</tr>
+<tr>
+<td><code>(1, 2, 3) + (4, 5, 6)</code></td>
+<td><code>(1, 2, 3, 4, 5, 6)</code></td>
+<td>连接操作</td>
+</tr>
+<tr>
+<td><code>('Hi!',) * 4</code></td>
+<td><code>('Hi!', 'Hi!', 'Hi!', 'Hi!')</code></td>
+<td>重复操作</td>
+</tr>
+<tr>
+<td><code>3 in (1, 2, 3)</code></td>
+<td><code>True</code></td>
+<td>成员操作符</td>
+</tr>
+<tr>
+<td><code>for x in (1, 2, 3): print x,</code></td>
+<td><code>1 2 3</code></td>
+<td>迭代</td>
+</tr>
+</tbody>
+</table>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

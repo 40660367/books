@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hadoop MapReduce示例8:列出名字以 J 开头的员工姓名及其所属部门名称 - FreeAIHub</title>
+    <meta name="keywords" content="问题分析,处理流程图,准备相关文件创建任务目录并复制相">
+    <meta name="description" content="求工资最高的头三名员工姓名及工资，可以通过冒泡法得到。在 Mapper 阶段输出经理数据和员工对应经理表数据，其中经理数据 key 为 0 值、value 为员工姓名，员工工资。最后在 Reduce 中通过冒泡法遍历所有员工，比较员工工资多少，求出前三名。测试数据 emp（员工），其中各字段用逗号分隔：文件名:emp文件名:Q8SalaryTop3Salary.java打开  文件，可以看到运">
+      
+    <!-- CSS -->
+    <link href="https://cdn.freeaihub.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+    <link href="https://cdn.freeaihub.com/asset/styles/xterm/xterm.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.freeaihub.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.freeaihub.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/bootstrap/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/font-awesome/css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdn.freeaihub.com/asset/styles/css/prettify.css" type="text/css" media="all">
+      
+      
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Libs JS -->
+    <script src="https://cdn.freeaihub.com/asset/js/jquery.min.js"></script>
+    <script src="https://cdn.freeaihub.com/asset/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" id="yarppRelatedCss-css" href="https://cdn.freeaihub.com/asset/css/related.css?ver=4.9.14" type="text/css" media="all">
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/prettify.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/power.js?ver=2.3'></script>
+    <script type='text/javascript' src='https://cdn.freeaihub.com/asset/js/wp-embed.min.js?ver=4.9.14'></script>
+    <!-- Theme JS -->
+
+      
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-fit.js"></script>
+    <script src="https://cdn.freeaihub.com/static/xterm/xterm-addon-attach.js"></script>
+    <!-- Promise polyfill for IE11 -->
+    <script src="https://cdn.freeaihub.com/vendor/promise.js"></script>
+        
+    <!-- ES2015/ES6 modules polyfill -->
+    <script nomodule src="https://cdn.freeaihub.com/vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+ 
+    <!-- <script src="https://cdn.freeaihub.com/asset/js/js.cookie.min.js"></script> -->
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+     
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+                <ul class="nav bd-sidenav pb-6">
+<li><a href="/hadoop/index.html">如何学习本课程</a></li>
+<li><a href="/hadoop/intro.html"> Hadoop 简介 </a></li>
+<li><a href="/hadoop/setup.html"> Hadoop 环境安装及配置 </a></li>
+<li><a href="/hadoop/mapreduce.html"> Hadoop MapReduce </a></li>
+<li><a href="/hadoop/mr-bak1.html"> Hadoop Mapreduce示例 </a></li>
+<li><a href="/hadoop/mr-bak2.html"> Hadoop MapReduce任务示例2 </a></li>
+<li><a href="/hadoop/mr1.html"> Hadoop MapReduce示例1:求各个部门的总工资 </a></li>
+<li><a href="/hadoop/mr2.html"> Hadoop MapReduce示例2:求各个部门的人数和平均工资 </a></li>
+<li><a href="/hadoop/mr3.html"> Hadoop MapReduce示例3:求每个部门最早入职员工的姓名 </a></li>
+<li><a href="/hadoop/mr4.html"> Hadoop MapReduce示例4:求各个城市的员工的总工资 </a></li>
+<li><a href="/hadoop/mr5.html"> Hadoop MapReduce示例5:求各个城市的员工的总工资 </a></li>
+<li><a href="/hadoop/mr6.html"> Hadoop MapReduce示例6:列出工资比公司平均工资要高的员工姓名及其工资 </a></li>
+<li><a href="/hadoop/mr7.html"> Hadoop MapReduce示例7:列出名字以 J 开头的员工姓名及其所属部门名称 </a></li>
+<li><a class="current"> Hadoop MapReduce示例8:列出名字以 J 开头的员工姓名及其所属部门名称 </a></li>
+<li><a href="/hadoop/mr9.html"> Hadoop MapReduce示例9:将全体员工按照总收入（工资 + 提成）从高到低排列 </a></li>
+<li><a href="/hadoop/mr10.html"> Hadoop MapReduce示例10:求任何两名员工信息传递所需要经过的中间节点数 </a></li>
+<li><a href="/hadoop/streaming.html"> Hadoop Streaming </a></li>
+<li><a href="/hadoop/yarn-ops.html"> Hadoop YARN配置及提交任务示例 </a></li>
+<li><a href="/hadoop/yarn.html"> Hadoop Yarn </a></p></li>
+<li><a href="/hadoop/hdfs-ops.html"> Hadoop HDFS Shell操作 </a></p></li>
+<li><a href="/hadoop/hdfs.html"> Hadoop HDFS </a></li>
+<li><a href="/hadoop/hdfs1.html"> Hadoop HDFS示例1:读取 HDFS文件内容 </a></li>
+<li><a href="/hadoop/hdfs2.html"> Hadoop HDFS示例2:写入内容至HDFS文件 </a></li>
+                </ul>
+              </div>
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content">
+< 上一篇:<a href=/hadoop/mr7.html class='prev_article'> Hadoop MapReduce示例7:列出名字以 J 开头的员工姓名及其所属部门名称 </a>       |       下一篇：<a href=/hadoop/mr9.html class='next_article'> Hadoop MapReduce示例9:将全体员工按照总收入（工资 + 提成）从高到低排列 </a>  >
+              
+<h1>Hadoop MapReduce示例8:列出名字以 J 开头的员工姓名及其所属部门名称</h1>
+<h2>问题分析</h2>
+<p>求工资最高的头三名员工姓名及工资，可以通过冒泡法得到。在 Mapper 阶段输出经理数据和员工对应经理表数据，其中经理数据 key 为 0 值、value 为"员工姓名，员工工资"。最后在 Reduce 中通过冒泡法遍历所有员工，比较员工工资多少，求出前三名。</p>
+<h2>处理流程图</h2>
+<p><img alt="此处输入图片的描述" src="./images/mr8.jpg" /></p>
+<h2>准备相关文件</h2>
+<p>测试数据 emp（员工），其中各字段用逗号分隔：</p>
+<p>文件名:emp</p>
+<pre><code>7369,SMITH,CLERK,7902,17-12月-80,800,,20
+7499,ALLEN,SALESMAN,7698,20-2月-81,1600,300,30
+7521,WARD,SALESMAN,7698,22-2月-81,1250,500,30
+7566,JONES,MANAGER,7839,02-4月-81,2975,,20
+7654,MARTIN,SALESMAN,7698,28-9月-81,1250,1400,30
+7698,BLAKE,MANAGER,7839,01-5月-81,2850,,30
+7782,CLARK,MANAGER,7839,09-6月-81,2450,,10
+7839,KING,PRESIDENT,,17-11月-81,5000,,10
+7844,TURNER,SALESMAN,7698,08-9月-81,1500,0,30
+7900,JAMES,CLERK,7698,03-12月-81,950,,30
+7902,FORD,ANALYST,7566,03-12月-81,3000,,20
+7934,MILLER,CLERK,7782,23-1月-82,1300,,10
+</code></pre>
+
+<p>文件名:Q8SalaryTop3Salary.java</p>
+<pre><code class="java">import java.io.IOException;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+public class Q8SalaryTop3Salary extends Configured implements Tool {
+
+    public static class MapClass extends Mapper&lt;LongWritable, Text, IntWritable, Text&gt; {
+
+        public void map(LongWritable key, Text value, Context context) throws IOException,         InterruptedException {
+
+            // 对员工文件字段进行拆分
+            String[] kv = value.toString().split(&quot;,&quot;);
+
+            // 输出key为0和value为员工姓名+&quot;,&quot;+员工工资
+            context.write(new IntWritable(0), new Text(kv[1].trim() + &quot;,&quot; + kv[5].trim()));
+        }
+    }
+
+    public static class Reduce extends Reducer&lt;IntWritable, Text, Text, Text&gt; {
+
+        public void reduce(IntWritable key, Iterable&lt;Text&gt; values, Context context) throws         IOException, InterruptedException {
+
+            // 定义工资前三员工姓名
+            String empName;
+            String firstEmpName = &quot;&quot;;
+            String secondEmpName = &quot;&quot;;
+            String thirdEmpName = &quot;&quot;;
+
+            // 定义工资前三工资
+            long empSalary = 0;
+            long firstEmpSalary = 0;
+            long secondEmpSalary = 0;
+            long thirdEmpSalary = 0;
+
+            // 通过冒泡法遍历所有员工，比较员工工资多少，求出前三名
+            for (Text val : values) {
+                empName = val.toString().split(&quot;,&quot;)[0];
+                empSalary = Long.parseLong(val.toString().split(&quot;,&quot;)[1]);
+
+                if(empSalary &gt; firstEmpSalary) {
+                    thirdEmpName = secondEmpName;
+                    thirdEmpSalary = secondEmpSalary;
+                    secondEmpName = firstEmpName;
+                    secondEmpSalary = firstEmpSalary;
+                    firstEmpName = empName;
+                    firstEmpSalary = empSalary;
+                } else if (empSalary &gt; secondEmpSalary) {
+                    thirdEmpName = secondEmpName;
+                    thirdEmpSalary = secondEmpSalary;
+                    secondEmpName = empName;
+                    secondEmpSalary = empSalary;
+                } else if (empSalary &gt; thirdEmpSalary) {
+                    thirdEmpName = empName;
+                    thirdEmpSalary = empSalary;
+                }
+            }
+
+            // 输出工资前三名信息
+            context.write(new Text( &quot;First employee name:&quot; + firstEmpName), new Text(&quot;Salary:&quot;             + firstEmpSalary));
+            context.write(new Text( &quot;Second employee name:&quot; + secondEmpName), new                     Text(&quot;Salary:&quot; + secondEmpSalary));
+            context.write(new Text( &quot;Third employee name:&quot; + thirdEmpName), new Text(&quot;Salary:&quot;             + thirdEmpSalary));
+        }
+    }
+
+    @Override
+    public int run(String[] args) throws Exception {
+
+        // 实例化作业对象，设置作业名称
+        Job job = new Job(getConf(), &quot;Q8SalaryTop3Salary&quot;);
+        job.setJobName(&quot;Q8SalaryTop3Salary&quot;);
+
+        // 设置Mapper和Reduce类
+        job.setJarByClass(Q8SalaryTop3Salary.class);
+        job.setMapperClass(MapClass.class);
+        job.setReducerClass(Reduce.class);
+        job.setMapOutputKeyClass(IntWritable.class);
+        job.setMapOutputValueClass(Text.class);
+
+        // 设置输入格式类
+        job.setInputFormatClass(TextInputFormat.class);
+
+        // 设置输出格式类
+        job.setOutputKeyClass(Text.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        job.setOutputValueClass(Text.class);
+
+        // 第1个参数为员工数据路径和第2个参数为输出路径
+        String[] otherArgs = new GenericOptionsParser(job.getConfiguration(),                     args).getRemainingArgs();
+        FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+        FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+
+        job.waitForCompletion(true);
+        return job.isSuccessful() ? 0 : 1;
+    }
+
+    /**
+     * 主方法，执行入口
+     * @param args 输入参数
+     */
+    public static void main(String[] args) throws Exception {
+        int res = ToolRunner.run(new Configuration(), new Q8SalaryTop3Salary(), args);
+        System.exit(res);
+    }
+}
+</code></pre>
+
+<h3>创建任务目录并复制相关文件</h3>
+<pre><code class="bash">mkdir ~/mr8 &amp;&amp; cd ~/mr8
+cp /share/lesson/hadoop/Q8SalaryTop3Salary.java .
+cp /share/lesson/hadoop/emp .
+cp /share/lesson/hadoop/hadoop-core-1.2.1.jar .
+cp /share/lesson/hadoop/commons-cli-1.2.jar .
+</code></pre>
+
+<h3>编译java文件并打jar包</h3>
+<pre><code class="bash">cd ~/mr8
+javac -classpath  hadoop-core-1.2.1.jar:commons-cli-1.2.jar -d ~/mr8/ Q8SalaryTop3Salary.java
+jar cvf ./Q8SalaryTop3Salary.jar ./Q8SalaryTop3Salary*.class
+</code></pre>
+
+<h3>准备上传数据至HDFS系统</h3>
+<pre><code class="bash">jps #检查hdfs系统是否正常
+</code></pre>
+
+<pre><code class="bash">hadoop fs -mkdir -p /input8/
+hadoop fs -put ~/mr8/emp /input8/
+</code></pre>
+
+<h3>提交任务并耐心等待任务完成</h3>
+<pre><code class="bash">cd ~/mr8
+hadoop jar Q8SalaryTop3Salary.jar Q8SalaryTop3Salary hdfs://localhost:9000/input8/emp hdfs://localhost:9000/output8
+</code></pre>
+
+<h3>查看HDFS上任务输出目录</h3>
+<pre><code class="bash">hadoop fs -ls /output8 #查看输出结果目录
+hadoop fs -cat /output8/part-r-00000
+</code></pre>
+
+<p>打开 <code>part-r-00000</code> 文件，可以看到运行结果：</p>
+<pre><code>First employee name:KING    Salary:5000
+Second employee name:FORD    Salary:3000
+Third employee name:JONES    Salary:2975
+</code></pre>
+            
+          </div>
+          <backend type='k'></backend>
+          <div class="d-none d-xl-block col-xl-5 bd-toc xterm-wrapper overflow-hidden">
+             <!-- 导航 -->
+            <ul class="nav nav-tabs nav-float" id="myTab">
+              <li class="nav-item">
+                <a class="nav-link"  href="#home">Terminal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#profile">VNC</a>
+              </li>
+            </ul>
+            <div class="controls">
+              <div class="dropdown">
+                <a class="fa fa-plus">
+                </a>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Open SSH Terminal On Host0</button>
+                  <button class="dropdown-item" type="button">View 80 Port On On Host0</button>
+                </div>
+              </div>
+            </div>
+            <!-- 带显示效果的内容 -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" >
+                <div id="term-content">
+                  <div id="terminal"></div>
+                </div>
+              </div>
+                        
+            <div class="tab-pane fade position-relative" id="profile">  
+              <div id="top_bar">
+                  <div id="status">Loading</div>
+                  <!-- <div id="sendCtrlAltDelButton">Send CtrlAltDel</div> -->
+              </div>
+              <div id="screen">
+                  <!-- This is where the remote screen will appear -->
+              </div>
+                              </div>
+           
+        </div>
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </section>
+    
+    <script>
+      $(".controls").on('click', function() {
+        $(".dropdown-menu").toggleClass('show')
+      })
+    </script>
+
+    <script>
+      var terminal; // 终端
+      var sockId;  // 终端 id
+      var socket; // websocket 服务
+
+
+      const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+      terminal = new Terminal({
+          windowsMode: isWindows,
+          convertEol: true,
+          fontFamily: `'Fira Mono', monospace`,
+          fontSize: 16,
+          fontWeight: 400,
+          rendererType: "canvas" // canvas 或者 dom
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      terminal.loadAddon(fitAddon);
+
+      terminal.open(document.getElementById('terminal'));
+      terminal.element.style.padding = '20px';
+      fitAddon.fit();
+      terminal.focus();
+
+      terminal.onData(function(data) {
+          socket.send(JSON.stringify({'data': data}));
+          fitAddon.fit();
+      });
+
+      var detail = $('backend').attr('type')
+
+      window.addEventListener("resize", windowChangeXtrem, { capture: true });
+
+      function windowChangeXtrem() {
+        terminal.onResize((term) => {
+          socket.send(JSON.stringify({'resize': [term.cols, term.rows]}));
+        })
+
+        // 确保终端尺寸和容器尺寸一致
+        fitAddon.fit();
+      }
+
+
+        $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true,  
+          success: async function(data) {
+
+            let { host0,host1 } = data.data;
+            // 替换页面
+            let regex = /\{(.+?)\}/g;
+            
+            let host0hostname = /\{host0.hostname\}/g;
+            let host0ip = /\{host0.ip\}/g;
+            let host0token = /\{host0.token\}/g;
+            let host0http_url = /\{host0.http_url\}/g;
+            let host0cell_url_withtoken = /\{host0.cell_url_withtoken\}/g;
+
+            let host1hostname = /\{host1.hostname\}/g;
+            let host1ip = /\{host1.ip\}/g;
+            let host1token = /\{host1.token\}/g;
+            let host1http_url = /\{host1.http_url\}/g;
+            let host1cell_url_withtoken = /\{host1.cell_url_withtoken\}/g;
+            
+            let code = $('code');
+            for(let i =0; i<code.length; i++){
+              if(code[i].innerText.match(host0ip)){code[i].innerText = code[i].innerText.replace(host0ip, `${host0.ip}`)};
+              if(code[i].innerText.match(host0hostname)){code[i].innerText = code[i].innerText.replace(host0hostname, `${host0.hostname}`)};
+              if(code[i].innerText.match(host0token)){code[i].innerText = code[i].innerText.replace(host0token, `${host0.token}`)};
+              if(code[i].innerText.match(host0http_url)){code[i].innerText = code[i].innerText.replace(host0http_url, `${host0.http_url}`)};
+              if(code[i].innerText.match(host0cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host0cell_url_withtoken, `${host0.cell_url_withtoken}`)};
+
+              if(code[i].innerText.match(host1ip)){code[i].innerText = code[i].innerText.replace(host1ip, `${host1.ip}`)};
+              if(code[i].innerText.match(host1hostname)){code[i].innerText = code[i].innerText.replace(host1hostname, `${host1.hostname}`)};
+              if(code[i].innerText.match(host1token)){code[i].innerText = code[i].innerText.replace(host1token, `${host1.token}`)};
+              if(code[i].innerText.match(host1http_url)){code[i].innerText = code[i].innerText.replace(host1http_url, `${host1.http_url}`)};
+              if(code[i].innerText.match(host1cell_url_withtoken)){code[i].innerText = code[i].innerText.replace(host1cell_url_withtoken, `${host1.cell_url_withtoken}`)};
+
+            }
+
+
+            let formdata = new FormData();
+
+            formdata.append("hostname", host0.ssh_host);
+            formdata.append("username", host0.username);
+            formdata.append("port", host0.ssh_port);
+            formdata.append("password", host0.token);
+            formdata.append("term", host0.ssh_term);
+
+            let response = await fetch(
+              host0.ssh_login,
+                  {
+                      method: 'POST',
+                      body: formdata
+                  }
+            )
+
+              sockId = await response.json();
+            
+              let socketHost = host0.ssh_ws +=`/ws?id=${sockId.id}`;
+
+              socket = new WebSocket(socketHost);
+
+              socket.onopen = () => {
+                terminal.loadAddon(new AttachAddon.AttachAddon(socket));
+                terminal._initialized = true;
+              }
+
+              socket.onmessage = msg => {
+                if(!terminal._initialized){
+                    return
+                }
+                terminal._initialized = false;
+                socket.send(JSON.stringify({ resize: [terminal.cols, terminal.rows] }));
+              }
+          }
+         })
+
+     </script> 
+
+     <!-- actual script modules -->
+    <script type="module" crossorigin="anonymous">
+         // RFB holds the API to connect and communicate with a VNC server
+         import RFB from 'https://cdn.freeaihub.com/core/rfb.js';
+ 
+         let rfb;
+         let desktopName;
+ 
+         // When this function is called we have
+         // successfully connected to a server
+         function connectedToServer(e) {
+            //  status("Connected to " + desktopName);
+         }
+ 
+         // This function is called when we are disconnected
+         function disconnectedFromServer(e) {
+             if (e.detail.clean) {
+                 status("Disconnected");
+             } else {
+                 status("Something went wrong, connection is closed");
+             }
+         }
+ 
+         // When this function is called, the server requires
+         // credentials to authenticate
+         function credentialsAreRequired(e) {
+             const password = prompt("Password Required:");
+             rfb.sendCredentials({ password: password });
+         }
+ 
+         // When this function is called we have received
+         // a desktop name from the server
+         function updateDesktopName(e) {
+             desktopName = e.detail.name;
+         }
+ 
+         // Since most operating systems will catch Ctrl+Alt+Del
+         // before they get a chance to be intercepted by the browser,
+         // we provide a way to emulate this key sequence.
+         function sendCtrlAltDel() {
+             rfb.sendCtrlAltDel();
+             return false;
+         }
+ 
+         // Show a status text in the top bar
+         function status(text) {
+             document.getElementById('status').textContent = text;
+         }
+ 
+         // This function extracts the value of one variable from the
+         // query string. If the variable isn't defined in the URL
+         // it returns the default value instead.
+         function readQueryVariable(name, defaultValue) {
+             // A URL with a query parameter can look like this:
+             // https://www.example.com?myqueryparam=myvalue
+             //
+             // Note that we use location.href instead of location.search
+             // because Firefox < 53 has a bug w.r.t location.search
+             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+                   match = document.location.href.match(re);
+ 
+             if (match) {
+                 // We have to decode the URL since want the cleartext value
+                 return decodeURIComponent(match[1]);
+             }
+ 
+             return defaultValue;
+         }
+ 
+        //  document.getElementById('sendCtrlAltDelButton')
+        //      .onclick = sendCtrlAltDel;
+         
+        $('#myTab a:first').tab('show');//初始化显示哪个tab 
+      
+        $('#myTab a').click(function (e) { 
+          e.preventDefault();//阻止a链接的跳转行为 
+          $(this).tab('show');//显示当前选中的链接及关联的content 
+        })  
+
+        $('#myTab a[href="#profile"]').on('click', function (e) {
+          var detail = $('backend').attr('type')
+
+          $.ajax({
+          type: 'get',
+          url: `https://api.freeaihub.com/env/get/${detail}`,
+          mode: "no-cors",
+          dataType: "json",
+          xhrFields: {
+               withCredentials: true
+          },
+          crossDomain: true, 
+
+
+          // $.ajax({
+          //  type: 'get',
+          //  url: 'https://api.freeaihub.com/api/env/get/vnc',
+          //  mode: "no-cors",
+          //  dataType: "json",
+          //  xhrFields: {
+          //      withCredentials: true
+          //  },
+          //  crossDomain: true,  
+           success: function(data) {
+             if(data.errno == 0){
+               let { host0 } =  data.data
+
+               vnc(host0)
+             }
+           }
+         })
+        });
+
+         function vnc(obj){
+
+             // Build the websocket URL used to connect
+             let url;
+
+     
+             url = obj.novnc_url
+     
+
+             // Creating a new RFB object will start a new connection
+             rfb = new RFB(document.getElementById('screen'), url,
+                               { 
+                                 credentials: { password: obj.token },
+
+                                });
+     
+             // Add listeners to important events from the RFB module
+             rfb.addEventListener("connect",  connectedToServer);
+             rfb.addEventListener("disconnect", disconnectedFromServer);
+             rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+             rfb.addEventListener("desktopname", updateDesktopName);
+          
+             // Set parameters that can be changed on an active connection
+             rfb.viewOnly = readQueryVariable('view_only', false);
+             rfb.scaleViewport = 'scale';
+
+         }
+        
+    </script>
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  </body>
+</html>

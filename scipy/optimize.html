@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scipy 优化算法(optimize) - FreeAIHub</title>
+    <meta name="keywords" content="Nelder–Mead单纯形算法,最小二乘,求根">
+    <meta name="description" content="包提供了几种常用的优化算法。 该模块包含以下几个方面 -函数为中的多变量标量函数提供了无约束和约束最小化算法的通用接口。 为了演示最小化函数，考虑使变量的函数最小化的问题 
+$$
+f(x)=\sum_{i=1}^{N-1}100(x_i-x^2_{i-1})
+$$
+这个函数的最小值是，当时达到。在下面的例子中，例程与Nelder-Mead单纯形算法()一起使用(通过方法参数选择)。参考下面的例子。">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href="/scipy/index.html">如何学习本课程</a></li>
+<li><a href="/scipy/index.html"> 如何学习本课程 </a></li>
+<li><a href="/scipy/intro.html"> SciPy 简介 </a></li>
+<li><a href="/scipy/setup.html"> SciPy 安装 </a></li>
+<li><a href="/scipy/basic.html"> SciPy 基本功能 </a></li>
+<li><a href="/scipy/cluster.html"> SciPy 簇聚 </a></li>
+<li><a href="/scipy/constant.html"> Scipy 常量 </a></li>
+<li><a href="/scipy/fftpack.html"> Scipy 快速傅立叶变换 </a></li>
+<li><a href="/scipy/integrate.html"> SciPy 积分 </a></li>
+<li><a href="/scipy/interpolate.html"> SciPy 插值 </a></li>
+<li><a href="/scipy/io.html"> SciPy 输入和输出 </a></li>
+<li><a href="/scipy/linalg.html"> SciPy 线性代数 </a></li>
+<li><a href="/scipy/ndimage.html"> SciPy 图像处理 </a></li>
+<li><a class="current"> SciPy 优化算法 </a></li>
+<li><a href="/scipy/stats.html"> SciPy 统计函数 </a></li>
+<li><a href="/scipy/spatial.html"> SciPy 空间度量 </a></li>
+<li><a href="/scipy/odr.html"> SciPy 正交距离回归 </a></li>
+<li><a href="/scipy/special.html"> SciPy 特殊包 </a>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/scipy/ndimage.html class='prev_article'> SciPy 图像处理 </a>       |       下一篇：<a href=/scipy/stats.html class='next_article'> SciPy 统计函数 </a>  >
+              
+            <h1>Scipy 优化算法(optimize)</h1>
+<p><code>scipy.optimize</code>包提供了几种常用的优化算法。 该模块包含以下几个方面 -</p>
+<ul>
+<li>使用各种算法(例如BFGS，Nelder-Mead单纯形，牛顿共轭梯度，COBYLA或SLSQP)的无约束和约束最小化多元标量函数(<code>minimize()</code>)</li>
+<li>全局(蛮力)优化程序(例如，<code>anneal()</code>，<code>basinhopping()</code>)</li>
+<li>最小二乘最小化(<code>leastsq()</code>)和曲线拟合(<code>curve_fit()</code>)算法</li>
+<li>标量单变量函数最小化(<code>minim_scalar()</code>)和根查找(<code>newton()</code>)</li>
+<li>使用多种算法(例如，Powell，Levenberg-Marquardt混合或Newton-Krylov等大规模方法)的多元方程系统求解(root)</li>
+</ul>
+<p><strong>多变量标量函数的无约束和约束最小化</strong></p>
+<p><code>minimize()</code>函数为<code>scipy.optimize</code>中的多变量标量函数提供了无约束和约束最小化算法的通用接口。 为了演示最小化函数，考虑使<code>NN</code>变量的<code>Rosenbrock</code>函数最小化的问题 
+$$
+f(x)=\sum_{i=1}^{N-1}100(x_i-x^2_{i-1})
+$$
+这个函数的最小值是<code>0</code>，当<code>xi = 1</code>时达到。</p>
+<h2>Nelder–Mead单纯形算法</h2>
+<p>在下面的例子中，<code>minimize()</code>例程与Nelder-Mead单纯形算法(<code>method ='Nelder-Mead'</code>)一起使用(通过方法参数选择)。参考下面的例子。</p>
+<pre><code class="python">import numpy as np
+from scipy.optimize import minimize
+
+def rosen(x):
+
+x0 = np.array([1.3, 0.7, 0.8, 1.9, 1.2])
+res = minimize(rosen, x0, method='nelder-mead')
+
+print(res.x)
+</code></pre>
+
+<p>简单算法只需要函数评估，对于简单的最小化问题是一个不错的选择。 但是，由于它不使用任何梯度评估，因此可能需要较长时间才能找到最小值。</p>
+<p>另一种只需要函数调用来寻找最小值的优化算法就是鲍威尔方法，它可以通过在<code>minimize()</code>函数中设置<code>method ='powell'</code>来实现。</p>
+<h2>最小二乘</h2>
+<p>求解一个带有变量边界的非线性最小二乘问题。 给定残差<code>f(x)</code>(n个实变量的m维实函数)和损失函数<code>rho(s)</code>(标量函数)，最小二乘法找到代价函数<code>F(x)</code>的局部最小值。 看看下面的例子。</p>
+<p>在这个例子中，<code>Rosenbrock</code>函数的最小值不受自变量的限制。</p>
+<pre><code class="python">#Rosenbrock Function
+def fun_rosenbrock(x):
+   return np.array([10 * (x[1] - x[0]**2), (1 - x[0])])
+
+from scipy.optimize import least_squares
+input = np.array([2, 2])
+res = least_squares(fun_rosenbrock, input)
+
+print(res)
+</code></pre>
+
+<p>请注意，我们只提供残差的向量。 该算法将成本函数构造为残差的平方和，这给出了<code>Rosenbrock()</code>函数。 确切的最小值是<code>x = [1.0,1.0]</code>。</p>
+<h2>求根</h2>
+<p>让我们了解求根如何在SciPy中使用。</p>
+<p><strong>标量函数</strong></p>
+<p>如果有一个单变量方程，则可以尝试四种不同的寻根算法。 这些算法中的每一个都需要预期根的时间间隔的端点(因为函数会改变符号)。 一般来说，<code>brentq</code>是最好的选择，但其他方法可能在某些情况下或学术目的有用。</p>
+<p><strong>定点求解</strong></p>
+<p>与找到函数零点密切相关的问题是找到函数的固定点的问题。 函数的固定点是函数评估返回点的点:<code>g(x)= x</code>。 显然，<code>gg</code>的不动点是<code>f(x)= g(x)-x</code>的根。 等价地，<code>ff</code>的根是<code>g(x)= f(x)+ x</code>的固定点。 例程<code>fixed_point</code>提供了一个简单的迭代方法，使用<code>Aitkens</code>序列加速度来估计<code>gg</code>的固定点，如果给出起点的话。</p>
+<p><strong>方程组</strong>
+使用<code>root()</code>函数可以找到一组非线性方程的根。 有几种方法可供选择，其中<code>hybr</code>(默认)和<code>lm</code>分别使用<code>Powell</code>的混合方法和<code>MINPACK</code>中的Levenberg-Marquardt方法。</p>
+<p>下面的例子考虑了单变量超越方程。
+$$
+x^2+2cos(x)=0
+$$
+其根可以求解如下 -</p>
+<pre><code class="python">import numpy as np
+from scipy.optimize import root
+def func(x):
+   return x*2 + 2 * np.cos(x)
+sol = root(func, 0.3)
+print(sol)
+</code></pre>
+
+<p><code class=gatsby-kernelname data-language=python></code></p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=python></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>

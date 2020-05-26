@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R语言 生存分析(survival) - FreeAIHub</title>
+    <meta name="keywords" content="安装软件包">
+    <meta name="description" content="生存分析处理预测特定事件将要发生的时间。 它也被称为故障时间分析或分析死亡时间。 例如，预测患有癌症的人将存活的天数或预测机械系统将失败的时间。命名为的R语言包用于进行生存分析。 此包包含函数，它将输入数据作为R语言公式，并在选择的变量中创建一个生存对象用于分析。 然后我们使用函数创建一个分析图。在R语言中创建生存分析的基本语法是:以下是所使用的参数的描述 -我们将考虑在上面安装的生存包中存在的名">
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/freeaihub.ico" rel="icon" type="image/png">
+
+
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/docs.css" rel="stylesheet" type="text/css"/>
+    <link href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/styles/bootstrap/bootstrap.min.css" >
+
+    <script data-ad-client="ca-pub-8623944040875768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="bg-light">
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar text-center">
+      <a class="navbar-brand mr-0 mr-md-2" aria-label="引导程序" href="/">
+        <img src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/images/freeaihub.svg" width="60%" alt="freeai logo">
+      </a>
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">首页</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link pl-2 pr-1 mx-1 py-3 my-n2">课程页面</a>
+        </li>
+      </ul>
+    </header>
+
+
+
+    <!-- CONTENT
+    ================================================== -->
+    <section style="overflow: hidden;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xl-2 bd-sidebar">    
+            <form class="bd-search d-flex align-items-center justify-content-end">
+              <button class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="切换文档导航">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+              </button>
+            </form>
+            <div class="bd-links collapse" id="bd-docs-nav" aria-label="主导航">
+              <div class="bd-toc-item active">
+
+                <ul class="nav bd-sidenav pb-6">
+                  <li><a href=/r/index.html>如何学习本课程</a></li>
+<li><a href="/r/index.html"> 如何学习本课程</a></li>
+<li><a href="/r/intro.html"> R语言简介</a></li>
+<li><a href="/r/setup.html"> R语言环境搭建及运行</a></li>
+<li><a href="/r/syntax.html"> R语言基础语法</a></li>
+<li><a href="/r/datatype.html"> R语言基本数据类型</a></li>
+<li><a href="/r/variable.html"> R语言变量</a></li>
+<li><a href="/r/operator.html"> R语言操作符</a></li>
+<li><a href="/r/logic.html"> R语言逻辑判断</a></li>
+<li><a href="/r/library.html"> R语言包</a></li>
+<li><a href="/r/function.html"> R语言函数</a></li>
+<li><a href="/r/string.html"> R语言数据类型-字符串</a></li>
+<li><a href="/r/vector.html"> R语言数据类型-向量</a></li>
+<li><a href="/r/list.html"> R语言数据类型-列表</a></li>
+<li><a href="/r/matrix.html"> R语言数据类型-矩阵</a></li>
+<li><a href="/r/array.html"> R语言数据类型-数组</a></li>
+<li><a href="/r/factor.html"> R语言数据类型-因子</a></li>
+<li><a href="/r/dataframe.html"> R语言数据类型-数据帧</a></li>
+<li><a href="/r/plot.html"> R语言绘图</a></li>
+<li><a href="/r/distribution.html"> R语言分布</a></li>
+<li><a href="/r/data-operation.html"> R语言数据操作</a></li>
+<li><a href="/r/chisq.html"> R语言卡方检验</a></li>
+<li><a href="/r/dt.html"> R语言决策树</a></li>
+<li><a href="/r/lm.html"> R语言线性回归</a></li>
+<li><a href="/r/rf.html"> R语言随机森林算法</a></li>
+<li><a href="/r/nls.html"> R语言非线性最小二乘</a></li>
+<li><a href="/r/ancova.html"> R语言协方差分析</a></li>
+<li><a class="current"> R语言生存分析</a></li>
+                </ul>
+
+              </div>
+
+
+          </div>
+          </div>
+          <div class="entry-content col-md-9 col-xl-10 py-md-3 pl-md-10 bd-content">
+            < 上一篇:<a href=/r/ancova.html class='prev_article'> R语言协方差分析</a>       |       下一篇：无  >
+              
+            <h1>R语言 生存分析(survival)</h1>
+<p>生存分析处理预测特定事件将要发生的时间。 它也被称为故障时间分析或分析死亡时间。 例如，预测患有癌症的人将存活的天数或预测机械系统将失败的时间。</p>
+<p>命名为<code>survival</code>的R语言包用于进行生存分析。 此包包含函数<code>surv()</code>，它将输入数据作为R语言公式，并在选择的变量中创建一个生存对象用于分析。 然后我们使用函数<code>survfit()</code>创建一个分析图。</p>
+<h2>安装软件包</h2>
+<pre><code class="R">install.packages(&quot;survival&quot;)
+</code></pre>
+
+<h3>语法</h3>
+<p>在R语言中创建生存分析的基本语法是:</p>
+<pre><code>surv(time,event)
+survfit(formula)
+</code></pre>
+
+<p>以下是所使用的参数的描述 -</p>
+<ul>
+<li><strong>time</strong>是直到事件发生的跟踪时间。</li>
+<li><strong>event</strong>指示预期事件的发生的状态。</li>
+<li><strong>formula</strong>是预测变量之间的关系。</li>
+</ul>
+<h4>练习：</h4>
+<p>我们将考虑在上面安装的生存包中存在的名为<code>pbc</code>的数据集。 它描述了关于受肝原发性胆汁性肝硬化（PBC）影响的人的生存数据点。 在数据集中存在的许多列中，我们主要关注字段<code>time</code>和<code>status</code>。 时间表示在接受肝移植或患者死亡的患者的登记和事件的较早之间的天数。</p>
+<pre><code class="R"># Load the library.
+library(&quot;survival&quot;)
+
+# Print first few rows.
+print(head(pbc))
+</code></pre>
+
+<p>从上述数据，我们正在考虑分析的时间和状态。
+应用<code>surv()</code>和<code>survfit()</code>函数
+现在我们继续应用<code>surv()</code>函数到上面的数据集，并创建一个将显示趋势图。</p>
+<pre><code class="R"># Load the library.
+library(&quot;survival&quot;)
+
+# Create the survival object. 
+survfit(Surv(pbc$time,pbc$status == 2)~1)
+
+# Give the chart file a name.
+png(file = &quot;survival.png&quot;)
+
+# Plot the graph. 
+plot(survfit(Surv(pbc$time,pbc$status == 2)~1))
+
+# Save the file.
+dev.off()
+</code></pre>
+
+<p>上图中的趋势有助于我们预测在特定天数结束时的生存概率。</p>           
+          </div>
+          <backend type='k'></backend>
+          <code class=gatsby-kernelname data-language=ir></code>
+        
+        </div> <!-- / .row -->
+      </div>
+    </section>
+
+    <script>
+      MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <script src="https://freeaihub.oss-cn-beijing.aliyuncs.com/asset/js/cell.js"></script>  
+      
+    <!-- cnzz统计 -->
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278932068'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278932068' type='text/javascript'%3E%3C/script%3E"));</script>
+    <!-- 百度自动推送 -->
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https'){
+         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    </body>
+</html>
