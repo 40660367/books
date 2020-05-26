@@ -1,13 +1,12 @@
 #pip3 install markdown -i https://pypi.tuna.tsinghua.edu.cn/simple/
 #or
 #pip install markdown -i https://pypi.tuna.tsinghua.edu.cn/simple/
-
 import os,json
 import markdown as md
 import codecs
+from lxml import etree
 
-
-def makehtml(path,nav=0,level=0,lessontype="terminal",backendtype='k',datalanguage="python"):
+def makehtml(path,lessonname,nav=0,level=0,lessontype="terminal",backendtype='k',datalanguage="python"):
     
     templatefilepath='./template/{templatefilename}.html'
     templatefilepath=templatefilepath.replace('{templatefilename}',lessontype)
@@ -21,6 +20,7 @@ def makehtml(path,nav=0,level=0,lessontype="terminal",backendtype='k',datalangua
     else:
         navfilefile=open(os.path.join(path,"nav.html"), mode="r", encoding="utf-8")
         leftnavcontent=navfilefile.read()
+        leftnavcontent=leftnavcontent.replace('./',"/"+lessonname+"/")
         navfilefile.close()
     
     
@@ -46,14 +46,59 @@ def makehtml(path,nav=0,level=0,lessontype="terminal",backendtype='k',datalangua
                 
                 
                 template=htmltemplate
-                title=md_htmlcontent.split('\n')[0]
-                title=title.replace('<h1>','')
-                title=title.replace('</h1>','')
-                title=title+" - FreeAIHub"
+                
+                
+
+                #TDK
+                domtree = etree.HTML(md_htmlcontent)
+                #Title
+                title=domtree.xpath(".//h1/text()")[0]
+                template=template.replace('{title}',title+" - FreeAIHub")
+                #用用p做D,二级三级标题做为K
+                descriptions=domtree.xpath(".//p/text()")
+                description=''.join(descriptions)[:200]
+                description=description.replace("\"","")
+                template=template.replace('{description}',description)
+                
+                keywords2=domtree.xpath(".//h2/text()")
+                keywords3=domtree.xpath(".//h3/text()")
+                keywords=','.join(keywords2)+','.join(keywords3)[:-60]
+                template=template.replace('{keyword}',keywords)
+                
+                
                 template=template.replace('{topheader}',topheader)
-                template=template.replace('{title}',title)
-                template=template.replace('{leftnav}', leftnavcontent)
                 template=template.replace('{content}',md_htmlcontent)
+                
+                #leftnav+当前链接样式
+                currentlink=filename+".html"
+                print(leftnavcontent)
+                thisleftnavcontent=leftnavcontent.replace('href="/'+lessonname+'/'+currentlink+'"','class="current"')
+                template=template.replace('{leftnav}', thisleftnavcontent)
+                
+                #上一页，下一页
+                domtree = etree.HTML(leftnavcontent)
+                article_text_list=domtree.xpath(".//a/text()")
+                article_link_list=domtree.xpath(".//a/@href")
+                
+                if '/'+lessonname+'/'+currentlink in domtree.xpath(".//a/@href"):
+                    current_article_id=domtree.xpath(".//a/@href").index('/'+lessonname+'/'+currentlink)
+                    
+                    prev_article_id=current_article_id-1
+                    next_article_id=current_article_id+1
+
+                    prev_article="<a href="+article_link_list[prev_article_id]+" class='prev_article'>"+article_text_list[prev_article_id]+"</a>"
+                    if current_article_id==0:prev_article="无"
+                    if next_article_id<=len(article_text_list)-1:
+                        next_article="<a href="+article_link_list[next_article_id]+" class='next_article'>"+article_text_list[next_article_id]+"</a>"
+                    else:
+                        next_article="无"
+
+                    prev_next_nav="< 上一篇:"+prev_article+"       |       下一篇："+next_article+"  >"
+                    template=template.replace('{prev_next_nav}',prev_next_nav)
+                
+                
+                
+                
                 template=template.replace('{backendtype}',backendtype)
                 template=template.replace('{datalanguage}',datalanguage)
                 
@@ -61,48 +106,46 @@ def makehtml(path,nav=0,level=0,lessontype="terminal",backendtype='k',datalangua
                 html_file.close()
                 
         for name in dirs:
-            makehtml(os.path.join(root,name),nav=leftnavcontent,level=1)
+            makehtml(os.path.join(root,name),lessonname,nav=leftnavcontent,level=1)
             
             
-            
-            
-            
-#lesson config
 news=['aboutus']
-cell_python=['d2l-mxnet','d2l-pytorch','pandas','numpy','keras','ml','seaborn','scipy','sklearn','python']
+cell_python=['pandas','numpy','ml','seaborn','scipy','sklearn','python','ds-in-python']
 cell_ir=['r']
 cell_julia=['julia']
 terminal=['java','pyqt','turtle','php','jmeter','html','elasticsearch','hive','hbase','redis','scala','c','spark','sqlite','tornado',\
-         'vim','go','git','flask','cpp','django','postgresql','ds-in-c','neo4j','ds-in-python','lua','hadoop','mysql','mongodb','nginx','shell',\
-         'nodejs','linux','jupyter']
+         'vim','go','git','flask','cpp','django','postgresql','ds-in-c','neo4j','lua','hadoop','mysql','mongodb','nginx','shell',\
+         'node.js','linux','jupyter']
 
 typev=['docker']
-typec=['mysql-ms']
+typec=['mysql-replication']
+typek8sv=['kubernetes']
 
-
-#lesson build
 for item in typev:
-    makehtml('../'+item,lessontype="terminal",backendtype='c')
-    
-for item in news:
-    makehtml('../'+item,lessontype="news")
-    
-for item in cell_python:
-    makehtml('../'+item,lessontype="cell")
+    makehtml('../'+item,item,lessontype="terminal",backendtype='v')
 
-for item in cell_ir:
-    makehtml('../'+item,lessontype="cell",datalanguage='ir')
-
-for item in cell_julia:
-    makehtml('../'+item,lessontype="cell",datalanguage='julia')
+for item in typec:
+    makehtml('../'+item,item,lessontype="terminal",backendtype='c')
+    
+for item in typek8sv:
+    makehtml('../'+item,item,lessontype="terminal",backendtype='k8sv')
 
 for item in terminal:
-    makehtml('../'+item,lessontype="terminal")
+    makehtml('../'+item,item,lessontype="terminal")
+for item in news:
+    makehtml('../'+item,item,lessontype="news")
+for item in cell_python:
+    makehtml('../'+item,item,lessontype="cell")
+
+for item in cell_ir:
+    makehtml('../'+item,item,lessontype="cell",datalanguage='ir')
+
+for item in cell_julia:
+    makehtml('../'+item,item,lessontype="cell",datalanguage='julia-1.3')
     
+
     
-    
-    
-# index config
+#index
 indexjson=json.loads(open('./template/index.json',encoding='utf-8').read())
 
 lessontypehtmltemplate='''
@@ -126,12 +169,10 @@ lessonhtmltemplate='''
 
 final=''
 courses=indexjson['Course']['CourseList']
-
-
-# index build
 for coursetype in courses:
     final+=lessontypehtmltemplate.replace('{name}',courses[coursetype]['name'])
     for item in courses[coursetype]['lessons']:
+#         print(item)
         temp=lessonhtmltemplate.replace('{link}',item['link'])
         temp=temp.replace('{name}',item['name'])
         temp=temp.replace('{des}',item['des'])
@@ -140,10 +181,9 @@ for coursetype in courses:
         temp=''
     final+=lessontypehtmltemplateend
     
-    
 index_file = codecs.open("../index.html", mode="w", encoding="utf-8")
 index_template = codecs.open("./template/index.template", mode="r", encoding="utf-8").read()
 
 index_template=index_template.replace('{lessonlists}',final)
 index_file.write(index_template)
-print('index.html bulid')
+index_file.close()
